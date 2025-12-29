@@ -86,6 +86,9 @@
 
     {%- render 'js-variables' -%}
 
+    {{ 'custom-styles.css' | asset_url | stylesheet_tag }}
+
+
     {% comment %} Custom metafield for head tag like GTag tracking {% endcomment %}
     {{ shop.metafields.foxtheme.code_head.value }}
     {% comment %} End custom metafield for head tag like GTag tracking {% endcomment %}
