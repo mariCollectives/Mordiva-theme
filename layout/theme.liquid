@@ -141,44 +141,8 @@
       <script src="{{ 'quick-view.js' | asset_url }}" defer="defer"></script>
     {% endif %}
 
+{{ 'member-lock.js' | asset_url | script_tag }}
 
-<script>
-(function () {
-  // Lock these collections (paths)
-  var lockedPaths = [
-    "/collections/sell-price-tier-1",
-    "/collections/sell-price-tier-2",
-    "/collections/sell-price-tier-3",
-    "/collections/sell-price-tier-4",
-    "/collections/vip-1",
-    "/collections/vip-2",
-    "/collections/vip-3",
-    "/collections/vip-4",
-    "/collections/vip-5",
-    "/collections/vip-6"
-  ];
-
-  var path = location.pathname.replace(/\/+$/, ""); // trim trailing slash
-
-  var isLocked = lockedPaths.some(function (p) {
-    return path === p || path.startsWith(p + "/");
-  });
-
-  if (!isLocked) return;
-
-  // Login check (heuristic)
-  var isLoggedIn =
-    document.documentElement.classList.contains("customer-logged-in") ||
-    document.cookie.indexOf("customer_logged_in=") !== -1 ||
-    document.querySelector('a[href="/account"], a[href^="/account/logout"]');
-
-  if (!isLoggedIn) {
-    location.href =
-      "/account/login?return_url=" +
-      encodeURIComponent(location.pathname + location.search);
-  }
-})();
-</script>
 
 
 
