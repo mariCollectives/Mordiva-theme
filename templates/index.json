@@ -31,50 +31,10 @@
             "button_link": "",
             "button_style": "btn--underline"
           }
-        },
-        "slide_8f8PHy": {
-          "type": "slide",
-          "settings": {
-            "color_scheme": "scheme-inverse",
-            "image_overlay_opacity": 10,
-            "show_content_in_container": false,
-            "content_position": "bottom-left",
-            "content_position_mobile": "middle-center",
-            "text_alignment": "left",
-            "title": "EMBRACE VISION",
-            "heading_size": "hd1",
-            "subheading": "",
-            "description": "<p>Clever products for every corner</p>",
-            "description_size": "text-lg",
-            "button_label": "explore now",
-            "button_link": "",
-            "button_style": "btn--underline"
-          }
-        },
-        "slide_NnwXDL": {
-          "type": "slide",
-          "settings": {
-            "color_scheme": "scheme-inverse",
-            "image_overlay_opacity": 10,
-            "show_content_in_container": false,
-            "content_position": "bottom-left",
-            "content_position_mobile": "middle-center",
-            "text_alignment": "left",
-            "title": "EMBRACE VISION",
-            "heading_size": "hd1",
-            "subheading": "",
-            "description": "<p>Clever products for every corner</p>",
-            "description_size": "text-lg",
-            "button_label": "explore now",
-            "button_link": "",
-            "button_style": "btn--underline"
-          }
         }
       },
       "block_order": [
-        "slide_dheMCD",
-        "slide_8f8PHy",
-        "slide_NnwXDL"
+        "slide_dheMCD"
       ],
       "custom_css": [
         ".slideshow__text {max-width: 40rem;}"
