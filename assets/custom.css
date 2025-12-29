@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+/*   
+
+
+font-family: "Lexend", sans-serif;
+font-family: "Montserrat", sans-serif;
+
+
+*/
+
+.announcement-bar{
+    background-color: #F29873;
+    color: #111111;
+}
+
+.swiper-button-prev, .swiper-button-next{
+     color: #111111;
+}
+
+
+.header::before{
+       background-color: #F29873 !important;
+        background: #F29873 !important;
+}
+
+.header--show-sperator-line{
+    border: 0 none !important;
+}
+
+.footer{
+    background-color: #21433e  !important;
+}
+
+
+.color-scheme-2{
+    background-color: #21433e  !important;
+}
+
+#shopify-section-template--25157319622953__slideshow_zKPFFV .slideshow__text,
+#shopify-section-template--25138298290473__slideshow_zKPFFV .slideshow__text{
+    max-width: 58rem !important;
+}
+
+
+
+.slideshow__description p{
+    font-size: 18px;
+    font-family: "Montserrat", sans-serif;
+}
+
+.slideshow__buttons.rich-text__button a{
+    color:#fff !important;
+    text-transform: uppercase !important;
+    opacity: 1 !important;
+    cursor: pointer !important;
+}
+
+.header__menu a.menu__item, .header__menu  .menu__item span{
+    text-transform: capitalize !important;
+     font-weight: 400 !important;
+      font-family: "Montserrat", sans-serif !important;
+}
+
+.text-subheading{     
+    font-size: 18pt;
+     text-transform: unset !important;
+}
+
+
+
+.rich-text__heading.h2{
+     font-size: 40pt;
+}
+
+.collection-card .collection-card__title.h3{
+      font-size: 28pt;
+       font-family: "Montserrat", sans-serif !important;
+}
+
+.collection-card__count.text-subtext{
+    font-size: 16pt;
+    font-family: "Montserrat", sans-serif !important;
+    color: #000;
+}
+
+.section__heading.h1 .block{
+    font-size: 40pt !important;
+    color: #000;
+}
+
+.tabs__nav-design-1 .tabs__tab{
+    font-family: "Montserrat", sans-serif !important;
+    color: #000;
+    font-size: 14pt !important;
+}
+
+.text-subheading{
+    font-size: 16pt !important;
+    font-family: "Montserrat", sans-serif !important;
+     text-transform: uppercase !important;
+}
+
+
+.rich-text.text-center .rich-text__heading{
+      font-size: 40pt !important;
+      max-width: 75rem !important;
+}
+
+
+#shopify-section-template--25157319622953__rich_text_yAEBMr .rich-text,
+#shopify-section-template--25138298290473__rich_text_yAEBMr .rich-text{
+    max-width: 72% !important
+}
+
+
+#shopify-section-template--25157319622953__rich_text_yAEBMr .rich-text__heading,
+#shopify-section-template--25138298290473__rich_text_yAEBMr .rich-text__heading{
+      max-width: 100% !important;
+}
+
+.rich-text-section .btn--underline{
+    font-size: 14pt;
+    font-family: "Montserrat", sans-serif !important;
+     font-weight: 300;
+}
+
+.slideshow__item-wrap .rich-text.text-center .rich-text__heading{
+  font-family: "Montserrat", sans-serif !important;
+    font-weight: 100;
+    font-size: 78pt !important;
+    line-height: 94pt;
+}
+
+.content-overlay {
+    background-color: rgba(0, 0, 0, 0.6) !important;
+}
+
+
+
+@media (min-width: 1280px){
+   .image-comparison{
+        max-width: 100% !important;
+    }
+}

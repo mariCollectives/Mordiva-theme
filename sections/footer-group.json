@@ -1,0 +1,78 @@
+{
+  "name": "t:sections.footer.name",
+  "type": "footer",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "newsletter_3qCrWc": {
+          "type": "newsletter",
+          "settings": {
+            "block_width": 41,
+            "heading": "Subscribe to get 10% OFF",
+            "heading_size": "h2",
+            "newsletter_description": "<p>Subscribe for store updates and discounts.</p>",
+            "newsletter_term": "<p>By subscribing you agree to the <a href=\"/policies/terms-of-service\" target=\"_blank\" title=\"Terms of Service\">Terms of Use</a> & <a href=\"/policies/privacy-policy\" target=\"_blank\" title=\"Privacy Policy\">Privacy Policy.</a></p>",
+            "newsletter_text_alignment": "left",
+            "form_width": 465,
+            "order_first": true
+          }
+        },
+        "menu_DEKGYP": {
+          "type": "menu",
+          "settings": {
+            "block_width": 17,
+            "heading": "Shop",
+            "heading_size": "h4",
+            "open_default": false,
+            "show_divider": true
+          }
+        },
+        "menu_4eCrBB": {
+          "type": "menu",
+          "settings": {
+            "block_width": 17,
+            "heading": "Customer care",
+            "heading_size": "h4",
+            "open_default": false,
+            "show_divider": true
+          }
+        },
+        "image_text_F3FNhx": {
+          "type": "image_text",
+          "settings": {
+            "block_width": 25,
+            "heading": "About",
+            "heading_size": "h4",
+            "image_width": 150,
+            "text": "<p>We only carry designs we believe in ethically and aesthetically – original, authentic pieces that are made to last.</p>",
+            "button_label": "LEARN MORE",
+            "open_default": false,
+            "show_divider": true
+          }
+        }
+      },
+      "block_order": [
+        "newsletter_3qCrWc",
+        "menu_DEKGYP",
+        "menu_4eCrBB",
+        "image_text_F3FNhx"
+      ],
+      "custom_css": [],
+      "settings": {
+        "color_scheme": "scheme-6",
+        "enable_follow_on_shop": true,
+        "show_social": true,
+        "enable_country_selector": true,
+        "enable_language_selector": true,
+        "payment_enable": true,
+        "footer_bottom_menu": "footer-bottom",
+        "show_section_divider": false,
+        "divider_width": "full"
+      }
+    }
+  },
+  "order": [
+    "footer"
+  ]
+}

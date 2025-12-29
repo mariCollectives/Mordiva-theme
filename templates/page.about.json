@@ -1,0 +1,882 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "breadcrumbs_RJYeDU": {
+      "type": "breadcrumbs",
+      "settings": {
+        "text_alignment": "center"
+      }
+    },
+    "custom_content_wN3EKJ": {
+      "type": "custom-content",
+      "blocks": {
+        "text_DmBBtg": {
+          "type": "text",
+          "settings": {
+            "heading": "Welcome to Inove",
+            "heading_size": "hd2",
+            "heading_highlight_style": "none",
+            "subheading": "",
+            "description": "<p>Dine in the comfort of the Harbour Dining Chair, shaped for support when sitting for extended periods.</p>",
+            "text_size": "text-lg",
+            "button_label": "",
+            "button_link": "",
+            "button_style": "btn--primary",
+            "content_alignment": "center",
+            "width": "100%",
+            "alignment": "center",
+            "block_custom_class": ""
+          }
+        },
+        "image_J68fdX": {
+          "type": "image",
+          "settings": {
+            "width": "100%",
+            "alignment": "center",
+            "block_custom_class": ""
+          }
+        }
+      },
+      "block_order": [
+        "text_DmBBtg",
+        "image_J68fdX"
+      ],
+      "custom_css": [
+        ".custom__block--text.text-center .rich-text {max-width: 550px; margin: 0 auto;}",
+        ".f-grid--row-gap-extra-large {--row-gap-mobile: 4.8rem;}",
+        ".rich-text__text.rte {--text-margin-top: 1.2rem;}"
+      ],
+      "settings": {
+        "container": "fixed",
+        "color_scheme": "",
+        "enable_sticky_column": false,
+        "heading": "",
+        "heading_size": "h1",
+        "heading_highlight_style": "none",
+        "subheading": "",
+        "description": "",
+        "column_gap": "none",
+        "row_gap": "extra-large",
+        "swipe_on_mobile": false,
+        "columns_mobile": "1",
+        "padding_top": 36,
+        "padding_bottom": 0,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": ""
+      }
+    },
+    "rich_text_LrJz7R": {
+      "type": "rich-text",
+      "blocks": {
+        "subheading_jMcf6E": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "THE TIRED MAN"
+          }
+        },
+        "heading_beBkyN": {
+          "type": "heading",
+          "settings": {
+            "heading": "Dine in the comfort of the Harbour Dining Chair, shaped for support when sitting",
+            "heading_size": "h1",
+            "heading_highlight_style": "none"
+          }
+        },
+        "text_FqxBbK": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Considered one of Denmark’s greatest and most influential architects, Mogens Lassen pioneered Danish Functionalism, taking his cues from Bauhaus sensibilities. His interior designs are a natural continuation of his architectural approach and add energy and atmosphere to everyday living spaces and tasks. From decorative objects to larger furniture designs, his designs delicately balance presence without drawing undue attention, finding their natural place in any space.</p>",
+            "text_size": "text-base"
+          }
+        }
+      },
+      "block_order": [
+        "subheading_jMcf6E",
+        "heading_beBkyN",
+        "text_FqxBbK"
+      ],
+      "custom_css": [
+        "@media (min-width: 1024px) {.rich-text.text-center {max-width: 740px; margin: 0 auto; }}",
+        "@media (min-width: 1280px) {.rich-text.text-center {max-width: 932px; margin: 0 auto; }}"
+      ],
+      "settings": {
+        "color_scheme": "",
+        "content_alignment": "center",
+        "padding_top": 100,
+        "padding_bottom": 0,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": ""
+      }
+    },
+    "card_images_pzkFb3": {
+      "type": "card-images",
+      "blocks": {
+        "image_card_C8hpWy": {
+          "type": "image_card",
+          "settings": {
+            "color_scheme": "",
+            "image_overlay_opacity": 0,
+            "heading": "",
+            "heading_size": "hd2",
+            "subheading": "",
+            "description": "",
+            "description_size": "text-lg",
+            "button_label": "",
+            "button_style": "btn--primary",
+            "content_position": "middle-left",
+            "content_alignment": "left",
+            "content_spacing": "large",
+            "card_link": "",
+            "content_position_mobile": "top-center",
+            "content_alignment_mobile": "center"
+          }
+        },
+        "image_card_EGjPQa": {
+          "type": "image_card",
+          "settings": {
+            "color_scheme": "",
+            "image_overlay_opacity": 0,
+            "heading": "",
+            "heading_size": "hd2",
+            "subheading": "",
+            "description": "",
+            "description_size": "text-lg",
+            "button_label": "",
+            "button_style": "btn--primary",
+            "content_position": "middle-left",
+            "content_alignment": "left",
+            "content_spacing": "large",
+            "card_link": "",
+            "content_position_mobile": "top-center",
+            "content_alignment_mobile": "center"
+          }
+        },
+        "image_card_BMQjq7": {
+          "type": "image_card",
+          "settings": {
+            "color_scheme": "",
+            "image_overlay_opacity": 0,
+            "heading": "",
+            "heading_size": "hd2",
+            "subheading": "",
+            "description": "",
+            "description_size": "text-lg",
+            "button_label": "",
+            "button_style": "btn--primary",
+            "content_position": "middle-left",
+            "content_alignment": "left",
+            "content_spacing": "large",
+            "card_link": "",
+            "content_position_mobile": "top-center",
+            "content_alignment_mobile": "center"
+          }
+        }
+      },
+      "block_order": [
+        "image_card_C8hpWy",
+        "image_card_EGjPQa",
+        "image_card_BMQjq7"
+      ],
+      "disabled": true,
+      "custom_css": [],
+      "settings": {
+        "color_scheme": "",
+        "subheading": "",
+        "heading": "",
+        "heading_size": "h1",
+        "heading_highlight_style": "none",
+        "description": "",
+        "description_size": "text-base",
+        "image_ratio": "adapt",
+        "enable_equal_height": false,
+        "columns_desktop": 3,
+        "column_gap": "extra-small",
+        "enable_slider": false,
+        "padding_top": 100,
+        "padding_bottom": 0,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": ""
+      }
+    },
+    "multicolumn_tAPWjr": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_KnwdRq": {
+          "type": "column",
+          "settings": {
+            "show_image": true,
+            "image_width": "full",
+            "title": "",
+            "heading_size": "h4",
+            "text": "",
+            "text_size": "text-base",
+            "button_label": "",
+            "button_style": "btn--underline",
+            "button_link": "",
+            "mobile_layout": "inherit"
+          }
+        },
+        "column_jPc6Xw": {
+          "type": "column",
+          "settings": {
+            "show_image": true,
+            "image_width": "full",
+            "title": "",
+            "heading_size": "h4",
+            "text": "",
+            "text_size": "text-base",
+            "button_label": "",
+            "button_style": "btn--underline",
+            "button_link": "",
+            "mobile_layout": "inherit"
+          }
+        },
+        "column_6rJf9a": {
+          "type": "column",
+          "settings": {
+            "show_image": true,
+            "image_width": "full",
+            "title": "",
+            "heading_size": "h4",
+            "text": "",
+            "text_size": "text-base",
+            "button_label": "",
+            "button_style": "btn--underline",
+            "button_link": "",
+            "mobile_layout": "inherit"
+          }
+        }
+      },
+      "block_order": [
+        "column_KnwdRq",
+        "column_jPc6Xw",
+        "column_6rJf9a"
+      ],
+      "custom_css": [
+        ".multicolumn-card__image {--image-spacing-bottom: 0; --image-spacing-bottom-mobile: 0;}"
+      ],
+      "settings": {
+        "color_scheme": "",
+        "heading": "",
+        "heading_size": "h1",
+        "heading_highlight_style": "none",
+        "subheading": "",
+        "description": "",
+        "text_size": "text-base",
+        "column_alignment": "left",
+        "columns_desktop": 3,
+        "column_gap": "extra-small",
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "padding_top": 100,
+        "padding_bottom": 0,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": ""
+      }
+    },
+    "scrolling_promotion_bgVtNt": {
+      "type": "scrolling-promotion",
+      "blocks": {
+        "text_fhdtW7": {
+          "type": "text",
+          "settings": {
+            "text": "FIND INSPRATION",
+            "text_size": "hd1",
+            "font_weight": "font-heading",
+            "font_style": "normal",
+            "letter_spacing": 0,
+            "text_opacity": 100,
+            "text_style": "normal",
+            "use_custom_color": false,
+            "custom_color": "#000000"
+          }
+        },
+        "image_bxkLtK": {
+          "type": "image",
+          "settings": {
+            "image_height": 32,
+            "image_rounded": false,
+            "image_height_mobile": 32
+          }
+        },
+        "text_6DKPxC": {
+          "type": "text",
+          "settings": {
+            "text": "DESIGN FOR LIVING",
+            "text_size": "hd1",
+            "font_weight": "font-heading",
+            "font_style": "normal",
+            "letter_spacing": 0,
+            "text_opacity": 100,
+            "text_style": "normal",
+            "use_custom_color": false,
+            "custom_color": "#000000"
+          }
+        },
+        "image_fpp4Dc": {
+          "type": "image",
+          "settings": {
+            "image_height": 32,
+            "image_rounded": false,
+            "image_height_mobile": 32
+          }
+        },
+        "text_Dw63pw": {
+          "type": "text",
+          "settings": {
+            "text": "UNIQUE FURNITURE",
+            "text_size": "hd1",
+            "font_weight": "font-heading",
+            "font_style": "normal",
+            "letter_spacing": 0,
+            "text_opacity": 100,
+            "text_style": "normal",
+            "use_custom_color": false,
+            "custom_color": "#000000"
+          }
+        },
+        "image_4e7YGc": {
+          "type": "image",
+          "settings": {
+            "image_height": 32,
+            "image_rounded": false,
+            "image_height_mobile": 32
+          }
+        }
+      },
+      "block_order": [
+        "text_fhdtW7",
+        "image_bxkLtK",
+        "text_6DKPxC",
+        "image_fpp4Dc",
+        "text_Dw63pw",
+        "image_4e7YGc"
+      ],
+      "custom_css": [
+        ".scrolling-promotion {opacity: 0.2;}"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "vertical_alignment": "center",
+        "direction": "left",
+        "pause_on_hover": true,
+        "speed": 0.1,
+        "h_spacing": 48,
+        "v_spacing": 10,
+        "padding_top": 90,
+        "padding_bottom": 0,
+        "show_divider": false,
+        "divider_layout": "vertical",
+        "custom_class": ""
+      }
+    },
+    "collapsible_tabs_z3JGYY": {
+      "type": "collapsible-tabs",
+      "blocks": {
+        "image_card_NmUgMM": {
+          "type": "image_card",
+          "settings": {
+            "color_scheme": "scheme-1",
+            "desktop_image_position": "left",
+            "image_width": 50,
+            "alignment": "center",
+            "image_ratio": "adapt",
+            "image_overlay_opacity": 0,
+            "heading": "",
+            "heading_size": "h1",
+            "subheading": "",
+            "description": "",
+            "button_label": "",
+            "button_style": "btn--primary",
+            "content_position": "bottom-center",
+            "content_alignment": "center",
+            "content_spacing": "medium",
+            "card_link": "",
+            "order_first": true
+          }
+        },
+        "heading_MDmMTX": {
+          "type": "heading",
+          "settings": {
+            "heading": "A fruit enzyme that helps exfoliate and soften skin",
+            "heading_size": "h1",
+            "sub_heading": "Safety Ingredients"
+          }
+        },
+        "collapsible_item_VdqfgD": {
+          "type": "collapsible_item",
+          "settings": {
+            "icon": "none",
+            "heading": "How long does shipping take?",
+            "content": "<p>Your sales managers will go into the field feeling energized, excited, and inspired. We are a full service business development group – we build strategies and systems. </p>",
+            "custom_liquid": "",
+            "page": "",
+            "open": true
+          }
+        },
+        "collapsible_item_AWXyNC": {
+          "type": "collapsible_item",
+          "settings": {
+            "icon": "none",
+            "heading": "Does my piece come in any packaging?",
+            "content": "<p>Yes, all our skincare products come in protective and aesthetically pleasing packaging to ensure they arrive in perfect condition. Each product is securely wrapped, and we use eco-friendly materials whenever possible. Additionally, many of our products come in recyclable containers to support sustainability.</p>",
+            "custom_liquid": "",
+            "page": "",
+            "open": false
+          }
+        },
+        "collapsible_item_nbqHwr": {
+          "type": "collapsible_item",
+          "settings": {
+            "icon": "none",
+            "heading": "Do you ship internationally?",
+            "content": "<p>Yes, we do ship internationally! We offer worldwide shipping to ensure customers around the globe can enjoy our skincare products. Please note that shipping times and costs may vary depending on the destination country. International customers may also be subject to customs fees or import duties imposed by their country's customs authorities.</p>",
+            "custom_liquid": "",
+            "page": "",
+            "open": false
+          }
+        },
+        "collapsible_item_ghjx8T": {
+          "type": "collapsible_item",
+          "settings": {
+            "icon": "none",
+            "heading": "What payment methods do you accept?",
+            "content": "<p>We accept a variety of payment methods to make your shopping experience convenient. These include credit cards (Visa, Mastercard, American Express), PayPal, and, in some regions, alternative payment methods such as Apple Pay or Google Pay. Rest assured, your payment information is secure and protected during the checkout process.</p>",
+            "custom_liquid": "",
+            "page": "",
+            "open": false
+          }
+        }
+      },
+      "block_order": [
+        "image_card_NmUgMM",
+        "heading_MDmMTX",
+        "collapsible_item_VdqfgD",
+        "collapsible_item_AWXyNC",
+        "collapsible_item_nbqHwr",
+        "collapsible_item_ghjx8T"
+      ],
+      "custom_css": [
+        ".collapsible-tabs__wrapper {--row-gap-mobile: 4.8rem;}",
+        "@media (min-width: 768px) {collapsible-tabs {max-width: 60rem; } .collapsible-tabs__content-col {align-items: flex-end; }}"
+      ],
+      "settings": {
+        "container": "fixed",
+        "color_scheme": "",
+        "header_layout": "vertical",
+        "heading": "",
+        "heading_size": "h1",
+        "heading_highlight_style": "none",
+        "subheading": "",
+        "description": "",
+        "text_size": "text-base",
+        "button_label": "",
+        "button_link": "",
+        "button_style": "btn--primary",
+        "column_gap": "large",
+        "row_gap": "large",
+        "item_style": "standard",
+        "item_color_scheme": "",
+        "item_heading_font": "heading",
+        "item_heading_size": "h3",
+        "item_icon_size": "extra-large",
+        "padding_top": 90,
+        "padding_bottom": 100,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": ""
+      }
+    },
+    "collection_list_Jbx97m": {
+      "type": "collection-list",
+      "blocks": {
+        "featured_collection_g8EbUF": {
+          "type": "featured_collection",
+          "settings": {
+            "title": "Jonas Wagell",
+            "description": ""
+          }
+        },
+        "featured_collection_VRdbRe": {
+          "type": "featured_collection",
+          "settings": {
+            "title": "Nina Bruun",
+            "description": ""
+          }
+        },
+        "featured_collection_CdV3dF": {
+          "type": "featured_collection",
+          "settings": {
+            "title": "Alexander",
+            "description": ""
+          }
+        },
+        "featured_collection_8EcRFr": {
+          "type": "featured_collection",
+          "settings": {
+            "title": "Slaytina",
+            "description": ""
+          }
+        }
+      },
+      "block_order": [
+        "featured_collection_g8EbUF",
+        "featured_collection_VRdbRe",
+        "featured_collection_CdV3dF",
+        "featured_collection_8EcRFr"
+      ],
+      "settings": {
+        "color_scheme": "scheme-2",
+        "layout": "split",
+        "subheading": "Our awarded designer",
+        "heading": "The creative minds behind our interior design studio",
+        "heading_size": "h1",
+        "heading_highlight_style": "none",
+        "description": "",
+        "text_size": "text-base",
+        "card_color_inherited": true,
+        "show_product_count": true,
+        "show_icon": true,
+        "card_style": "",
+        "card_image_ratio": "adapt",
+        "content_alignment": "left",
+        "columns_desktop": 3,
+        "column_gap": "extra-large",
+        "row_gap": "medium",
+        "enable_slider": true,
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "padding_top": 100,
+        "padding_bottom": 100,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": ""
+      }
+    },
+    "multicolumn_FW8anp": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_YbTFh4": {
+          "type": "column",
+          "settings": {
+            "show_image": true,
+            "image_width": "full",
+            "title": "",
+            "heading_size": "h4",
+            "text": "",
+            "text_size": "text-base",
+            "button_label": "",
+            "button_style": "btn--underline",
+            "button_link": "",
+            "mobile_layout": "inherit"
+          }
+        },
+        "column_h9hEgr": {
+          "type": "column",
+          "settings": {
+            "show_image": true,
+            "image_width": "full",
+            "title": "",
+            "heading_size": "h4",
+            "text": "",
+            "text_size": "text-base",
+            "button_label": "",
+            "button_style": "btn--underline",
+            "button_link": "",
+            "mobile_layout": "inherit"
+          }
+        },
+        "column_FtDyGh": {
+          "type": "column",
+          "settings": {
+            "show_image": true,
+            "image_width": "full",
+            "title": "",
+            "heading_size": "h4",
+            "text": "",
+            "text_size": "text-base",
+            "button_label": "",
+            "button_style": "btn--underline",
+            "button_link": "",
+            "mobile_layout": "inherit"
+          }
+        },
+        "column_P4ADQX": {
+          "type": "column",
+          "settings": {
+            "show_image": true,
+            "image_width": "full",
+            "title": "",
+            "heading_size": "h4",
+            "text": "",
+            "text_size": "text-base",
+            "button_label": "",
+            "button_style": "btn--underline",
+            "button_link": "",
+            "mobile_layout": "inherit"
+          }
+        },
+        "column_7aVh4Q": {
+          "type": "column",
+          "settings": {
+            "show_image": true,
+            "image_width": "full",
+            "title": "",
+            "heading_size": "h4",
+            "text": "",
+            "text_size": "text-base",
+            "button_label": "",
+            "button_style": "btn--underline",
+            "button_link": "",
+            "mobile_layout": "inherit"
+          }
+        },
+        "column_wThqtt": {
+          "type": "column",
+          "settings": {
+            "show_image": true,
+            "image_width": "full",
+            "title": "",
+            "heading_size": "h4",
+            "text": "",
+            "text_size": "text-base",
+            "button_label": "",
+            "button_style": "btn--underline",
+            "button_link": "",
+            "mobile_layout": "inherit"
+          }
+        }
+      },
+      "block_order": [
+        "column_YbTFh4",
+        "column_h9hEgr",
+        "column_FtDyGh",
+        "column_P4ADQX",
+        "column_7aVh4Q",
+        "column_wThqtt"
+      ],
+      "custom_css": [
+        ".rich-text .rich-text__subheading {margin-bottom: 0;}",
+        ".multicolumn-card__image {margin-bottom: 0;}",
+        ".f-grid--gap-extra-large {--column-gap: 8.9rem; --column-gap-mobile: 2rem; --row-gap-mobile: 2.4rem;}",
+        "@media (min-width: 768px) {.rich-text {padding-bottom: 4rem; }}",
+        "@media (max-width: 767px) {.multicolumn__items {grid-template-columns: repeat(3, minmax(0, 1fr)); --col-number: 3; }}"
+      ],
+      "settings": {
+        "color_scheme": "",
+        "heading": "",
+        "heading_size": "h1",
+        "heading_highlight_style": "none",
+        "subheading": "Featured in Press",
+        "description": "",
+        "text_size": "text-base",
+        "column_alignment": "center",
+        "columns_desktop": 6,
+        "column_gap": "extra-large",
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 80,
+        "padding_bottom": 0,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": ""
+      }
+    },
+    "collage_tabs_4tqYyi": {
+      "type": "collage-tabs",
+      "blocks": {
+        "tab_TY4A3w": {
+          "type": "tab",
+          "settings": {
+            "content_color_scheme": "scheme-3",
+            "navigation_title": "Showroom",
+            "heading": "Dine in the comfort of the Harbour Dining Chair",
+            "heading_size": "h1",
+            "heading_highlight_style": "none",
+            "subheading": "Showroom",
+            "description": "<p>The dining room is a gathering place to come together and connect over cooking and conversation. Whether hosting a dinner party for friends or enjoying a mid-week meal with family, its ambiance sets the tone for memorable experiences – and it is here where rituals and traditions are upheld.</p>",
+            "text_size": "text-lg",
+            "text_alignment": "left",
+            "button_label": "Learn more",
+            "button_style": "btn--secondary"
+          }
+        },
+        "tab_6afXee": {
+          "type": "tab",
+          "settings": {
+            "content_color_scheme": "scheme-3",
+            "navigation_title": "Design",
+            "heading": "The Androgyne Collection pairs natural materials",
+            "heading_size": "h1",
+            "heading_highlight_style": "none",
+            "subheading": "Design",
+            "description": "<p>The Androgyne Collection pairs natural materials and sculptural forms to striking effect, taking its name from its blend of the masculine and feminine. A bold, confident take on a table, the rectangular iteration amplifies the dimensions of the collection’s dining table to grander proportions.</p>",
+            "text_size": "text-lg",
+            "text_alignment": "left",
+            "button_label": "Learn more",
+            "button_style": "btn--secondary"
+          }
+        },
+        "tab_GA99Uq": {
+          "type": "tab",
+          "settings": {
+            "content_color_scheme": "scheme-3",
+            "navigation_title": "Journal",
+            "heading": "Nothing is more precious than human connection",
+            "heading_size": "h1",
+            "heading_highlight_style": "none",
+            "subheading": "Journal",
+            "description": "<p>From cozy sofas perfect for family gatherings to elegant dining tables that host unforgettable dinners with friends, our furniture fosters an environment where bonds are strengthened. Create a home that celebrates connection and brings people closer, because in the end, it's the shared moments and relationships that truly make a house a home.</p>",
+            "text_size": "text-lg",
+            "text_alignment": "left",
+            "button_label": "Learn more",
+            "button_style": "btn--secondary"
+          }
+        }
+      },
+      "block_order": [
+        "tab_TY4A3w",
+        "tab_6afXee",
+        "tab_GA99Uq"
+      ],
+      "custom_css": [
+        ".rich-text__text {overflow: hidden; display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical;}",
+        "@media (min-width: 1024px) {.collage-tab__content {padding-inline: 4rem; }}",
+        "@media (max-width: 767.98px) {.tabs__header {--header-padding-bottom-mobile: 2.4rem; }}"
+      ],
+      "settings": {
+        "color_scheme": "",
+        "heading_size": "h3",
+        "desktop_navigation_alignment": "center",
+        "desktop_image_position": "right",
+        "desktop_image_width": 50,
+        "image_aspect_ratio": "adapt",
+        "padding_top": 100,
+        "padding_bottom": 0,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": ""
+      }
+    },
+    "multicolumn_RFyHwL": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_HV3JHQ": {
+          "type": "column",
+          "settings": {
+            "show_image": true,
+            "image_width": "large",
+            "title": "Free & fast delivery",
+            "heading_size": "h3",
+            "text": "<p>We offer free shipping with ground delivery to the lower 48 states.</p>",
+            "text_size": "text-base",
+            "button_label": "",
+            "button_style": "btn--underline",
+            "button_link": "",
+            "mobile_layout": "inherit"
+          }
+        },
+        "column_rpRxAB": {
+          "type": "column",
+          "settings": {
+            "show_image": true,
+            "image_width": "large",
+            "title": "Online support",
+            "heading_size": "h3",
+            "text": "<p>Online Support24 hours a day,<br/>7 days a week</p>",
+            "text_size": "text-base",
+            "button_label": "",
+            "button_style": "btn--underline",
+            "button_link": "",
+            "mobile_layout": "inherit"
+          }
+        },
+        "column_e7raAD": {
+          "type": "column",
+          "settings": {
+            "show_image": true,
+            "image_width": "large",
+            "title": "30 Days return",
+            "heading_size": "h3",
+            "text": "<p>Exchange or return items free of charge within 30 days.</p>",
+            "text_size": "text-base",
+            "button_label": "",
+            "button_style": "btn--underline",
+            "button_link": "",
+            "mobile_layout": "inherit"
+          }
+        },
+        "column_NxYagA": {
+          "type": "column",
+          "settings": {
+            "show_image": true,
+            "image_width": "large",
+            "title": "Flexible payment",
+            "heading_size": "h3",
+            "text": "<p>Pay conveniently using multiple credit cards for added flexibility.</p>",
+            "text_size": "text-base",
+            "button_label": "",
+            "button_style": "btn--underline",
+            "button_link": "",
+            "mobile_layout": "inherit"
+          }
+        }
+      },
+      "block_order": [
+        "column_HV3JHQ",
+        "column_rpRxAB",
+        "column_e7raAD",
+        "column_NxYagA"
+      ],
+      "custom_css": [
+        ".multicolumn-card--image-large {--image-width-mobile: 4rem;}",
+        ".f-grid--gap-extra-large {--column-gap: 6rem; --column-gap-mobile: 2.4rem; --row-gap-mobile: 2.4rem;}",
+        "@media (max-width: 767px) {.multicolumn-card {display: grid; grid-template-columns: 40px 1fr; gap: 1.2rem; }}"
+      ],
+      "settings": {
+        "color_scheme": "",
+        "heading": "",
+        "heading_size": "h1",
+        "heading_highlight_style": "none",
+        "subheading": "",
+        "description": "",
+        "text_size": "text-base",
+        "column_alignment": "left",
+        "columns_desktop": 4,
+        "column_gap": "extra-large",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "breadcrumbs_RJYeDU",
+    "custom_content_wN3EKJ",
+    "rich_text_LrJz7R",
+    "card_images_pzkFb3",
+    "multicolumn_tAPWjr",
+    "scrolling_promotion_bgVtNt",
+    "collapsible_tabs_z3JGYY",
+    "collection_list_Jbx97m",
+    "multicolumn_FW8anp",
+    "collage_tabs_4tqYyi",
+    "multicolumn_RFyHwL"
+  ]
+}
