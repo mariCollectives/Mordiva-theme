@@ -142,15 +142,6 @@
     {% endif %}
 
 
-<script>
-  window.__customerLoggedIn = {{ customer != blank | json }};
-  window.__customerTags = {{ customer.tags | json }};
-</script>
-
-
-
-{{ 'member-lock.js' | asset_url | script_tag }}
-
 
 
 
