@@ -1,6 +1,15 @@
 (function () {
   var lockedPaths = [
-    "/collections/sell-price-tier-1"
+    "/collections/sell-price-tier-1",
+    "/collections/sell-price-tier-2",
+    "/collections/sell-price-tier-3",
+    "/collections/sell-price-tier-4",
+    "/collections/vip-1",
+    "/collections/vip-2",
+    "/collections/vip-3",
+    "/collections/vip-4",
+    "/collections/vip-5",
+    "/collections/vip-6"
   ];
 
   var path = location.pathname.replace(/\/+$/, "");
