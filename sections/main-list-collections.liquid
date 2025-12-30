@@ -54,6 +54,9 @@
     {%- paginate collections by paginate_by -%}
       <grid-list class="collection-list__items f-grid f-grid-{{ columns_mobile_int }}-cols md:f-grid-{{ columns_tablet }}-cols lg:f-grid-{{ columns_desktop }}-cols f-grid--gap-{{ section.settings.column_gap }}">
         {%- for collection in collections -%}
+          {%- comment %}<locksmith:1dda>{% endcomment -%}
+            {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: collection, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% else %}{% continue %}{% endif -%}
+          {%- comment %}</locksmith:1dda>{% endcomment -%}
           <div class="f-column">
             {% render 'card-collection',
               collection: collection,

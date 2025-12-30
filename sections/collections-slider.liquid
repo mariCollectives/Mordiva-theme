@@ -24,7 +24,13 @@
 {%- capture image_sizes -%}
 (max-width: 767px) calc(100vw - 3rem), (max-width: 1023px) calc((100vw - 3rem) / 2), calc(min(100vw, {{ settings.page_width }}px) / 2)
 {%- endcapture -%}
+{%- comment %}<locksmith:5d91>{% endcomment -%}
+  {%- assign locksmith_1540_forloop__size = 0 %}{%- for block in section.blocks -%}{% capture var %}{% render 'locksmith-variables', scope: 'subject', subject: block.settings.collection, subject_parent: section, variable: 'transparent' %}{% endcapture %}{% if var == 'true' %}{% assign locksmith_1540_forloop__size = locksmith_1540_forloop__size | plus: 1 %}{% endif %}{% endfor %}{% assign locksmith_1540_forloop__index = nil -%}
+{%- comment %}</locksmith:5d91>{% endcomment -%}
 {%- for block in section.blocks -%}
+  {%- comment %}<locksmith:8583>{% endcomment -%}
+    {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: block.settings.collection, subject_parent: section, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% if locksmith_1540_forloop__index == nil %}{% assign locksmith_1540_forloop__index = 1 %}{% assign locksmith_1540_forloop__index0 = 0 %}{% else %}{% assign locksmith_1540_forloop__index = locksmith_1540_forloop__index | plus: 1 %}{% assign locksmith_1540_forloop__index0 = locksmith_1540_forloop__index0 | plus: 1 %}{% endif %}{% if locksmith_1540_forloop__index == 1 %}{% assign locksmith_1540_forloop__first = true %}{% else %}{% assign locksmith_1540_forloop__first = false %}{% endif %}{% if locksmith_1540_forloop__index == locksmith_1540_forloop__size %}{% assign locksmith_1540_forloop__last = true %}{% else %}{% assign locksmith_1540_forloop__last = false %}{% endif %}{% assign locksmith_1540_forloop__rindex = locksmith_1540_forloop__size | minus: locksmith_1540_forloop__index | minus: 1 %}{% assign locksmith_1540_forloop__rindex0 = locksmith_1540_forloop__size | minus: locksmith_1540_forloop__index0 | minus: 1 %}{% else %}{% continue %}{% endif -%}
+  {%- comment %}</locksmith:8583>{% endcomment -%}
   {%- liquid
     assign collection = collections[block.settings.collection]
 
@@ -68,7 +74,7 @@
 
     assign animate_delay = 250
     assign motion_delay = motion_delay | plus: 50
-    assign filter_value = forloop.index0
+    assign filter_value = locksmith_1540_forloop__index0
   -%}
   {%- capture collection_media_html -%}
   <div class="swiper-slide" data-filter="{{ filter_value }}">
@@ -177,8 +183,8 @@
   <motion-element
     data-motion="fade-up"
     data-motion-delay="{{ motion_delay }}"
-    class="text-hovering block {{ block.settings.title_size }}{% if forloop.first %} is-active{% endif %}"
-    data-index="{{ forloop.index0 }}"
+    class="text-hovering block {{ block.settings.title_size }}{% if locksmith_1540_forloop__first %} is-active{% endif %}"
+    data-index="{{ locksmith_1540_forloop__index0 }}"
     {{ block.shopify_attributes }}
   >
     <a

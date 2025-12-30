@@ -86,6 +86,9 @@
         >
           <div class="promotion">
             {% for block in scrolling_blocks %}
+              {%- comment %}<locksmith:0e03>{% endcomment -%}
+                {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: block, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% else %}{% continue %}{% endif -%}
+              {%- comment %}</locksmith:0e03>{% endcomment -%}
               {%- case block.type -%}
                 {%- when 'scrolling_text' -%}
                   {% if block.settings.text != blank %}
@@ -112,7 +115,13 @@
       {%- liquid
         assign lookbook_icon_index = 0
       -%}
+      {%- comment %}<locksmith:f3ce>{% endcomment -%}
+        {%- assign locksmith_bed7_forloop__size = 0 %}{%- for block in product_blocks -%}{% capture var %}{% render 'locksmith-variables', scope: 'subject', subject: block, variable: 'transparent' %}{% endcapture %}{% if var == 'true' %}{% assign locksmith_bed7_forloop__size = locksmith_bed7_forloop__size | plus: 1 %}{% endif %}{% endfor %}{% assign locksmith_bed7_forloop__index = nil -%}
+      {%- comment %}</locksmith:f3ce>{% endcomment -%}
       {%- for block in product_blocks -%}
+        {%- comment %}<locksmith:f443>{% endcomment -%}
+          {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: block, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% if locksmith_bed7_forloop__index == nil %}{% assign locksmith_bed7_forloop__index = 1 %}{% assign locksmith_bed7_forloop__index0 = 0 %}{% else %}{% assign locksmith_bed7_forloop__index = locksmith_bed7_forloop__index | plus: 1 %}{% assign locksmith_bed7_forloop__index0 = locksmith_bed7_forloop__index0 | plus: 1 %}{% endif %}{% if locksmith_bed7_forloop__index == 1 %}{% assign locksmith_bed7_forloop__first = true %}{% else %}{% assign locksmith_bed7_forloop__first = false %}{% endif %}{% if locksmith_bed7_forloop__index == locksmith_bed7_forloop__size %}{% assign locksmith_bed7_forloop__last = true %}{% else %}{% assign locksmith_bed7_forloop__last = false %}{% endif %}{% assign locksmith_bed7_forloop__rindex = locksmith_bed7_forloop__size | minus: locksmith_bed7_forloop__index | minus: 1 %}{% assign locksmith_bed7_forloop__rindex0 = locksmith_bed7_forloop__size | minus: locksmith_bed7_forloop__index0 | minus: 1 %}{% else %}{% continue %}{% endif -%}
+        {%- comment %}</locksmith:f443>{% endcomment -%}
         {%- liquid
           assign prod = block.settings.product
         -%}
@@ -125,20 +134,20 @@
         <lookbook-icon
           class="absolute lookbook-card__annotation"
           style="{{ hotspot_style }}"
-          data-id="{{ block.id }}-{{ forloop.index }}"
+          data-id="{{ block.id }}-{{ locksmith_bed7_forloop__index }}"
           data-index="{{ lookbook_icon_index }}"
           {{ block.shopify_attributes }}
         >
           <motion-element
             class="lookbook-card__pin lookbook-card__pin--{{ section.settings.annotation_color }}"
             data-motion="zoom-in-lg"
-            data-motion-delay="{{ 150 | times: forloop.index }}"
+            data-motion-delay="{{ 150 | times: locksmith_bed7_forloop__index }}"
           >
             <span class="lookbook-card__pin-icon"></span>
           </motion-element>
           <div
             class="lookbook-card__product absolute flex items-start color-scheme-1"
-            data-id="{{ block.id }}-{{ forloop.index }}-content"
+            data-id="{{ block.id }}-{{ locksmith_bed7_forloop__index }}-content"
           >
             <div class="lookbook-card__product-image relative media-wrapper blocks-radius-sm{% if prod.featured_media == blank %} bg-none{% endif %}">
               <a class="full-width-link" href="{{ prod.url }}"

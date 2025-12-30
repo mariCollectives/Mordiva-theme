@@ -1,3 +1,7 @@
+{%- comment %}<locksmith:b342>{% endcomment -%}
+  {%- include 'locksmith' -%}
+{%- comment %}</locksmith:b342>{% endcomment -%}
+
 {%- liquid
   assign enable_rtl = settings.enable_rtl
   assign language_support_rtl = settings.language_support_rtl
@@ -21,6 +25,7 @@
   {% endif %}
 >
   <head>
+    {{ locksmith_initializations }}
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -50,7 +55,10 @@
     </title>
 
     {% if page_description %}
-      <meta name="description" content="{{ page_description | escape }}">
+      {%- comment %}<locksmith:e44a>{% endcomment -%}
+        {%- capture var %}{% render 'locksmith-variables', variable: 'transparent', hiding_scope: 'resource' %}{% endcapture %}{% if var == 'true' %}<meta name="description" content="{{ page_description | escape }}">{% endif -%}
+        {%- comment %}original: <meta name="description" content="{{ page_description | escape }}">{%- endcomment %}
+      {%- comment %}</locksmith:e44a>{% endcomment -%}
     {% endif %}
 
     {%- liquid

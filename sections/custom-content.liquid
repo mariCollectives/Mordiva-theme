@@ -32,6 +32,9 @@
   <div class="section__content f-grid--gap-{{ section.settings.column_gap }}{% if swipe_on_tablet %} swipe-tablet{% endif %}{% if swipe_on_mobile %} swipe-mobile swipe-mobile--{{ section.settings.columns_mobile }}-cols{% endif %}">
     <div class="f-flex f-grid--gap-{{ section.settings.column_gap }} f-grid--row-gap-{{ section.settings.row_gap }}{% if swipe_on_tablet %} swipe-tablet__inner{% endif %}{% if swipe_on_mobile %} swipe-mobile__inner{% endif %}">
       {%- for block in section.blocks -%}
+        {%- comment %}<locksmith:0544>{% endcomment -%}
+          {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: block.settings.collection, subject_parent: section, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% else %}{% continue %}{% endif -%}
+        {%- comment %}</locksmith:0544>{% endcomment -%}
         {%- liquid
           assign vertical_alignment = block.settings.alignment
           case block.settings.width

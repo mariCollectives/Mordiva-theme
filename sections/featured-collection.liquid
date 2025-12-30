@@ -118,7 +118,13 @@
           {% endif %}
         >
           <div class="featured-collection__items products-list f-grid f-grid-{{ columns_mobile }}-cols md:f-grid-{{ columns_tablet }}-cols lg:f-grid-{{ columns_desktop }}-cols f-grid--gap-{{ section.settings.column_gap }} f-grid--row-gap-{{ section.settings.row_gap }}{% if enable_slider %} swiper-wrapper{% endif %}{% if enable_swipe_mobile %} swipe-mobile__inner{% endif %}">
+            {%- comment %}<locksmith:4015>{% endcomment -%}
+              {%- assign locksmith_ddfb_forloop__size = 0 %}{%- for product in collection.products limit: products_to_display -%}{% capture var %}{% render 'locksmith-variables', scope: 'subject', subject: product, subject_parent: collection, variable: 'transparent' %}{% endcapture %}{% if var == 'true' %}{% assign locksmith_ddfb_forloop__size = locksmith_ddfb_forloop__size | plus: 1 %}{% endif %}{% endfor %}{% assign locksmith_ddfb_forloop__index = nil -%}
+            {%- comment %}</locksmith:4015>{% endcomment -%}
             {%- for product in collection.products limit: products_to_display -%}
+              {%- comment %}<locksmith:6ee2>{% endcomment -%}
+                {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: product, subject_parent: collection, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% if locksmith_ddfb_forloop__index == nil %}{% assign locksmith_ddfb_forloop__index = 1 %}{% assign locksmith_ddfb_forloop__index0 = 0 %}{% else %}{% assign locksmith_ddfb_forloop__index = locksmith_ddfb_forloop__index | plus: 1 %}{% assign locksmith_ddfb_forloop__index0 = locksmith_ddfb_forloop__index0 | plus: 1 %}{% endif %}{% if locksmith_ddfb_forloop__index == 1 %}{% assign locksmith_ddfb_forloop__first = true %}{% else %}{% assign locksmith_ddfb_forloop__first = false %}{% endif %}{% if locksmith_ddfb_forloop__index == locksmith_ddfb_forloop__size %}{% assign locksmith_ddfb_forloop__last = true %}{% else %}{% assign locksmith_ddfb_forloop__last = false %}{% endif %}{% assign locksmith_ddfb_forloop__rindex = locksmith_ddfb_forloop__size | minus: locksmith_ddfb_forloop__index | minus: 1 %}{% assign locksmith_ddfb_forloop__rindex0 = locksmith_ddfb_forloop__size | minus: locksmith_ddfb_forloop__index0 | minus: 1 %}{% else %}{% continue %}{% endif -%}
+              {%- comment %}</locksmith:6ee2>{% endcomment -%}
               <div class="{{ item_css_class }}">
                 {%- if is_metro -%}
                   {%- render 'card-product-metro',
@@ -126,8 +132,8 @@
                     image_sizes: image_sizes,
                     image_ratio: section.settings.pcard_image_ratio,
                     section_index: section.index,
-                    index: forloop.index,
-                    index0: forloop.index0,
+                    index: locksmith_ddfb_forloop__index,
+                    index0: locksmith_ddfb_forloop__index0,
                     columns_desktop: columns_desktop,
                     columns_tablet: columns_tablet,
                     columns_mobile: columns_mobile
@@ -138,7 +144,7 @@
                     image_sizes: image_sizes,
                     image_ratio: section.settings.pcard_image_ratio,
                     section_index: section.index,
-                    index: forloop.index
+                    index: locksmith_ddfb_forloop__index
                   -%}
                 {%- endif -%}
               </div>

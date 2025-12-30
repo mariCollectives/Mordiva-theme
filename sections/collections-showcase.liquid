@@ -73,7 +73,13 @@
       </div>
       <div class="collection-showcase__tabs text-center absolute inset-full flex items-center justify-center bg-none color-{{ section.settings.tab_color_scheme }}">
         <ul class="flex flex-col gap-6">
+          {%- comment %}<locksmith:ddba>{% endcomment -%}
+            {%- assign locksmith_380b_forloop__size = 0 %}{%- for block in section.blocks -%}{% capture var %}{% render 'locksmith-variables', scope: 'subject', subject: block.settings.collection, subject_parent: section, variable: 'transparent' %}{% endcapture %}{% if var == 'true' %}{% assign locksmith_380b_forloop__size = locksmith_380b_forloop__size | plus: 1 %}{% endif %}{% endfor %}{% assign locksmith_380b_forloop__index = nil -%}
+          {%- comment %}</locksmith:ddba>{% endcomment -%}
           {%- for block in section.blocks -%}
+            {%- comment %}<locksmith:1a79>{% endcomment -%}
+              {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: block.settings.collection, subject_parent: section, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% if locksmith_380b_forloop__index == nil %}{% assign locksmith_380b_forloop__index = 1 %}{% assign locksmith_380b_forloop__index0 = 0 %}{% else %}{% assign locksmith_380b_forloop__index = locksmith_380b_forloop__index | plus: 1 %}{% assign locksmith_380b_forloop__index0 = locksmith_380b_forloop__index0 | plus: 1 %}{% endif %}{% if locksmith_380b_forloop__index == 1 %}{% assign locksmith_380b_forloop__first = true %}{% else %}{% assign locksmith_380b_forloop__first = false %}{% endif %}{% if locksmith_380b_forloop__index == locksmith_380b_forloop__size %}{% assign locksmith_380b_forloop__last = true %}{% else %}{% assign locksmith_380b_forloop__last = false %}{% endif %}{% assign locksmith_380b_forloop__rindex = locksmith_380b_forloop__size | minus: locksmith_380b_forloop__index | minus: 1 %}{% assign locksmith_380b_forloop__rindex0 = locksmith_380b_forloop__size | minus: locksmith_380b_forloop__index0 | minus: 1 %}{% else %}{% continue %}{% endif -%}
+            {%- comment %}</locksmith:1a79>{% endcomment -%}
             {%- liquid
               assign collection = collections[block.settings.collection]
               assign collection_title = block.settings.title
@@ -88,13 +94,13 @@
             -%}
             <li
               class="relative {{ section.settings.collection_heading_size }}"
-              data-index="{{ forloop.index0 }}"
+              data-index="{{ locksmith_380b_forloop__index0 }}"
               {{ block.shopify_attributes }}
             >
               <a
                 href="{{ collection.url }}"
-                data-index="{{ forloop.index0 }}"
-                class="reversed-link{% if forloop.first %} active{% endif %}"
+                data-index="{{ locksmith_380b_forloop__index0 }}"
+                class="reversed-link{% if locksmith_380b_forloop__first %} active{% endif %}"
               >
                 {{ collection_title }}
               </a>
@@ -109,7 +115,13 @@
         header_alignment: 'center',
         header_alignment_mobile: 'center'
       %}
+      {%- comment %}<locksmith:6bad>{% endcomment -%}
+        {%- assign locksmith_f4c0_forloop__size = 0 %}{%- for block in section.blocks -%}{% capture var %}{% render 'locksmith-variables', scope: 'subject', subject: block.settings.collection, subject_parent: section, variable: 'transparent' %}{% endcapture %}{% if var == 'true' %}{% assign locksmith_f4c0_forloop__size = locksmith_f4c0_forloop__size | plus: 1 %}{% endif %}{% endfor %}{% assign locksmith_f4c0_forloop__index = nil -%}
+      {%- comment %}</locksmith:6bad>{% endcomment -%}
       {%- for block in section.blocks -%}
+        {%- comment %}<locksmith:80e9>{% endcomment -%}
+          {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: block.settings.collection, subject_parent: section, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% if locksmith_f4c0_forloop__index == nil %}{% assign locksmith_f4c0_forloop__index = 1 %}{% assign locksmith_f4c0_forloop__index0 = 0 %}{% else %}{% assign locksmith_f4c0_forloop__index = locksmith_f4c0_forloop__index | plus: 1 %}{% assign locksmith_f4c0_forloop__index0 = locksmith_f4c0_forloop__index0 | plus: 1 %}{% endif %}{% if locksmith_f4c0_forloop__index == 1 %}{% assign locksmith_f4c0_forloop__first = true %}{% else %}{% assign locksmith_f4c0_forloop__first = false %}{% endif %}{% if locksmith_f4c0_forloop__index == locksmith_f4c0_forloop__size %}{% assign locksmith_f4c0_forloop__last = true %}{% else %}{% assign locksmith_f4c0_forloop__last = false %}{% endif %}{% assign locksmith_f4c0_forloop__rindex = locksmith_f4c0_forloop__size | minus: locksmith_f4c0_forloop__index | minus: 1 %}{% assign locksmith_f4c0_forloop__rindex0 = locksmith_f4c0_forloop__size | minus: locksmith_f4c0_forloop__index0 | minus: 1 %}{% else %}{% continue %}{% endif -%}
+        {%- comment %}</locksmith:80e9>{% endcomment -%}
         {%- liquid
           assign collection = collections[block.settings.collection]
 
@@ -123,12 +135,12 @@
             assign enable_slider = true
           endif
         -%}
-        {% unless forloop.first %}
-          <template data-index="{{ forloop.index0 }}">
+        {% unless locksmith_f4c0_forloop__first %}
+          <template data-index="{{ locksmith_f4c0_forloop__index0 }}">
         {%- endunless -%}
         <div
-          class="collection-showcase__content{% if forloop.first %} active{% endif %}"
-          data-index="{{ forloop.index0 }}"
+          class="collection-showcase__content{% if locksmith_f4c0_forloop__first %} active{% endif %}"
+          data-index="{{ locksmith_f4c0_forloop__index0 }}"
         >
           <grid-list class="block">
             <collection-showcase-products
@@ -139,6 +151,9 @@
               <div class="{% if enable_slider %} swiper{% endif %}">
                 <div class="{% if enable_slider %}swiper-wrapper{% else %}f-flex justify-center{% endif %}">
                   {%- for product in collection.products limit: products_to_display -%}
+                    {%- comment %}<locksmith:c178>{% endcomment -%}
+                      {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: product, subject_parent: collection, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% else %}{% continue %}{% endif -%}
+                    {%- comment %}</locksmith:c178>{% endcomment -%}
                     {%- liquid
                       assign pcard_image_ratio = section.settings.pcard_image_ratio | default: settings.pcard_image_ratio
                       if pcard_image_ratio == 'adapt'
@@ -228,7 +243,7 @@
             </motion-element>
           {%- endif -%}
         </div>
-        {%- unless forloop.first -%}
+        {%- unless locksmith_f4c0_forloop__first -%}
           </template>
         {%- endunless -%}
       {%- endfor -%}

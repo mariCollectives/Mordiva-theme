@@ -92,7 +92,13 @@
       %}
       {%- if section.blocks.size > 0 -%}
         <div class="cis__titles flex flex-col gap-3 text-center">
+          {%- comment %}<locksmith:3a34>{% endcomment -%}
+            {%- assign locksmith_cebc_forloop__size = 0 %}{%- for block in section.blocks -%}{% capture var %}{% render 'locksmith-variables', scope: 'subject', subject: block.settings.collection, subject_parent: section, variable: 'transparent' %}{% endcapture %}{% if var == 'true' %}{% assign locksmith_cebc_forloop__size = locksmith_cebc_forloop__size | plus: 1 %}{% endif %}{% endfor %}{% assign locksmith_cebc_forloop__index = nil -%}
+          {%- comment %}</locksmith:3a34>{% endcomment -%}
           {%- for block in section.blocks -%}
+            {%- comment %}<locksmith:aaac>{% endcomment -%}
+              {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: block.settings.collection, subject_parent: section, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% if locksmith_cebc_forloop__index == nil %}{% assign locksmith_cebc_forloop__index = 1 %}{% assign locksmith_cebc_forloop__index0 = 0 %}{% else %}{% assign locksmith_cebc_forloop__index = locksmith_cebc_forloop__index | plus: 1 %}{% assign locksmith_cebc_forloop__index0 = locksmith_cebc_forloop__index0 | plus: 1 %}{% endif %}{% if locksmith_cebc_forloop__index == 1 %}{% assign locksmith_cebc_forloop__first = true %}{% else %}{% assign locksmith_cebc_forloop__first = false %}{% endif %}{% if locksmith_cebc_forloop__index == locksmith_cebc_forloop__size %}{% assign locksmith_cebc_forloop__last = true %}{% else %}{% assign locksmith_cebc_forloop__last = false %}{% endif %}{% assign locksmith_cebc_forloop__rindex = locksmith_cebc_forloop__size | minus: locksmith_cebc_forloop__index | minus: 1 %}{% assign locksmith_cebc_forloop__rindex0 = locksmith_cebc_forloop__size | minus: locksmith_cebc_forloop__index0 | minus: 1 %}{% else %}{% continue %}{% endif -%}
+            {%- comment %}</locksmith:aaac>{% endcomment -%}
             {%- liquid
               assign collection = collections[block.settings.collection]
 
@@ -122,8 +128,8 @@
                   aria-disabled="true"
                   disabled
                 {% endif %}
-                data-index="{{ forloop.index0 }}"
-                aria-selected="{% if forloop.index0 == 0 %}true{% else %}false{% endif %}"
+                data-index="{{ locksmith_cebc_forloop__index0 }}"
+                aria-selected="{% if locksmith_cebc_forloop__index0 == 0 %}true{% else %}false{% endif %}"
                 aria-controls="tab-{{ block.id }}"
                 {{ block.shopify_attributes }}
               >

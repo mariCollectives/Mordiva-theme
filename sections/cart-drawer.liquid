@@ -472,6 +472,19 @@
                     {% liquid
                       assign collections = ''
                       for collection in item.product.collections
+                        comment
+                          <locksmith:b228> Code added automatically by the Locksmith app. Do not modify or remove.
+                        endcomment
+                        capture var
+                          render 'locksmith-variables', scope: 'subject', subject: collection, subject_parent: item.product, variable: 'transparent'
+                        endcapture
+                        if var == "true"
+                        else
+                          continue
+                        endif
+                        comment
+                          </locksmith:b228> End Locksmith code block.
+                        endcomment
                         assign collections = collections | append: collection.id | append: ','
                       endfor
                     %}

@@ -162,6 +162,9 @@
                           {%- endif -%}
                           <ul class="accordion-details__content linklist linklist--vertical list-unstyled">
                             {%- for link in block.settings.menu.links -%}
+                              {%- comment %}<locksmith:c78b>{% endcomment -%}
+                                {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: link, subject_parent: block.settings.menu, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% else %}{% continue %}{% endif -%}
+                              {%- comment %}</locksmith:c78b>{% endcomment -%}
                               <li>
                                 <a
                                   href="{{ link.url }}"
@@ -323,6 +326,9 @@
             {% if section.settings.footer_bottom_menu != blank %}
               <ul class="linklist linklist--horizontal list-unstyled">
                 {% for link in linklists[section.settings.footer_bottom_menu].links %}
+                  {%- comment %}<locksmith:da52>{% endcomment -%}
+                    {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: link, subject_parent: linklists[section.settings.footer_bottom_menu], variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% else %}{% continue %}{% endif -%}
+                  {%- comment %}</locksmith:da52>{% endcomment -%}
                   <li>
                     <a href="{{ link.url }}" class="reversed-link">{{ link.title | escape }}</a>
                   </li>

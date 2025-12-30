@@ -147,7 +147,13 @@
                 id="ProductsList"
                 class="grid-list products-list f-grid md:f-grid-{{ columns_tablet }}-cols lg:f-grid-{{ columns_tablet_large }}-cols xl:f-grid-{{ columns_desktop }}-cols f-grid-{{ columns_mobile }}-cols f-grid--gap-medium"
               >
+                {%- comment %}<locksmith:f937>{% endcomment -%}
+                  {%- assign locksmith_772a_forloop__size = 0 %}{%- for item in search.results -%}{% capture var %}{% render 'locksmith-variables', scope: 'subject', subject: item, subject_parent: search, variable: 'transparent' %}{% endcapture %}{% if var == 'true' %}{% assign locksmith_772a_forloop__size = locksmith_772a_forloop__size | plus: 1 %}{% endif %}{% endfor %}{% assign locksmith_772a_forloop__index = nil -%}
+                {%- comment %}</locksmith:f937>{% endcomment -%}
                 {%- for item in search.results -%}
+                  {%- comment %}<locksmith:a777>{% endcomment -%}
+                    {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: item, subject_parent: search, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% if locksmith_772a_forloop__index == nil %}{% assign locksmith_772a_forloop__index = 1 %}{% assign locksmith_772a_forloop__index0 = 0 %}{% else %}{% assign locksmith_772a_forloop__index = locksmith_772a_forloop__index | plus: 1 %}{% assign locksmith_772a_forloop__index0 = locksmith_772a_forloop__index0 | plus: 1 %}{% endif %}{% if locksmith_772a_forloop__index == 1 %}{% assign locksmith_772a_forloop__first = true %}{% else %}{% assign locksmith_772a_forloop__first = false %}{% endif %}{% if locksmith_772a_forloop__index == locksmith_772a_forloop__size %}{% assign locksmith_772a_forloop__last = true %}{% else %}{% assign locksmith_772a_forloop__last = false %}{% endif %}{% assign locksmith_772a_forloop__rindex = locksmith_772a_forloop__size | minus: locksmith_772a_forloop__index | minus: 1 %}{% assign locksmith_772a_forloop__rindex0 = locksmith_772a_forloop__size | minus: locksmith_772a_forloop__index0 | minus: 1 %}{% else %}{% continue %}{% endif -%}
+                  {%- comment %}</locksmith:a777>{% endcomment -%}
                   {%- case item.object_type -%}
                     {%- when 'product' -%}
                       <div class="f-column card">
@@ -156,7 +162,7 @@
                           image_sizes: image_sizes,
                           section_id: section.id,
                           section_index: section.index,
-                          index: forloop.index
+                          index: locksmith_772a_forloop__index
                         -%}
                       </div>
                     {%- when 'article' -%}

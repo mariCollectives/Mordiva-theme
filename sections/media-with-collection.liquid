@@ -174,6 +174,9 @@
                 <div class="media-with-collection__products-inner swiper-wrapper f-grid f-grid-{{ columns_mobile }}-cols md:f-grid-{{ columns }}-cols f-grid--gap-extra-small{% if enable_swipe_mobile %} swipe-mobile__inner{% endif %}">
                   {%- if collection != blank -%}
                     {%- for product in collection.products limit: products_to_display -%}
+                      {%- comment %}<locksmith:f362>{% endcomment -%}
+                        {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: product, subject_parent: collection, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% else %}{% continue %}{% endif -%}
+                      {%- comment %}</locksmith:f362>{% endcomment -%}
                       <div class="f-column swiper-slide">
                         {% render 'card-product',
                           product: product,

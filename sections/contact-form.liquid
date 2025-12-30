@@ -137,9 +137,15 @@
                 {%- endif -%}
               </div>
 
+              {%- comment %}<locksmith:4493>{% endcomment -%}
+                {%- assign locksmith_32f7_forloop__size = 0 %}{%- for block in custom_field_blocks -%}{% capture var %}{% render 'locksmith-variables', scope: 'subject', subject: block, variable: 'transparent' %}{% endcapture %}{% if var == 'true' %}{% assign locksmith_32f7_forloop__size = locksmith_32f7_forloop__size | plus: 1 %}{% endif %}{% endfor %}{% assign locksmith_32f7_forloop__index = nil -%}
+              {%- comment %}</locksmith:4493>{% endcomment -%}
               {%- for block in custom_field_blocks -%}
+                {%- comment %}<locksmith:f72f>{% endcomment -%}
+                  {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: block, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% if locksmith_32f7_forloop__index == nil %}{% assign locksmith_32f7_forloop__index = 1 %}{% assign locksmith_32f7_forloop__index0 = 0 %}{% else %}{% assign locksmith_32f7_forloop__index = locksmith_32f7_forloop__index | plus: 1 %}{% assign locksmith_32f7_forloop__index0 = locksmith_32f7_forloop__index0 | plus: 1 %}{% endif %}{% if locksmith_32f7_forloop__index == 1 %}{% assign locksmith_32f7_forloop__first = true %}{% else %}{% assign locksmith_32f7_forloop__first = false %}{% endif %}{% if locksmith_32f7_forloop__index == locksmith_32f7_forloop__size %}{% assign locksmith_32f7_forloop__last = true %}{% else %}{% assign locksmith_32f7_forloop__last = false %}{% endif %}{% assign locksmith_32f7_forloop__rindex = locksmith_32f7_forloop__size | minus: locksmith_32f7_forloop__index | minus: 1 %}{% assign locksmith_32f7_forloop__rindex0 = locksmith_32f7_forloop__size | minus: locksmith_32f7_forloop__index0 | minus: 1 %}{% else %}{% continue %}{% endif -%}
+                {%- comment %}</locksmith:f72f>{% endcomment -%}
                 {%- liquid
-                  assign field_name_default = 'Custom field ' | append: forloop.index
+                  assign field_name_default = 'Custom field ' | append: locksmith_32f7_forloop__index
                   assign field_name = block.settings.heading | default: field_name_default
                 -%}
                 {%- if block.settings.field_type == 'phone' -%}
