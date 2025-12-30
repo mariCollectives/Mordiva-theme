@@ -57,7 +57,13 @@
           -%}
           {%- for parsed_term in parsed_terms -%}
             {%- assign id = parsed_term | split: 'id:' | last | times: 1 -%}
+            {%- comment %}<locksmith:2c5f>{% endcomment -%}
+              {%- assign locksmith_59c1_forloop__size = 0 %}{%- for product in search.results -%}{% capture var %}{% render 'locksmith-variables', scope: 'subject', subject: product, subject_parent: search, variable: 'transparent' %}{% endcapture %}{% if var == 'true' %}{% assign locksmith_59c1_forloop__size = locksmith_59c1_forloop__size | plus: 1 %}{% endif %}{% endfor %}{% assign locksmith_59c1_forloop__index = nil -%}
+            {%- comment %}</locksmith:2c5f>{% endcomment -%}
             {%- for product in search.results -%}
+              {%- comment %}<locksmith:b0f8>{% endcomment -%}
+                {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: product, subject_parent: search, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% if locksmith_59c1_forloop__index == nil %}{% assign locksmith_59c1_forloop__index = 1 %}{% assign locksmith_59c1_forloop__index0 = 0 %}{% else %}{% assign locksmith_59c1_forloop__index = locksmith_59c1_forloop__index | plus: 1 %}{% assign locksmith_59c1_forloop__index0 = locksmith_59c1_forloop__index0 | plus: 1 %}{% endif %}{% if locksmith_59c1_forloop__index == 1 %}{% assign locksmith_59c1_forloop__first = true %}{% else %}{% assign locksmith_59c1_forloop__first = false %}{% endif %}{% if locksmith_59c1_forloop__index == locksmith_59c1_forloop__size %}{% assign locksmith_59c1_forloop__last = true %}{% else %}{% assign locksmith_59c1_forloop__last = false %}{% endif %}{% assign locksmith_59c1_forloop__rindex = locksmith_59c1_forloop__size | minus: locksmith_59c1_forloop__index | minus: 1 %}{% assign locksmith_59c1_forloop__rindex0 = locksmith_59c1_forloop__size | minus: locksmith_59c1_forloop__index0 | minus: 1 %}{% else %}{% continue %}{% endif -%}
+              {%- comment %}</locksmith:b0f8>{% endcomment -%}
               {%- if product.id == id -%}
                 <div class="{{ item_css_class }}">
                   {% render 'card-product',
@@ -65,7 +71,7 @@
                     image_sizes: image_sizes,
                     image_ratio: section.settings.pcard_image_ratio,
                     section_index: section.index,
-                    index: forloop.index
+                    index: locksmith_59c1_forloop__index
                   %}
                 </div>
               {%- endif -%}

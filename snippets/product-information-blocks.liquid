@@ -483,11 +483,17 @@
                               </div>
                             {%- endfor -%}
                           {%- else -%}
+                            {%- comment %}<locksmith:4561>{% endcomment -%}
+                              {%- assign locksmith_f89b_forloop__size = 0 %}{%- for product in recommendations.products -%}{% capture var %}{% render 'locksmith-variables', scope: 'subject', subject: product, subject_parent: recommendations, variable: 'transparent' %}{% endcapture %}{% if var == 'true' %}{% assign locksmith_f89b_forloop__size = locksmith_f89b_forloop__size | plus: 1 %}{% endif %}{% endfor %}{% assign locksmith_f89b_forloop__index = nil -%}
+                            {%- comment %}</locksmith:4561>{% endcomment -%}
                             {%- for product in recommendations.products -%}
+                              {%- comment %}<locksmith:0b51>{% endcomment -%}
+                                {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: product, subject_parent: recommendations, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% if locksmith_f89b_forloop__index == nil %}{% assign locksmith_f89b_forloop__index = 1 %}{% assign locksmith_f89b_forloop__index0 = 0 %}{% else %}{% assign locksmith_f89b_forloop__index = locksmith_f89b_forloop__index | plus: 1 %}{% assign locksmith_f89b_forloop__index0 = locksmith_f89b_forloop__index0 | plus: 1 %}{% endif %}{% if locksmith_f89b_forloop__index == 1 %}{% assign locksmith_f89b_forloop__first = true %}{% else %}{% assign locksmith_f89b_forloop__first = false %}{% endif %}{% if locksmith_f89b_forloop__index == locksmith_f89b_forloop__size %}{% assign locksmith_f89b_forloop__last = true %}{% else %}{% assign locksmith_f89b_forloop__last = false %}{% endif %}{% assign locksmith_f89b_forloop__rindex = locksmith_f89b_forloop__size | minus: locksmith_f89b_forloop__index | minus: 1 %}{% assign locksmith_f89b_forloop__rindex0 = locksmith_f89b_forloop__size | minus: locksmith_f89b_forloop__index0 | minus: 1 %}{% else %}{% continue %}{% endif -%}
+                              {%- comment %}</locksmith:0b51>{% endcomment -%}
                               <div class="swiper-slide" role="listitem" tabindex="-1">
                                 {% render 'card-product-list',
                                   section_index: section.index,
-                                  index: forloop.index,
+                                  index: locksmith_f89b_forloop__index,
                                   product: product,
                                   image_ratio: block.settings.image_ratio,
                                   enable_quick_add: block.settings.enable_quick_add

@@ -34,6 +34,9 @@
       <div class="swiper">
         <div class="swiper-wrapper">
           {%- for recommendation in recommendations_products -%}
+            {%- comment %}<locksmith:0f21>{% endcomment -%}
+              {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: recommendation, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% else %}{% continue %}{% endif -%}
+            {%- comment %}</locksmith:0f21>{% endcomment -%}
             <div class="swiper-slide">
               {%- render 'card-product-list', product: recommendation -%}
             </div>

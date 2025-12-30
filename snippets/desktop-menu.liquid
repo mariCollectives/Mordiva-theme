@@ -10,6 +10,9 @@
 <nav class="header__menu flex" role="navigation" aria-label="Primary">
   <ul class="flex flex-wrap">
     {%- for link in menu.links limit: limit offset: offset -%}
+      {%- comment %}<locksmith:18be>{% endcomment -%}
+        {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: link, subject_parent: menu, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% else %}{% continue %}{% endif -%}
+      {%- comment %}</locksmith:18be>{% endcomment -%}
       {%- liquid
         assign enable_mega_menu = false
         assign link_title_handle = link.title | handle
@@ -47,6 +50,9 @@
                 <div class="dropdown__container blocks-radius-bottom-left-right">
                   <ul class="dropdown__nav" role="list">
                     {%- for childlink in link.links -%}
+                      {%- comment %}<locksmith:b0f5>{% endcomment -%}
+                        {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: childlink, subject_parent: link, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% else %}{% continue %}{% endif -%}
+                      {%- comment %}</locksmith:b0f5>{% endcomment -%}
                       {%- if childlink.links != blank -%}
                         <li class="relative">
                           <details level="child" trigger="hover" is="details-dropdown">
@@ -69,6 +75,9 @@
                               <div class="dropdown__container blocks-radius">
                                 <ul class="dropdown__nav" role="list">
                                   {%- for grandchildlink in childlink.links -%}
+                                    {%- comment %}<locksmith:f841>{% endcomment -%}
+                                      {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: grandchildlink, subject_parent: childlink, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% else %}{% continue %}{% endif -%}
+                                    {%- comment %}</locksmith:f841>{% endcomment -%}
                                     <li>
                                       <p>
                                         <a class="reversed-link" href="{{ grandchildlink.url }}">

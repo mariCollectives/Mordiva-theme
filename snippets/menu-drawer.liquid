@@ -50,6 +50,9 @@
       <nav class="overflow-hidden flex-grow" role="navigation">
         <ul class="menu-drawer__menus v-scrollable relative w-full h-full" data-parent>
           {%- for link in menu_mobile.links -%}
+            {%- comment %}<locksmith:9a7c>{% endcomment -%}
+              {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: link, subject_parent: menu_mobile, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% else %}{% continue %}{% endif -%}
+            {%- comment %}</locksmith:9a7c>{% endcomment -%}
             <li class="menu-drawer__item">
               {%- liquid
                 assign enable_mega_menu = false

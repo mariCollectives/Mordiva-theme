@@ -58,6 +58,9 @@
     <mobile-sticky-bar class="mobile-sticky-bar md:hidden up" data-section-type="mobile-sticky-bar">
       <div class="mobile-sticky-bar__wrapper f-grid f-grid-{{ block_size }}-cols">
         {%- for block in section.blocks -%}
+          {%- comment %}<locksmith:43ff>{% endcomment -%}
+            {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: block.settings.collection, subject_parent: section, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% else %}{% continue %}{% endif -%}
+          {%- comment %}</locksmith:43ff>{% endcomment -%}
           {%- liquid
             assign title = block.settings.text
           -%}

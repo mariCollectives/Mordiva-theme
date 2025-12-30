@@ -59,7 +59,13 @@
         <div class="swiper">
           <div class="swiper-wrapper">
             {%- if products != blank -%}
+              {%- comment %}<locksmith:6eeb>{% endcomment -%}
+                {%- assign locksmith_f7f6_forloop__size = 0 %}{% for product in products %}{% capture var %}{% render 'locksmith-variables', scope: 'subject', subject: product, variable: 'transparent' %}{% endcapture %}{% if var == 'true' %}{% assign locksmith_f7f6_forloop__size = locksmith_f7f6_forloop__size | plus: 1 %}{% endif %}{% endfor %}{% assign locksmith_f7f6_forloop__index = nil -%}
+              {%- comment %}</locksmith:6eeb>{% endcomment -%}
               {% for product in products %}
+                {%- comment %}<locksmith:dd71>{% endcomment -%}
+                  {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: product, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% if locksmith_f7f6_forloop__index == nil %}{% assign locksmith_f7f6_forloop__index = 1 %}{% assign locksmith_f7f6_forloop__index0 = 0 %}{% else %}{% assign locksmith_f7f6_forloop__index = locksmith_f7f6_forloop__index | plus: 1 %}{% assign locksmith_f7f6_forloop__index0 = locksmith_f7f6_forloop__index0 | plus: 1 %}{% endif %}{% if locksmith_f7f6_forloop__index == 1 %}{% assign locksmith_f7f6_forloop__first = true %}{% else %}{% assign locksmith_f7f6_forloop__first = false %}{% endif %}{% if locksmith_f7f6_forloop__index == locksmith_f7f6_forloop__size %}{% assign locksmith_f7f6_forloop__last = true %}{% else %}{% assign locksmith_f7f6_forloop__last = false %}{% endif %}{% assign locksmith_f7f6_forloop__rindex = locksmith_f7f6_forloop__size | minus: locksmith_f7f6_forloop__index | minus: 1 %}{% assign locksmith_f7f6_forloop__rindex0 = locksmith_f7f6_forloop__size | minus: locksmith_f7f6_forloop__index0 | minus: 1 %}{% else %}{% continue %}{% endif -%}
+                {%- comment %}</locksmith:dd71>{% endcomment -%}
                 {%- liquid
                   assign first_media_type = product.media.first.media_type
                   assign featured_media = product.featured_media
@@ -73,7 +79,7 @@
 
                   assign loading = 'lazy'
                   assign fetchpriority = 'low'
-                  if section.index < 2 and forloop.index == 1
+                  if section.index < 2 and locksmith_f7f6_forloop__index == 1
                     assign loading = 'eager'
                     assign fetchpriority = 'high'
                   endif

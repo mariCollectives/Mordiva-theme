@@ -48,11 +48,17 @@ calc({{ settings.page_width }} * {{ col_products_width }} / 100 / {{ columns_des
     <div class="col-details f-column w-full md:w-1/2 hidden md:block" style="--col-width: {{ col_details_width }}%">
       <div class="sticky-element col-details__inner">
         {%- if products != blank -%}
+          {%- comment %}<locksmith:d62e>{% endcomment -%}
+            {%- assign locksmith_d333_forloop__size = 0 %}{%- for product in products -%}{% capture var %}{% render 'locksmith-variables', scope: 'subject', subject: product, variable: 'transparent' %}{% endcapture %}{% if var == 'true' %}{% assign locksmith_d333_forloop__size = locksmith_d333_forloop__size | plus: 1 %}{% endif %}{% endfor %}{% assign locksmith_d333_forloop__index = nil -%}
+          {%- comment %}</locksmith:d62e>{% endcomment -%}
           {%- for product in products -%}
-            {%- if forloop.index0 > 0 -%}
-              <template data-index="{{ forloop.index0 }}">
+            {%- comment %}<locksmith:097b>{% endcomment -%}
+              {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: product, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% if locksmith_d333_forloop__index == nil %}{% assign locksmith_d333_forloop__index = 1 %}{% assign locksmith_d333_forloop__index0 = 0 %}{% else %}{% assign locksmith_d333_forloop__index = locksmith_d333_forloop__index | plus: 1 %}{% assign locksmith_d333_forloop__index0 = locksmith_d333_forloop__index0 | plus: 1 %}{% endif %}{% if locksmith_d333_forloop__index == 1 %}{% assign locksmith_d333_forloop__first = true %}{% else %}{% assign locksmith_d333_forloop__first = false %}{% endif %}{% if locksmith_d333_forloop__index == locksmith_d333_forloop__size %}{% assign locksmith_d333_forloop__last = true %}{% else %}{% assign locksmith_d333_forloop__last = false %}{% endif %}{% assign locksmith_d333_forloop__rindex = locksmith_d333_forloop__size | minus: locksmith_d333_forloop__index | minus: 1 %}{% assign locksmith_d333_forloop__rindex0 = locksmith_d333_forloop__size | minus: locksmith_d333_forloop__index0 | minus: 1 %}{% else %}{% continue %}{% endif -%}
+            {%- comment %}</locksmith:097b>{% endcomment -%}
+            {%- if locksmith_d333_forloop__index0 > 0 -%}
+              <template data-index="{{ locksmith_d333_forloop__index0 }}">
             {%- endif -%}
-            <div class="plwd-product{% if forloop.first %} active{% endif %}" data-index="{{ forloop.index0 }}">
+            <div class="plwd-product{% if locksmith_d333_forloop__first %} active{% endif %}" data-index="{{ locksmith_d333_forloop__index0 }}">
               <div class="block plwd-product__inner blocks-radius color-{{ section.settings.product_details_color_scheme }}">
                 <a class="plwd-product__title" href="{{ product.url }}">
                   <h2 class="h3">
@@ -120,7 +126,7 @@ calc({{ settings.page_width }} * {{ col_products_width }} / 100 / {{ columns_des
                 </div>
               </div>
             </div>
-            {%- if forloop.index0 > 0 -%}
+            {%- if locksmith_d333_forloop__index0 > 0 -%}
               </template>
             {%- endif -%}
           {%- endfor -%}
@@ -169,14 +175,20 @@ calc({{ settings.page_width }} * {{ col_products_width }} / 100 / {{ columns_des
       <div class="col-products__inner sticky-element">
         <grid-list class=" block{% if enable_swipe_mobile %} swipe-mobile swipe-mobile--{{ columns_mobile }}-cols{% endif %}">
           <div class="f-grid f-grid-{{ columns_mobile }}-cols md:f-grid-{{ columns_tablet }}-cols lg:f-grid-{{ columns_desktop }}-cols f-grid--gap-{{ section.settings.column_gap }} f-grid--row-gap-{{ section.settings.row_gap }}{% if enable_swipe_mobile %} swipe-mobile__inner{% endif %}">
+            {%- comment %}<locksmith:153c>{% endcomment -%}
+              {%- assign locksmith_a1af_forloop__size = 0 %}{%- for product in products -%}{% capture var %}{% render 'locksmith-variables', scope: 'subject', subject: product, variable: 'transparent' %}{% endcapture %}{% if var == 'true' %}{% assign locksmith_a1af_forloop__size = locksmith_a1af_forloop__size | plus: 1 %}{% endif %}{% endfor %}{% assign locksmith_a1af_forloop__index = nil -%}
+            {%- comment %}</locksmith:153c>{% endcomment -%}
             {%- for product in products -%}
-              <div class="f-column col-product-card" data-index="{{ forloop.index0 }}">
+              {%- comment %}<locksmith:bb12>{% endcomment -%}
+                {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: product, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% if locksmith_a1af_forloop__index == nil %}{% assign locksmith_a1af_forloop__index = 1 %}{% assign locksmith_a1af_forloop__index0 = 0 %}{% else %}{% assign locksmith_a1af_forloop__index = locksmith_a1af_forloop__index | plus: 1 %}{% assign locksmith_a1af_forloop__index0 = locksmith_a1af_forloop__index0 | plus: 1 %}{% endif %}{% if locksmith_a1af_forloop__index == 1 %}{% assign locksmith_a1af_forloop__first = true %}{% else %}{% assign locksmith_a1af_forloop__first = false %}{% endif %}{% if locksmith_a1af_forloop__index == locksmith_a1af_forloop__size %}{% assign locksmith_a1af_forloop__last = true %}{% else %}{% assign locksmith_a1af_forloop__last = false %}{% endif %}{% assign locksmith_a1af_forloop__rindex = locksmith_a1af_forloop__size | minus: locksmith_a1af_forloop__index | minus: 1 %}{% assign locksmith_a1af_forloop__rindex0 = locksmith_a1af_forloop__size | minus: locksmith_a1af_forloop__index0 | minus: 1 %}{% else %}{% continue %}{% endif -%}
+              {%- comment %}</locksmith:bb12>{% endcomment -%}
+              <div class="f-column col-product-card" data-index="{{ locksmith_a1af_forloop__index0 }}">
                 {%- render 'card-product',
                   product: product,
                   image_sizes: pcard_image_sizes,
                   image_ratio: section.settings.pcard_image_ratio,
                   section_index: section.index,
-                  index: forloop.index
+                  index: locksmith_a1af_forloop__index
                 -%}
               </div>
             {%- else -%}

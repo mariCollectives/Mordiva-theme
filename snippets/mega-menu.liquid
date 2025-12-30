@@ -58,6 +58,9 @@
               <div class="mega-menu__item">
                 <ul role="list" class="grid gap-3">
                   {%- for collection in collections -%}
+                    {%- comment %}<locksmith:f322>{% endcomment -%}
+                      {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: collection, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% else %}{% continue %}{% endif -%}
+                    {%- comment %}</locksmith:f322>{% endcomment -%}
                     <li>
                       <a href="{{ collection.url }}" class="h4 reversed-link font-heading">
                         {{- collection.title | escape -}}
@@ -68,6 +71,9 @@
               </div>
             {%- endif -%}
             {%- for childlink in link.links -%}
+              {%- comment %}<locksmith:99af>{% endcomment -%}
+                {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: childlink, subject_parent: link, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% else %}{% continue %}{% endif -%}
+              {%- comment %}</locksmith:99af>{% endcomment -%}
               <div class="mega-menu__item">
                 {%- if show_menu_column_divider -%}
                   <div class="mega-menu__item-wrapper">
@@ -78,6 +84,9 @@
                 {%- if childlink.links != blank -%}
                   <ul class="mega-menu__item-child">
                     {%- for grandchildlink in childlink.links -%}
+                      {%- comment %}<locksmith:753a>{% endcomment -%}
+                        {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: grandchildlink, subject_parent: childlink, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% else %}{% continue %}{% endif -%}
+                      {%- comment %}</locksmith:753a>{% endcomment -%}
                       <li>
                         <a href="{{ grandchildlink.url }}" class="reversed-link mega-menu__link">
                           {{- grandchildlink.title | escape -}}

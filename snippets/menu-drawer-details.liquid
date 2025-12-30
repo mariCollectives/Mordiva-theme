@@ -34,6 +34,9 @@
         <div class="menu-drawer__item" level="child">
           <ul role="list" class="grid gap-3">
             {%- for collection in collections -%}
+              {%- comment %}<locksmith:cc45>{% endcomment -%}
+                {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: collection, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% else %}{% continue %}{% endif -%}
+              {%- comment %}</locksmith:cc45>{% endcomment -%}
               <li>
                 <a href="{{ collection.url }}" class="h3 reversed-link font-heading">
                   {{- collection.title | escape -}}
@@ -44,6 +47,9 @@
         </div>
       {%- endif -%}
       {%- for childlink in link.links -%}
+        {%- comment %}<locksmith:466b>{% endcomment -%}
+          {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: childlink, subject_parent: link, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% else %}{% continue %}{% endif -%}
+        {%- comment %}</locksmith:466b>{% endcomment -%}
         <li class="menu-drawer__item" level="child">
           {%- if childlink.links != blank -%}
             <details is="menu-drawer-details">
@@ -61,6 +67,9 @@
                 </button>
                 <ul class="v-scrollable h-full w-full ss">
                   {%- for grandchildlink in childlink.links -%}
+                    {%- comment %}<locksmith:eca1>{% endcomment -%}
+                      {%- capture var %}{% render 'locksmith-variables', scope: 'subject', subject: grandchildlink, subject_parent: childlink, variable: 'transparent' %}{% endcapture %}{% if var == "true" %}{% else %}{% continue %}{% endif -%}
+                    {%- comment %}</locksmith:eca1>{% endcomment -%}
                     <li class="menu-drawer__item">
                       <a
                         href="{{ grandchildlink.url }}"
