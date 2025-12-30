@@ -141,11 +141,15 @@
       <script src="{{ 'quick-view.js' | asset_url }}" defer="defer"></script>
     {% endif %}
 
-{{ 'member-lock.js' | asset_url | script_tag }}
+
 <script>
   window.__customerLoggedIn = {{ customer != blank | json }};
   window.__customerTags = {{ customer.tags | json }};
 </script>
+
+
+
+{{ 'member-lock.js' | asset_url | script_tag }}
 
 
 
