@@ -44,21 +44,9 @@
         "padding_top": 100,
         "padding_bottom": 100
       }
-    },
-    "custom_liquid_zwmiYt": {
-      "type": "custom-liquid",
-      "name": "t:sections.custom-liquid.presets.name",
-      "settings": {
-        "custom_liquid": "<div class=\"save-carts-table\" id=\"cart-save-table\"></div>\n\n<div class=\"share-cart-page-mainDiv\" id=\"mainDiv-share-cart-page\"></div>",
-        "color_scheme": "",
-        "padding_top": 50,
-        "padding_bottom": 50,
-        "custom_class": ""
-      }
     }
   },
   "order": [
-    "main-cart",
-    "custom_liquid_zwmiYt"
+    "main-cart"
   ]
 }
