@@ -1,3 +1,10 @@
 .uncap_cart_detail .cart-header-actions{
         display: none !important;
     }
+
+.incubate-keep-and-share-your-cart-title{
+    position: absolute;
+    width: 10%;
+    text-align: left !important;
+    left: 83%;
+}
