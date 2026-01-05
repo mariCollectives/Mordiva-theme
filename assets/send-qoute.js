@@ -2,7 +2,6 @@
   // Only run on the saved cart page
   if (!location.pathname.startsWith("/apps/cart-saved-data")) return;
 
-  // --- CONFIG: adjust selectors to match your page ---
   var SELECTORS = {
     buttonMountPoints: [
       ".page-width header",
@@ -12,45 +11,54 @@
       "body"
     ],
     itemRows: [
+      // Based on your screenshot, items are likely div rows, not a table.
+      // Keep some fallbacks.
       ".cart-items .cart-item",
       ".CartItems .CartItem",
-      "table tbody tr",
       ".cart-item",
-      "[data-cart-item]"
+      "[data-cart-item]",
+      "table tbody tr"
     ],
     title: [
       ".cart-item__name",
       ".product-title",
       "a[href*='/products/']",
+      "h3",
       "td:nth-child(2)",
       "[data-title]"
     ],
-    qty: [
+    // qty may not be an input; your page shows "Qty: 1" text
+    qtyInput: [
       ".cart-item__quantity input",
       "input[name*='quantity']",
       "[data-qty]"
     ],
+    // text container that might include "Qty: 1"
+    qtyText: [
+      ".cart-item__quantity",
+      ".qty",
+      "[data-quantity]"
+    ],
     price: [
       ".cart-item__price",
       ".price",
-      "[data-price]",
-      "td:nth-child(4)"
+      "[data-price]"
     ],
     lineTotal: [
       ".cart-item__total",
       ".line-total",
-      "[data-line-total]",
-      "td:nth-child(5)"
+      "[data-line-total]"
     ],
     grandTotal: [
+      // Your screenshot shows "Total" row with value at far right
       ".totals__total-value",
       ".cart-total",
       "[data-cart-total]",
+      ".total strong",
       "strong"
     ]
   };
 
-  // Helper: first matching element by selector list
   function $(selectors, root) {
     root = root || document;
     for (var i = 0; i < selectors.length; i++) {
@@ -60,7 +68,6 @@
     return null;
   }
 
-  // Helper: all rows by selector list
   function $all(selectors, root) {
     root = root || document;
     for (var i = 0; i < selectors.length; i++) {
@@ -75,8 +82,15 @@
     return (el.value != null ? el.value : el.textContent || "").trim();
   }
 
-  function cleanMoney(s) {
-    return (s || "").replace(/[^\d.,-]/g, "").trim();
+  function moneyKeepDollar(raw) {
+    raw = (raw || "").trim();
+    // Remove currency codes (AUD, USD, etc) but keep the $ sign
+    raw = raw.replace(/\b[A-Z]{3}\b/g, "").trim();
+
+    if (raw.indexOf("$") !== -1) return raw.replace(/\s+/g, " ").trim();
+
+    var num = raw.replace(/[^\d.,-]/g, "").trim();
+    return num ? ("$" + num) : "";
   }
 
   function getCartId() {
@@ -89,25 +103,43 @@
     return (h1 ? h1.textContent : document.title || "Saved Cart").trim();
   }
 
+  function extractQty(row) {
+    // 1) Try input
+    var qtyInputEl = $(SELECTORS.qtyInput, row);
+    var v = text(qtyInputEl);
+    if (v) {
+      v = (v || "").replace(/[^0-9]/g, "");
+      if (v) return v;
+    }
+
+    // 2) Try "Qty: 1" text
+    var qtyTextEl = $(SELECTORS.qtyText, row) || row;
+    var t = text(qtyTextEl);
+    var m = t.match(/Qty\s*:\s*(\d+)/i);
+    if (m && m[1]) return m[1];
+
+    // 3) Default
+    return "1";
+  }
+
   function parseItemsFromDOM() {
     var rows = $all(SELECTORS.itemRows);
     var items = [];
 
     rows.forEach(function (row) {
       var titleEl = $(SELECTORS.title, row);
-      var qtyEl   = $(SELECTORS.qty, row);
       var priceEl = $(SELECTORS.price, row);
       var totalEl = $(SELECTORS.lineTotal, row);
 
       var title = text(titleEl);
-      var qty   = text(qtyEl);
-      var price = cleanMoney(text(priceEl));
-      var lineTotal = cleanMoney(text(totalEl));
+      if (!title) return;
 
-      if (!title || /add to cart|remove/i.test(title)) return;
+      // Skip UI buttons/labels accidentally captured
+      if (/add to cart|remove|options|share/i.test(title)) return;
 
-      // Normalize qty (handles "Qty: 1")
-      qty = (qty || "").replace(/[^0-9]/g, "") || qty;
+      var qty = extractQty(row);
+      var price = moneyKeepDollar(text(priceEl));
+      var lineTotal = moneyKeepDollar(text(totalEl));
 
       items.push({
         title: title,
@@ -117,49 +149,23 @@
       });
     });
 
-    var totalEl = $(SELECTORS.grandTotal);
-    var grandTotal = cleanMoney(text(totalEl));
+    // Grand total: try to find the strongest match by looking near "Total" label
+    var grandTotal = "";
+    var totalRow = Array.prototype.slice.call(document.querySelectorAll("*")).find(function (el) {
+      return el && el.textContent && el.textContent.trim() === "Total";
+    });
 
-    return { items: items, grandTotal: grandTotal };
-  }
-
-  function downloadPDFPrint() {
-    var cartName = getCartName();
-
-    var w = window.open("", "_blank", "width=900,height=650");
-    if (!w) {
-      alert("Popup blocked. Allow popups to export PDF.");
-      return;
+    if (totalRow && totalRow.parentElement) {
+      // Often the total value is a sibling in the same container row
+      grandTotal = moneyKeepDollar(text(totalRow.parentElement.querySelector("strong") || totalRow.parentElement.querySelector("[data-cart-total]")));
     }
 
-    var main = document.querySelector("main") || document.body;
+    if (!grandTotal) {
+      var totalEl = $(SELECTORS.grandTotal);
+      grandTotal = moneyKeepDollar(text(totalEl));
+    }
 
-    w.document.open();
-    w.document.write(
-      "<!doctype html><html><head><title>" + cartName + "</title>" +
-      "<meta charset='utf-8' />" +
-      "<meta name='viewport' content='width=device-width, initial-scale=1' />" +
-      "<style>" +
-        "body{font-family:Arial, sans-serif; padding:24px;}" +
-        "button, .no-print{display:none !important;}" +
-        "img{max-width:80px; height:auto;}" +
-        "a{color:inherit; text-decoration:none;}" +
-        "@media print{ body{padding:0;} }" +
-      "</style>" +
-      "</head><body>" +
-      "<h1 style='margin:0 0 8px;'>" + cartName + "</h1>" +
-      "<div style='opacity:.75; margin-bottom:16px; font-size:12px;'>" +
-        "Generated: " + new Date().toLocaleString() +
-      "</div>" +
-      main.innerHTML +
-      "</body></html>"
-    );
-    w.document.close();
-
-    w.focus();
-    setTimeout(function () {
-      w.print();
-    }, 350);
+    return { items: items, grandTotal: grandTotal };
   }
 
   function buildEmailBody(data) {
@@ -193,16 +199,14 @@
   function sendQuoteEmail() {
     var data = parseItemsFromDOM();
     if (!data.items.length) {
-      alert("No cart items found to email. (Update selectors in the script.)");
+      alert("No cart items found to email. Update selectors in the script.");
       return;
     }
 
-    // You CAN'T send email from JS without a backend.
-    // This opens the user's email client with prefilled content.
     var subject = "Quote - " + getCartName();
     var body = buildEmailBody(data);
 
-    // If you want it to go to a specific email by default, put it here:
+    // Optional: set a default recipient email here
     // var to = "orders@yourdomain.com";
     var to = "";
 
@@ -211,50 +215,39 @@
       "?subject=" + encodeURIComponent(subject) +
       "&body=" + encodeURIComponent(body);
 
-    // Use location.href so it works in more browsers
     location.href = mailto;
   }
 
   function mountButtons() {
     var mount = $(SELECTORS.buttonMountPoints) || document.body;
 
-    // Avoid duplicates if script runs twice
-    if (document.getElementById("exportPdfBtn") || document.getElementById("emailQuoteBtn")) return;
+    // Avoid duplicates
+    if (document.getElementById("emailQuoteBtn")) return;
 
     var wrap = document.createElement("div");
     wrap.className = "no-print";
     wrap.style.cssText =
       "display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:flex-end; margin:12px 0;";
 
-    var pdfBtn = document.createElement("button");
-    pdfBtn.id = "exportPdfBtn";
-    pdfBtn.type = "button";
-    pdfBtn.textContent = "Download PDF";
-    pdfBtn.style.cssText =
-      "padding:10px 14px; border:1px solid #111; background:#111; color:#fff; border-radius:6px; cursor:pointer;";
-
     var emailBtn = document.createElement("button");
     emailBtn.id = "emailQuoteBtn";
     emailBtn.type = "button";
     emailBtn.textContent = "Email Quote";
     emailBtn.style.cssText =
-      "padding:10px 14px; border:1px solid #111; background:#fff; color:#111; border-radius:6px; cursor:pointer;";
+      "padding:10px 14px; border:1px solid #111; background:#111; color:#fff; border-radius:6px; cursor:pointer;";
 
-    pdfBtn.addEventListener("click", downloadPDFPrint);
     emailBtn.addEventListener("click", sendQuoteEmail);
 
-    wrap.appendChild(pdfBtn);
     wrap.appendChild(emailBtn);
-
     mount.insertBefore(wrap, mount.firstChild);
   }
 
-  // Wait for content to exist (some apps render after load)
+  // Wait for content to exist (apps sometimes render after load)
   var tries = 0;
   var timer = setInterval(function () {
     tries++;
     var rows = $all(SELECTORS.itemRows);
-    if (rows.length || tries > 20) {
+    if (rows.length || tries > 30) {
       clearInterval(timer);
       mountButtons();
     }
