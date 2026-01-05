@@ -105,17 +105,10 @@
         "disabled": true,
         "settings": {}
       },
-      "8535508488585157746": {
-        "type": "shopify://apps/cart-save-and-share/blocks/save-carts/658d49f7-6740-4039-a671-ea6e6109b1de",
+      "1008767869563187842": {
+        "type": "shopify://apps/uncap-save-share-cart/blocks/app-embed/40605216-fe5a-427f-964b-2bafece0e83a",
         "disabled": false,
-        "settings": {
-          "button_state": "active",
-          "enter_button_text": "View Save Carts",
-          "enter_button_color": "#121212",
-          "enter_button_text_color": "#ffffff",
-          "enter_button_size": 16,
-          "button_alignment": "right"
-        }
+        "settings": {}
       }
     },
     "color_schemes": {
