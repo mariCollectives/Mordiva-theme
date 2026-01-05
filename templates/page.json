@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
@@ -6,9 +15,41 @@
         "padding_top": 28,
         "padding_bottom": 28
       }
+    },
+    "17675800237a960f93": {
+      "type": "apps",
+      "blocks": {
+        "uncap_save_share_cart_cart_saved_list_3GgHaT": {
+          "type": "shopify://apps/uncap-save-share-cart/blocks/cart-saved-list/40605216-fe5a-427f-964b-2bafece0e83a",
+          "settings": {
+            "block_title": "Your Saved Carts",
+            "carts_per_page": 5,
+            "show_item_count": true,
+            "load_button_text": "Load Cart",
+            "view_button_text": "View Cart",
+            "share_button_text": "Share Cart",
+            "delete_button_text": "Delete",
+            "empty_state_text": "No saved carts yet",
+            "prev_btn_text": "Previous",
+            "next_btn_text": "Next",
+            "page_text": "Page",
+            "container_width": 100
+          }
+        }
+      },
+      "block_order": [
+        "uncap_save_share_cart_cart_saved_list_3GgHaT"
+      ],
+      "settings": {
+        "include_margins": true,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "custom_class": ""
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "17675800237a960f93"
   ]
 }
