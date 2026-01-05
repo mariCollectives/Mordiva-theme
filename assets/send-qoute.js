@@ -44,15 +44,12 @@
       ".line-total",
       "[data-line-total]"
     ],
-
-    // ✅ FIXED: your exact grand total row
     grandTotalRow: ".cart-summary-row.cart-summary-total"
   };
 
   function $(selectors, root) {
     root = root || document;
     if (typeof selectors === "string") return root.querySelector(selectors);
-
     for (var i = 0; i < selectors.length; i++) {
       var el = root.querySelector(selectors[i]);
       if (el) return el;
@@ -76,10 +73,19 @@
 
   function moneyKeepDollar(raw) {
     raw = (raw || "").trim();
-    raw = raw.replace(/\b[A-Z]{3}\b/g, "").trim(); // strip currency code
+    raw = raw.replace(/\b[A-Z]{3}\b/g, "").trim();
     if (raw.indexOf("$") !== -1) return raw.replace(/\s+/g, " ").trim();
     var num = raw.replace(/[^\d.,-]/g, "").trim();
     return num ? ("$" + num) : "";
+  }
+
+  function escapeHtml(s) {
+    return String(s == null ? "" : s)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
   }
 
   function getCartId() {
@@ -93,7 +99,6 @@
   }
 
   function extractQty(row) {
-    // 1) input
     var qtyInputEl = $(SELECTORS.qtyInput, row);
     var v = text(qtyInputEl);
     if (v) {
@@ -101,7 +106,6 @@
       if (v) return v;
     }
 
-    // 2) "Qty: 1" text
     var qtyTextEl = $(SELECTORS.qtyText, row) || row;
     var t = text(qtyTextEl);
     var m = t.match(/Qty\s*:\s*(\d+)/i);
@@ -111,17 +115,18 @@
   }
 
   function getGrandTotal() {
-    // ✅ Pull EXACTLY from the row you showed
     var row = $(SELECTORS.grandTotalRow);
-    if (row) {
-      var divs = row.querySelectorAll("div");
-      if (divs && divs.length >= 2) {
-        return moneyKeepDollar(text(divs[1]));
-      }
-      // fallback: last child
-      return moneyKeepDollar(text(row.lastElementChild));
-    }
-    return "";
+    if (!row) return "";
+
+    // Your exact structure:
+    // <div class="cart-summary-row cart-summary-total">
+    //   <div>Total</div>
+    //   <div>$38.98</div>
+    // </div>
+    var divs = row.querySelectorAll("div");
+    if (divs && divs.length >= 2) return moneyKeepDollar(text(divs[1]));
+
+    return moneyKeepDollar(text(row.lastElementChild));
   }
 
   function parseItemsFromDOM() {
@@ -146,6 +151,85 @@
     });
 
     return { items: items, grandTotal: getGrandTotal() };
+  }
+
+  // ✅ Create a clean printable HTML using parsed data (NOT copying the app UI)
+  function buildPrintHtml(data) {
+    var cartName = getCartName();
+    var cartId = getCartId();
+    var now = new Date().toLocaleString();
+
+    var rowsHtml = data.items.map(function (it) {
+      return (
+        "<tr>" +
+          "<td class='title'>" + escapeHtml(it.title) + "</td>" +
+          "<td class='qty'>" + escapeHtml(it.quantity) + "</td>" +
+          "<td class='money'>" + escapeHtml(it.price || "") + "</td>" +
+          "<td class='money'>" + escapeHtml(it.line_total || "") + "</td>" +
+        "</tr>"
+      );
+    }).join("");
+
+    var totalHtml = data.grandTotal
+      ? "<div class='total'><span>Total</span><span>" + escapeHtml(data.grandTotal) + "</span></div>"
+      : "";
+
+    return (
+      "<!doctype html><html><head>" +
+        "<meta charset='utf-8' />" +
+        "<meta name='viewport' content='width=device-width, initial-scale=1' />" +
+        "<title>" + escapeHtml(cartName) + "</title>" +
+        "<style>" +
+          "body{font-family:Arial,sans-serif;padding:28px;color:#111;}" +
+          ".meta{font-size:12px;opacity:.8;margin:6px 0 18px;}" +
+          "h1{margin:0 0 6px;font-size:22px;}" +
+          "table{width:100%;border-collapse:collapse;margin-top:12px;}" +
+          "th,td{border-bottom:1px solid #e6e6e6;padding:10px 8px;text-align:left;font-size:13px;vertical-align:top;}" +
+          "th{background:#fafafa;font-weight:700;}" +
+          "td.qty{width:70px;text-align:center;}" +
+          "td.money{width:120px;text-align:right;white-space:nowrap;}" +
+          ".total{display:flex;justify-content:space-between;gap:12px;margin-top:16px;font-size:16px;font-weight:700;}" +
+          "@media print{body{padding:0} .no-print{display:none!important}}" +
+        "</style>" +
+      "</head><body>" +
+        "<h1>Quote: " + escapeHtml(cartName) + "</h1>" +
+        "<div class='meta'>Generated: " + escapeHtml(now) + "</div>" +
+        (cartId ? "<div class='meta'>Cart ID: " + escapeHtml(cartId) + "</div>" : "") +
+        "<div class='meta'>Link: " + escapeHtml(location.href) + "</div>" +
+        "<table>" +
+          "<thead><tr>" +
+            "<th>Item</th><th style='text-align:center;'>Qty</th><th style='text-align:right;'>Unit</th><th style='text-align:right;'>Line Total</th>" +
+          "</tr></thead>" +
+          "<tbody>" + rowsHtml + "</tbody>" +
+        "</table>" +
+        totalHtml +
+      "</body></html>"
+    );
+  }
+
+  function printQuotePDF() {
+    var data = parseItemsFromDOM();
+    if (!data.items.length) {
+      alert("No cart items found to print. Update selectors in the script.");
+      return;
+    }
+
+    var w = window.open("", "_blank");
+    if (!w) {
+      alert("Popup blocked. Allow popups to print / save as PDF.");
+      return;
+    }
+
+    w.document.open();
+    w.document.write(buildPrintHtml(data));
+    w.document.close();
+
+    w.focus();
+
+    // Wait until window is ready before printing
+    setTimeout(function () {
+      try { w.print(); } catch (e) {}
+    }, 400);
   }
 
   function buildEmailBody(data) {
@@ -186,10 +270,7 @@
     var subject = "Quote - " + getCartName();
     var body = buildEmailBody(data);
 
-    // Optional default recipient
-    // var to = "orders@yourdomain.com";
-    var to = "";
-
+    var to = ""; // optionally set default recipient
     location.href =
       "mailto:" + encodeURIComponent(to) +
       "?subject=" + encodeURIComponent(subject) +
@@ -198,26 +279,36 @@
 
   function mountButtons() {
     var mount = $(SELECTORS.buttonMountPoints) || document.body;
-    if (document.getElementById("emailQuoteBtn")) return;
+    if (document.getElementById("emailQuoteBtn") || document.getElementById("printQuoteBtn")) return;
 
     var wrap = document.createElement("div");
+    wrap.className = "no-print";
     wrap.style.cssText =
       "display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:flex-end; margin:12px 0;";
+
+    var printBtn = document.createElement("button");
+    printBtn.id = "printQuoteBtn";
+    printBtn.type = "button";
+    printBtn.textContent = "Print / Save PDF";
+    printBtn.style.cssText =
+      "padding:10px 14px; border:1px solid #111; background:#111; color:#fff; border-radius:6px; cursor:pointer;";
 
     var emailBtn = document.createElement("button");
     emailBtn.id = "emailQuoteBtn";
     emailBtn.type = "button";
     emailBtn.textContent = "Email Quote";
     emailBtn.style.cssText =
-      "padding:10px 14px; border:1px solid #111; background:#111; color:#fff; border-radius:6px; cursor:pointer;";
+      "padding:10px 14px; border:1px solid #111; background:#fff; color:#111; border-radius:6px; cursor:pointer;";
 
+    printBtn.addEventListener("click", printQuotePDF);
     emailBtn.addEventListener("click", sendQuoteEmail);
 
+    wrap.appendChild(printBtn);
     wrap.appendChild(emailBtn);
+
     mount.insertBefore(wrap, mount.firstChild);
   }
 
-  // Wait for app content to render
   var tries = 0;
   var timer = setInterval(function () {
     tries++;
