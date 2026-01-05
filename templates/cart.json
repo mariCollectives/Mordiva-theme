@@ -12,10 +12,6 @@
     "main-cart": {
       "type": "main-cart",
       "blocks": {
-        "free_shipping_goal_W8bXKE": {
-          "type": "free_shipping_goal",
-          "settings": {}
-        },
         "uncap_save_share_cart_product_save_cart_yrmxBh": {
           "type": "shopify://apps/uncap-save-share-cart/blocks/product-save-cart/40605216-fe5a-427f-964b-2bafece0e83a",
           "settings": {
@@ -33,6 +29,10 @@
             "addto_existing_cart": "Add to Existing Cart",
             "button_spacing": 10
           }
+        },
+        "free_shipping_goal_W8bXKE": {
+          "type": "free_shipping_goal",
+          "settings": {}
         },
         "cart_note_qpALBg": {
           "type": "cart_note",
@@ -52,8 +52,8 @@
         }
       },
       "block_order": [
-        "free_shipping_goal_W8bXKE",
         "uncap_save_share_cart_product_save_cart_yrmxBh",
+        "free_shipping_goal_W8bXKE",
         "cart_note_qpALBg",
         "cart_shipping_rate_bnhQBk",
         "subtotal_LeUiVY",
