@@ -109,6 +109,11 @@
         "type": "shopify://apps/cbb-keep-share-cart/blocks/app-embed-block/bcd29b78-3f2c-4a02-a355-b5ba4727a2eb",
         "disabled": false,
         "settings": {}
+      },
+      "1008767869563187842": {
+        "type": "shopify://apps/uncap-save-share-cart/blocks/app-embed/40605216-fe5a-427f-964b-2bafece0e83a",
+        "disabled": false,
+        "settings": {}
       }
     },
     "color_schemes": {
