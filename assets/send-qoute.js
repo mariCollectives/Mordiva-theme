@@ -5,45 +5,17 @@
     buttonMountPoints: [
       ".page-width header",
       "main header",
-      "main .page-width",
+      ".cart-items-container", // ✅ your app wrapper
       "main",
       "body"
     ],
-    itemRows: [
-      ".cart-items .cart-item",
-      ".CartItems .CartItem",
-      ".cart-item",
-      "[data-cart-item]",
-      "table tbody tr"
-    ],
-    title: [
-      ".cart-item__name",
-      ".product-title",
-      "a[href*='/products/']",
-      "h3",
-      "td:nth-child(2)",
-      "[data-title]"
-    ],
-    qtyInput: [
-      ".cart-item__quantity input",
-      "input[name*='quantity']",
-      "[data-qty]"
-    ],
-    qtyText: [
-      ".cart-item__quantity",
-      ".qty",
-      "[data-quantity]"
-    ],
-    price: [
-      ".cart-item__price",
-      ".price",
-      "[data-price]"
-    ],
-    lineTotal: [
-      ".cart-item__total",
-      ".line-total",
-      "[data-line-total]"
-    ],
+
+    // ✅ Your real DOM structure
+    itemRows: [".cart-item"],
+    title: [".item-title"],
+    qtyText: [".item-quantity"],
+    unitPrice: [".item-price"],
+    lineTotal: [".item-total"],
     grandTotalRow: ".cart-summary-row.cart-summary-total"
   };
 
@@ -73,7 +45,7 @@
 
   function moneyKeepDollar(raw) {
     raw = (raw || "").trim();
-    raw = raw.replace(/\b[A-Z]{3}\b/g, "").trim();
+    raw = raw.replace(/\b[A-Z]{3}\b/g, "").trim(); // remove currency codes only
     if (raw.indexOf("$") !== -1) return raw.replace(/\s+/g, " ").trim();
     var num = raw.replace(/[^\d.,-]/g, "").trim();
     return num ? ("$" + num) : "";
@@ -98,34 +70,23 @@
     return (h1 ? h1.textContent : document.title || "Saved Cart").trim();
   }
 
-  function extractQty(row) {
-    var qtyInputEl = $(SELECTORS.qtyInput, row);
-    var v = text(qtyInputEl);
-    if (v) {
-      v = v.replace(/[^0-9]/g, "");
-      if (v) return v;
-    }
+  function extractQtyFromText(qtyRaw) {
+    // "Qty: 3" -> 3
+    var m = (qtyRaw || "").match(/Qty\s*:\s*(\d+)/i);
+    return (m && m[1]) ? m[1] : "1";
+  }
 
-    var qtyTextEl = $(SELECTORS.qtyText, row) || row;
-    var t = text(qtyTextEl);
-    var m = t.match(/Qty\s*:\s*(\d+)/i);
-    if (m && m[1]) return m[1];
-
-    return "1";
+  function extractLineTotal(totalRaw) {
+    // "Total: $59.97" -> "$59.97"
+    var m = (totalRaw || "").match(/Total\s*:\s*(.*)$/i);
+    return moneyKeepDollar(m && m[1] ? m[1] : totalRaw);
   }
 
   function getGrandTotal() {
     var row = $(SELECTORS.grandTotalRow);
     if (!row) return "";
-
-    // Your exact structure:
-    // <div class="cart-summary-row cart-summary-total">
-    //   <div>Total</div>
-    //   <div>$38.98</div>
-    // </div>
     var divs = row.querySelectorAll("div");
     if (divs && divs.length >= 2) return moneyKeepDollar(text(divs[1]));
-
     return moneyKeepDollar(text(row.lastElementChild));
   }
 
@@ -134,26 +95,25 @@
     var items = [];
 
     rows.forEach(function (row) {
-      var titleEl = $(SELECTORS.title, row);
-      var priceEl = $(SELECTORS.price, row);
-      var totalEl = $(SELECTORS.lineTotal, row);
-
-      var title = text(titleEl);
+      var title = text($(SELECTORS.title, row));
       if (!title) return;
-      if (/add to cart|remove|options|share/i.test(title)) return;
+
+      var qty = extractQtyFromText(text($(SELECTORS.qtyText, row)));
+      var unit = moneyKeepDollar(text($(SELECTORS.unitPrice, row)));
+      var lineTotal = extractLineTotal(text($(SELECTORS.lineTotal, row)));
 
       items.push({
         title: title,
-        quantity: extractQty(row),
-        price: moneyKeepDollar(text(priceEl)),
-        line_total: moneyKeepDollar(text(totalEl))
+        quantity: qty,
+        unit: unit,
+        line_total: lineTotal
       });
     });
 
     return { items: items, grandTotal: getGrandTotal() };
   }
 
-  // ✅ Create a clean printable HTML using parsed data (NOT copying the app UI)
+  // -------- PRINT (Save as PDF) --------
   function buildPrintHtml(data) {
     var cartName = getCartName();
     var cartId = getCartId();
@@ -164,7 +124,7 @@
         "<tr>" +
           "<td class='title'>" + escapeHtml(it.title) + "</td>" +
           "<td class='qty'>" + escapeHtml(it.quantity) + "</td>" +
-          "<td class='money'>" + escapeHtml(it.price || "") + "</td>" +
+          "<td class='money'>" + escapeHtml(it.unit || "") + "</td>" +
           "<td class='money'>" + escapeHtml(it.line_total || "") + "</td>" +
         "</tr>"
       );
@@ -181,15 +141,15 @@
         "<title>" + escapeHtml(cartName) + "</title>" +
         "<style>" +
           "body{font-family:Arial,sans-serif;padding:28px;color:#111;}" +
-          ".meta{font-size:12px;opacity:.8;margin:6px 0 18px;}" +
           "h1{margin:0 0 6px;font-size:22px;}" +
-          "table{width:100%;border-collapse:collapse;margin-top:12px;}" +
-          "th,td{border-bottom:1px solid #e6e6e6;padding:10px 8px;text-align:left;font-size:13px;vertical-align:top;}" +
+          ".meta{font-size:12px;opacity:.8;margin:6px 0 0;}" +
+          "table{width:100%;border-collapse:collapse;margin-top:16px;}" +
+          "th,td{border-bottom:1px solid #e6e6e6;padding:10px 8px;font-size:13px;vertical-align:top;}" +
           "th{background:#fafafa;font-weight:700;}" +
           "td.qty{width:70px;text-align:center;}" +
-          "td.money{width:120px;text-align:right;white-space:nowrap;}" +
+          "td.money{width:130px;text-align:right;white-space:nowrap;}" +
           ".total{display:flex;justify-content:space-between;gap:12px;margin-top:16px;font-size:16px;font-weight:700;}" +
-          "@media print{body{padding:0} .no-print{display:none!important}}" +
+          "@media print{body{padding:0}}" +
         "</style>" +
       "</head><body>" +
         "<h1>Quote: " + escapeHtml(cartName) + "</h1>" +
@@ -198,7 +158,10 @@
         "<div class='meta'>Link: " + escapeHtml(location.href) + "</div>" +
         "<table>" +
           "<thead><tr>" +
-            "<th>Item</th><th style='text-align:center;'>Qty</th><th style='text-align:right;'>Unit</th><th style='text-align:right;'>Line Total</th>" +
+            "<th>Item</th>" +
+            "<th style='text-align:center;'>Qty</th>" +
+            "<th style='text-align:right;'>Unit</th>" +
+            "<th style='text-align:right;'>Line Total</th>" +
           "</tr></thead>" +
           "<tbody>" + rowsHtml + "</tbody>" +
         "</table>" +
@@ -210,7 +173,7 @@
   function printQuotePDF() {
     var data = parseItemsFromDOM();
     if (!data.items.length) {
-      alert("No cart items found to print. Update selectors in the script.");
+      alert("No cart items found to print. Check selectors.");
       return;
     }
 
@@ -225,13 +188,12 @@
     w.document.close();
 
     w.focus();
-
-    // Wait until window is ready before printing
     setTimeout(function () {
       try { w.print(); } catch (e) {}
     }, 400);
   }
 
+  // -------- EMAIL --------
   function buildEmailBody(data) {
     var cartId = getCartId();
     var cartName = getCartName();
@@ -247,7 +209,7 @@
 
     data.items.forEach(function (it) {
       var line = "- " + it.title + " | Qty: " + it.quantity;
-      if (it.price) line += " | Unit: " + it.price;
+      if (it.unit) line += " | Unit: " + it.unit;
       if (it.line_total) line += " | Line Total: " + it.line_total;
       lines.push(line);
     });
@@ -263,23 +225,24 @@
   function sendQuoteEmail() {
     var data = parseItemsFromDOM();
     if (!data.items.length) {
-      alert("No cart items found to email. Update selectors in the script.");
+      alert("No cart items found to email. Check selectors.");
       return;
     }
 
     var subject = "Quote - " + getCartName();
     var body = buildEmailBody(data);
 
-    var to = ""; // optionally set default recipient
+    var to = ""; // optional: set default recipient email
     location.href =
       "mailto:" + encodeURIComponent(to) +
       "?subject=" + encodeURIComponent(subject) +
       "&body=" + encodeURIComponent(body);
   }
 
+  // -------- UI --------
   function mountButtons() {
     var mount = $(SELECTORS.buttonMountPoints) || document.body;
-    if (document.getElementById("emailQuoteBtn") || document.getElementById("printQuoteBtn")) return;
+    if (document.getElementById("printQuoteBtn") || document.getElementById("emailQuoteBtn")) return;
 
     var wrap = document.createElement("div");
     wrap.className = "no-print";
@@ -305,15 +268,15 @@
 
     wrap.appendChild(printBtn);
     wrap.appendChild(emailBtn);
-
     mount.insertBefore(wrap, mount.firstChild);
   }
 
+  // Wait for app content to render
   var tries = 0;
   var timer = setInterval(function () {
     tries++;
-    var hasTotal = !!$(SELECTORS.grandTotalRow);
     var rows = $all(SELECTORS.itemRows);
+    var hasTotal = !!$(SELECTORS.grandTotalRow);
     if ((rows.length && hasTotal) || tries > 40) {
       clearInterval(timer);
       mountButtons();
