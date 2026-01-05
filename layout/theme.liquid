@@ -97,6 +97,10 @@
     {{ 'custom-styles.css' | asset_url | stylesheet_tag }}
 
 
+
+   <script src="{{ 'send-qoute.js' | asset_url }}" defer="defer"></script>
+   
+
     {% comment %} Custom metafield for head tag like GTag tracking {% endcomment %}
     {{ shop.metafields.foxtheme.code_head.value }}
     {% comment %} End custom metafield for head tag like GTag tracking {% endcomment %}
