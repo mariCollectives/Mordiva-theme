@@ -28,6 +28,24 @@
           "type": "subtotal",
           "settings": {}
         },
+        "uncap_save_share_cart_product_save_cart_yrmxBh": {
+          "type": "shopify://apps/uncap-save-share-cart/blocks/product-save-cart/40605216-fe5a-427f-964b-2bafece0e83a",
+          "settings": {
+            "createandcart_button_text": "Create & Cart",
+            "button_text": "Save to Cart",
+            "modal_title": "Save Product to Cart",
+            "default_cart_name": "My Saved Cart",
+            "use_theme_styles": true,
+            "added_tocart_button_text": "Add to this cart",
+            "added_cart_text": "Added!",
+            "dont_saved_carts": "You don't have any saved carts yet.",
+            "product_added_cart_successfully": "Product added to cart successfully!",
+            "create_new_cart": "Create New Cart",
+            "cart_name": "Cart Name",
+            "addto_existing_cart": "Add to Existing Cart",
+            "button_spacing": 10
+          }
+        },
         "buttons_drwbch": {
           "type": "buttons",
           "settings": {}
@@ -38,6 +56,7 @@
         "cart_note_qpALBg",
         "cart_shipping_rate_bnhQBk",
         "subtotal_LeUiVY",
+        "uncap_save_share_cart_product_save_cart_yrmxBh",
         "buttons_drwbch"
       ],
       "settings": {
