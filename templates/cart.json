@@ -16,18 +16,6 @@
           "type": "free_shipping_goal",
           "settings": {}
         },
-        "cart_note_qpALBg": {
-          "type": "cart_note",
-          "settings": {}
-        },
-        "cart_shipping_rate_bnhQBk": {
-          "type": "cart_shipping_rate",
-          "settings": {}
-        },
-        "subtotal_LeUiVY": {
-          "type": "subtotal",
-          "settings": {}
-        },
         "uncap_save_share_cart_product_save_cart_yrmxBh": {
           "type": "shopify://apps/uncap-save-share-cart/blocks/product-save-cart/40605216-fe5a-427f-964b-2bafece0e83a",
           "settings": {
@@ -46,6 +34,18 @@
             "button_spacing": 10
           }
         },
+        "cart_note_qpALBg": {
+          "type": "cart_note",
+          "settings": {}
+        },
+        "cart_shipping_rate_bnhQBk": {
+          "type": "cart_shipping_rate",
+          "settings": {}
+        },
+        "subtotal_LeUiVY": {
+          "type": "subtotal",
+          "settings": {}
+        },
         "buttons_drwbch": {
           "type": "buttons",
           "settings": {}
@@ -53,10 +53,10 @@
       },
       "block_order": [
         "free_shipping_goal_W8bXKE",
+        "uncap_save_share_cart_product_save_cart_yrmxBh",
         "cart_note_qpALBg",
         "cart_shipping_rate_bnhQBk",
         "subtotal_LeUiVY",
-        "uncap_save_share_cart_product_save_cart_yrmxBh",
         "buttons_drwbch"
       ],
       "settings": {
