@@ -1,5 +1,4 @@
 (function () {
-  // Only run on the saved cart page
   if (!location.pathname.startsWith("/apps/cart-saved-data")) return;
 
   var SELECTORS = {
@@ -11,8 +10,6 @@
       "body"
     ],
     itemRows: [
-      // Based on your screenshot, items are likely div rows, not a table.
-      // Keep some fallbacks.
       ".cart-items .cart-item",
       ".CartItems .CartItem",
       ".cart-item",
@@ -27,13 +24,11 @@
       "td:nth-child(2)",
       "[data-title]"
     ],
-    // qty may not be an input; your page shows "Qty: 1" text
     qtyInput: [
       ".cart-item__quantity input",
       "input[name*='quantity']",
       "[data-qty]"
     ],
-    // text container that might include "Qty: 1"
     qtyText: [
       ".cart-item__quantity",
       ".qty",
@@ -49,18 +44,15 @@
       ".line-total",
       "[data-line-total]"
     ],
-    grandTotal: [
-      // Your screenshot shows "Total" row with value at far right
-      ".totals__total-value",
-      ".cart-total",
-      "[data-cart-total]",
-      ".total strong",
-      "strong"
-    ]
+
+    // ✅ FIXED: your exact grand total row
+    grandTotalRow: ".cart-summary-row.cart-summary-total"
   };
 
   function $(selectors, root) {
     root = root || document;
+    if (typeof selectors === "string") return root.querySelector(selectors);
+
     for (var i = 0; i < selectors.length; i++) {
       var el = root.querySelector(selectors[i]);
       if (el) return el;
@@ -84,11 +76,8 @@
 
   function moneyKeepDollar(raw) {
     raw = (raw || "").trim();
-    // Remove currency codes (AUD, USD, etc) but keep the $ sign
-    raw = raw.replace(/\b[A-Z]{3}\b/g, "").trim();
-
+    raw = raw.replace(/\b[A-Z]{3}\b/g, "").trim(); // strip currency code
     if (raw.indexOf("$") !== -1) return raw.replace(/\s+/g, " ").trim();
-
     var num = raw.replace(/[^\d.,-]/g, "").trim();
     return num ? ("$" + num) : "";
   }
@@ -104,22 +93,35 @@
   }
 
   function extractQty(row) {
-    // 1) Try input
+    // 1) input
     var qtyInputEl = $(SELECTORS.qtyInput, row);
     var v = text(qtyInputEl);
     if (v) {
-      v = (v || "").replace(/[^0-9]/g, "");
+      v = v.replace(/[^0-9]/g, "");
       if (v) return v;
     }
 
-    // 2) Try "Qty: 1" text
+    // 2) "Qty: 1" text
     var qtyTextEl = $(SELECTORS.qtyText, row) || row;
     var t = text(qtyTextEl);
     var m = t.match(/Qty\s*:\s*(\d+)/i);
     if (m && m[1]) return m[1];
 
-    // 3) Default
     return "1";
+  }
+
+  function getGrandTotal() {
+    // ✅ Pull EXACTLY from the row you showed
+    var row = $(SELECTORS.grandTotalRow);
+    if (row) {
+      var divs = row.querySelectorAll("div");
+      if (divs && divs.length >= 2) {
+        return moneyKeepDollar(text(divs[1]));
+      }
+      // fallback: last child
+      return moneyKeepDollar(text(row.lastElementChild));
+    }
+    return "";
   }
 
   function parseItemsFromDOM() {
@@ -133,39 +135,17 @@
 
       var title = text(titleEl);
       if (!title) return;
-
-      // Skip UI buttons/labels accidentally captured
       if (/add to cart|remove|options|share/i.test(title)) return;
-
-      var qty = extractQty(row);
-      var price = moneyKeepDollar(text(priceEl));
-      var lineTotal = moneyKeepDollar(text(totalEl));
 
       items.push({
         title: title,
-        quantity: qty || "1",
-        price: price,
-        line_total: lineTotal
+        quantity: extractQty(row),
+        price: moneyKeepDollar(text(priceEl)),
+        line_total: moneyKeepDollar(text(totalEl))
       });
     });
 
-    // Grand total: try to find the strongest match by looking near "Total" label
-    var grandTotal = "";
-    var totalRow = Array.prototype.slice.call(document.querySelectorAll("*")).find(function (el) {
-      return el && el.textContent && el.textContent.trim() === "Total";
-    });
-
-    if (totalRow && totalRow.parentElement) {
-      // Often the total value is a sibling in the same container row
-      grandTotal = moneyKeepDollar(text(totalRow.parentElement.querySelector("strong") || totalRow.parentElement.querySelector("[data-cart-total]")));
-    }
-
-    if (!grandTotal) {
-      var totalEl = $(SELECTORS.grandTotal);
-      grandTotal = moneyKeepDollar(text(totalEl));
-    }
-
-    return { items: items, grandTotal: grandTotal };
+    return { items: items, grandTotal: getGrandTotal() };
   }
 
   function buildEmailBody(data) {
@@ -206,26 +186,21 @@
     var subject = "Quote - " + getCartName();
     var body = buildEmailBody(data);
 
-    // Optional: set a default recipient email here
+    // Optional default recipient
     // var to = "orders@yourdomain.com";
     var to = "";
 
-    var mailto =
+    location.href =
       "mailto:" + encodeURIComponent(to) +
       "?subject=" + encodeURIComponent(subject) +
       "&body=" + encodeURIComponent(body);
-
-    location.href = mailto;
   }
 
   function mountButtons() {
     var mount = $(SELECTORS.buttonMountPoints) || document.body;
-
-    // Avoid duplicates
     if (document.getElementById("emailQuoteBtn")) return;
 
     var wrap = document.createElement("div");
-    wrap.className = "no-print";
     wrap.style.cssText =
       "display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:flex-end; margin:12px 0;";
 
@@ -242,12 +217,13 @@
     mount.insertBefore(wrap, mount.firstChild);
   }
 
-  // Wait for content to exist (apps sometimes render after load)
+  // Wait for app content to render
   var tries = 0;
   var timer = setInterval(function () {
     tries++;
+    var hasTotal = !!$(SELECTORS.grandTotalRow);
     var rows = $all(SELECTORS.itemRows);
-    if (rows.length || tries > 30) {
+    if ((rows.length && hasTotal) || tries > 40) {
       clearInterval(timer);
       mountButtons();
     }
