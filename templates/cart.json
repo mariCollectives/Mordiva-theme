@@ -28,41 +28,6 @@
           "type": "subtotal",
           "settings": {}
         },
-        "uncap_save_share_cart_cart_saved_list_6gJrWf": {
-          "type": "shopify://apps/uncap-save-share-cart/blocks/cart-saved-list/40605216-fe5a-427f-964b-2bafece0e83a",
-          "settings": {
-            "block_title": "Your Saved Carts",
-            "carts_per_page": 5,
-            "show_item_count": true,
-            "load_button_text": "Load Cart",
-            "view_button_text": "View Cart",
-            "share_button_text": "Share Cart",
-            "delete_button_text": "Delete",
-            "empty_state_text": "No saved carts yet",
-            "prev_btn_text": "Previous",
-            "next_btn_text": "Next",
-            "page_text": "Page",
-            "container_width": 100
-          }
-        },
-        "uncap_save_share_cart_product_save_cart_LYwwXq": {
-          "type": "shopify://apps/uncap-save-share-cart/blocks/product-save-cart/40605216-fe5a-427f-964b-2bafece0e83a",
-          "settings": {
-            "createandcart_button_text": "Create & Cart",
-            "button_text": "Save to Cart",
-            "modal_title": "Save Product to Cart",
-            "default_cart_name": "My Saved Cart",
-            "use_theme_styles": true,
-            "added_tocart_button_text": "Add to this cart",
-            "added_cart_text": "Added!",
-            "dont_saved_carts": "You don't have any saved carts yet.",
-            "product_added_cart_successfully": "Product added to cart successfully!",
-            "create_new_cart": "Create New Cart",
-            "cart_name": "Cart Name",
-            "addto_existing_cart": "Add to Existing Cart",
-            "button_spacing": 10
-          }
-        },
         "buttons_drwbch": {
           "type": "buttons",
           "settings": {}
@@ -73,17 +38,27 @@
         "cart_note_qpALBg",
         "cart_shipping_rate_bnhQBk",
         "subtotal_LeUiVY",
-        "uncap_save_share_cart_cart_saved_list_6gJrWf",
-        "uncap_save_share_cart_product_save_cart_LYwwXq",
         "buttons_drwbch"
       ],
       "settings": {
         "padding_top": 100,
         "padding_bottom": 100
       }
+    },
+    "custom_liquid_HqYVGc": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "custom_liquid": "{% if shop.metafields.AOD_Cart_Saver.EnableApp != \"Disabled\" %}\n\n{% if cart.item_count > 0 %}\n\n<button type='button' class='btn aodSaveCart'>\n\n{{shop.metafields.AOD_Cart_Saver.btn_save_cart | default:'save this cart'}}\n\n</button>\n\n{% endif %}\n\n<button type='button' class='btn aodViewCart'>\n\n{{shop.metafields.AOD_Cart_Saver.btn_view_cart | default:'View saved cart'}}\n\n</button>\n\n</button>\n\n{% endif %}",
+        "color_scheme": "",
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "custom_class": ""
+      }
     }
   },
   "order": [
-    "main-cart"
+    "main-cart",
+    "custom_liquid_HqYVGc"
   ]
 }
