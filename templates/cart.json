@@ -44,21 +44,9 @@
         "padding_top": 100,
         "padding_bottom": 100
       }
-    },
-    "custom_liquid_HqYVGc": {
-      "type": "custom-liquid",
-      "name": "t:sections.custom-liquid.presets.name",
-      "settings": {
-        "custom_liquid": "{% if shop.metafields.AOD_Cart_Saver.EnableApp != \"Disabled\" %}\n\n{% if cart.item_count > 0 %}\n\n<button type='button' class='btn aodSaveCart'>\n\n{{shop.metafields.AOD_Cart_Saver.btn_save_cart | default:'save this cart'}}\n\n</button>\n\n{% endif %}\n\n<button type='button' class='btn aodViewCart'>\n\n{{shop.metafields.AOD_Cart_Saver.btn_view_cart | default:'View saved cart'}}\n\n</button>\n\n</button>\n\n{% endif %}",
-        "color_scheme": "",
-        "padding_top": 50,
-        "padding_bottom": 50,
-        "custom_class": ""
-      }
     }
   },
   "order": [
-    "main-cart",
-    "custom_liquid_HqYVGc"
+    "main-cart"
   ]
 }
