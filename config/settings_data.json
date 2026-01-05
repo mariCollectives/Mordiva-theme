@@ -105,8 +105,8 @@
         "disabled": true,
         "settings": {}
       },
-      "5004052567068253691": {
-        "type": "shopify://apps/redchamps-share-cart/blocks/share_cart_button/d968785c-56f2-42f2-96c6-64008c3de5d9",
+      "14279743200935222021": {
+        "type": "shopify://apps/cbb-keep-share-cart/blocks/app-embed-block/bcd29b78-3f2c-4a02-a355-b5ba4727a2eb",
         "disabled": false,
         "settings": {}
       }
