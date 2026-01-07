@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+/*   font-family: "Lexend", sans-serif; */ 
+
 .uncap_cart_detail .cart-header-actions{
         display: none !important;
     }
@@ -8,4 +12,8 @@
     text-align: left !important;
     left: 86%;
     top: -1em;
+}
+
+.slideshow__content .slideshow__title{
+    font-family: "Lexend", sans-serif !important;
 }
