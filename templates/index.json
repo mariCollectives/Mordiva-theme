@@ -260,7 +260,8 @@
           "settings": {
             "card_color_inherited": true,
             "card_style": "",
-            "collection": "",
+            "collection": "construction-and-engineering-copy",
+            "image": "shopify://shop_images/Asset_3_e7ce92f4-1499-4591-9f3b-d1ab5ed00fa5.png",
             "image_ratio": "adapt",
             "card_width": "full",
             "width": "50%",
