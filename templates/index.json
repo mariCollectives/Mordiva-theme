@@ -172,7 +172,8 @@
           "settings": {
             "card_color_inherited": true,
             "card_style": "",
-            "collection": "",
+            "collection": "dramatic-play-copy",
+            "image": "shopify://shop_images/Asset_4_a6287256-351d-4e32-9939-e8d8480f2778.png",
             "image_ratio": "adapt",
             "card_width": "narrow",
             "width": "50%",
