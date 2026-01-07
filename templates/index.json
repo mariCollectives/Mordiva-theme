@@ -1192,64 +1192,6 @@
         "custom_class": ""
       }
     },
-    "scrolling_promotion_FJkqfK": {
-      "type": "scrolling-promotion",
-      "blocks": {
-        "text_wAnmth": {
-          "type": "text",
-          "settings": {
-            "text": "ELEGANT LIGHTING",
-            "text_link": "",
-            "text_size": "hd1",
-            "font_weight": "font-heading",
-            "font_style": "normal",
-            "letter_spacing": 0,
-            "text_opacity": 100,
-            "text_style": "normal",
-            "use_custom_color": true,
-            "custom_color": "#ffffff"
-          }
-        },
-        "text_haiQKj": {
-          "type": "text",
-          "settings": {
-            "text": "FEATURED ITEM",
-            "text_link": "",
-            "text_size": "hd1",
-            "font_weight": "font-heading",
-            "font_style": "normal",
-            "letter_spacing": 0,
-            "text_opacity": 100,
-            "text_style": "normal",
-            "use_custom_color": true,
-            "custom_color": "#ffffff"
-          }
-        }
-      },
-      "block_order": [
-        "text_wAnmth",
-        "text_haiQKj"
-      ],
-      "custom_css": [
-        ".section--scrolling-promotion {position: relative; padding: 0; z-index: 1; background: none;}",
-        ".scrolling-promotion {position: absolute; top: 100%; left: 0; right: 0;}"
-      ],
-      "name": "t:sections.scrolling-promotion.presets.name",
-      "settings": {
-        "color_scheme": "",
-        "vertical_alignment": "center",
-        "direction": "left",
-        "pause_on_hover": true,
-        "speed": 0.3,
-        "h_spacing": 120,
-        "v_spacing": 36,
-        "padding_top": 0,
-        "padding_bottom": 0,
-        "show_divider": false,
-        "divider_layout": "vertical",
-        "custom_class": ""
-      }
-    },
     "video_hero_kqkWdj": {
       "type": "video-hero",
       "blocks": {
@@ -1514,7 +1456,6 @@
     "custom_content_pD7dgP",
     "favorite_products_96xbMg",
     "multicolumn_xFjqFm",
-    "scrolling_promotion_FJkqfK",
     "video_hero_kqkWdj",
     "image_with_text_overlay_QaCmnT",
     "multicolumn_RFyHwL",
