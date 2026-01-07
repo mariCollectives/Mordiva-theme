@@ -97,7 +97,8 @@
           "settings": {
             "card_color_inherited": true,
             "card_style": "",
-            "collection": "",
+            "collection": "outdoor-play",
+            "image": "shopify://shop_images/Asset_3_e7ce92f4-1499-4591-9f3b-d1ab5ed00fa5.png",
             "image_ratio": "adapt",
             "card_width": "narrow",
             "width": "50%",
@@ -110,7 +111,8 @@
           "settings": {
             "card_color_inherited": true,
             "card_style": "",
-            "collection": "",
+            "collection": "physical-wellbeing-copy",
+            "image": "shopify://shop_images/Asset_1_cd6da499-2d00-42f0-87e4-00301fd01648.png",
             "image_ratio": "adapt",
             "card_width": "full",
             "width": "50%",
