@@ -16,4 +16,10 @@
 
 .slideshow__content .slideshow__title{
     font-family: "Lexend", sans-serif !important;
+    font-weight: 100 !important;
+    font-size: 100px;
+}
+
+.slideshow__content .slideshow__text{
+    max-width: 55rem;
 }
