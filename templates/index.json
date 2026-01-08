@@ -569,108 +569,6 @@
         "custom_class": ""
       }
     },
-    "scrolling_promotion_hHMhyH": {
-      "type": "scrolling-promotion",
-      "blocks": {
-        "text_Dm8KXN": {
-          "type": "text",
-          "settings": {
-            "text": "FIND INSPRATION",
-            "text_link": "",
-            "text_size": "hd1",
-            "font_weight": "font-heading",
-            "font_style": "normal",
-            "letter_spacing": 0,
-            "text_opacity": 100,
-            "text_style": "normal",
-            "use_custom_color": false,
-            "custom_color": "#000000"
-          }
-        },
-        "image_ia7bkc": {
-          "type": "image",
-          "settings": {
-            "image_height": 32,
-            "image_rounded": false,
-            "image_link": "",
-            "image_height_mobile": 32
-          }
-        },
-        "text_ikVCiL": {
-          "type": "text",
-          "settings": {
-            "text": "DESIGN FOR LIVING",
-            "text_link": "",
-            "text_size": "hd1",
-            "font_weight": "font-heading",
-            "font_style": "normal",
-            "letter_spacing": 0,
-            "text_opacity": 100,
-            "text_style": "normal",
-            "use_custom_color": false,
-            "custom_color": "#000000"
-          }
-        },
-        "image_wxgPbg": {
-          "type": "image",
-          "settings": {
-            "image_height": 32,
-            "image_rounded": false,
-            "image_link": "",
-            "image_height_mobile": 32
-          }
-        },
-        "text_4EfA89": {
-          "type": "text",
-          "settings": {
-            "text": "UNIQUE FURNITURE",
-            "text_link": "",
-            "text_size": "hd1",
-            "font_weight": "font-heading",
-            "font_style": "normal",
-            "letter_spacing": 0,
-            "text_opacity": 100,
-            "text_style": "normal",
-            "use_custom_color": false,
-            "custom_color": "#000000"
-          }
-        },
-        "image_WBUHTT": {
-          "type": "image",
-          "settings": {
-            "image_height": 32,
-            "image_rounded": false,
-            "image_link": "",
-            "image_height_mobile": 32
-          }
-        }
-      },
-      "block_order": [
-        "text_Dm8KXN",
-        "image_ia7bkc",
-        "text_ikVCiL",
-        "image_wxgPbg",
-        "text_4EfA89",
-        "image_WBUHTT"
-      ],
-      "custom_css": [
-        ".scrolling-promotion {opacity: 0.2;}"
-      ],
-      "settings": {
-        "color_scheme": "scheme-1",
-        "vertical_alignment": "center",
-        "direction": "left",
-        "pause_on_hover": true,
-        "speed": 0.1,
-        "h_spacing": 48,
-        "v_spacing": 10,
-        "padding_top": 90,
-        "padding_bottom": 90,
-        "show_divider": false,
-        "divider_layout": "vertical",
-        "custom_class": ""
-      }
-    },
     "custom_content_pD7dgP": {
       "type": "custom-content",
       "blocks": {
@@ -1164,7 +1062,6 @@
     "rich_text_HphPmy",
     "featured_collection_nTAnFG",
     "collections_slider_yD633Y",
-    "scrolling_promotion_hHMhyH",
     "custom_content_pD7dgP",
     "favorite_products_96xbMg",
     "multicolumn_xFjqFm",
