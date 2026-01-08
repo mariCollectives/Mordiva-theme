@@ -846,68 +846,6 @@
         "divider_width": "fixed",
         "custom_class": ""
       }
-    },
-    "layered_images_with_text_zGqjLj": {
-      "type": "layered-images-with-text",
-      "blocks": {
-        "image_QbQjPc": {
-          "type": "image",
-          "settings": {
-            "custom_classes": "media-mover-reverse"
-          }
-        },
-        "image_Xqm79B": {
-          "type": "image",
-          "settings": {
-            "custom_classes": "media-mover-reverse"
-          }
-        },
-        "image_6C3Jwc": {
-          "type": "image",
-          "settings": {
-            "custom_classes": "media-mover"
-          }
-        },
-        "image_VVbbWM": {
-          "type": "image",
-          "settings": {
-            "custom_classes": "media-mover"
-          }
-        },
-        "image_MJY9pE": {
-          "type": "image",
-          "settings": {
-            "custom_classes": "media-mover-reverse-slower"
-          }
-        }
-      },
-      "block_order": [
-        "image_QbQjPc",
-        "image_Xqm79B",
-        "image_6C3Jwc",
-        "image_VVbbWM",
-        "image_MJY9pE"
-      ],
-      "custom_css": [
-        ".section-layered-images-with-text .section__header .section__heading {max-width: 380px; margin: 0 auto;}"
-      ],
-      "settings": {
-        "color_scheme": "scheme-3",
-        "heading": "WE’RE ON GRAM",
-        "heading_size": "hd1",
-        "heading_highlight_style": "none",
-        "subheading": "Renovate your home",
-        "description": "",
-        "description_size": "text-base",
-        "button_label": "@inove_store",
-        "button_link": "",
-        "button_style": "btn--secondary",
-        "padding_top": 50,
-        "padding_bottom": 50,
-        "show_section_divider": false,
-        "divider_width": "fixed",
-        "custom_class": ""
-      }
     }
   },
   "order": [
@@ -925,7 +863,6 @@
     "multicolumn_xFjqFm",
     "video_hero_kqkWdj",
     "image_with_text_overlay_QaCmnT",
-    "multicolumn_RFyHwL",
-    "layered_images_with_text_zGqjLj"
+    "multicolumn_RFyHwL"
   ]
 }
