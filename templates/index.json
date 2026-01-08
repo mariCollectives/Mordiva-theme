@@ -765,7 +765,7 @@
             "image_width": "large",
             "title": "Free & fast delivery",
             "heading_size": "h4",
-            "text": "<p>We offer free shipping with ground delivery to the lower 48 states.</p>",
+            "text": "<p>We offer free shipping with<br/>ground delivery</p>",
             "text_size": "text-base",
             "button_label": "",
             "button_style": "btn--underline",
