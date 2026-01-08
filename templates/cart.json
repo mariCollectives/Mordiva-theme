@@ -12,6 +12,12 @@
     "main-cart": {
       "type": "main-cart",
       "blocks": {
+        "cart_custom_liquid_eGXXWX": {
+          "type": "cart_custom_liquid",
+          "settings": {
+            "custom_liquid": "<button type=\"button\" id=\"printCartPdfButton\" class=\"button button--secondary\">\n    Print / Save PDF\n  </button>"
+          }
+        },
         "uncap_save_share_cart_product_save_cart_TnnaJz": {
           "type": "shopify://apps/uncap-save-share-cart/blocks/product-save-cart/40605216-fe5a-427f-964b-2bafece0e83a",
           "settings": {
@@ -52,6 +58,7 @@
         }
       },
       "block_order": [
+        "cart_custom_liquid_eGXXWX",
         "uncap_save_share_cart_product_save_cart_TnnaJz",
         "free_shipping_goal_W8bXKE",
         "cart_note_qpALBg",
