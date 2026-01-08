@@ -1,0 +1,26 @@
+
+{%- comment %}
+    File managed by Lockify app, Any changes you made will be reset the next time app interacts with theme 
+{%- endcomment %}
+
+{% include 'lockify-variables', lockify_scope: nil %}
+
+{%if lockify_access_denied_content == blank%}
+  {%capture lockify_access_denied_content%}
+    <div id="lockify-content">
+      <span>Loading....</span>
+    </div>
+  {%endcapture%}
+{%endif%}
+
+{% include 'lockify-content-variables' %}
+
+{% include 'lockify-variables', lockify_scope: nil %}
+
+{% if lockify_passcode_protected %}
+  {% assign content_for_layout = lockify_passcode_prompt_content %}
+{% elsif lockify_access_granted %}
+  {% assign content_for_layout = lockify_redirect | default: content_for_layout %}
+{% else %}
+  {% assign content_for_layout = lockify_access_denied_content %}
+{% endif %}

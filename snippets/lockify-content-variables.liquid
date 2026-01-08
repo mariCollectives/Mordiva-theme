@@ -1,0 +1,59 @@
+{%- comment %}
+  File managed by Lockify app, Any changes you made will be reset the next time app interacts with theme 
+{%- endcomment %}
+
+{%capture lockify_access_denied_content%}
+    <div class="protected-lockify no-access" style="background:#ffffff">
+      <div class="page-width">
+        <p>This content is protected, but you don’t have access. If you feel this is a mistake, please contact the store owner.</p>
+      </div>
+    </div>
+{%endcapture%}
+
+{%capture lockify_passcode_prompt_content%}
+<div id="lockify-container" style="background:#ffffff">
+    <div class="page-width">
+    <div id="passcode-protected-form">
+        <div class="lockify-wrapper" style="background:#f4f6f8">
+            <div class="lockify--title" style="text-align: center;margin-bottom: 20px;">
+                
+                <h1 class="lockify--heading" style="color:#000000">Enter the Passcode</h1>
+                <p>Please enter your code to unlock this content</p>
+            </div>
+            <form id="passcode-form">
+                <input type="hidden" id="resource-id" value="{% if collection %}{{ collection.id }}{% elsif product %}{{ product.id }}{% elsif page %}{{ page.id }}{% else %}null{% endif %}" />
+                <input type="hidden" id="resource-type" value="{% if collection %}collection{% elsif product %}product{% elsif page %}page{% else %}null{% endif %}" />
+                 <div class="input-container">
+                    
+                    
+                    <input type="text" id="passcode-input" placeholder="Enter Passcode" required />
+                </div>
+                <button type="submit">Unlock Access</button>
+            </form>
+            <div class="error" id="error-message"></div>
+            <p class="info-text" style="margin-top: 10px;">If your code is not working, please contact <a href="mailto:undefined">support team.</a></p>
+        </div>
+    </div>
+   </div>
+</div>
+<style>
+    
+    .lockify-wrapper p, .lockify-wrapper p a ,.passcode-separator { color: #000000; }
+    .lockify--heading { font-size: 30px; margin: 12px 0 8px;line-height: 1.2; }
+    .lockify--title p, .info-text { font-size: 15.5px; max-width:100%; margin: 0 auto; line-height: 1.3; }
+    .lockify-wrapper input { border-radius: undefinedpx; font-size: 16px; box-shadow:none!important;   width: 100%; border: 1px solid #bfbfbf; color:#000000; background:#ffffff; padding: 12px 16px; outline: none !important;}
+    #passcode-protected-form { min-height: 80vh; display: flex; justify-content: center; align-items: center; padding: 30px 10px; }
+    .lockify-wrapper { padding: 30px; border-radius: 8px; text-align: center; max-width: 400px; margin: auto; }
+    .lockify-wrapper input, .lockify-wrapper button { width:100%; margin: 20px 0; transition: all 0.3s, transform 0.1s; }
+    .lockify-wrapper button { border-radius: undefinedpx; box-shadow: none; padding: 11px 22px; line-height: 1.3; font-weight: 500; font-size: 15px; background:#000000; color:#ffffff; border: none; cursor: pointer; }
+    .lockify-wrapper button:hover { opacity: 0.8; }
+    .lockify-wrapper .error { color: red; margin-top: 5px; font-size: 14px; }
+    .lockify-wrapper .input-container{display:flex; gap:10px;align-items:center;justify-content:center;} 
+    .input-error { border-color: red !important; animation: shake 0.3s ease-in-out; }
+    @media(max-width:500px){.lockify-wrapper .input-container{display:block; gap:0px;} .lockify-wrapper input{margin:10px 0px;} .lockify-wrapper button{margin:14px 0px;}}
+    @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 50% { transform: translateX(5px); } 75% { transform: translateX(-5px); } }
+</style>
+ <script>
+     document.addEventListener("DOMContentLoaded",(()=>{document.getElementById("passcode-protected-form")&&document.getElementById("passcode-form").addEventListener("submit",(async e=>{e.preventDefault();const t=document.getElementById("passcode-input"),o=document.getElementById("resource-id").value,n=document.getElementById("resource-type").value,r=document.getElementById("error-message"),a=(document.getElementById("passcode-form"),document.querySelector(".lockify-wrapper"));try{const e=await fetch("/a/lockify/passcode-form",{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:new URLSearchParams({passcode:t.value,resource_type:n,resource_id:o})}),s=await e.json();if(s.validate){const e="undefined"!=typeof settingsData&&settingsData.textColor?settingsData.textColor:"#808080";a.innerHTML='<p style="font-size: 16px; color: '+e+'; text-align: center; font-weight: bold;">Redirecting...</p>';const t=await fetch("/cart.js"),o=await t.json(),n=o.attributes?.["lockify-params"]||"",r=n?n+","+(s?.validateCheck||""):s?.validateCheck||"";await fetch("/cart/update.js",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({attributes:{"lockify-params":r}})}),console.log("Updated lockify-params:",r),s.redirectionUrl?window.location.href=s.redirectionUrl:setTimeout((()=>{location.reload()}),500)}else r.textContent=s.message,t.classList.add("input-error"),setTimeout((()=>{t.classList.remove("input-error")}),500)}catch(e){console.error("Error processing request:",e),r.textContent="An error occurred. Please try again."}}))}));
+ </script>
+{%endcapture%}

@@ -1,0 +1,17 @@
+{%- comment %}
+  File managed by Lockify app, Any changes you made will be reset the next time app interacts with theme 
+{%- endcomment %}
+
+{%- assign lockify_access_granted = true -%}
+{%- assign lockify_passcode_protected = false -%}
+
+{%- unless request.design_mode or request.query.preview_theme_id %}
+
+{% if collection and collection.id == 498823037225 %}
+   {%- assign lockify_access_granted = false -%}
+            {%- if customer and (customer.tags contains "tier-1") -%}
+                {%- assign lockify_access_granted = true -%}
+            {%- endif %}
+{% endif %} 
+
+{%- endunless %}

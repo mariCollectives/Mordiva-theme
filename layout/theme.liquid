@@ -16,6 +16,10 @@
     endif
   endif
 -%}
+{%- comment %}<lockify:12bc>{% endcomment -%}
+{%- include 'lockify' -%}
+{%- comment %}</lockify:12bc>{% endcomment -%}
+
 <!doctype html>
 <html
   class="no-js{% if cart != empty %} cart-has-items{% endif %}"
