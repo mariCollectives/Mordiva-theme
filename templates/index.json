@@ -569,50 +569,6 @@
         "custom_class": ""
       }
     },
-    "favorite_products_96xbMg": {
-      "type": "favorite-products",
-      "blocks": {
-        "product_8qYiYV": {
-          "type": "product",
-          "settings": {
-            "product": "",
-            "text": "<p>“Rectangular elm wood bench. Due to the origin of the materials, the colour may vary slightly...”</p>",
-            "author": "Jenny Wilson",
-            "bio": "New Mexico"
-          }
-        },
-        "product_fbxkLQ": {
-          "type": "product",
-          "settings": {
-            "product": "",
-            "text": "<p>\"The sleek design of this table fits perfectly in our modern home. It's spacious enough for six people.\"</p>",
-            "author": "David R.",
-            "bio": "Los Angeles"
-          }
-        }
-      },
-      "block_order": [
-        "product_8qYiYV",
-        "product_fbxkLQ"
-      ],
-      "custom_css": [
-        "@media (min-width: 768px) {.section-favorite-products .section__header-wrap {padding-bottom: 6rem; } .favorite-product__testimonial {margin: 0 0 4rem; }}",
-        "@media (min-width: 1280px) {.favorite-product__testimonial {margin: 0 0 12rem; }}"
-      ],
-      "settings": {
-        "color_scheme": "scheme-3",
-        "heading": "Our favorite products",
-        "heading_size": "h1",
-        "heading_highlight_style": "none",
-        "pcard_image_ratio": "3/4",
-        "image_ratio": "adapt",
-        "padding_top": 100,
-        "padding_bottom": 100,
-        "show_section_divider": false,
-        "divider_width": "fixed",
-        "custom_class": ""
-      }
-    },
     "multicolumn_xFjqFm": {
       "type": "multicolumn",
       "blocks": {
@@ -966,7 +922,6 @@
     "rich_text_HphPmy",
     "featured_collection_nTAnFG",
     "collections_slider_yD633Y",
-    "favorite_products_96xbMg",
     "multicolumn_xFjqFm",
     "video_hero_kqkWdj",
     "image_with_text_overlay_QaCmnT",
