@@ -569,101 +569,6 @@
         "custom_class": ""
       }
     },
-    "multicolumn_xFjqFm": {
-      "type": "multicolumn",
-      "blocks": {
-        "column_mMWawg": {
-          "type": "column",
-          "settings": {
-            "show_image": true,
-            "image_width": "full",
-            "title": "Showroom",
-            "heading_size": "h3",
-            "text": "<p>Experience design for living at our flagship showroom located in Boston’s South End.</p>",
-            "text_size": "text-base",
-            "button_label": "",
-            "button_style": "btn--underline",
-            "button_link": "",
-            "mobile_layout": "inherit"
-          }
-        },
-        "column_Rta6XJ": {
-          "type": "column",
-          "settings": {
-            "show_image": true,
-            "image_width": "full",
-            "title": "Interior work",
-            "heading_size": "h3",
-            "text": "<p>Designing spaces with precision, curated materials, and purposeful, aesthetic execution.</p>",
-            "text_size": "text-base",
-            "button_label": "",
-            "button_style": "btn--underline",
-            "button_link": "",
-            "mobile_layout": "inherit"
-          }
-        },
-        "column_aywFQK": {
-          "type": "column",
-          "settings": {
-            "show_image": true,
-            "image_width": "full",
-            "title": "Authentic design",
-            "heading_size": "h3",
-            "text": "<p>We offer authentic, lasting pieces—chosen for their ethical integrity and timeless aesthetic appeal.</p>",
-            "text_size": "text-base",
-            "button_label": "",
-            "button_style": "btn--underline",
-            "button_link": "",
-            "mobile_layout": "inherit"
-          }
-        },
-        "column_xnhWVi": {
-          "type": "column",
-          "settings": {
-            "show_image": true,
-            "image_width": "full",
-            "title": "Custom additions",
-            "heading_size": "h3",
-            "text": "<p>Crafting refined interiors through tailored elements, thoughtful design, and craftsmanship.</p>",
-            "text_size": "text-base",
-            "button_label": "",
-            "button_style": "btn--underline",
-            "button_link": "",
-            "mobile_layout": "inherit"
-          }
-        }
-      },
-      "block_order": [
-        "column_mMWawg",
-        "column_Rta6XJ",
-        "column_aywFQK",
-        "column_xnhWVi"
-      ],
-      "custom_css": [
-        ".multicolumn__items {align-items: center;}",
-        ".rich-text__heading {max-width: 630px; margin: 0 auto;}",
-        "@media (min-width: 768px) {.f-grid--gap-extra-large {--column-gap: 8.2rem; } .multicolumn-card__info .multicolumn-card__title {font-size: var(--font-h3-size); } .multicolumn-card__image {--image-spacing-bottom: 1.6rem; }}"
-      ],
-      "settings": {
-        "color_scheme": "",
-        "heading": "Change the look of your house, change the perspective of others",
-        "heading_size": "h1",
-        "heading_highlight_style": "none",
-        "subheading": "",
-        "description": "",
-        "text_size": "text-base",
-        "column_alignment": "left",
-        "columns_desktop": 4,
-        "column_gap": "extra-large",
-        "columns_mobile": "1",
-        "swipe_on_mobile": true,
-        "padding_top": 100,
-        "padding_bottom": 100,
-        "show_section_divider": false,
-        "divider_width": "fixed",
-        "custom_class": ""
-      }
-    },
     "video_hero_kqkWdj": {
       "type": "video-hero",
       "blocks": {
@@ -802,68 +707,6 @@
         "divider_width": "fixed",
         "custom_class": ""
       }
-    },
-    "layered_images_with_text_zGqjLj": {
-      "type": "layered-images-with-text",
-      "blocks": {
-        "image_QbQjPc": {
-          "type": "image",
-          "settings": {
-            "custom_classes": "media-mover-reverse"
-          }
-        },
-        "image_Xqm79B": {
-          "type": "image",
-          "settings": {
-            "custom_classes": "media-mover-reverse"
-          }
-        },
-        "image_6C3Jwc": {
-          "type": "image",
-          "settings": {
-            "custom_classes": "media-mover"
-          }
-        },
-        "image_VVbbWM": {
-          "type": "image",
-          "settings": {
-            "custom_classes": "media-mover"
-          }
-        },
-        "image_MJY9pE": {
-          "type": "image",
-          "settings": {
-            "custom_classes": "media-mover-reverse-slower"
-          }
-        }
-      },
-      "block_order": [
-        "image_QbQjPc",
-        "image_Xqm79B",
-        "image_6C3Jwc",
-        "image_VVbbWM",
-        "image_MJY9pE"
-      ],
-      "custom_css": [
-        ".section-layered-images-with-text .section__header .section__heading {max-width: 380px; margin: 0 auto;}"
-      ],
-      "settings": {
-        "color_scheme": "scheme-3",
-        "heading": "WE’RE ON GRAM",
-        "heading_size": "hd1",
-        "heading_highlight_style": "none",
-        "subheading": "Renovate your home",
-        "description": "",
-        "description_size": "text-base",
-        "button_label": "@inove_store",
-        "button_link": "",
-        "button_style": "btn--secondary",
-        "padding_top": 50,
-        "padding_bottom": 50,
-        "show_section_divider": false,
-        "divider_width": "fixed",
-        "custom_class": ""
-      }
     }
   },
   "order": [
@@ -878,9 +721,7 @@
     "rich_text_HphPmy",
     "featured_collection_nTAnFG",
     "collections_slider_yD633Y",
-    "multicolumn_xFjqFm",
     "video_hero_kqkWdj",
-    "multicolumn_RFyHwL",
-    "layered_images_with_text_zGqjLj"
+    "multicolumn_RFyHwL"
   ]
 }
