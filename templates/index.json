@@ -286,17 +286,6 @@
         "custom_class": ""
       }
     },
-    "custom_liquid_pJ7MQg": {
-      "type": "custom-liquid",
-      "name": "t:sections.custom-liquid.presets.name",
-      "settings": {
-        "custom_liquid": "",
-        "color_scheme": "",
-        "padding_top": 100,
-        "padding_bottom": 50,
-        "custom_class": ""
-      }
-    },
     "lookbook_slider_cte8Fy": {
       "type": "lookbook-slider",
       "blocks": {
@@ -343,6 +332,17 @@
         "padding_bottom": 0,
         "show_section_divider": false,
         "divider_width": "fixed",
+        "custom_class": ""
+      }
+    },
+    "custom_liquid_pJ7MQg": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "custom_liquid": "",
+        "color_scheme": "",
+        "padding_top": 100,
+        "padding_bottom": 50,
         "custom_class": ""
       }
     },
@@ -402,8 +402,8 @@
         "heading_eAXU9P": {
           "type": "heading",
           "settings": {
-            "heading": "Converting home into  a BETTER PLACE to live",
-            "heading_size": "h1",
+            "heading": "Converting a space into a BETTER PLACE to play & learn",
+            "heading_size": "h2",
             "heading_highlight_style": "none"
           }
         },
