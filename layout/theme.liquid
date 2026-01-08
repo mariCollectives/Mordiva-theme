@@ -100,9 +100,24 @@
 
     {{ 'custom-styles.css' | asset_url | stylesheet_tag }}
 
-
-
    <script src="{{ 'send-qoute.js' | asset_url }}" defer="defer"></script>
+
+   <script src="{{ 'print-save.js' | asset_url }}" defer="defer"></script>
+
+
+
+   <script>
+    (function () {
+      var btn = document.getElementById('printCartPdfButton');
+      if (!btn) return;
+
+      btn.addEventListener('click', function () {
+        // Simple + reliable: uses the print CSS above
+        window.print();
+      });
+    })();
+    </script>
+
    
  
 
