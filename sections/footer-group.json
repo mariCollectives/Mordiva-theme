@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "name": "t:sections.footer.name",
   "type": "footer",
@@ -9,7 +18,7 @@
           "type": "newsletter",
           "settings": {
             "block_width": 41,
-            "heading": "Subscribe to get 10% OFF",
+            "heading": "Stay updated with the latest",
             "heading_size": "h2",
             "newsletter_description": "<p>Subscribe for store updates and discounts.</p>",
             "newsletter_term": "<p>By subscribing you agree to the <a href=\"/policies/terms-of-service\" target=\"_blank\" title=\"Terms of Service\">Terms of Use</a> & <a href=\"/policies/privacy-policy\" target=\"_blank\" title=\"Privacy Policy\">Privacy Policy.</a></p>",
@@ -24,6 +33,7 @@
             "block_width": 17,
             "heading": "Shop",
             "heading_size": "h4",
+            "menu": "footer",
             "open_default": false,
             "show_divider": true
           }
@@ -34,6 +44,7 @@
             "block_width": 17,
             "heading": "Customer care",
             "heading_size": "h4",
+            "menu": "footer",
             "open_default": false,
             "show_divider": true
           }
@@ -47,6 +58,7 @@
             "image_width": 150,
             "text": "<p>We only carry designs we believe in ethically and aesthetically – original, authentic pieces that are made to last.</p>",
             "button_label": "LEARN MORE",
+            "button_link": "",
             "open_default": false,
             "show_divider": true
           }
@@ -66,7 +78,7 @@
         "enable_country_selector": true,
         "enable_language_selector": true,
         "payment_enable": true,
-        "footer_bottom_menu": "footer-bottom",
+        "footer_bottom_menu": "",
         "show_section_divider": false,
         "divider_width": "full"
       }
