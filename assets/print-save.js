@@ -1,45 +1,21 @@
 (function () {
-  if (!location.pathname.startsWith("/apps/cart-saved-data")) return;
+  var path = location.pathname.replace(/\/+$/, "");
 
-  var SELECTORS = {
-    cartContainer: ".cart-items-container",
+  var isCartPage = path === "/cart";
+  var isSavedCartPage = path.startsWith("/apps/cart-saved-data");
 
-    itemRows: [".cart-item"],
-    title: [".item-title"],
-    qtyText: [".item-quantity"],
-    unitPrice: [".item-price"],
-    lineTotal: [".item-total"],
-    grandTotalRow: ".cart-summary-row.cart-summary-total"
-  };
+  if (!isCartPage && !isSavedCartPage) return;
 
+  // ---------------- Helpers ----------------
   function $(sel, root) {
-    root = root || document;
-    if (Array.isArray(sel)) {
-      for (var i = 0; i < sel.length; i++) {
-        var el = root.querySelector(sel[i]);
-        if (el) return el;
-      }
-      return null;
-    }
-    return root.querySelector(sel);
+    return (root || document).querySelector(sel);
   }
-
   function $all(sel, root) {
-    root = root || document;
-    return Array.prototype.slice.call(root.querySelectorAll(sel));
+    return Array.prototype.slice.call((root || document).querySelectorAll(sel));
   }
-
   function text(el) {
     return el ? el.textContent.trim() : "";
   }
-
-  function moneyKeepDollar(raw) {
-    raw = (raw || "").replace(/\b[A-Z]{3}\b/g, "").trim();
-    if (raw.includes("$")) return raw;
-    var n = raw.replace(/[^\d.,-]/g, "");
-    return n ? "$" + n : "";
-  }
-
   function escapeHtml(s) {
     return String(s || "")
       .replace(/&/g, "&amp;")
@@ -47,52 +23,94 @@
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;");
   }
-
-  function getCartName() {
-    var h1 = document.querySelector("h1");
-    return h1 ? h1.textContent.trim() : "Quote";
+  function moneyKeepDollar(raw) {
+    raw = (raw || "").replace(/\b[A-Z]{3}\b/g, "").trim();
+    if (raw.includes("$")) return raw;
+    var n = raw.replace(/[^\d.,-]/g, "");
+    return n ? "$" + n : "";
   }
 
   function getCartId() {
     return new URLSearchParams(location.search).get("cartId") || "";
   }
 
-  function extractQty(txt) {
-    var m = txt.match(/Qty\s*:\s*(\d+)/i);
-    return m ? m[1] : "1";
+  function getTitle() {
+    // /cart uses "Your cart", saved cart page might be "Quote" etc.
+    var h1 = document.querySelector("h1");
+    return h1 ? h1.textContent.trim() : (isCartPage ? "Cart" : "Quote");
   }
 
-  function extractLineTotal(txt) {
-    var m = txt.match(/Total\s*:\s*(.*)$/i);
-    return moneyKeepDollar(m ? m[1] : txt);
-  }
-
-  function getGrandTotal() {
-    var row = $(SELECTORS.grandTotalRow);
-    if (!row) return "";
-    var divs = row.querySelectorAll("div");
-    return divs.length >= 2 ? moneyKeepDollar(text(divs[1])) : "";
-  }
-
-  function parseItems() {
+  // ---------------- Parse items (per page) ----------------
+  function parseFromCartPage() {
     var items = [];
 
-    $all(".cart-item").forEach(function (row) {
+    // Your theme uses <tr class="cart-item" id="CartItem-1">...
+    $all("tr.cart-item").forEach(function (row) {
+      var titleEl = row.querySelector(".cart-item__title");
+      var qtyEl = row.querySelector("input.quantity__input");
+      var unitEl = row.querySelector(".cart-item__price .price");
+      var lineEl = row.querySelector(".cart-item__total");
+
       items.push({
-        title: text($(SELECTORS.title, row)),
-        quantity: extractQty(text($(SELECTORS.qtyText, row))),
-        unit: moneyKeepDollar(text($(SELECTORS.unitPrice, row))),
-        line_total: extractLineTotal(text($(SELECTORS.lineTotal, row)))
+        title: text(titleEl),
+        quantity: qtyEl ? String(qtyEl.value || qtyEl.getAttribute("value") || "1") : "1",
+        unit: moneyKeepDollar(text(unitEl)),
+        line_total: moneyKeepDollar(text(lineEl))
       });
     });
 
-    return { items: items, grandTotal: getGrandTotal() };
+    var grandTotal = moneyKeepDollar(text(document.querySelector(".totals__subtotal-value")));
+
+    return { items: items, grandTotal: grandTotal };
   }
 
-  // ---------- PRINT (CLEAN) ----------
+  function parseFromSavedCartPage() {
+    // These are YOUR selectors from the saved cart view
+    var items = [];
+
+    $all(".cart-item").forEach(function (row) {
+      var t = row.querySelector(".item-title");
+      var q = row.querySelector(".item-quantity");
+      var u = row.querySelector(".item-price");
+      var lt = row.querySelector(".item-total");
+
+      function extractQty(txt) {
+        var m = (txt || "").match(/Qty\s*:\s*(\d+)/i);
+        return m ? m[1] : "1";
+      }
+      function extractLineTotal(txt) {
+        var m = (txt || "").match(/Total\s*:\s*(.*)$/i);
+        return moneyKeepDollar(m ? m[1] : txt);
+      }
+
+      items.push({
+        title: text(t),
+        quantity: extractQty(text(q)),
+        unit: moneyKeepDollar(text(u)),
+        line_total: extractLineTotal(text(lt))
+      });
+    });
+
+    var gtRow = document.querySelector(".cart-summary-row.cart-summary-total");
+    var gt = "";
+    if (gtRow) {
+      var divs = gtRow.querySelectorAll("div");
+      if (divs.length >= 2) gt = moneyKeepDollar(text(divs[1]));
+    }
+
+    return { items: items, grandTotal: gt };
+  }
+
+  function parseItems() {
+    return isCartPage ? parseFromCartPage() : parseFromSavedCartPage();
+  }
+
+  // ---------------- Print HTML ----------------
   function buildPrintHtml(data) {
     var now = new Date();
     var dateStr = now.toLocaleString();
+    var shopName = (window.Shopify && Shopify.shop) ? Shopify.shop : location.hostname;
+    var cartId = getCartId();
 
     var rows = data.items
       .map(function (i) {
@@ -107,19 +125,14 @@
       })
       .join("");
 
-    var shopName = (window.Shopify && Shopify.shop) ? Shopify.shop : location.hostname;
-    var cartId = getCartId();
-
     return (
 `<!doctype html>
 <html>
 <head>
 <meta charset="utf-8">
-<title>${escapeHtml(getCartName())}</title>
+<title>${escapeHtml(getTitle())}</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <style>
-  /* Screen preview in print window */
   :root { color-scheme: light; }
   body { font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; margin: 0; padding: 24px; color: #111; }
   .page { max-width: 900px; margin: 0 auto; }
@@ -139,24 +152,20 @@
   .summary-row.total { font-weight: 700; font-size: 14px; border-top: 1px solid #eee; margin-top: 6px; padding-top: 10px; }
   .footnote { margin-top: 18px; font-size: 11px; color:#666; }
 
-  /* Print rules */
   @media print {
     @page { size: A4; margin: 12mm; }
     body { padding: 0; }
     .page { max-width: none; }
-    .header { break-inside: avoid; }
-    table { break-inside: auto; }
-    tr { break-inside: avoid; break-after: auto; }
     thead { display: table-header-group; }
+    tr { break-inside: avoid; }
   }
 </style>
 </head>
-
 <body>
   <div class="page">
     <div class="header">
       <div>
-        <h1 class="title">${escapeHtml(getCartName())}</h1>
+        <h1 class="title">${escapeHtml(getTitle())}</h1>
         <div class="meta" style="text-align:left">
           <div><strong>Store:</strong> ${escapeHtml(shopName)}</div>
         </div>
@@ -176,9 +185,7 @@
           <th style="text-align:right">Line Total</th>
         </tr>
       </thead>
-      <tbody>
-        ${rows}
-      </tbody>
+      <tbody>${rows}</tbody>
     </table>
 
     <div class="summary">
@@ -199,86 +206,67 @@
     );
   }
 
+  function openPrintWindow(html) {
+    var w = window.open("", "_blank", "width=1000,height=800");
+    if (!w) {
+      alert("Popup blocked. Please allow popups to print.");
+      return null;
+    }
+    w.document.open();
+    w.document.write(html);
+    w.document.close();
+
+    // Some browsers don't reliably fire onload for about:blank + document.write
+    var tries = 0;
+    var tick = setInterval(function () {
+      tries++;
+      try {
+        if (w.document && w.document.readyState === "complete") {
+          clearInterval(tick);
+          w.focus();
+          w.print();
+        }
+      } catch (e) {
+        // ignore
+      }
+      if (tries > 40) { // ~4s
+        clearInterval(tick);
+        try { w.focus(); w.print(); } catch (e2) {}
+      }
+    }, 100);
+
+    return w;
+  }
+
   function printPDF() {
     var data = parseItems();
     if (!data.items.length) return alert("No items found");
 
-    var w = window.open("", "_blank", "noopener,noreferrer,width=1000,height=800");
-    if (!w) return alert("Popup blocked. Please allow popups to print.");
-
-    w.document.open();
-    w.document.write(buildPrintHtml(data));
-    w.document.close();
-
-    // Print when ready (more reliable than arbitrary timeouts)
-    w.onload = function () {
-      try { w.focus(); w.print(); } catch (e) {}
-    };
+    openPrintWindow(buildPrintHtml(data));
   }
 
-  // ---------- EMAIL (unchanged) ----------
-  function sendEmail() {
-    var data = parseItems();
-    var body =
-      "Quote: " + getCartName() + "\n\n" +
-      data.items.map(function (i) {
-        return "- " + i.title + " | Qty: " + i.quantity + " | Unit: " + i.unit + " | Line: " + i.line_total;
-      }).join("\n") +
-      "\n\nGrand Total: " + data.grandTotal;
+  // ---------------- Bind button ----------------
+  function bind() {
+    // Your cart page button id from screenshot
+    var btn = document.getElementById("printCartPdfButton") || document.getElementById("printQuoteBtn");
+    if (!btn) return;
 
-    location.href =
-      "mailto:?subject=" + encodeURIComponent("Quote - " + getCartName()) +
-      "&body=" + encodeURIComponent(body);
+    // Prevent double bind
+    if (btn.dataset.printBound === "1") return;
+    btn.dataset.printBound = "1";
+
+    btn.addEventListener("click", function (e) {
+      e.preventDefault();
+      printPDF();
+    });
   }
 
-  // ---------- UI (THEME-FRIENDLY) ----------
-  function injectStylesOnce() {
-    if (document.getElementById("quoteActionsStyles")) return;
-    var style = document.createElement("style");
-    style.id = "quoteActionsStyles";
-    style.textContent = `
-      #quoteActions {
-        display:flex;
-        gap:10px;
-        justify-content:flex-end;
-        margin: 0 0 16px;
-        flex-wrap: wrap;
-      }
-      #quoteActions .btn, #quoteActions .button {
-        min-height: 44px;
-      }
-    `;
-    document.head.appendChild(style);
-  }
-
-  function mountButtons() {
-    var container = $(SELECTORS.cartContainer);
-    if (!container || document.getElementById("quoteActions")) return;
-
-    injectStylesOnce();
-
-    var wrap = document.createElement("div");
-    wrap.id = "quoteActions";
-
-    // Try to match theme classes (fall back if missing)
-    var primaryClass = document.querySelector(".btn.btn--primary") ? "btn btn--primary" : "button button--primary";
-    var secondaryClass = document.querySelector(".btn") ? "btn" : "button button--secondary";
-
-    wrap.innerHTML = `
-      <button type="button" id="printQuoteBtn" class="${primaryClass}">Print / Save PDF</button>
-      <button type="button" id="emailQuoteBtn" class="${secondaryClass}">Email Quote</button>
-    `;
-
-    container.parentNode.insertBefore(wrap, container);
-
-    document.getElementById("printQuoteBtn").addEventListener("click", printPDF);
-    document.getElementById("emailQuoteBtn").addEventListener("click", sendEmail);
-  }
-
+  // Try immediately + after theme renders
+  bind();
   var t = setInterval(function () {
-    if ($(SELECTORS.cartContainer)) {
-      clearInterval(t);
-      mountButtons();
-    }
-  }, 300);
+    bind();
+    // stop once bound
+    var btn = document.getElementById("printCartPdfButton") || document.getElementById("printQuoteBtn");
+    if (btn && btn.dataset.printBound === "1") clearInterval(t);
+  }, 250);
 })();
