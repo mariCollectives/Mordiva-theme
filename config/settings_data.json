@@ -10,6 +10,7 @@
 {
   "current": {
     "enable_rtl": true,
+    "language_support_rtl": "hear",
     "enable_back_to_top": true,
     "logo": "shopify://shop_images/Asset_1.png",
     "logo_transparent": "shopify://shop_images/Asset_1.png",
@@ -103,11 +104,6 @@
       "13768625480086291342": {
         "type": "shopify://apps/forms/blocks/forms/8744a304-fcb1-4347-b211-bb6b4759a76a",
         "disabled": true,
-        "settings": {}
-      },
-      "14279743200935222021": {
-        "type": "shopify://apps/cbb-keep-share-cart/blocks/app-embed-block/bcd29b78-3f2c-4a02-a355-b5ba4727a2eb",
-        "disabled": false,
         "settings": {}
       },
       "1008767869563187842": {
