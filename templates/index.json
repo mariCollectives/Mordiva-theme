@@ -352,6 +352,7 @@
         "image_heqn9T": {
           "type": "image",
           "settings": {
+            "image": "shopify://shop_images/Asset_27.png",
             "heading": "Before",
             "color_scheme": ""
           }
@@ -359,6 +360,7 @@
         "image_AYRQjL": {
           "type": "image",
           "settings": {
+            "image": "shopify://shop_images/Asset_27.png",
             "heading": "After",
             "color_scheme": ""
           }
