@@ -1,272 +1,166 @@
 (function () {
   var path = location.pathname.replace(/\/+$/, "");
-
   var isCartPage = path === "/cart";
   var isSavedCartPage = path.startsWith("/apps/cart-saved-data");
-
   if (!isCartPage && !isSavedCartPage) return;
 
-  // ---------------- Helpers ----------------
-  function $(sel, root) {
-    return (root || document).querySelector(sel);
-  }
-  function $all(sel, root) {
-    return Array.prototype.slice.call((root || document).querySelectorAll(sel));
-  }
-  function text(el) {
-    return el ? el.textContent.trim() : "";
-  }
-  function escapeHtml(s) {
+  /* ---------------- Helpers ---------------- */
+  function $(s, r) { return (r || document).querySelector(s); }
+  function $all(s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
+  function text(el) { return el ? el.textContent.trim() : ""; }
+  function esc(s) {
     return String(s || "")
       .replace(/&/g, "&amp;")
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;");
   }
-  function moneyKeepDollar(raw) {
+  function money(raw) {
     raw = (raw || "").replace(/\b[A-Z]{3}\b/g, "").trim();
     if (raw.includes("$")) return raw;
     var n = raw.replace(/[^\d.,-]/g, "");
     return n ? "$" + n : "";
   }
 
+  function customerAvatar() { return (window.__customerAvatarUrl || "").trim(); }
+  function customerName() { return (window.__customerName || "").trim(); }
+
   function getCartId() {
     return new URLSearchParams(location.search).get("cartId") || "";
   }
 
   function getTitle() {
-    // /cart uses "Your cart", saved cart page might be "Quote" etc.
     var h1 = document.querySelector("h1");
     return h1 ? h1.textContent.trim() : (isCartPage ? "Cart" : "Quote");
   }
 
-  // ---------------- Parse items (per page) ----------------
-  function parseFromCartPage() {
+  /* ---------------- Parse Items ---------------- */
+  function parseCart() {
     var items = [];
-
-    // Your theme uses <tr class="cart-item" id="CartItem-1">...
     $all("tr.cart-item").forEach(function (row) {
-      var titleEl = row.querySelector(".cart-item__title");
-      var qtyEl = row.querySelector("input.quantity__input");
-      var unitEl = row.querySelector(".cart-item__price .price");
-      var lineEl = row.querySelector(".cart-item__total");
-
       items.push({
-        title: text(titleEl),
-        quantity: qtyEl ? String(qtyEl.value || qtyEl.getAttribute("value") || "1") : "1",
-        unit: moneyKeepDollar(text(unitEl)),
-        line_total: moneyKeepDollar(text(lineEl))
+        title: text(row.querySelector(".cart-item__title")),
+        qty: row.querySelector("input.quantity__input")?.value || "1",
+        unit: money(text(row.querySelector(".cart-item__price .price"))),
+        total: money(text(row.querySelector(".cart-item__total")))
       });
     });
-
-    var grandTotal = moneyKeepDollar(text(document.querySelector(".totals__subtotal-value")));
-
-    return { items: items, grandTotal: grandTotal };
+    return {
+      items: items,
+      grand: money(text(document.querySelector(".totals__subtotal-value")))
+    };
   }
 
-  function parseFromSavedCartPage() {
-    // These are YOUR selectors from the saved cart view
+  function parseSaved() {
     var items = [];
-
     $all(".cart-item").forEach(function (row) {
-      var t = row.querySelector(".item-title");
-      var q = row.querySelector(".item-quantity");
-      var u = row.querySelector(".item-price");
-      var lt = row.querySelector(".item-total");
-
-      function extractQty(txt) {
-        var m = (txt || "").match(/Qty\s*:\s*(\d+)/i);
-        return m ? m[1] : "1";
-      }
-      function extractLineTotal(txt) {
-        var m = (txt || "").match(/Total\s*:\s*(.*)$/i);
-        return moneyKeepDollar(m ? m[1] : txt);
-      }
-
+      var q = (text(row.querySelector(".item-quantity")).match(/\d+/) || ["1"])[0];
       items.push({
-        title: text(t),
-        quantity: extractQty(text(q)),
-        unit: moneyKeepDollar(text(u)),
-        line_total: extractLineTotal(text(lt))
+        title: text(row.querySelector(".item-title")),
+        qty: q,
+        unit: money(text(row.querySelector(".item-price"))),
+        total: money(text(row.querySelector(".item-total")))
       });
     });
 
-    var gtRow = document.querySelector(".cart-summary-row.cart-summary-total");
     var gt = "";
-    if (gtRow) {
-      var divs = gtRow.querySelectorAll("div");
-      if (divs.length >= 2) gt = moneyKeepDollar(text(divs[1]));
-    }
+    var r = $(".cart-summary-row.cart-summary-total");
+    if (r) gt = money(text(r.querySelector("div:last-child")));
 
-    return { items: items, grandTotal: gt };
+    return { items: items, grand: gt };
   }
 
-  function parseItems() {
-    return isCartPage ? parseFromCartPage() : parseFromSavedCartPage();
+  function parse() {
+    return isCartPage ? parseCart() : parseSaved();
   }
 
-  // ---------------- Print HTML ----------------
-  function buildPrintHtml(data) {
-    var now = new Date();
-    var dateStr = now.toLocaleString();
-    var shopName = (window.Shopify && Shopify.shop) ? Shopify.shop : location.hostname;
-    var cartId = getCartId();
+  /* ---------------- Print HTML ---------------- */
+  function buildHTML(data) {
+    var rows = data.items.map(function (i) {
+      return `
+        <tr>
+          <td>${esc(i.title)}</td>
+          <td style="text-align:center">${esc(i.qty)}</td>
+          <td style="text-align:right">${esc(i.unit)}</td>
+          <td style="text-align:right">${esc(i.total)}</td>
+        </tr>`;
+    }).join("");
 
-    var rows = data.items
-      .map(function (i) {
-        return (
-          "<tr>" +
-          "<td class='item'>" + escapeHtml(i.title) + "</td>" +
-          "<td class='qty'>" + escapeHtml(i.quantity) + "</td>" +
-          "<td class='money'>" + escapeHtml(i.unit) + "</td>" +
-          "<td class='money'>" + escapeHtml(i.line_total) + "</td>" +
-          "</tr>"
-        );
-      })
-      .join("");
+    var logo = customerAvatar();
+    var cname = customerName();
 
-    return (
-`<!doctype html>
+    return `
+<!doctype html>
 <html>
 <head>
 <meta charset="utf-8">
-<title>${escapeHtml(getTitle())}</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${esc(getTitle())}</title>
 <style>
-  :root { color-scheme: light; }
-  body { font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; margin: 0; padding: 24px; color: #111; }
-  .page { max-width: 900px; margin: 0 auto; }
-  .header { display:flex; justify-content:space-between; gap: 16px; align-items:flex-start; border-bottom: 1px solid #e5e5e5; padding-bottom: 14px; margin-bottom: 16px; }
-  .title { margin: 0; font-size: 22px; letter-spacing: .2px; }
-  .meta { font-size: 12px; color:#444; line-height: 1.5; text-align:right; }
-  .meta strong { color:#111; }
-  table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-  th, td { padding: 10px 8px; border-bottom: 1px solid #eee; font-size: 13px; vertical-align: top; }
-  th { text-transform: uppercase; letter-spacing: .06em; font-size: 11px; color:#444; background: #fafafa; }
-  td.item { width: 55%; }
-  td.qty { width: 10%; text-align: center; white-space: nowrap; }
-  td.money { width: 17.5%; text-align: right; white-space: nowrap; }
-  .summary { display:flex; justify-content:flex-end; margin-top: 14px; }
-  .summary-box { min-width: 280px; border: 1px solid #eee; border-radius: 10px; padding: 12px 14px; }
-  .summary-row { display:flex; justify-content:space-between; font-size: 13px; padding: 6px 0; }
-  .summary-row.total { font-weight: 700; font-size: 14px; border-top: 1px solid #eee; margin-top: 6px; padding-top: 10px; }
-  .footnote { margin-top: 18px; font-size: 11px; color:#666; }
-
-  @media print {
-    @page { size: A4; margin: 12mm; }
-    body { padding: 0; }
-    .page { max-width: none; }
-    thead { display: table-header-group; }
-    tr { break-inside: avoid; }
-  }
+body{font-family:system-ui;margin:0;padding:24px}
+.header{display:flex;justify-content:space-between;border-bottom:1px solid #eee;padding-bottom:12px}
+.left{display:flex;gap:12px}
+.logo{width:48px;height:48px;border-radius:8px;object-fit:cover;border:1px solid #ddd}
+table{width:100%;border-collapse:collapse;margin-top:16px}
+th,td{border-bottom:1px solid #eee;padding:8px;font-size:13px}
+th{text-transform:uppercase;font-size:11px;color:#555;background:#fafafa}
+.total{font-weight:700}
 </style>
 </head>
 <body>
-  <div class="page">
-    <div class="header">
-      <div>
-        <h1 class="title">${escapeHtml(getTitle())}</h1>
-        <div class="meta" style="text-align:left">
-          <div><strong>Store:</strong> ${escapeHtml(shopName)}</div>
-        </div>
-      </div>
-      <div class="meta">
-        <div><strong>Date:</strong> ${escapeHtml(dateStr)}</div>
-        ${cartId ? `<div><strong>Cart ID:</strong> ${escapeHtml(cartId)}</div>` : ``}
-      </div>
-    </div>
-
-    <table>
-      <thead>
-        <tr>
-          <th style="text-align:left">Item</th>
-          <th style="text-align:center">Qty</th>
-          <th style="text-align:right">Unit</th>
-          <th style="text-align:right">Line Total</th>
-        </tr>
-      </thead>
-      <tbody>${rows}</tbody>
-    </table>
-
-    <div class="summary">
-      <div class="summary-box">
-        <div class="summary-row total">
-          <span>Total</span>
-          <span>${escapeHtml(data.grandTotal || "")}</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="footnote">
-      Generated from cart preview. Totals may exclude shipping/taxes until checkout.
+<div class="header">
+  <div class="left">
+    ${logo ? `<img class="logo" src="${esc(logo)}">` : ``}
+    <div>
+      <h2>${esc(getTitle())}</h2>
+      ${cname ? `<div><strong>Customer:</strong> ${esc(cname)}</div>` : ``}
     </div>
   </div>
+  <div>
+    <div><strong>Date:</strong> ${new Date().toLocaleString()}</div>
+    ${getCartId() ? `<div><strong>Cart ID:</strong> ${esc(getCartId())}</div>` : ``}
+  </div>
+</div>
+
+<table>
+<thead>
+<tr>
+  <th>Item</th>
+  <th>Qty</th>
+  <th>Unit</th>
+  <th>Total</th>
+</tr>
+</thead>
+<tbody>${rows}</tbody>
+</table>
+
+<div style="margin-top:16px;text-align:right">
+  <strong>Total: ${esc(data.grand)}</strong>
+</div>
 </body>
-</html>`
-    );
+</html>`;
   }
 
-  function openPrintWindow(html) {
-    var w = window.open("", "_blank", "width=1000,height=800");
-    if (!w) {
-      alert("Popup blocked. Please allow popups to print.");
-      return null;
-    }
-    w.document.open();
-    w.document.write(html);
+  function print() {
+    var data = parse();
+    if (!data.items.length) return alert("No items");
+    var w = window.open("", "_blank");
+    w.document.write(buildHTML(data));
     w.document.close();
-
-    // Some browsers don't reliably fire onload for about:blank + document.write
-    var tries = 0;
-    var tick = setInterval(function () {
-      tries++;
-      try {
-        if (w.document && w.document.readyState === "complete") {
-          clearInterval(tick);
-          w.focus();
-          w.print();
-        }
-      } catch (e) {
-        // ignore
-      }
-      if (tries > 40) { // ~4s
-        clearInterval(tick);
-        try { w.focus(); w.print(); } catch (e2) {}
-      }
-    }, 100);
-
-    return w;
+    w.focus();
+    w.print();
   }
 
-  function printPDF() {
-    var data = parseItems();
-    if (!data.items.length) return alert("No items found");
-
-    openPrintWindow(buildPrintHtml(data));
-  }
-
-  // ---------------- Bind button ----------------
+  /* ---------------- Bind ---------------- */
   function bind() {
-    // Your cart page button id from screenshot
-    var btn = document.getElementById("printCartPdfButton") || document.getElementById("printQuoteBtn");
-    if (!btn) return;
-
-    // Prevent double bind
-    if (btn.dataset.printBound === "1") return;
-    btn.dataset.printBound = "1";
-
-    btn.addEventListener("click", function (e) {
+    var btn = $("#printCartPdfButton") || $("#printQuoteBtn");
+    if (!btn || btn.dataset.bound) return;
+    btn.dataset.bound = "1";
+    btn.onclick = function (e) {
       e.preventDefault();
-      printPDF();
-    });
+      print();
+    };
   }
 
-  // Try immediately + after theme renders
   bind();
-  var t = setInterval(function () {
-    bind();
-    // stop once bound
-    var btn = document.getElementById("printCartPdfButton") || document.getElementById("printQuoteBtn");
-    if (btn && btn.dataset.printBound === "1") clearInterval(t);
-  }, 250);
+  setInterval(bind, 300);
 })();

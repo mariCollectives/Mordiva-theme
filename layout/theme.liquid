@@ -106,7 +106,24 @@
 
 
 
-   
+{% comment %}
+  Customer avatar → JS bridge
+{% endcomment %}
+<script>
+  window.__customerAvatarUrl = {% if customer and customer.metafields.custom.avatar %}
+    {{ customer.metafields.custom.avatar | image_url: width: 200 | json }}
+  {% else %}
+    {{ 'default-avatar.png' | asset_url | json }}
+  {% endif %};
+
+  window.__customerName = {% if customer %}
+    {{ customer.name | json }}
+  {% else %}
+    ""
+  {% endif %};
+</script>
+
+
  
 
     {% comment %} Custom metafield for head tag like GTag tracking {% endcomment %}
