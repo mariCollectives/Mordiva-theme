@@ -38,6 +38,10 @@
           "type": "cart_note",
           "settings": {}
         },
+        "cart_discount_jTfwYM": {
+          "type": "cart_discount",
+          "settings": {}
+        },
         "cart_shipping_rate_bnhQBk": {
           "type": "cart_shipping_rate",
           "settings": {}
@@ -55,6 +59,7 @@
         "uncap_save_share_cart_product_save_cart_TnnaJz",
         "free_shipping_goal_W8bXKE",
         "cart_note_qpALBg",
+        "cart_discount_jTfwYM",
         "cart_shipping_rate_bnhQBk",
         "subtotal_LeUiVY",
         "buttons_drwbch"
