@@ -106,16 +106,6 @@
 
 
 
-<script>
-  window.__customerAvatarUrl =
-    {% if customer and customer.metafields.custom.avatar and customer.metafields.custom.avatar.value %}
-      {{ customer.metafields.custom.avatar.value | image_url: width: 200 | json }}
-    {% else %}
-      {{ 'default-avatar.png' | asset_url | json }}
-    {% endif %};
-
-  window.__customerName = {% if customer %}{{ customer.name | json }}{% else %}""{% endif %};
-</script>
 
 
  
