@@ -671,6 +671,7 @@
               {%- case block.type -%}
                 {%- when '@app' -%}
                   {%- render block -%}
+               
                 {%- when 'subtotal' -%}
                   <div class="cart__footer--subtotal" data-cart-subtotal {{ block.shopify_attributes }}>
                     <div class="grid gap-2">
@@ -774,6 +775,12 @@
                       </div>
                     </div>
                   </div>
+                
+                 {% when 'cart_custom_liquid' %}
+      <div class="cart-custom-liquid" {{ block.shopify_attributes }}>
+        {{ block.settings.custom_liquid }}
+      </div>
+                
                 {%- when 'buttons' -%}
                   <div class="cart__footer--buttons grid gap-3" {{ block.shopify_attributes }}>
                     <noscript>
@@ -1007,6 +1014,20 @@
         }
       ]
     },
+    {
+    "type": "cart_custom_liquid",
+    "name": "Custom Liquid (Cart)",
+    "settings": [
+      {
+        "type": "liquid",
+        "id": "custom_liquid",
+        "label": "Liquid / HTML",
+        "default": "<p>Custom content here</p>"
+      }
+    ]
+  },
+
+
     {
       "type": "subtotal",
       "name": "t:sections.main-cart.blocks.subtotal.name",
