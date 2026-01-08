@@ -569,102 +569,6 @@
         "custom_class": ""
       }
     },
-    "custom_content_pD7dgP": {
-      "type": "custom-content",
-      "blocks": {
-        "promotion_card_g8Hkit": {
-          "type": "promotion_card",
-          "settings": {
-            "color_scheme": "scheme-d3c4c0a8-8008-4fbe-9cb6-8b6689dfa03c",
-            "image_ratio": "adapt",
-            "image_overlay_opacity": 20,
-            "card_layout": "vertical-split",
-            "heading": "BUNDLE & SAVE",
-            "heading_highlight_style": "none",
-            "heading_size": "h1",
-            "subheading": "Buy set of 3 and save 10%",
-            "description": "",
-            "button_label": "SHOP NOW",
-            "button_style": "btn--underline",
-            "card_link": "",
-            "content_alignment": "center",
-            "width": "33%",
-            "alignment": "center",
-            "block_custom_class": ""
-          }
-        },
-        "promotion_card_6riN7U": {
-          "type": "promotion_card",
-          "settings": {
-            "color_scheme": "scheme-7",
-            "image_ratio": "adapt",
-            "image_overlay_opacity": 0,
-            "card_layout": "space-between",
-            "heading": "SALE  30% OFF",
-            "heading_highlight_style": "none",
-            "heading_size": "hd2",
-            "subheading": "Season Sale Collections",
-            "description": "<p>Save extra on our sale collection<br/>*Runs until 14:00pm PST</p>",
-            "button_label": "SHOP THE SALE",
-            "button_style": "btn--underline",
-            "card_link": "",
-            "content_alignment": "center",
-            "width": "33%",
-            "alignment": "center",
-            "block_custom_class": ""
-          }
-        },
-        "promotion_card_bxdhUV": {
-          "type": "promotion_card",
-          "settings": {
-            "color_scheme": "scheme-d3c4c0a8-8008-4fbe-9cb6-8b6689dfa03c",
-            "image_ratio": "adapt",
-            "image_overlay_opacity": 20,
-            "card_layout": "vertical-split",
-            "heading": "RENOVATE  YOUR HOME",
-            "heading_highlight_style": "none",
-            "heading_size": "h1",
-            "subheading": "DESIGN FOR LIVING",
-            "description": "",
-            "button_label": "SHOP NOW",
-            "button_style": "btn--underline",
-            "card_link": "",
-            "content_alignment": "center",
-            "width": "33%",
-            "alignment": "center",
-            "block_custom_class": ""
-          }
-        }
-      },
-      "block_order": [
-        "promotion_card_g8Hkit",
-        "promotion_card_6riN7U",
-        "promotion_card_bxdhUV"
-      ],
-      "custom_css": [
-        ".card-promotion__heading {color: rgb(var(--color-primary));}",
-        "@media (min-width: 1024px) {.card-promotion__media:before {min-height: 46rem; }}"
-      ],
-      "settings": {
-        "container": "fixed",
-        "color_scheme": "",
-        "enable_sticky_column": false,
-        "heading": "",
-        "heading_size": "h1",
-        "heading_highlight_style": "none",
-        "subheading": "",
-        "description": "",
-        "column_gap": "extra-large",
-        "row_gap": "large",
-        "swipe_on_mobile": false,
-        "columns_mobile": "1",
-        "padding_top": 0,
-        "padding_bottom": 100,
-        "show_section_divider": false,
-        "divider_width": "fixed",
-        "custom_class": ""
-      }
-    },
     "favorite_products_96xbMg": {
       "type": "favorite-products",
       "blocks": {
@@ -1062,7 +966,6 @@
     "rich_text_HphPmy",
     "featured_collection_nTAnFG",
     "collections_slider_yD633Y",
-    "custom_content_pD7dgP",
     "favorite_products_96xbMg",
     "multicolumn_xFjqFm",
     "video_hero_kqkWdj",
