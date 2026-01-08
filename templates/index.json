@@ -654,10 +654,11 @@
           "type": "column",
           "settings": {
             "show_image": true,
+            "image": "shopify://shop_images/Asset_3_7532509a-fd2a-4749-a232-17d5253a0a5d.png",
             "image_width": "large",
             "title": "30 Days return",
             "heading_size": "h4",
-            "text": "<p>Exchange or return items free of charge within 30 days.</p>",
+            "text": "<p>Exchange or return items free<br/>of charge within 30 days.</p>",
             "text_size": "text-base",
             "button_label": "",
             "button_style": "btn--underline",
