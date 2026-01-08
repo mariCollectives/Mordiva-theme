@@ -476,7 +476,8 @@
           "type": "collection",
           "settings": {
             "color_scheme": "scheme-inverse",
-            "collection": "",
+            "collection": "art-and-craft",
+            "image": "shopify://shop_images/Asset_22.png",
             "title": "Living Room",
             "title_size": "hd2",
             "description": "",
