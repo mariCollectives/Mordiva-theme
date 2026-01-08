@@ -49,3 +49,7 @@
 .header-transparent .header{
   border-bottom: none !important;
 }
+
+#printCartPdfButton{
+    position: absolute;
+}
