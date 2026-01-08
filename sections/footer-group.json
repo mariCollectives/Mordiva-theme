@@ -44,7 +44,7 @@
             "block_width": 17,
             "heading": "Customer care",
             "heading_size": "h4",
-            "menu": "footer",
+            "menu": "customer-care",
             "open_default": false,
             "show_divider": true
           }
