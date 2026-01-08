@@ -15,6 +15,13 @@
     <div class="customer__body">
       <div class="customer__sidebar flex flex-col gap-y-3">
         <div class="customer__widget blocks-radius flex flex-col gap-y-3">
+         {% if customer.metafields.custom.avatar %}
+            <img src="{{ customer.metafields.custom.avatar | image_url: width: 200 }}" alt="{{ customer.name }}" />
+          {% else %}
+            <img src="{{ 'default-avatar.png' | asset_url }}" alt="Default avatar" />
+          {% endif %}
+
+
           <h2 class="h3">{{ 'customer.account.details' | t }}</h2>
           {{ customer.default_address | format_address }}
           <a href="{{ routes.account_addresses_url }}" class="btn btn--underline self-start">
