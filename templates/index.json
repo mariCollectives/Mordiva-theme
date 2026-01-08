@@ -448,7 +448,7 @@
         "description": "",
         "text_size": "text-base",
         "show_collection_description": false,
-        "collection": "",
+        "collection": "craft-furniture-essentials",
         "limit": 8,
         "columns": 4,
         "column_gap": "extra-small",
