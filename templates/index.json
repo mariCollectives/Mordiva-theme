@@ -224,14 +224,14 @@
           "type": "tab",
           "settings": {
             "title": "tables",
-            "collection": ""
+            "collection": "tables"
           }
         },
         "tab_dzp3dT": {
           "type": "tab",
           "settings": {
-            "title": "storage",
-            "collection": ""
+            "title": "Construction",
+            "collection": "construction-and-engineering-1"
           }
         },
         "tab_jrYb6E": {
