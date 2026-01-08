@@ -490,7 +490,8 @@
           "type": "collection",
           "settings": {
             "color_scheme": "scheme-inverse",
-            "collection": "",
+            "collection": "craft-resources",
+            "image": "shopify://shop_images/Asset_8.png",
             "title": "Workspace",
             "title_size": "hd2",
             "description": "",
