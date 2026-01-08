@@ -761,6 +761,7 @@
           "type": "column",
           "settings": {
             "show_image": true,
+            "image": "shopify://shop_images/Asset_1_ddc1c62e-1060-46fd-b34d-5c6a525d3a29.png",
             "image_width": "large",
             "title": "Free & fast delivery",
             "heading_size": "h4",
