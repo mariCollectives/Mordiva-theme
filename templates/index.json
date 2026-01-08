@@ -672,10 +672,11 @@
           "type": "column",
           "settings": {
             "show_image": true,
+            "image": "shopify://shop_images/Asset_4_6c053092-0915-4fa9-9492-5fb4c6c6b0a1.png",
             "image_width": "large",
             "title": "Flexible payment",
             "heading_size": "h4",
-            "text": "<p>Pay conveniently using multiple credit cards for added flexibility.</p>",
+            "text": "<p>Pay conveniently using multiple<br/>credit cards for added flexibility.</p>",
             "text_size": "text-base",
             "button_label": "",
             "button_style": "btn--underline",
