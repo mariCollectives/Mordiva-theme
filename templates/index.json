@@ -237,14 +237,14 @@
         "tab_jrYb6E": {
           "type": "tab",
           "settings": {
-            "title": "lightning",
+            "title": "Craft",
             "collection": "craft-furniture-essentials"
           }
         },
         "tab_pNMeJd": {
           "type": "tab",
           "settings": {
-            "title": "Decor",
+            "title": "Play",
             "collection": "dramatic-play-2"
           }
         }
@@ -293,16 +293,16 @@
           "type": "product",
           "settings": {
             "product": "life-skills-board",
-            "top": 52,
-            "left": 38
+            "top": 100,
+            "left": 100
           }
         },
         "product_9wYmkh": {
           "type": "product",
           "settings": {
             "product": "250-pcs-wooden-building-creative-blocks",
-            "top": 36,
-            "left": 36
+            "top": 100,
+            "left": 100
           }
         }
       },
@@ -322,6 +322,7 @@
         "subheading": "Shop the room",
         "description": "",
         "description_size": "text-base",
+        "image": "shopify://shop_images/Asset_8.png",
         "image_aspect_ratio": "adapt",
         "image_position": "right",
         "annotation_color": "light",
@@ -334,304 +335,14 @@
         "custom_class": ""
       }
     },
-    "multicolumn_FW8anp": {
-      "type": "multicolumn",
-      "blocks": {
-        "column_YbTFh4": {
-          "type": "column",
-          "settings": {
-            "show_image": true,
-            "image_width": "full",
-            "title": "",
-            "heading_size": "h4",
-            "text": "",
-            "text_size": "text-base",
-            "button_label": "",
-            "button_style": "btn--underline",
-            "button_link": "",
-            "mobile_layout": "inherit"
-          }
-        },
-        "column_h9hEgr": {
-          "type": "column",
-          "settings": {
-            "show_image": true,
-            "image_width": "full",
-            "title": "",
-            "heading_size": "h4",
-            "text": "",
-            "text_size": "text-base",
-            "button_label": "",
-            "button_style": "btn--underline",
-            "button_link": "",
-            "mobile_layout": "inherit"
-          }
-        },
-        "column_FtDyGh": {
-          "type": "column",
-          "settings": {
-            "show_image": true,
-            "image_width": "full",
-            "title": "",
-            "heading_size": "h4",
-            "text": "",
-            "text_size": "text-base",
-            "button_label": "",
-            "button_style": "btn--underline",
-            "button_link": "",
-            "mobile_layout": "inherit"
-          }
-        },
-        "column_P4ADQX": {
-          "type": "column",
-          "settings": {
-            "show_image": true,
-            "image_width": "full",
-            "title": "",
-            "heading_size": "h4",
-            "text": "",
-            "text_size": "text-base",
-            "button_label": "",
-            "button_style": "btn--underline",
-            "button_link": "",
-            "mobile_layout": "inherit"
-          }
-        },
-        "column_7aVh4Q": {
-          "type": "column",
-          "settings": {
-            "show_image": true,
-            "image_width": "full",
-            "title": "",
-            "heading_size": "h4",
-            "text": "",
-            "text_size": "text-base",
-            "button_label": "",
-            "button_style": "btn--underline",
-            "button_link": "",
-            "mobile_layout": "inherit"
-          }
-        },
-        "column_wThqtt": {
-          "type": "column",
-          "settings": {
-            "show_image": true,
-            "image_width": "full",
-            "title": "",
-            "heading_size": "h4",
-            "text": "",
-            "text_size": "text-base",
-            "button_label": "",
-            "button_style": "btn--underline",
-            "button_link": "",
-            "mobile_layout": "inherit"
-          }
-        }
-      },
-      "block_order": [
-        "column_YbTFh4",
-        "column_h9hEgr",
-        "column_FtDyGh",
-        "column_P4ADQX",
-        "column_7aVh4Q",
-        "column_wThqtt"
-      ],
-      "custom_css": [
-        ".rich-text .rich-text__subheading {margin-bottom: 0;}",
-        ".multicolumn-card__image {margin-bottom: 0;}",
-        ".f-grid--gap-extra-large {--column-gap: 8.9rem; --column-gap-mobile: 2.1rem; --row-gap-mobile: 2.4rem;}",
-        "@media (min-width: 768px) {.rich-text {padding-bottom: 4rem; }}",
-        "@media (max-width: 767px) {.multicolumn__items {grid-template-columns: repeat(3, minmax(0, 1fr)); --col-number: 3; }}"
-      ],
+    "custom_liquid_pJ7MQg": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom-liquid.presets.name",
       "settings": {
+        "custom_liquid": "",
         "color_scheme": "",
-        "heading": "",
-        "heading_size": "h1",
-        "heading_highlight_style": "none",
-        "subheading": "Featured in Press",
-        "description": "",
-        "text_size": "text-base",
-        "column_alignment": "center",
-        "columns_desktop": 6,
-        "column_gap": "extra-large",
-        "columns_mobile": "2",
-        "swipe_on_mobile": false,
         "padding_top": 100,
-        "padding_bottom": 100,
-        "show_section_divider": false,
-        "divider_width": "fixed",
-        "custom_class": ""
-      }
-    },
-    "collection_list_Jbx97m": {
-      "type": "collection-list",
-      "blocks": {
-        "featured_collection_g8EbUF": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "",
-            "title": "Jonas Wagell",
-            "description": ""
-          }
-        },
-        "featured_collection_VRdbRe": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "",
-            "title": "Nina Bruun",
-            "description": ""
-          }
-        },
-        "featured_collection_CdV3dF": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "",
-            "title": "Alexander",
-            "description": ""
-          }
-        },
-        "featured_collection_8EcRFr": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "",
-            "title": "Slaytina",
-            "description": ""
-          }
-        }
-      },
-      "block_order": [
-        "featured_collection_g8EbUF",
-        "featured_collection_VRdbRe",
-        "featured_collection_CdV3dF",
-        "featured_collection_8EcRFr"
-      ],
-      "settings": {
-        "color_scheme": "scheme-2",
-        "layout": "split",
-        "subheading": "Our awarded designer",
-        "heading": "The creative minds behind our interior design studio",
-        "heading_size": "h1",
-        "heading_highlight_style": "none",
-        "description": "",
-        "text_size": "text-base",
-        "card_color_inherited": true,
-        "show_product_count": true,
-        "show_icon": true,
-        "card_style": "",
-        "card_image_ratio": "adapt",
-        "content_alignment": "left",
-        "columns_desktop": 3,
-        "column_gap": "extra-large",
-        "row_gap": "medium",
-        "enable_slider": true,
-        "columns_mobile": "1",
-        "swipe_on_mobile": true,
-        "padding_top": 100,
-        "padding_bottom": 0,
-        "show_section_divider": false,
-        "divider_width": "fixed",
-        "custom_class": ""
-      }
-    },
-    "scrolling_promotion_eqXpH6": {
-      "type": "scrolling-promotion",
-      "blocks": {
-        "text_DcQXgF": {
-          "type": "text",
-          "settings": {
-            "text": "FIND INSPRATION",
-            "text_link": "",
-            "text_size": "hd1",
-            "font_weight": "font-heading",
-            "font_style": "normal",
-            "letter_spacing": 0,
-            "text_opacity": 100,
-            "text_style": "normal",
-            "use_custom_color": false,
-            "custom_color": "#000000"
-          }
-        },
-        "image_UkJUxK": {
-          "type": "image",
-          "settings": {
-            "image_height": 32,
-            "image_rounded": false,
-            "image_link": "",
-            "image_height_mobile": 32
-          }
-        },
-        "text_zYULne": {
-          "type": "text",
-          "settings": {
-            "text": "DESIGN FOR LIVING",
-            "text_link": "",
-            "text_size": "hd1",
-            "font_weight": "font-heading",
-            "font_style": "normal",
-            "letter_spacing": 0,
-            "text_opacity": 100,
-            "text_style": "normal",
-            "use_custom_color": false,
-            "custom_color": "#000000"
-          }
-        },
-        "image_C3F6qF": {
-          "type": "image",
-          "settings": {
-            "image_height": 32,
-            "image_rounded": false,
-            "image_link": "",
-            "image_height_mobile": 32
-          }
-        },
-        "text_KTrbmA": {
-          "type": "text",
-          "settings": {
-            "text": "UNIQUE FURNITURE",
-            "text_link": "",
-            "text_size": "hd1",
-            "font_weight": "font-heading",
-            "font_style": "normal",
-            "letter_spacing": 0,
-            "text_opacity": 100,
-            "text_style": "normal",
-            "use_custom_color": false,
-            "custom_color": "#000000"
-          }
-        },
-        "image_n4aFjx": {
-          "type": "image",
-          "settings": {
-            "image_height": 32,
-            "image_rounded": false,
-            "image_link": "",
-            "image_height_mobile": 32
-          }
-        }
-      },
-      "block_order": [
-        "text_DcQXgF",
-        "image_UkJUxK",
-        "text_zYULne",
-        "image_C3F6qF",
-        "text_KTrbmA",
-        "image_n4aFjx"
-      ],
-      "custom_css": [
-        ".scrolling-promotion {opacity: 0.2;}"
-      ],
-      "settings": {
-        "color_scheme": "scheme-2",
-        "vertical_alignment": "center",
-        "direction": "left",
-        "pause_on_hover": true,
-        "speed": 0.1,
-        "h_spacing": 48,
-        "v_spacing": 10,
-        "padding_top": 90,
-        "padding_bottom": 0,
-        "show_divider": false,
-        "divider_layout": "vertical",
+        "padding_bottom": 50,
         "custom_class": ""
       }
     },
@@ -641,6 +352,7 @@
         "image_heqn9T": {
           "type": "image",
           "settings": {
+            "image": "shopify://shop_images/Asset_27.png",
             "heading": "Before",
             "color_scheme": ""
           }
@@ -648,6 +360,7 @@
         "image_AYRQjL": {
           "type": "image",
           "settings": {
+            "image": "shopify://shop_images/Asset_27.png",
             "heading": "After",
             "color_scheme": ""
           }
@@ -691,7 +404,7 @@
         "heading_eAXU9P": {
           "type": "heading",
           "settings": {
-            "heading": "Converting home into  a BETTER PLACE to live",
+            "heading": "Converting a space into a BETTER PLACE to play & learn",
             "heading_size": "h1",
             "heading_highlight_style": "none"
           }
@@ -699,7 +412,7 @@
         "button_YWF7i6": {
           "type": "button",
           "settings": {
-            "button_label": "Find inspiration for your home",
+            "button_label": "FIND INSPIRATION FOR YOUR CENTRE",
             "button_link": "",
             "button_style": "btn--underline"
           }
@@ -735,7 +448,7 @@
         "description": "",
         "text_size": "text-base",
         "show_collection_description": false,
-        "collection": "construction-and-engineering-copy",
+        "collection": "",
         "limit": 8,
         "columns": 4,
         "column_gap": "extra-small",
@@ -1305,7 +1018,6 @@
           "type": "column",
           "settings": {
             "show_image": true,
-            "image": "shopify://shop_images/Asset_2_a9b4be54-849d-4af9-a23e-347dbde008dd.png",
             "image_width": "large",
             "title": "Online support",
             "heading_size": "h4",
@@ -1447,9 +1159,7 @@
     "custom_content_zRk47d",
     "product_tabs_jhb9aJ",
     "lookbook_slider_cte8Fy",
-    "multicolumn_FW8anp",
-    "collection_list_Jbx97m",
-    "scrolling_promotion_eqXpH6",
+    "custom_liquid_pJ7MQg",
     "image_comparison_CLXe7t",
     "rich_text_HphPmy",
     "featured_collection_nTAnFG",
