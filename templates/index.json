@@ -638,6 +638,7 @@
           "type": "column",
           "settings": {
             "show_image": true,
+            "image": "shopify://shop_images/Asset_2_a9b4be54-849d-4af9-a23e-347dbde008dd.png",
             "image_width": "large",
             "title": "Online support",
             "heading_size": "h4",
