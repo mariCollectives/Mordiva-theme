@@ -74,35 +74,7 @@
             {%- endform -%}
           </div>
 
-
-  {%- when 'assign_room' -%}
-  <div class="product__block product__block--assign-room" {{ block.shopify_attributes }}>
-    <div class="form-field" data-custom-property>
-      <label class="form-label font-body-bold" for="AssignedRoom-{{ block.id }}">
-        Assign to Room
-        {%- if block.settings.required -%}<span aria-hidden="true">*</span>{%- endif -%}
-      </label>
-
-      <input
-        id="AssignedRoom-{{ block.id }}"
-        type="text"
-        name="properties[Assigned Room]"
-        form="{{ product_form_id }}"
-        class="form-control"
-        value="{{ block.settings.default_value | escape }}"
-        placeholder="{{ block.settings.placeholder | escape }}"
-        {% if block.settings.required %}required{% endif %}
-      >
-
-      {%- if block.settings.help_text != blank -%}
-        <small class="text-sm text-subtext" style="display:block; margin-top:6px;">
-          {{ block.settings.help_text }}
-        </small>
-      {%- endif -%}
-    </div>
-  </div>
-
-
+            {%- when 'line_item_property' -%}
 
         {%- when 'inventory' -%}
           <div
