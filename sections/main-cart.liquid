@@ -126,6 +126,10 @@
                   <th class="h6" colspan="1" scope="col" class="hidden xl:table-cell">
                     {{ 'sections.cart.headings.price' | t }}
                   </th>
+                  <th class="h6" colspan="1" scope="col" class="hidden lg:table-cell">
+                    Assigned Room
+                  </th>
+
                   <th class="h6 no-js-hidden" colspan="1" scope="col" class="hidden lg:table-cell">
                     {{ 'sections.cart.headings.quantity' | t }}
                   </th>
@@ -325,28 +329,7 @@
                                 </div>
                               {%- endif -%}
 
-                              {%- assign existing_value = item.properties['Assigned Room'] -%}
-
-                              <div class="cart-line-property" style="margin-top: 10px; width: 100%;">
-                                <label for="prop-{{ item.key }}" style="display:block; font-size: 13px; margin-bottom: 6px;">
-                                  Assigned Room
-                                </label>
-
-                                <input
-                                  id="prop-{{ item.key }}"
-                                  type="text"
-                                  value="{{ existing_value | escape }}"
-                                  placeholder="e.g. Toddler Room / Blue set"
-                                  data-line-key="{{ item.key }}"
-                                  class="line-prop-input"
-                                  style="width: 100%; max-width: 360px;"
-                                >
-
-                                <small style="display:block; opacity:.7; margin-top:6px;">
-                                  This will follow this product into checkout and appear on the order.
-                                </small>
-                              </div>
-
+                             
 
 
 
@@ -537,7 +520,37 @@
                             {%- endif -%}
                           </div>
                         </div>
+
+
+
                       </td>
+
+
+
+              <td class="cart-item__assigned-room hidden lg:table-cell">
+                {%- assign existing_value = item.properties['Assigned Room'] -%}
+
+                <div style="max-width: 260px;">
+                  <label for="prop-{{ item.key }}" class="visually-hidden">
+                    Assigned Room
+                  </label>
+
+                  <input
+                    id="prop-{{ item.key }}"
+                    type="text"
+                    value="{{ existing_value | escape }}"
+                    placeholder="e.g. Toddler Room / Blue set"
+                    data-line-key="{{ item.key }}"
+                    class="line-prop-input"
+                    style="width: 100%;"
+                  >
+
+                  <small style="display:block; opacity:.7; margin-top:6px;">
+                    Saved to order.
+                  </small>
+                </div>
+              </td>
+
   
                       <td class="cart-item__quantity hidden lg:table-cell no-js-hidden">
                         <div class="cart-item__action flex items-center justify-between">
