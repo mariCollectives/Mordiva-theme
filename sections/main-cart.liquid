@@ -127,7 +127,7 @@
                     {{ 'sections.cart.headings.price' | t }}
                   </th>
                   <th class="h6" colspan="1" scope="col" class="hidden lg:table-cell">
-                    Assigned Room
+                    Assign to Room
                   </th>
 
                   <th class="h6 no-js-hidden" colspan="1" scope="col" class="hidden lg:table-cell">
@@ -303,7 +303,7 @@
                                     {%- endfor -%}
                                   {%- endif -%}
                                   {%- for property in item.properties -%}
-                                    {%- if property.first == 'Assigned Room' -%}{% continue %}{%- endif -%}
+                                    {%- if property.first == 'Assign to Room' -%}{% continue %}{%- endif -%}
 
                                     {%- assign property_first_char = property.first | slice: 0 -%}
                                     {%- if property.last != blank and property_first_char != '_' -%}
@@ -528,11 +528,11 @@
 
 
               <td class="cart-item__assigned-room hidden lg:table-cell">
-                {%- assign existing_value = item.properties['Assigned Room'] -%}
+                {%- assign existing_value = item.properties['Assign to Room'] -%}
 
                 <div style="max-width: 260px;">
                   <label for="prop-{{ item.key }}" class="visually-hidden">
-                    Assigned Room
+                    Assign to Room
                   </label>
 
                   <input
