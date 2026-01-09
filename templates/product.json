@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "breadcrumbs": {
@@ -88,39 +97,6 @@
             "enable_quick_add": true
           }
         },
-        "collapsible-row-1": {
-          "type": "collapsible_tab",
-          "settings": {
-            "heading": "Material & Care",
-            "icon": "none",
-            "content": "<h6><strong>Material:</strong></h6><ul><li><strong>Frame:</strong> Solid Wood</li><li><strong>Shelves:</strong> Engineered Wood with Veneer Finish</li><li><strong>Drawer:</strong> MDF with Metal Handles</li><li><strong>Legs:</strong> Metal with Powder-Coated Finish</li></ul><h6><strong>Care Instructions:</strong></h6><ul><li><strong>Cleaning:</strong> Wipe with a soft, dry cloth. Avoid using harsh chemicals or abrasive cleaners.</li><li><strong>Spills:</strong> Immediately blot any spills with a clean, dry cloth.</li><li><strong>Sunlight:</strong> Avoid prolonged exposure to direct sunlight to prevent fading.</li><li><strong>Maintenance:</strong> Periodically check and tighten any loose hardware.</li><li><strong>Protection:</strong> Use coasters or placemats to prevent damage from hot or wet items.</li></ul>",
-            "custom_liquid": "",
-            "page": "",
-            "default_open": false
-          }
-        },
-        "collapsible-row-2": {
-          "type": "collapsible_tab",
-          "settings": {
-            "heading": "Dimensions",
-            "icon": "none",
-            "content": "<p><strong>Overall Dimensions:</strong> 30\" H x 48\" W x 20\" D</p><p><strong>Top Shelf:</strong> 28\" W x 18\" D</p><p><strong>Bottom Shelf:</strong> 28\" W x 18\" D</p><p><strong>Drawer Dimensions:</strong> 24\" W x 15\" D x 6\" H</p><p><strong>Leg Height:</strong> 4\"</p>",
-            "custom_liquid": "",
-            "page": "",
-            "default_open": false
-          }
-        },
-        "collapsible-row-3": {
-          "type": "collapsible_tab",
-          "settings": {
-            "heading": "Shipping & Returns",
-            "icon": "none",
-            "content": "<h6><strong>Shipping Policy</strong></h6><ul><li><strong>Shipping Time:</strong> Standard shipping takes 5-7 business days. Expedited options are available at checkout.</li><li><strong>Shipping Areas:</strong> We ship to all contiguous U.S. states. No shipping to Alaska, Hawaii, or international addresses.</li><li><strong>Tracking:</strong> A confirmation email with a tracking number is sent once your order is shipped.</li></ul><h6><strong>Returns Policy</strong></h6><ul><li><strong>Return Window:</strong> Returns are accepted within 30 days of delivery.</li><li><strong>Return Process:</strong> Contact us with your order number and reason for return. We will provide return authorization and instructions.</li><li><strong>Refunds:</strong> Once we receive and inspect the returned item, a refund will be issued to your original payment method within 7-10 business days. Shipping fees are non-refundable.</li></ul><p>For questions or concerns, contact customer service at <a href=\"/pages/contact\" title=\"Contact\">contact us</a>.</p>",
-            "custom_liquid": "",
-            "page": "",
-            "default_open": false
-          }
-        },
         "addons": {
           "type": "addons",
           "settings": {
@@ -140,9 +116,6 @@
         "icon_with_text",
         "pickup_availability",
         "complementary",
-        "collapsible-row-1",
-        "collapsible-row-2",
-        "collapsible-row-3",
         "addons"
       ],
       "custom_css": [
@@ -170,7 +143,9 @@
             "show_image": true,
             "text": "<p>“Hands down one of the best shirts I’ve ever owned.  Fits great, feels amazing, seems to stay cool and is somewhat water resistant.”</p>",
             "author": "Melissa H.",
-            "bio": "Verified Buyer"
+            "bio": "Verified Buyer",
+            "product": "",
+            "icon": "none"
           }
         },
         "testimonial_D7Mq7i": {
@@ -179,7 +154,9 @@
             "show_image": true,
             "text": "<p>\"This decor furniture piece is a perfect blend of modern and classic design. The quality is top-notch.\"</p>",
             "author": "Alexandra M.",
-            "bio": "Verified Buyer"
+            "bio": "Verified Buyer",
+            "product": "",
+            "icon": "none"
           }
         },
         "testimonial_33tAjm": {
@@ -188,7 +165,9 @@
             "show_image": true,
             "text": "<p>\"Absolutely love this furniture! It's both stylish and functional, with a sturdy build that ensures durability.\"</p><p></p>",
             "author": "Danielle S.",
-            "bio": "Verified Buyer"
+            "bio": "Verified Buyer",
+            "product": "",
+            "icon": "none"
           }
         },
         "testimonial_dDRMwy": {
@@ -197,7 +176,9 @@
             "show_image": true,
             "text": "<p>\"The craftsmanship is impeccable, and the design is stunning. Highly recommend for any home!\"</p>",
             "author": "Elizabeth R.",
-            "bio": "Verified Buyer"
+            "bio": "Verified Buyer",
+            "product": "",
+            "icon": "none"
           }
         }
       },
@@ -259,6 +240,7 @@
           "type": "button",
           "settings": {
             "button_label": "Learn more",
+            "button_link": "",
             "button_style": "btn--secondary"
           }
         }
@@ -453,6 +435,7 @@
           "type": "button",
           "settings": {
             "button_label": "Learn more",
+            "button_link": "",
             "button_style": "btn--secondary"
           }
         }
@@ -633,6 +616,7 @@
         "description": "",
         "description_size": "text-base",
         "button_label": "@inove_store",
+        "button_link": "",
         "button_style": "btn--secondary",
         "padding_top": 50,
         "padding_bottom": 50,
