@@ -299,7 +299,7 @@
                                     {%- endfor -%}
                                   {%- endif -%}
                                   {%- for property in item.properties -%}
-                                    {%- if property.first == 'Room / Note' -%}{% continue %}{%- endif -%}
+                                    {%- if property.first == 'Assigned Room' -%}{% continue %}{%- endif -%}
 
                                     {%- assign property_first_char = property.first | slice: 0 -%}
                                     {%- if property.last != blank and property_first_char != '_' -%}
@@ -325,11 +325,11 @@
                                 </div>
                               {%- endif -%}
 
-                              {%- assign existing_value = item.properties['Room / Note'] -%}
+                              {%- assign existing_value = item.properties['Assigned Room'] -%}
 
                               <div class="cart-line-property" style="margin-top: 10px; width: 100%;">
                                 <label for="prop-{{ item.key }}" style="display:block; font-size: 13px; margin-bottom: 6px;">
-                                  Room / Note (per item)
+                                  Assigned Room
                                 </label>
 
                                 <input
