@@ -73,6 +73,37 @@
               {{ form | payment_terms }}
             {%- endform -%}
           </div>
+
+
+          {%- when 'assign_room' -%}
+  <div class="product__block product__block--assign-room" {{ block.shopify_attributes }}>
+    <div class="form-field" data-custom-property>
+      <label class="form-label font-body-bold" for="AssignedRoom-{{ block.id }}">
+        Assign to Room
+        {%- if block.settings.required -%}<span aria-hidden="true">*</span>{%- endif -%}
+      </label>
+
+      <input
+        id="AssignedRoom-{{ block.id }}"
+        type="text"
+        name="properties[Assigned Room]"
+        form="{{ product_form_id }}"
+        class="form-control"
+        value="{{ block.settings.default_value | escape }}"
+        placeholder="{{ block.settings.placeholder | escape }}"
+        {% if block.settings.required %}required{% endif %}
+      >
+
+      {%- if block.settings.help_text != blank -%}
+        <small class="text-sm text-subtext" style="display:block; margin-top:6px;">
+          {{ block.settings.help_text }}
+        </small>
+      {%- endif -%}
+    </div>
+  </div>
+
+
+
         {%- when 'inventory' -%}
           <div
             class="product__block product__block--{{ block.type }}{% if block.settings.text_style == 'uppercase' %} text-upper{% elsif block.settings.text_style == 'subtitle' %} text-upper text-subtext{% endif %}{% if product.selected_or_first_available_variant.inventory_management != 'shopify' %} hidden{% endif %}"
