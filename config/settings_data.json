@@ -110,6 +110,11 @@
         "type": "shopify://apps/uncap-save-share-cart/blocks/app-embed/40605216-fe5a-427f-964b-2bafece0e83a",
         "disabled": false,
         "settings": {}
+      },
+      "3720565183479497137": {
+        "type": "shopify://apps/globo-product-options/blocks/app-embed-block/fdc9fad5-1a0f-4bd4-9c8a-1af6a6eef6b8",
+        "disabled": false,
+        "settings": {}
       }
     },
     "color_schemes": {
