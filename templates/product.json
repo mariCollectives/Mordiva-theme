@@ -59,10 +59,6 @@
             "size_chart_from_page": ""
           }
         },
-        "globo_product_options_app_block_i9DDia": {
-          "type": "shopify://apps/globo-product-options/blocks/app-block/fdc9fad5-1a0f-4bd4-9c8a-1af6a6eef6b8",
-          "settings": {}
-        },
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
@@ -116,7 +112,6 @@
         "inventory",
         "description",
         "variant_picker",
-        "globo_product_options_app_block_i9DDia",
         "buy_buttons",
         "icon_with_text",
         "pickup_availability",

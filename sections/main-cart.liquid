@@ -234,6 +234,9 @@
                           {%- endif -%}
                           <div class="cart-item__product--info flex flex-col items-start gap-2 flex-grow">
                             <div class="grid gap-1 w-full">
+
+
+
                               <div class="flex items-center justify-between gap-1 flex-wrap">
                                 <div class="block">
                                   <a href="{{ item.url }}" class="cart-item__title text-pcard-title reversed-link">{{- item.product.title | escape -}}</a>
@@ -296,6 +299,8 @@
                                     {%- endfor -%}
                                   {%- endif -%}
                                   {%- for property in item.properties -%}
+                                    {%- if property.first == 'Room / Note' -%}{% continue %}{%- endif -%}
+
                                     {%- assign property_first_char = property.first | slice: 0 -%}
                                     {%- if property.last != blank and property_first_char != '_' -%}
                                       <div class="flex gap-1 text-sm text-subtext">
@@ -311,12 +316,40 @@
                                         </dd>
                                       </div>
                                     {%- endif -%}
+
+                                 
                                   {%- endfor -%}
                                   {%- if item.selling_plan_allocation != null -%}
                                     <p class="text-sm text-subtext">{{ item.selling_plan_allocation.selling_plan.name }}</p>
                                   {%- endif -%}
                                 </div>
                               {%- endif -%}
+
+                              {%- assign existing_value = item.properties['Room / Note'] -%}
+
+                              <div class="cart-line-property" style="margin-top: 10px; width: 100%;">
+                                <label for="prop-{{ item.key }}" style="display:block; font-size: 13px; margin-bottom: 6px;">
+                                  Room / Note (per item)
+                                </label>
+
+                                <input
+                                  id="prop-{{ item.key }}"
+                                  type="text"
+                                  value="{{ existing_value | escape }}"
+                                  placeholder="e.g. Toddler Room / Blue set"
+                                  data-line-key="{{ item.key }}"
+                                  class="line-prop-input"
+                                  style="width: 100%; max-width: 360px;"
+                                >
+
+                                <small style="display:block; opacity:.7; margin-top:6px;">
+                                  This will follow this product into checkout and appear on the order.
+                                </small>
+                              </div>
+
+
+
+
                               {%- if item.line_level_discount_allocations != blank -%}
                                 <ul class="cart-item__discounts discounts list-unstyled flex gap-1" role="list" aria-label="{{ 'customer.order.discount' | t }}">
                                   {%- for discount_allocation in item.line_level_discount_allocations -%}

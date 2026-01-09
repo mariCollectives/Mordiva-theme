@@ -105,6 +105,71 @@
    <script src="{{ 'print-save.js' | asset_url }}" defer="defer"></script>
 
 
+    <script>
+    (function () {
+      // Only run on cart page
+      if (!location.pathname.replace(/\/+$/, "").startsWith("/cart")) return;
+
+      function debounce(fn, wait) {
+        var t;
+        return function () {
+          var args = arguments;
+          clearTimeout(t);
+          t = setTimeout(function () { fn.apply(null, args); }, wait);
+        };
+      }
+
+      async function getCart() {
+        var res = await fetch("/cart.js", { credentials: "same-origin" });
+        if (!res.ok) throw new Error("Failed to read cart");
+        return res.json();
+      }
+
+      async function setLineProperties(lineKey, newProps) {
+        // Shopify expects ALL properties you want to keep.
+        // So we merge with existing properties first.
+        var cart = await getCart();
+        var item = (cart.items || []).find(function (i) { return i.key === lineKey; });
+        if (!item) return;
+
+        var merged = Object.assign({}, item.properties || {}, newProps);
+
+        var res = await fetch("/cart/change.js", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "same-origin",
+          body: JSON.stringify({
+            id: lineKey,
+            properties: merged
+          })
+        });
+
+        if (!res.ok) {
+          console.error("Failed to update line properties", await res.text());
+          return;
+        }
+
+        // Optional: refresh page if your cart UI doesn't auto-update
+        // location.reload();
+      }
+
+      var onInput = debounce(function (e) {
+        var input = e.target.closest(".line-prop-input");
+        if (!input) return;
+
+        var key = input.getAttribute("data-line-key");
+        var val = (input.value || "").trim();
+
+        // Use blank to remove it
+        var payload = {};
+        payload["Room / Note"] = val || null;
+
+        setLineProperties(key, payload).catch(console.error);
+      }, 500);
+
+      document.addEventListener("input", onInput);
+    })();
+    </script>
 
 
 
