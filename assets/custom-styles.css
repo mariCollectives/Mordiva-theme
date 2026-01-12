@@ -58,3 +58,7 @@
 .uncap_cart_detail .actions-container{
     display:none !important;
 }
+
+.empty-cart button{
+    display:none !important;
+}
