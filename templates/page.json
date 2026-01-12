@@ -22,8 +22,8 @@
       "settings": {
         "custom_liquid": "<p style=\"text-align:center\">If no items have been added, please remove this cart and add products from the Shop page.</p>",
         "color_scheme": "",
-        "padding_top": 50,
-        "padding_bottom": 50,
+        "padding_top": 16,
+        "padding_bottom": 10,
         "custom_class": ""
       }
     },
