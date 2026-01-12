@@ -54,3 +54,7 @@
     position: absolute;
     margin-top: 30px;
 }
+
+.uncap_cart_detail .actions-container{
+    display:none;
+}
