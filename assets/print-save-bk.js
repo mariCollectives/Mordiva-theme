@@ -6,7 +6,6 @@
 
   if (!isCartPage && !isSavedCartPage) return;
 
-
   function $(sel, root) {
     return (root || document).querySelector(sel);
   }
@@ -45,7 +44,6 @@
     return h1 ? h1.textContent.trim() : (isCartPage ? "Cart" : "Quote");
   }
 
-
   function findRoomNoteFromDtDd(row) {
     var dts = row.querySelectorAll("dt");
     for (var i = 0; i < dts.length; i++) {
@@ -53,14 +51,11 @@
       var dtText = (dt.textContent || "").replace(/\s+/g, " ").trim().toLowerCase();
 
       if (dtText.indexOf("room") !== -1 && dtText.indexOf("note") !== -1) {
-  
         var dd = null;
 
-        // direct nextElementSibling
         if (dt.nextElementSibling && dt.nextElementSibling.tagName === "DD") {
           dd = dt.nextElementSibling;
         } else {
-          // try: find dd inside same container
           var parent = dt.parentElement;
           if (parent) dd = parent.querySelector("dd");
         }
@@ -72,13 +67,10 @@
     return "";
   }
 
- 
   function findRoomValueInCartRow(row) {
-
     var fromDtDd = findRoomNoteFromDtDd(row);
     if (fromDtDd) return fromDtDd;
 
-    // 1) Shopify line item properties input
     var propInput =
       row.querySelector('[name^="properties["][name*="Assign to Room"]') ||
       row.querySelector('[name^="properties["][name*="Room"]') ||
@@ -86,17 +78,14 @@
 
     if (propInput) return val(propInput);
 
-    // 2) last fallback: any input inside row
     var anyInput = row.querySelector("input, textarea, select");
     return val(anyInput);
   }
 
   function findRoomValueInSavedRow(row) {
-    // 0) FIRST: rendered DT/DD "Room / Note"
     var fromDtDd = findRoomNoteFromDtDd(row);
     if (fromDtDd) return fromDtDd;
 
-    // 1) If there are property inputs (less likely on saved cart)
     var propInput =
       row.querySelector('[name^="properties["][name*="Assign to Room"]') ||
       row.querySelector('[name^="properties["][name*="Room"]') ||
@@ -104,14 +93,12 @@
 
     if (propInput) return val(propInput);
 
-    // 2) If saved cart shows it as plain text somewhere custom
     var label =
       row.querySelector(".item-room") ||
       row.querySelector('[data-room]');
 
     if (label) return val(label) || text(label);
 
-    // 3) last fallback: any input inside row
     return val(row.querySelector("input, textarea, select"));
   }
 
@@ -179,19 +166,59 @@
     return isCartPage ? parseFromCartPage() : parseFromSavedCartPage();
   }
 
-  // ---------------- Print HTML ----------------
+  // ---------------- Print HTML (REVISED TO MATCH SAMPLE) ----------------
   function buildPrintHtml(data) {
     var now = new Date();
-    var dateStr = now.toLocaleString();
+
+    // mimic sample: date only (still fine if you want full timestamp)
+    var quoteDate = now.toLocaleDateString(undefined, { year: "numeric", month: "2-digit", day: "2-digit" });
+    var expiry = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000);
+    var expiryDate = expiry.toLocaleDateString(undefined, { year: "numeric", month: "2-digit", day: "2-digit" });
+
     var shopName = (window.Shopify && Shopify.shop) ? Shopify.shop : location.hostname;
     var cartId = getCartId();
 
+    // quote ref similar to SQ-xxxxxxxx (use cartId if exists, else fallback)
+    var refSeed = (cartId || String(Date.now()));
+    var quoteRef = "SQ-" + refSeed.toString().slice(-8).padStart(8, "0");
+
+    // Optional: replace with your actual logo URL if you want the exact look
+    // Example: var logoUrl = "https://cdn.shopify.com/s/files/.../collective-play-logo.png";
+    var logoUrl = ""; // leave blank -> text logo
+
+    // Pull some “customer” info from page when available (saved cart page often has it)
+    var customerName =
+      text(document.querySelector(".customer-name")) ||
+      text(document.querySelector("[data-customer-name]")) ||
+      "Customer";
+
+    var deliverTo =
+      text(document.querySelector(".delivery-name")) ||
+      text(document.querySelector("[data-deliver-to]")) ||
+      customerName;
+
+    var deliverAddr1 =
+      text(document.querySelector(".delivery-address-line1")) ||
+      text(document.querySelector("[data-delivery-address-line1]")) ||
+      "";
+
+    var deliverAddr2 =
+      text(document.querySelector(".delivery-address-line2")) ||
+      text(document.querySelector("[data-delivery-address-line2]")) ||
+      "";
+
+    // Build table rows like the sample: Ln | Description (+ room note) | Qty | Unit | Total
+    // (You don’t have product code / discount in DOM reliably, so we keep it clean.)
     var rows = data.items
-      .map(function (i) {
+      .map(function (i, idx) {
+        var desc = escapeHtml(i.title || "");
+        var room = escapeHtml(i.room_note || "");
+        var roomHtml = room ? ("<div class='subline'><strong>Room / Note:</strong> " + room + "</div>") : "";
+
         return (
           "<tr>" +
-          "<td class='item'>" + escapeHtml(i.title) + "</td>" +
-          "<td class='room'>" + escapeHtml(i.room_note || "") + "</td>" +
+          "<td class='ln'>" + (idx + 1) + "</td>" +
+          "<td class='desc'>" + desc + roomHtml + "</td>" +
           "<td class='qty'>" + escapeHtml(i.quantity) + "</td>" +
           "<td class='money'>" + escapeHtml(i.unit) + "</td>" +
           "<td class='money'>" + escapeHtml(i.line_total) + "</td>" +
@@ -209,73 +236,267 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
   :root { color-scheme: light; }
-  body { font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; margin: 0; padding: 24px; color: #111; }
-  .page { max-width: 900px; margin: 0 auto; }
-  .header { display:flex; justify-content:space-between; gap: 16px; align-items:flex-start; border-bottom: 1px solid #e5e5e5; padding-bottom: 14px; margin-bottom: 16px; }
-  .title { margin: 0; font-size: 22px; letter-spacing: .2px; }
-  .meta { font-size: 12px; color:#444; line-height: 1.5; text-align:right; }
-  .meta strong { color:#111; }
-  table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-  th, td { padding: 10px 8px; border-bottom: 1px solid #eee; font-size: 13px; vertical-align: top; }
-  th { text-transform: uppercase; letter-spacing: .06em; font-size: 11px; color:#444; background: #fafafa; }
-  td.item { width: 40%; }
-  td.room { width: 25%; }
-  td.qty { width: 10%; text-align: center; white-space: nowrap; }
-  td.money { width: 12.5%; text-align: right; white-space: nowrap; }
-  .summary { display:flex; justify-content:flex-end; margin-top: 14px; }
-  .summary-box { min-width: 280px; border: 1px solid #eee; border-radius: 10px; padding: 12px 14px; }
-  .summary-row { display:flex; justify-content:space-between; font-size: 13px; padding: 6px 0; }
-  .summary-row.total { font-weight: 700; font-size: 14px; border-top: 1px solid #eee; margin-top: 6px; padding-top: 10px; }
-  .footnote { margin-top: 18px; font-size: 11px; color:#666; }
+  * { box-sizing: border-box; }
+  body {
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+    margin: 0;
+    color: #111;
+    background: #fff;
+  }
 
+  /* A4-ish page padding like the sample */
+  .page {
+    padding: 18mm 14mm 16mm;
+  }
+
+  /* Header */
+  .top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 10mm;
+  }
+
+  .brand {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .logo {
+    width: 180px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+  }
+  .logo img { max-width: 100%; max-height: 100%; object-fit: contain; }
+  .logo-text {
+    font-weight: 800;
+    letter-spacing: .02em;
+    font-size: 34px;
+    line-height: 1;
+  }
+  .logo-text small {
+    display: block;
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: .08em;
+    margin-top: 6px;
+    color: #444;
+  }
+
+  .docbox {
+    border: 1.5px solid #d9b9a6;
+    padding: 10px 12px;
+    min-width: 230px;
+    text-align: right;
+  }
+  .docbox .title {
+    font-size: 18px;
+    letter-spacing: .08em;
+    font-weight: 700;
+  }
+  .docbox .ref {
+    font-weight: 800;
+    font-size: 14px;
+    margin-top: 2px;
+  }
+  .docbox .meta {
+    margin-top: 6px;
+    font-size: 11px;
+    line-height: 1.5;
+    color: #333;
+  }
+  .docbox .meta b { color:#111; font-weight: 700; }
+
+  /* Grey info panel like sample */
+  .panel {
+    border-top: 6px solid #efefef;
+    margin-top: 6mm;
+    padding-top: 6mm;
+  }
+  .panel-inner {
+    background: #efefef;
+    padding: 10px 12px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 18px;
+    font-size: 11px;
+    color: #222;
+  }
+  .field {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 8px;
+    align-items: baseline;
+  }
+  .label {
+    color: #333;
+    font-weight: 600;
+    text-align: right;
+  }
+  .value {
+    color: #111;
+    font-weight: 500;
+  }
+
+  /* Table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10mm;
+    font-size: 11px;
+  }
+  thead th {
+    text-transform: uppercase;
+    font-size: 10px;
+    letter-spacing: .08em;
+    color: #333;
+    border-bottom: 1px solid #333;
+    padding: 6px 6px;
+  }
+  tbody td {
+    border-bottom: 1px solid #d9d9d9;
+    padding: 6px 6px;
+    vertical-align: top;
+  }
+
+  .ln { width: 36px; text-align: left; }
+  .desc { width: auto; }
+  .qty { width: 70px; text-align: right; white-space: nowrap; }
+  .money { width: 110px; text-align: right; white-space: nowrap; }
+
+  .subline {
+    margin-top: 3px;
+    color: #444;
+    font-size: 10px;
+    line-height: 1.3;
+  }
+
+  /* Totals (right aligned like sample) */
+  .totals {
+    margin-top: 8mm;
+    display: flex;
+    justify-content: flex-end;
+  }
+  .totals-box {
+    min-width: 260px;
+    border-top: 1px solid #333;
+    padding-top: 6px;
+    font-size: 12px;
+  }
+  .totals-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0;
+  }
+  .totals-row.total {
+    font-weight: 800;
+  }
+
+  /* Footer like sample */
+  .footer {
+    margin-top: 14mm;
+    padding-top: 8mm;
+    border-top: 1px solid #e6e6e6;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 10px;
+    font-size: 10px;
+    color: #444;
+    align-items: end;
+  }
+  .footer .lines { line-height: 1.4; }
+  .footer .right { text-align: right; }
+
+  /* Page numbering */
   @media print {
-    @page { size: A4; margin: 12mm; }
-    body { padding: 0; }
-    .page { max-width: none; }
+    @page { size: A4; margin: 0; }
+    body { margin: 0; }
+    .page { page-break-after: always; }
+
     thead { display: table-header-group; }
     tr { break-inside: avoid; }
+
+    .pagenum::after {
+      content: "Page " counter(page) " of " counter(pages);
+    }
   }
 </style>
 </head>
 <body>
   <div class="page">
-    <div class="header">
-      <div>
-        <h1 class="title">${escapeHtml(getTitle())}</h1>
-        <div class="meta" style="text-align:left">
-          <div><strong>Store:</strong> ${escapeHtml(shopName)}</div>
+    <div class="top">
+      <div class="brand">
+        <div class="logo">
+          ${
+            logoUrl
+              ? `<img src="${escapeHtml(logoUrl)}" alt="${escapeHtml(shopName)}">`
+              : `<div class="logo-text">collective<br>play<small>${escapeHtml(shopName)}</small></div>`
+          }
         </div>
       </div>
-      <div class="meta">
-        <div><strong>Date:</strong> ${escapeHtml(dateStr)}</div>
-        ${cartId ? `<div><strong>Cart ID:</strong> ${escapeHtml(cartId)}</div>` : ``}
+
+      <div class="docbox">
+        <div class="title">SALES QUOTE</div>
+        <div class="ref">${escapeHtml(quoteRef)}</div>
+        <div class="meta">
+          <div><b>Quote Date:</b> ${escapeHtml(quoteDate)}</div>
+          <div><b>Quote Expiry Date:</b> ${escapeHtml(expiryDate)}</div>
+          ${cartId ? `<div><b>Cart ID:</b> ${escapeHtml(cartId)}</div>` : ``}
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-inner">
+        <div class="field"><div class="label">Deliver To:</div><div class="value">${escapeHtml(deliverTo)}</div></div>
+        <div class="field"><div class="label">Customer Name:</div><div class="value">${escapeHtml(customerName)}</div></div>
+
+        <div class="field"><div class="label">Delivery Address Line 1:</div><div class="value">${escapeHtml(deliverAddr1)}</div></div>
+        <div class="field"><div class="label">Customer Code:</div><div class="value">—</div></div>
+
+        <div class="field"><div class="label">Delivery Address Line 2:</div><div class="value">${escapeHtml(deliverAddr2)}</div></div>
+        <div class="field"><div class="label">Customer Type:</div><div class="value">—</div></div>
+
+        <div class="field"><div class="label">Delivery Method:</div><div class="value">—</div></div>
+        <div class="field"><div class="label">Delivery Instructions:</div><div class="value">—</div></div>
       </div>
     </div>
 
     <table>
       <thead>
         <tr>
-          <th style="text-align:left">Item</th>
-          <th style="text-align:left">Room / Note</th>
-          <th style="text-align:center">Qty</th>
-          <th style="text-align:right">Unit</th>
-          <th style="text-align:right">Line Total</th>
+          <th style="text-align:left">Ln</th>
+          <th style="text-align:left">Product Description</th>
+          <th style="text-align:right">Qty</th>
+          <th style="text-align:right">Unit Price</th>
+          <th style="text-align:right">Total</th>
         </tr>
       </thead>
       <tbody>${rows}</tbody>
     </table>
 
-    <div class="summary">
-      <div class="summary-box">
-        <div class="summary-row total">
+    <div class="totals">
+      <div class="totals-box">
+        <div class="totals-row total">
           <span>Total</span>
           <span>${escapeHtml(data.grandTotal || "")}</span>
         </div>
       </div>
     </div>
 
-    <div class="footnote">
-      Generated from cart preview. Totals may exclude shipping/taxes until checkout.
+    <div class="footer">
+      <div class="lines">
+        <div>www.collectiveplay.com.au</div>
+        <div>Suite 2.13 - 21 Crombie Avenue Bundall, QLD 4217</div>
+        <div>ABN: 52 653 111 472</div>
+        <div>Private and Confidential &nbsp; hello@collectiveplay.com.au</div>
+      </div>
+      <div class="right">
+        <div class="pagenum"></div>
+      </div>
     </div>
   </div>
 </body>

@@ -9,6 +9,10 @@
 
   if (!isQuoteUI) return;
 
+  function isLoggedIn() {
+     return !!window.__customerLoggedIn;
+  }
+
   var SELECTORS = {
     cartContainer: ".cart-items-container",
     itemRow: ".cart-item",
@@ -382,36 +386,51 @@ th{background:#f7f7f7}
 </html>`;
   }
 
-  function printPDF() {
-    var data = parseItemsWithRoom();
-    if (!data.items.length) return alert("No items found");
-
-    var w = window.open("", "_blank");
-    w.document.write(buildPrintHtml(data));
-    w.document.close();
-    setTimeout(function () {
-      w.print();
-    }, 400);
+ function printPDF() {
+  if (path === "/cart" && !isLoggedIn()) {
+    location.href =
+      "/account/login?return_url=" + encodeURIComponent(location.pathname + location.search);
+    return;
   }
 
-  function mountButtons() {
-    var container = $(SELECTORS.cartContainer);
-    if (!container || document.getElementById("quoteActions")) return;
+  var data = parseItemsWithRoom();
+  if (!data.items.length) return alert("No items found");
 
-    var wrap = document.createElement("div");
-    wrap.id = "quoteActions";
-    wrap.style.cssText =
-      "display:flex;gap:10px;justify-content:flex-end;margin-bottom:16px";
+  var w = window.open("", "_blank");
+  w.document.write(buildPrintHtml(data));
+  w.document.close();
+  setTimeout(function () {
+    w.print();
+  }, 400);
+}
 
-    wrap.innerHTML = `
-      <button id="printQuoteBtn" style="padding:10px 14px;background:#111;color:#fff;border:0;border-radius:6px">
-        Print / Save PDF
-      </button>
-    `;
 
-    container.parentNode.insertBefore(wrap, container);
-    document.getElementById("printQuoteBtn").onclick = printPDF;
-  }
+
+
+function mountButtons() {
+  var container = $(SELECTORS.cartContainer);
+  if (!container || document.getElementById("quoteActions")) return;
+
+  // ✅ if /cart and logged out: don’t show the button (or show disabled)
+  if (path === "/cart" && !isLoggedIn()) return;
+
+  var wrap = document.createElement("div");
+  wrap.id = "quoteActions";
+  wrap.style.cssText =
+    "display:flex;gap:10px;justify-content:flex-end;margin-bottom:16px";
+
+  wrap.innerHTML = `
+    <button id="printQuoteBtn" style="padding:10px 14px;background:#111;color:#fff;border:0;border-radius:6px">
+      Print / Save PDF
+    </button>
+  `;
+
+  container.parentNode.insertBefore(wrap, container);
+  document.getElementById("printQuoteBtn").onclick = printPDF;
+}
+
+
+
 
   function hydrate() {
     mountButtons();
