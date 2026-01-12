@@ -62,3 +62,7 @@
 .empty-cart a{
     display:none !important;
 }
+
+#saved-carts-container:has(#carts-list:empty) {
+  display: none;
+}
