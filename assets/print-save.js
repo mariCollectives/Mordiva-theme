@@ -16,6 +16,11 @@
   function text(el) {
     return el ? el.textContent.trim() : "";
   }
+  function val(el) {
+    if (!el) return "";
+    if (el.tagName === "INPUT" || el.tagName === "TEXTAREA" || el.tagName === "SELECT") return (el.value || "").trim();
+    return "";
+  }
   function escapeHtml(s) {
     return String(s || "")
       .replace(/&/g, "&amp;")
@@ -35,16 +40,48 @@
   }
 
   function getTitle() {
-    // /cart uses "Your cart", saved cart page might be "Quote" etc.
     var h1 = document.querySelector("h1");
     return h1 ? h1.textContent.trim() : (isCartPage ? "Cart" : "Quote");
+  }
+
+  // ---------------- Find "Assign to Room" value ----------------
+  function findRoomValueInCartRow(row) {
+    // 1) Most common: Shopify line item properties input
+    // e.g. name="properties[Assign to Room]" or similar
+    var propInput =
+      row.querySelector('[name^="properties["][name*="Assign to Room"]') || // <-- best guess
+      row.querySelector('[name^="properties["][name*="Room"]'); // fallback
+
+    if (propInput) return val(propInput);
+
+    // 2) Fallback: any input in the "Assign to Room" column/cell
+    // (adjust this selector if your cell has a class)
+    var anyInput = row.querySelector('td input, td textarea, td select'); // <-- adjust here if needed
+    return val(anyInput);
+  }
+
+  function findRoomValueInSavedRow(row) {
+    // Adjust these to match your saved cart DOM if you have a specific class
+    var propInput =
+      row.querySelector('[name^="properties["][name*="Assign to Room"]') ||
+      row.querySelector('[name^="properties["][name*="Room"]');
+
+    if (propInput) return val(propInput);
+
+    // If saved cart shows it as plain text somewhere
+    var label =
+      row.querySelector(".item-room") || // <-- adjust here if your saved cart has it
+      row.querySelector('[data-room]');  // fallback
+    if (label) return val(label) || text(label);
+
+    // last fallback: any input inside row
+    return val(row.querySelector("input, textarea, select"));
   }
 
   // ---------------- Parse items (per page) ----------------
   function parseFromCartPage() {
     var items = [];
 
-    // Your theme uses <tr class="cart-item" id="CartItem-1">...
     $all("tr.cart-item").forEach(function (row) {
       var titleEl = row.querySelector(".cart-item__title");
       var qtyEl = row.querySelector("input.quantity__input");
@@ -53,6 +90,7 @@
 
       items.push({
         title: text(titleEl),
+        room: findRoomValueInCartRow(row),
         quantity: qtyEl ? String(qtyEl.value || qtyEl.getAttribute("value") || "1") : "1",
         unit: moneyKeepDollar(text(unitEl)),
         line_total: moneyKeepDollar(text(lineEl))
@@ -60,12 +98,10 @@
     });
 
     var grandTotal = moneyKeepDollar(text(document.querySelector(".totals__subtotal-value")));
-
     return { items: items, grandTotal: grandTotal };
   }
 
   function parseFromSavedCartPage() {
-    // These are YOUR selectors from the saved cart view
     var items = [];
 
     $all(".cart-item").forEach(function (row) {
@@ -85,6 +121,7 @@
 
       items.push({
         title: text(t),
+        room: findRoomValueInSavedRow(row),
         quantity: extractQty(text(q)),
         unit: moneyKeepDollar(text(u)),
         line_total: extractLineTotal(text(lt))
@@ -117,6 +154,7 @@
         return (
           "<tr>" +
           "<td class='item'>" + escapeHtml(i.title) + "</td>" +
+          "<td class='room'>" + escapeHtml(i.room || "") + "</td>" +
           "<td class='qty'>" + escapeHtml(i.quantity) + "</td>" +
           "<td class='money'>" + escapeHtml(i.unit) + "</td>" +
           "<td class='money'>" + escapeHtml(i.line_total) + "</td>" +
@@ -143,9 +181,10 @@
   table { width: 100%; border-collapse: collapse; margin-top: 10px; }
   th, td { padding: 10px 8px; border-bottom: 1px solid #eee; font-size: 13px; vertical-align: top; }
   th { text-transform: uppercase; letter-spacing: .06em; font-size: 11px; color:#444; background: #fafafa; }
-  td.item { width: 55%; }
+  td.item { width: 40%; }
+  td.room { width: 25%; }
   td.qty { width: 10%; text-align: center; white-space: nowrap; }
-  td.money { width: 17.5%; text-align: right; white-space: nowrap; }
+  td.money { width: 12.5%; text-align: right; white-space: nowrap; }
   .summary { display:flex; justify-content:flex-end; margin-top: 14px; }
   .summary-box { min-width: 280px; border: 1px solid #eee; border-radius: 10px; padding: 12px 14px; }
   .summary-row { display:flex; justify-content:space-between; font-size: 13px; padding: 6px 0; }
@@ -180,6 +219,7 @@
       <thead>
         <tr>
           <th style="text-align:left">Item</th>
+          <th style="text-align:left">Room</th>
           <th style="text-align:center">Qty</th>
           <th style="text-align:right">Unit</th>
           <th style="text-align:right">Line Total</th>
@@ -216,7 +256,6 @@
     w.document.write(html);
     w.document.close();
 
-    // Some browsers don't reliably fire onload for about:blank + document.write
     var tries = 0;
     var tick = setInterval(function () {
       tries++;
@@ -226,10 +265,8 @@
           w.focus();
           w.print();
         }
-      } catch (e) {
-        // ignore
-      }
-      if (tries > 40) { // ~4s
+      } catch (e) {}
+      if (tries > 40) {
         clearInterval(tick);
         try { w.focus(); w.print(); } catch (e2) {}
       }
@@ -241,17 +278,14 @@
   function printPDF() {
     var data = parseItems();
     if (!data.items.length) return alert("No items found");
-
     openPrintWindow(buildPrintHtml(data));
   }
 
   // ---------------- Bind button ----------------
   function bind() {
-    // Your cart page button id from screenshot
     var btn = document.getElementById("printCartPdfButton") || document.getElementById("printQuoteBtn");
     if (!btn) return;
 
-    // Prevent double bind
     if (btn.dataset.printBound === "1") return;
     btn.dataset.printBound = "1";
 
@@ -261,11 +295,9 @@
     });
   }
 
-  // Try immediately + after theme renders
   bind();
   var t = setInterval(function () {
     bind();
-    // stop once bound
     var btn = document.getElementById("printCartPdfButton") || document.getElementById("printQuoteBtn");
     if (btn && btn.dataset.printBound === "1") clearInterval(t);
   }, 250);
