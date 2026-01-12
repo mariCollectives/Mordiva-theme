@@ -18,7 +18,8 @@
   }
   function val(el) {
     if (!el) return "";
-    if (el.tagName === "INPUT" || el.tagName === "TEXTAREA" || el.tagName === "SELECT") return (el.value || "").trim();
+    if (el.tagName === "INPUT" || el.tagName === "TEXTAREA" || el.tagName === "SELECT")
+      return (el.value || "").trim();
     return "";
   }
   function escapeHtml(s) {
@@ -44,37 +45,75 @@
     return h1 ? h1.textContent.trim() : (isCartPage ? "Cart" : "Quote");
   }
 
-  // ---------------- Find "Assign to Room" value ----------------
+  // ---------------- NEW: Find "Room / Note" dt/dd text ----------------
+  function findRoomNoteFromDtDd(row) {
+    // Looks for: <dt>Room / Note:</dt> <dd>...</dd>
+    var dts = row.querySelectorAll("dt");
+    for (var i = 0; i < dts.length; i++) {
+      var dt = dts[i];
+      var dtText = (dt.textContent || "").replace(/\s+/g, " ").trim().toLowerCase();
+
+      // match "room / note" even if spacing or colon differs
+      if (dtText.indexOf("room") !== -1 && dtText.indexOf("note") !== -1) {
+        // usually dd is next sibling, but sometimes within same parent
+        var dd = null;
+
+        // direct nextElementSibling
+        if (dt.nextElementSibling && dt.nextElementSibling.tagName === "DD") {
+          dd = dt.nextElementSibling;
+        } else {
+          // try: find dd inside same container
+          var parent = dt.parentElement;
+          if (parent) dd = parent.querySelector("dd");
+        }
+
+        var value = text(dd);
+        if (value) return value;
+      }
+    }
+    return "";
+  }
+
+  // ---------------- Find "Assign to Room" / Room-Note value ----------------
   function findRoomValueInCartRow(row) {
-    // 1) Most common: Shopify line item properties input
-    // e.g. name="properties[Assign to Room]" or similar
+    // 0) FIRST: rendered DT/DD "Room / Note"
+    var fromDtDd = findRoomNoteFromDtDd(row);
+    if (fromDtDd) return fromDtDd;
+
+    // 1) Shopify line item properties input
     var propInput =
-      row.querySelector('[name^="properties["][name*="Assign to Room"]') || // <-- best guess
-      row.querySelector('[name^="properties["][name*="Room"]'); // fallback
+      row.querySelector('[name^="properties["][name*="Assign to Room"]') ||
+      row.querySelector('[name^="properties["][name*="Room"]') ||
+      row.querySelector('[name^="properties["][name*="Note"]');
 
     if (propInput) return val(propInput);
 
-    // 2) Fallback: any input in the "Assign to Room" column/cell
-    // (adjust this selector if your cell has a class)
-    var anyInput = row.querySelector('td input, td textarea, td select'); // <-- adjust here if needed
+    // 2) last fallback: any input inside row
+    var anyInput = row.querySelector("input, textarea, select");
     return val(anyInput);
   }
 
   function findRoomValueInSavedRow(row) {
-    // Adjust these to match your saved cart DOM if you have a specific class
+    // 0) FIRST: rendered DT/DD "Room / Note"
+    var fromDtDd = findRoomNoteFromDtDd(row);
+    if (fromDtDd) return fromDtDd;
+
+    // 1) If there are property inputs (less likely on saved cart)
     var propInput =
       row.querySelector('[name^="properties["][name*="Assign to Room"]') ||
-      row.querySelector('[name^="properties["][name*="Room"]');
+      row.querySelector('[name^="properties["][name*="Room"]') ||
+      row.querySelector('[name^="properties["][name*="Note"]');
 
     if (propInput) return val(propInput);
 
-    // If saved cart shows it as plain text somewhere
+    // 2) If saved cart shows it as plain text somewhere custom
     var label =
-      row.querySelector(".item-room") || // <-- adjust here if your saved cart has it
-      row.querySelector('[data-room]');  // fallback
+      row.querySelector(".item-room") ||
+      row.querySelector('[data-room]');
+
     if (label) return val(label) || text(label);
 
-    // last fallback: any input inside row
+    // 3) last fallback: any input inside row
     return val(row.querySelector("input, textarea, select"));
   }
 
@@ -90,7 +129,7 @@
 
       items.push({
         title: text(titleEl),
-        room: findRoomValueInCartRow(row),
+        room_note: findRoomValueInCartRow(row),
         quantity: qtyEl ? String(qtyEl.value || qtyEl.getAttribute("value") || "1") : "1",
         unit: moneyKeepDollar(text(unitEl)),
         line_total: moneyKeepDollar(text(lineEl))
@@ -121,7 +160,7 @@
 
       items.push({
         title: text(t),
-        room: findRoomValueInSavedRow(row),
+        room_note: findRoomValueInSavedRow(row),
         quantity: extractQty(text(q)),
         unit: moneyKeepDollar(text(u)),
         line_total: extractLineTotal(text(lt))
@@ -154,7 +193,7 @@
         return (
           "<tr>" +
           "<td class='item'>" + escapeHtml(i.title) + "</td>" +
-          "<td class='room'>" + escapeHtml(i.room || "") + "</td>" +
+          "<td class='room'>" + escapeHtml(i.room_note || "") + "</td>" +
           "<td class='qty'>" + escapeHtml(i.quantity) + "</td>" +
           "<td class='money'>" + escapeHtml(i.unit) + "</td>" +
           "<td class='money'>" + escapeHtml(i.line_total) + "</td>" +
@@ -219,7 +258,7 @@
       <thead>
         <tr>
           <th style="text-align:left">Item</th>
-          <th style="text-align:left">Room</th>
+          <th style="text-align:left">Room / Note</th>
           <th style="text-align:center">Qty</th>
           <th style="text-align:right">Unit</th>
           <th style="text-align:right">Line Total</th>
