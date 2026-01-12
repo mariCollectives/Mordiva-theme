@@ -9,7 +9,6 @@
     unitPrice: ".item-price",
     lineTotal: ".item-total",
     grandTotalRow: ".cart-summary-row.cart-summary-total",
-    actions: ".item-actions",
     addBtn: ".add-item-button"
   };
 
@@ -32,8 +31,8 @@
   }
   function escapeHtml(s) {
     return String(s || "")
-      .replace(/&/g,"&amp;").replace(/</g,"&lt;")
-      .replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
   }
 
   function getCartName() {
@@ -76,8 +75,7 @@
     } catch (e) {}
   }
 
-  // Try to extract the variantId from the existing onclick:
-  // onclick="addItemToCart('9464908054825', '49193997074729', 1)"
+  // onclick="addItemToCart('productId','variantId',qty)"
   function getVariantIdFromOnclick(btn) {
     var oc = btn && btn.getAttribute("onclick");
     if (!oc) return "";
@@ -106,11 +104,16 @@
 
       var variantId = getVariantIdFromOnclick(addBtn);
       var productId = getProductIdFromOnclick(addBtn);
-      var key = variantId || productId || text($(SELECTORS.title, row)) || ("row_" + Math.random());
+      var key =
+        variantId ||
+        productId ||
+        text($(SELECTORS.title, row)) ||
+        ("row_" + Math.random());
 
       var wrap = document.createElement("div");
       wrap.setAttribute("data-room-field", "1");
-      wrap.style.cssText = "margin-top:10px; display:flex; flex-direction:column; gap:6px; max-width:320px;";
+      wrap.style.cssText =
+        "margin-top:10px;display:flex;flex-direction:column;gap:6px;max-width:320px;";
 
       wrap.innerHTML =
         '<label style="font-size:12px;opacity:.8">Assign to Room</label>' +
@@ -118,8 +121,11 @@
         'style="padding:10px 12px;border:1px solid #ddd;border-radius:8px" />' +
         '<div class="room-saved" style="font-size:12px;opacity:.7;display:none">Saved</div>';
 
-      // Place it inside item-details if possible, otherwise under actions
-      var target = row.querySelector(".item-details") || row.querySelector(".item-pricing") || row;
+      var target =
+        row.querySelector(".item-details") ||
+        row.querySelector(".item-pricing") ||
+        row;
+
       target.appendChild(wrap);
 
       var input = wrap.querySelector(".room-input");
@@ -127,64 +133,83 @@
 
       input.value = map[key] || "";
 
-      var save = function () {
+      function save() {
         var map2 = readRoomMap(cartId);
         map2[key] = input.value.trim();
         writeRoomMap(cartId, map2);
         saved.style.display = "block";
         clearTimeout(saved._t);
-        saved._t = setTimeout(function(){ saved.style.display="none"; }, 900);
-      };
+        saved._t = setTimeout(function () {
+          saved.style.display = "none";
+        }, 900);
+      }
 
       input.addEventListener("change", save);
       input.addEventListener("blur", save);
 
       // Intercept Add-to-Cart so it includes properties[Assign to Room]
-      addBtn.addEventListener("click", function (e) {
-        e.preventDefault();
-        e.stopPropagation();
+      addBtn.addEventListener(
+        "click",
+        function (e) {
+          e.preventDefault();
+          e.stopPropagation();
 
-        var qty = extractQty(text($(SELECTORS.qtyText, row)));
-        var roomVal = (input.value || "").trim();
+          var qty = extractQty(text($(SELECTORS.qtyText, row)));
+          var roomVal = (input.value || "").trim();
 
-        // If no variantId, fall back to original behavior
-        if (!variantId) {
-          // Let original onclick run
-          addBtn.removeAttribute("onclick");
-          addBtn.click();
-          return;
-        }
+          // If we can't find a variantId, fall back to original behavior
+          if (!variantId) {
+            // run original onclick by triggering it after removing our handler
+            var oc = addBtn.getAttribute("onclick");
+            if (oc) {
+              try {
+                // eslint-disable-next-line no-new-func
+                new Function(oc).call(addBtn);
+              } catch (err) {}
+            }
+            // still reload so your UX is consistent
+            setTimeout(function () {
+              location.reload();
+            }, 350);
+            return;
+          }
 
-        // Add to Shopify cart with line item properties
-        fetch("/cart/add.js", {
-          method: "POST",
-          headers: { "Content-Type": "application/json", "Accept": "application/json" },
-          body: JSON.stringify({
-            items: [{
-              id: parseInt(variantId, 10),
-              quantity: qty,
-              properties: roomVal ? { "Assign to Room": roomVal } : {}
-            }]
+          fetch("/cart/add.js", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json"
+            },
+            body: JSON.stringify({
+              items: [
+                {
+                  id: parseInt(variantId, 10),
+                  quantity: qty,
+                  properties: roomVal ? { "Assign to Room": roomVal } : {}
+                }
+              ]
+            })
           })
-        })
-        .then(function (r) {
-          if (!r.ok) throw new Error("Add to cart failed");
-          return r.json();
-        })
-        .then(function () {
-          // Optional: go to cart so they see it immediately
-          // location.href = "/cart";
-          addBtn.textContent = "Added";
-          setTimeout(function(){ addBtn.textContent = "Add to Cart"; }, 1000);
-        })
-        .catch(function () {
-          alert("Could not add to cart. Please try again.");
-        });
-      }, true);
+            .then(function (r) {
+              if (!r.ok) throw new Error("Add to cart failed");
+              return r.json();
+            })
+            .then(function () {
+              // Force reload after add
+              setTimeout(function () {
+                location.reload();
+              }, 250);
+            })
+            .catch(function () {
+              alert("Could not add to cart. Please try again.");
+            });
+        },
+        true
+      );
     });
   }
 
-  // ----------------- Extend your PDF/EMAIL parse to include room -----------------
+  // ----------------- Extend PDF parse to include room -----------------
   function getRoomForRow(row) {
     var cartId = getCartId();
     var map = readRoomMap(cartId);
@@ -211,17 +236,25 @@
 
   // ---------- PRINT ----------
   function buildPrintHtml(data) {
-    var rows = data.items.map(function (i) {
-      return `<tr>
+    var rows = data.items
+      .map(function (i) {
+        return `<tr>
         <td>
           ${escapeHtml(i.title)}
-          ${i.room ? `<div style="font-size:12px;opacity:.75;margin-top:4px">Room: ${escapeHtml(i.room)}</div>` : ``}
+          ${
+            i.room
+              ? `<div style="font-size:12px;opacity:.75;margin-top:4px">Room: ${escapeHtml(
+                  i.room
+                )}</div>`
+              : ``
+          }
         </td>
         <td style="text-align:center">${escapeHtml(i.quantity)}</td>
         <td style="text-align:right">${escapeHtml(i.unit)}</td>
         <td style="text-align:right">${escapeHtml(i.line_total)}</td>
       </tr>`;
-    }).join("");
+      })
+      .join("");
 
     return `
 <!doctype html>
@@ -245,7 +278,9 @@ th{background:#f7f7f7}
 </thead>
 <tbody>${rows}</tbody>
 </table>
-<div class="total"><span>Total</span><span>${escapeHtml(data.grandTotal)}</span></div>
+<div class="total"><span>Total</span><span>${escapeHtml(
+      data.grandTotal
+    )}</span></div>
 </body>
 </html>`;
   }
@@ -257,43 +292,27 @@ th{background:#f7f7f7}
     var w = window.open("", "_blank");
     w.document.write(buildPrintHtml(data));
     w.document.close();
-    setTimeout(function(){ w.print(); }, 400);
+    setTimeout(function () {
+      w.print();
+    }, 400);
   }
 
-  // ---------- EMAIL ----------
-  function sendEmail() {
-    var data = parseItemsWithRoom();
-    var body =
-      `Quote: ${getCartName()}\n\n` +
-      data.items.map(function(i){
-        return `- ${i.title}` +
-          (i.room ? ` (Room: ${i.room})` : ``) +
-          ` | Qty: ${i.quantity} | Unit: ${i.unit} | Line: ${i.line_total}`;
-      }).join("\n") +
-      `\n\nGrand Total: ${data.grandTotal}`;
-
-    location.href =
-      "mailto:?subject=" + encodeURIComponent("Quote - " + getCartName()) +
-      "&body=" + encodeURIComponent(body);
-  }
-
-  // ---------- UI (your existing buttons) ----------
+  // ---------- UI (ONLY Print button) ----------
   function mountButtons() {
     var container = $(SELECTORS.cartContainer);
     if (!container || document.getElementById("quoteActions")) return;
 
     var wrap = document.createElement("div");
     wrap.id = "quoteActions";
-    wrap.style.cssText = "display:flex;gap:10px;justify-content:flex-end;margin-bottom:16px";
+    wrap.style.cssText =
+      "display:flex;gap:10px;justify-content:flex-end;margin-bottom:16px";
 
     wrap.innerHTML = `
       <button id="printQuoteBtn" style="padding:10px 14px;background:#111;color:#fff;border:0;border-radius:6px">Print / Save PDF</button>
-      <button id="emailQuoteBtn" style="padding:10px 14px;background:#fff;color:#111;border:1px solid #111;border-radius:6px">Email Quote</button>
     `;
 
     container.parentNode.insertBefore(wrap, container);
     document.getElementById("printQuoteBtn").onclick = printPDF;
-    document.getElementById("emailQuoteBtn").onclick = sendEmail;
   }
 
   // ---------- Wait until page has items ----------
