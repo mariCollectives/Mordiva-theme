@@ -9,7 +9,10 @@
     unitPrice: ".item-price",
     lineTotal: ".item-total",
     grandTotalRow: ".cart-summary-row.cart-summary-total",
-    addBtn: ".add-item-button"
+    addBtn: ".add-item-button",
+    image: ".item-image",
+  variant: ".item-variant",
+  meta: ".item-meta"
   };
 
   function $(sel, root) {
@@ -220,43 +223,80 @@
     return map[key] || "";
   }
 
-  function parseItemsWithRoom() {
-    var items = [];
-    $all(SELECTORS.itemRow).forEach(function (row) {
-      items.push({
-        title: text($(SELECTORS.title, row)),
-        room: getRoomForRow(row),
-        quantity: String(extractQty(text($(SELECTORS.qtyText, row)))),
-        unit: moneyKeepDollar(text($(SELECTORS.unitPrice, row))),
-        line_total: extractLineTotal(text($(SELECTORS.lineTotal, row)))
+function parseItemsWithRoom() {
+  var items = [];
+
+  $all(SELECTORS.itemRow).forEach(function (row) {
+    var img = row.querySelector(SELECTORS.image);
+    var variantEl = row.querySelector(SELECTORS.variant);
+
+    // item-meta contains "SKU: ..." and "Vendor: ..."
+    var sku = "";
+    var vendor = "";
+    var metaWrap = row.querySelector(SELECTORS.meta);
+    if (metaWrap) {
+      var spans = metaWrap.querySelectorAll("span");
+      Array.prototype.forEach.call(spans, function (sp) {
+        var t = text(sp);
+        if (/^SKU\s*:/i.test(t)) sku = t.replace(/^SKU\s*:\s*/i, "").trim();
+        if (/^Vendor\s*:/i.test(t)) vendor = t.replace(/^Vendor\s*:\s*/i, "").trim();
       });
+    }
+
+    items.push({
+      title: text($(SELECTORS.title, row)),
+      room: getRoomForRow(row),
+      quantity: String(extractQty(text($(SELECTORS.qtyText, row)))),
+      unit: moneyKeepDollar(text($(SELECTORS.unitPrice, row))),
+      line_total: extractLineTotal(text($(SELECTORS.lineTotal, row))),
+
+      // NEW:
+      image: img ? img.getAttribute("src") : "",
+      variant: variantEl ? text(variantEl) : "",
+      sku: sku,
+      vendor: vendor
     });
-    return { items: items, grandTotal: getGrandTotal() };
-  }
+  });
 
-  // ---------- PRINT ----------
-  function buildPrintHtml(data) {
-    var rows = data.items
-      .map(function (i) {
-        return `<tr>
-        <td>
-          ${escapeHtml(i.title)}
-          ${
-            i.room
-              ? `<div style="font-size:12px;opacity:.75;margin-top:4px">Room: ${escapeHtml(
-                  i.room
-                )}</div>`
-              : ``
-          }
-        </td>
-        <td style="text-align:center">${escapeHtml(i.quantity)}</td>
-        <td style="text-align:right">${escapeHtml(i.unit)}</td>
-        <td style="text-align:right">${escapeHtml(i.line_total)}</td>
-      </tr>`;
-      })
-      .join("");
+  return { items: items, grandTotal: getGrandTotal() };
+}
 
-    return `
+
+function buildPrintHtml(data) {
+  var rows = data.items.map(function (i) {
+    return `<tr>
+      <td style="width:70px">
+        ${
+          i.image
+            ? `<img src="${escapeHtml(i.image)}" style="width:60px;height:auto;border:1px solid #eee;border-radius:6px" />`
+            : ``
+        }
+      </td>
+      <td>
+        <div style="font-weight:600">${escapeHtml(i.title)}</div>
+        ${
+          i.variant
+            ? `<div style="font-size:12px;opacity:.8;margin-top:2px">Variant: ${escapeHtml(i.variant)}</div>`
+            : ``
+        }
+        <div style="font-size:12px;opacity:.8;margin-top:2px">
+          ${i.sku ? `SKU: ${escapeHtml(i.sku)}` : ``}
+          ${i.sku && i.vendor ? ` &nbsp;|&nbsp; ` : ``}
+          ${i.vendor ? `Vendor: ${escapeHtml(i.vendor)}` : ``}
+        </div>
+        ${
+          i.room
+            ? `<div style="font-size:12px;opacity:.75;margin-top:4px">Room: ${escapeHtml(i.room)}</div>`
+            : ``
+        }
+      </td>
+      <td style="text-align:center;white-space:nowrap">${escapeHtml(i.quantity)}</td>
+      <td style="text-align:right;white-space:nowrap">${escapeHtml(i.unit)}</td>
+      <td style="text-align:right;white-space:nowrap">${escapeHtml(i.line_total)}</td>
+    </tr>`;
+  }).join("");
+
+  return `
 <!doctype html>
 <html>
 <head>
@@ -265,25 +305,34 @@
 <style>
 body{font-family:Arial;padding:24px}
 table{width:100%;border-collapse:collapse;margin-top:16px}
-th,td{border-bottom:1px solid #ddd;padding:8px;font-size:13px;vertical-align:top}
-th{background:#f7f7f7}
+th,td{border-bottom:1px solid #ddd;padding:10px;font-size:13px;vertical-align:top}
+th{background:#f7f7f7;text-align:left}
 .total{display:flex;justify-content:space-between;font-weight:bold;margin-top:16px}
 </style>
 </head>
 <body>
-<h2>Quote: ${escapeHtml(getCartName())}</h2>
+<h2 style="margin:0 0 6px">Quote: ${escapeHtml(getCartName())}</h2>
+<div style="opacity:.75;font-size:12px;margin-bottom:10px">Generated: ${escapeHtml(new Date().toLocaleString())}</div>
+
 <table>
-<thead>
-<tr><th>Item</th><th>Qty</th><th>Unit</th><th>Line Total</th></tr>
-</thead>
-<tbody>${rows}</tbody>
+  <thead>
+    <tr>
+      <th style="width:70px"></th>
+      <th>Item</th>
+      <th style="text-align:center;width:70px">Qty</th>
+      <th style="text-align:right;width:90px">Unit</th>
+      <th style="text-align:right;width:110px">Line Total</th>
+    </tr>
+  </thead>
+  <tbody>${rows}</tbody>
 </table>
-<div class="total"><span>Total</span><span>${escapeHtml(
-      data.grandTotal
-    )}</span></div>
+
+<div class="total"><span>Total</span><span>${escapeHtml(data.grandTotal)}</span></div>
 </body>
 </html>`;
-  }
+}
+
+
 
   function printPDF() {
     var data = parseItemsWithRoom();
