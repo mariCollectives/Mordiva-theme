@@ -56,5 +56,5 @@
 }
 
 .uncap_cart_detail .actions-container{
-    display:none;
+    display:none !important;
 }
