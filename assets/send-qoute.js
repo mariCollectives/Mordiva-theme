@@ -1,13 +1,5 @@
 (function () {
-  var path = location.pathname.replace(/\/+$/, "");
-
-  // ✅ Run on BOTH the app page AND the save quotes page
-  var isQuoteUI =
-    path.startsWith("/apps/cart-saved-data") ||
-    path === "/pages/save-cart" ||
-    path.startsWith("/pages/save-cart/");
-
-  if (!isQuoteUI) return;
+  if (!location.pathname.startsWith("/apps/cart-saved-data")) return;
 
   var SELECTORS = {
     cartContainer: ".cart-items-container",
@@ -17,14 +9,19 @@
     unitPrice: ".item-price",
     lineTotal: ".item-total",
     grandTotalRow: ".cart-summary-row.cart-summary-total",
-    addBtn: ".add-item-button"
+    addBtn: ".add-item-button",
+    image: ".item-image",
+    variant: ".item-variant",
+    meta: ".item-meta"
   };
 
   function $(sel, root) {
-    return (root || document).querySelector(sel);
+    root = root || document;
+    return root.querySelector(sel);
   }
   function $all(sel, root) {
-    return Array.prototype.slice.call((root || document).querySelectorAll(sel));
+    root = root || document;
+    return Array.prototype.slice.call(root.querySelectorAll(sel));
   }
   function text(el) {
     return el ? el.textContent.trim() : "";
@@ -37,10 +34,8 @@
   }
   function escapeHtml(s) {
     return String(s || "")
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;");
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
   }
 
   function getCartName() {
@@ -48,7 +43,6 @@
     return h1 ? h1.textContent.trim() : "Quote";
   }
   function getCartId() {
-    // Works for both /apps/... and pages (if cartId is in querystring)
     return new URLSearchParams(location.search).get("cartId") || "";
   }
 
@@ -84,127 +78,99 @@
     } catch (e) {}
   }
 
-  // More robust variant/product id extraction
-  function getVariantId(btn) {
-    if (!btn) return "";
-
-    // 1) onclick="addItemToCart('productId','variantId',qty)"
-    var oc = btn.getAttribute("onclick") || "";
+  // onclick="addItemToCart('productId','variantId',qty)"
+  function getVariantIdFromOnclick(btn) {
+    var oc = btn && btn.getAttribute("onclick");
+    if (!oc) return "";
     var m = oc.match(/addItemToCart\(\s*'[^']+'\s*,\s*'([^']+)'/i);
-    if (m && m[1]) return m[1];
-
-    // 2) data attributes
-    var ds = btn.dataset || {};
-    return (
-      ds.variantId ||
-      ds.variant ||
-      ds.id || // some themes/apps use data-id
-      ""
-    );
+    return m ? m[1] : "";
   }
-
-  function getProductId(btn) {
-    if (!btn) return "";
-    var oc = btn.getAttribute("onclick") || "";
+  function getProductIdFromOnclick(btn) {
+    var oc = btn && btn.getAttribute("onclick");
+    if (!oc) return "";
     var m = oc.match(/addItemToCart\(\s*'([^']+)'/i);
-    if (m && m[1]) return m[1];
-    var ds = btn.dataset || {};
-    return ds.productId || ds.product || "";
-  }
-
-  function itemKeyForRow(row) {
-    var btn = $(SELECTORS.addBtn, row);
-    var variantId = getVariantId(btn);
-    var productId = getProductId(btn);
-    return variantId || productId || text($(SELECTORS.title, row)) || "";
+    return m ? m[1] : "";
   }
 
   // ----------------- Inject field per item -----------------
-  function mountRoomFields(root) {
-    root = root || document;
-
+  function mountRoomFields() {
     var cartId = getCartId();
-    // If you're on /pages/save-cart and cartId isn't in URL,
-    // room values still work per-quote only when you navigate to /apps/... with cartId.
-    // (That’s a limitation of localStorage-keying by cartId.)
+    if (!cartId) return;
+
     var map = readRoomMap(cartId);
 
-    $all(SELECTORS.itemRow, root).forEach(function (row) {
-      var btn = $(SELECTORS.addBtn, row);
-      if (!btn) return;
+    $all(SELECTORS.itemRow).forEach(function (row) {
+      if (row.querySelector("[data-room-field]")) return;
 
-      // prevent duplicate binding
-      if (btn.dataset.roomBound === "1") return;
-      btn.dataset.roomBound = "1";
+      var addBtn = $(SELECTORS.addBtn, row);
+      if (!addBtn) return;
 
-      // mount field once
-      if (!row.querySelector("[data-room-field]")) {
-        var key = itemKeyForRow(row) || ("row_" + Math.random());
+      var variantId = getVariantIdFromOnclick(addBtn);
+      var productId = getProductIdFromOnclick(addBtn);
+      var key =
+        variantId ||
+        productId ||
+        text($(SELECTORS.title, row)) ||
+        ("row_" + Math.random());
 
-        var wrap = document.createElement("div");
-        wrap.setAttribute("data-room-field", "1");
-        wrap.style.cssText =
-          "margin-top:10px;display:flex;flex-direction:column;gap:6px;max-width:320px;";
+      var wrap = document.createElement("div");
+      wrap.setAttribute("data-room-field", "1");
+      wrap.style.cssText =
+        "margin-top:10px;display:flex;flex-direction:column;gap:6px;max-width:320px;";
 
-        wrap.innerHTML =
-          '<label style="font-size:12px;opacity:.8">Assign to Room</label>' +
-          '<input type="text" class="room-input" placeholder="e.g. Toddler Room / Blue set" ' +
-          'style="padding:10px 12px;border:1px solid #ddd;border-radius:8px" />' +
-          '<div class="room-saved" style="font-size:12px;opacity:.7;display:none">Saved</div>';
+      wrap.innerHTML =
+        '<label style="font-size:12px;opacity:.8">Assign to Room</label>' +
+        '<input type="text" class="room-input" placeholder="e.g. Toddler Room / Blue set" ' +
+        'style="padding:10px 12px;border:1px solid #ddd;border-radius:8px" />' +
+        '<div class="room-saved" style="font-size:12px;opacity:.7;display:none">Saved</div>';
 
-        var target =
-          row.querySelector(".item-details") ||
-          row.querySelector(".item-pricing") ||
-          row;
+      var target =
+        row.querySelector(".item-details") ||
+        row.querySelector(".item-pricing") ||
+        row;
 
-        target.appendChild(wrap);
+      target.appendChild(wrap);
 
-        var input = wrap.querySelector(".room-input");
-        var saved = wrap.querySelector(".room-saved");
+      var input = wrap.querySelector(".room-input");
+      var saved = wrap.querySelector(".room-saved");
 
-        input.value = map[key] || "";
+      input.value = map[key] || "";
 
-        function save() {
-          var cartId2 = getCartId();
-          var key2 = itemKeyForRow(row) || key;
-
-          var map2 = readRoomMap(cartId2);
-          map2[key2] = input.value.trim();
-          writeRoomMap(cartId2, map2);
-
-          saved.style.display = "block";
-          clearTimeout(saved._t);
-          saved._t = setTimeout(function () {
-            saved.style.display = "none";
-          }, 900);
-        }
-
-        input.addEventListener("change", save);
-        input.addEventListener("blur", save);
+      function save() {
+        var map2 = readRoomMap(cartId);
+        map2[key] = input.value.trim();
+        writeRoomMap(cartId, map2);
+        saved.style.display = "block";
+        clearTimeout(saved._t);
+        saved._t = setTimeout(function () {
+          saved.style.display = "none";
+        }, 900);
       }
 
+      input.addEventListener("change", save);
+      input.addEventListener("blur", save);
+
       // Intercept Add-to-Cart so it includes properties[Assign to Room]
-      btn.addEventListener(
+      addBtn.addEventListener(
         "click",
         function (e) {
           e.preventDefault();
           e.stopPropagation();
 
           var qty = extractQty(text($(SELECTORS.qtyText, row)));
-          var input = row.querySelector(".room-input");
-          var roomVal = (input && input.value ? input.value : "").trim();
+          var roomVal = (input.value || "").trim();
 
-          var variantId = getVariantId(btn);
-
-          // If we can't find variantId, fall back to original onclick behavior
+          // If we can't find a variantId, fall back to original behavior
           if (!variantId) {
-            var oc = btn.getAttribute("onclick");
+            // run original onclick by triggering it after removing our handler
+            var oc = addBtn.getAttribute("onclick");
             if (oc) {
               try {
                 // eslint-disable-next-line no-new-func
-                new Function(oc).call(btn);
+                new Function(oc).call(addBtn);
               } catch (err) {}
             }
+            // still reload so your UX is consistent
             setTimeout(function () {
               location.reload();
             }, 350);
@@ -232,6 +198,7 @@
               return r.json();
             })
             .then(function () {
+              // Force reload after add
               setTimeout(function () {
                 location.reload();
               }, 250);
@@ -245,50 +212,91 @@
     });
   }
 
-  // ----------------- PRINT (keeps your room in PDF) -----------------
+  // ----------------- Extend PDF parse to include room -----------------
   function getRoomForRow(row) {
     var cartId = getCartId();
     var map = readRoomMap(cartId);
-    var key = itemKeyForRow(row);
+    var addBtn = row.querySelector(SELECTORS.addBtn);
+    var variantId = getVariantIdFromOnclick(addBtn);
+    var productId = getProductIdFromOnclick(addBtn);
+    var key = variantId || productId || text($(SELECTORS.title, row)) || "";
     return map[key] || "";
   }
 
   function parseItemsWithRoom() {
     var items = [];
+
     $all(SELECTORS.itemRow).forEach(function (row) {
+      var img = row.querySelector(SELECTORS.image);
+      var variantEl = row.querySelector(SELECTORS.variant);
+
+      // item-meta contains "SKU: ..." and "Vendor: ..."
+      var sku = "";
+      var vendor = "";
+      var metaWrap = row.querySelector(SELECTORS.meta);
+      if (metaWrap) {
+        var spans = metaWrap.querySelectorAll("span");
+        Array.prototype.forEach.call(spans, function (sp) {
+          var t = text(sp);
+          if (/^SKU\s*:/i.test(t)) sku = t.replace(/^SKU\s*:\s*/i, "").trim();
+          if (/^Vendor\s*:/i.test(t)) vendor = t.replace(/^Vendor\s*:\s*/i, "").trim();
+        });
+      }
+
       items.push({
         title: text($(SELECTORS.title, row)),
         room: getRoomForRow(row),
         quantity: String(extractQty(text($(SELECTORS.qtyText, row)))),
         unit: moneyKeepDollar(text($(SELECTORS.unitPrice, row))),
-        line_total: extractLineTotal(text($(SELECTORS.lineTotal, row)))
+        line_total: extractLineTotal(text($(SELECTORS.lineTotal, row))),
+
+        // NEW:
+        image: img ? img.getAttribute("src") : "",
+        variant: variantEl ? text(variantEl) : "",
+        sku: sku,
+        vendor: vendor
       });
     });
+
     return { items: items, grandTotal: getGrandTotal() };
   }
 
-  function buildPrintHtml(data) {
-    var rows = data.items
-      .map(function (i) {
-        return `<tr>
-          <td>
-            ${escapeHtml(i.title)}
-            ${
-              i.room
-                ? `<div style="font-size:12px;opacity:.75;margin-top:4px">Room: ${escapeHtml(
-                    i.room
-                  )}</div>`
-                : ``
-            }
-          </td>
-          <td style="text-align:center">${escapeHtml(i.quantity)}</td>
-          <td style="text-align:right">${escapeHtml(i.unit)}</td>
-          <td style="text-align:right">${escapeHtml(i.line_total)}</td>
-        </tr>`;
-      })
-      .join("");
+  
+function buildPrintHtml(data) {
+  var rows = data.items.map(function (i) {
+    return `<tr>
+      <td style="width:70px">
+        ${
+          i.image
+            ? `<img src="${escapeHtml(i.image)}" style="width:60px;height:auto;border:1px solid #eee;border-radius:6px" />`
+            : ``
+        }
+      </td>
+      <td>
+        <div style="font-weight:600">${escapeHtml(i.title)}</div>
+        ${
+          i.variant
+            ? `<div style="font-size:12px;opacity:.8;margin-top:2px">Variant: ${escapeHtml(i.variant)}</div>`
+            : ``
+        }
+        <div style="font-size:12px;opacity:.8;margin-top:2px">
+          ${i.sku ? `SKU: ${escapeHtml(i.sku)}` : ``}
+          ${i.sku && i.vendor ? ` &nbsp;|&nbsp; ` : ``}
+          ${i.vendor ? `Vendor: ${escapeHtml(i.vendor)}` : ``}
+        </div>
+        ${
+          i.room
+            ? `<div style="font-size:12px;opacity:.75;margin-top:4px">Room: ${escapeHtml(i.room)}</div>`
+            : ``
+        }
+      </td>
+      <td style="text-align:center;white-space:nowrap">${escapeHtml(i.quantity)}</td>
+      <td style="text-align:right;white-space:nowrap">${escapeHtml(i.unit)}</td>
+      <td style="text-align:right;white-space:nowrap">${escapeHtml(i.line_total)}</td>
+    </tr>`;
+  }).join("");
 
-    return `
+  return `
 <!doctype html>
 <html>
 <head>
@@ -297,25 +305,34 @@
 <style>
 body{font-family:Arial;padding:24px}
 table{width:100%;border-collapse:collapse;margin-top:16px}
-th,td{border-bottom:1px solid #ddd;padding:8px;font-size:13px;vertical-align:top}
-th{background:#f7f7f7}
+th,td{border-bottom:1px solid #ddd;padding:10px;font-size:13px;vertical-align:top}
+th{background:#f7f7f7;text-align:left}
 .total{display:flex;justify-content:space-between;font-weight:bold;margin-top:16px}
 </style>
 </head>
 <body>
-<h2>Quote: ${escapeHtml(getCartName())}</h2>
+<h2 style="margin:0 0 6px">Quote: ${escapeHtml(getCartName())}</h2>
+<div style="opacity:.75;font-size:12px;margin-bottom:10px">Generated: ${escapeHtml(new Date().toLocaleString())}</div>
+
 <table>
-<thead>
-<tr><th>Item</th><th>Qty</th><th>Unit</th><th>Line Total</th></tr>
-</thead>
-<tbody>${rows}</tbody>
+  <thead>
+    <tr>
+      <th style="width:70px"></th>
+      <th>Item</th>
+      <th style="text-align:center;width:70px">Qty</th>
+      <th style="text-align:right;width:90px">Unit</th>
+      <th style="text-align:right;width:110px">Line Total</th>
+    </tr>
+  </thead>
+  <tbody>${rows}</tbody>
 </table>
-<div class="total"><span>Total</span><span>${escapeHtml(
-      data.grandTotal
-    )}</span></div>
+
+<div class="total"><span>Total</span><span>${escapeHtml(data.grandTotal)}</span></div>
 </body>
 </html>`;
-  }
+}
+
+
 
   function printPDF() {
     var data = parseItemsWithRoom();
@@ -329,6 +346,7 @@ th{background:#f7f7f7}
     }, 400);
   }
 
+  // ---------- UI (ONLY Print button) ----------
   function mountButtons() {
     var container = $(SELECTORS.cartContainer);
     if (!container || document.getElementById("quoteActions")) return;
@@ -339,31 +357,19 @@ th{background:#f7f7f7}
       "display:flex;gap:10px;justify-content:flex-end;margin-bottom:16px";
 
     wrap.innerHTML = `
-      <button id="printQuoteBtn" style="padding:10px 14px;background:#111;color:#fff;border:0;border-radius:6px">
-        Print / Save PDF
-      </button>
+      <button id="printQuoteBtn" style="padding:10px 14px;background:#111;color:#fff;border:0;border-radius:6px">Print / Save PDF</button>
     `;
 
     container.parentNode.insertBefore(wrap, container);
     document.getElementById("printQuoteBtn").onclick = printPDF;
   }
 
-  // ✅ Run once + re-run whenever the quote UI changes (LOAD/VIEW)
-  function hydrate() {
-    mountButtons();
-    mountRoomFields(document);
-  }
-
-  hydrate();
-
-  // MutationObserver: catches LOAD QUOTES / VIEW QUOTES rendering
-  var obs = new MutationObserver(function () {
-    // Only hydrate if cart UI exists
-    if ($(SELECTORS.cartContainer) && $all(SELECTORS.itemRow).length) hydrate();
-  });
-
-  obs.observe(document.documentElement, {
-    childList: true,
-    subtree: true
-  });
+  // ---------- Wait until page has items ----------
+  var t = setInterval(function () {
+    if ($(SELECTORS.cartContainer) && $all(SELECTORS.itemRow).length) {
+      clearInterval(t);
+      mountButtons();
+      mountRoomFields();
+    }
+  }, 300);
 })();
