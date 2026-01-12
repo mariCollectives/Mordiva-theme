@@ -21,4 +21,11 @@
             {%- endif %}
 {% endif %} 
 
+{% if collection and collection.id == 498966135081 %}
+   {%- assign lockify_access_granted = false -%}
+            {%- if customer and (customer.tags contains "Tier-3") -%}
+                {%- assign lockify_access_granted = true -%}
+            {%- endif %}
+{% endif %} 
+
 {%- endunless %}
