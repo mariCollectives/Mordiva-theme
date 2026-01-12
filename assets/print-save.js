@@ -6,7 +6,7 @@
 
   if (!isCartPage && !isSavedCartPage) return;
 
-  // ---------------- Helpers ----------------
+
   function $(sel, root) {
     return (root || document).querySelector(sel);
   }
@@ -45,17 +45,15 @@
     return h1 ? h1.textContent.trim() : (isCartPage ? "Cart" : "Quote");
   }
 
-  // ---------------- NEW: Find "Room / Note" dt/dd text ----------------
+
   function findRoomNoteFromDtDd(row) {
-    // Looks for: <dt>Room / Note:</dt> <dd>...</dd>
     var dts = row.querySelectorAll("dt");
     for (var i = 0; i < dts.length; i++) {
       var dt = dts[i];
       var dtText = (dt.textContent || "").replace(/\s+/g, " ").trim().toLowerCase();
 
-      // match "room / note" even if spacing or colon differs
       if (dtText.indexOf("room") !== -1 && dtText.indexOf("note") !== -1) {
-        // usually dd is next sibling, but sometimes within same parent
+  
         var dd = null;
 
         // direct nextElementSibling
@@ -74,9 +72,9 @@
     return "";
   }
 
-  // ---------------- Find "Assign to Room" / Room-Note value ----------------
+ 
   function findRoomValueInCartRow(row) {
-    // 0) FIRST: rendered DT/DD "Room / Note"
+
     var fromDtDd = findRoomNoteFromDtDd(row);
     if (fromDtDd) return fromDtDd;
 
