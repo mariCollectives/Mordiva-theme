@@ -16,6 +16,17 @@
         "padding_bottom": 28
       }
     },
+    "custom_liquid_UiPi73": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "custom_liquid": "",
+        "color_scheme": "",
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "custom_class": ""
+      }
+    },
     "17675800237a960f93": {
       "type": "apps",
       "blocks": {
@@ -50,6 +61,7 @@
   },
   "order": [
     "main",
+    "custom_liquid_UiPi73",
     "17675800237a960f93"
   ]
 }
