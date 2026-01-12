@@ -20,7 +20,7 @@
       "type": "custom-liquid",
       "name": "t:sections.custom-liquid.presets.name",
       "settings": {
-        "custom_liquid": "If no items have been added, please remove this cart and add products from the Shop page.",
+        "custom_liquid": "<p style=\"text-align:center\">If no items have been added, please remove this cart and add products from the Shop page.</p>",
         "color_scheme": "",
         "padding_top": 50,
         "padding_bottom": 50,
