@@ -20,7 +20,7 @@
       "type": "custom-liquid",
       "name": "t:sections.custom-liquid.presets.name",
       "settings": {
-        "custom_liquid": "",
+        "custom_liquid": "<p>If items is not added, delete them and do Add Cart on Shop area</p>",
         "color_scheme": "",
         "padding_top": 50,
         "padding_bottom": 50,
@@ -33,14 +33,14 @@
         "uncap_save_share_cart_cart_saved_list_3GgHaT": {
           "type": "shopify://apps/uncap-save-share-cart/blocks/cart-saved-list/40605216-fe5a-427f-964b-2bafece0e83a",
           "settings": {
-            "block_title": "Your Saved Carts",
+            "block_title": "Your Saved Quotes",
             "carts_per_page": 5,
             "show_item_count": true,
-            "load_button_text": "Load Cart",
-            "view_button_text": "View Cart",
-            "share_button_text": "Share Cart",
+            "load_button_text": "Load Quotes",
+            "view_button_text": "View Quotes",
+            "share_button_text": "Share Quotes",
             "delete_button_text": "Delete",
-            "empty_state_text": "No saved carts yet",
+            "empty_state_text": "No saved Quotes yet",
             "prev_btn_text": "Previous",
             "next_btn_text": "Next",
             "page_text": "Page",
