@@ -844,6 +844,23 @@
                       <div class="additional-checkout-buttons">{{ content_for_additional_checkout_buttons }}</div>
                     {% endif %}
                   </div>
+
+
+              {% if customer and customer.default_address %}
+
+              <div class="ShippingAddress">
+                <h3>Shipping Address</h3>
+                <p>
+                  {{ customer.default_address.name }}<br>
+                  {{ customer.default_address.address1 }}{% if customer.default_address.address2 %}, {{ customer.default_address.address2 }}{% endif %}<br>
+                  {{ customer.default_address.city }}, {{ customer.default_address.province }} {{ customer.default_address.zip }}<br>
+                  {{ customer.default_address.country }}
+                </p>
+
+               </div>
+              {% endif %}
+
+
                 {%- when 'cart_note' -%}
                   <div class="cart__addon cart__footer--cart-note no-js-hidden" {{ block.shopify_attributes }}>
                     <details is="cart-addon-accordion" class="accordion-details cart-accordion-details">
@@ -918,6 +935,9 @@
                       </div>
                     </details>
                   </div>
+
+
+
                 {%- when 'cart_shipping_rate' -%}
                   <div
                     class="cart__addon cart__footer--shipping-rate no-js-hidden"
