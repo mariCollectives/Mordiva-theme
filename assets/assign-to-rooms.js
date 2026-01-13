@@ -233,7 +233,7 @@ if (!isCart && !isSaved && !isSaveCartList) return;
     input.style.borderRadius = "6px";
 
     var small = document.createElement("small");
-    small.textContent = "Saved in this browser for this saved cart.";
+    small.textContent = "Saves Automatically";
     small.style.display = "block";
     small.style.marginTop = "6px";
     small.style.opacity = "0.7";
