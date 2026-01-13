@@ -238,7 +238,7 @@
   .page { padding: 18mm 14mm 16mm; }
   .top { display:flex; align-items:flex-start; justify-content:space-between; gap:16px; margin-bottom:10mm; }
   .brand { display:flex; align-items:flex-start; gap:12px; }
-  .logo { width:180px; height:60px; display:flex; align-items:center; }
+  .logo { width:180px; height:120px; display:flex; align-items:center; }
   .logo img { max-width:100%; max-height:100%; object-fit:contain; }
   .logo-text { font-weight:800; letter-spacing:.02em; font-size:34px; line-height:1; }
   .logo-text small { display:block; font-weight:500; font-size:12px; letter-spacing:.08em; margin-top:6px; color:#444; }
