@@ -209,6 +209,11 @@
       text(document.querySelector("[data-customer-name]")) ||
       "Customer";
 
+    var deliverTo =
+      text(document.querySelector(".delivery-name")) ||
+      text(document.querySelector("[data-deliver-to]")) ||
+      customerName;
+
     var deliverAddr1 =
       text(document.querySelector(".ShippingAddress")) ||
       text(document.querySelector("[data-delivery-address-line1]")) ||
