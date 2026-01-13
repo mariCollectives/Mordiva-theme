@@ -103,6 +103,11 @@
    <script src="{{ 'send-qoute.js' | asset_url }}" defer="defer"></script>
    <script src="{{ 'print-save.js' | asset_url }}" defer="defer"></script>
 
+    <script>
+      window.__customerLoggedIn = {{ customer != blank | json }};
+    </script>
+
+
 
     <script>
     (function () {

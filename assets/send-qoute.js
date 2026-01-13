@@ -10,8 +10,8 @@
   if (!isQuoteUI) return;
 
   function isLoggedIn() {
-     return !!window.__customerLoggedIn;
-  }
+  return !!window.__customerLoggedIn;
+}
 
   var SELECTORS = {
     cartContainer: ".cart-items-container",
@@ -386,8 +386,11 @@ th{background:#f7f7f7}
 </html>`;
   }
 
- function printPDF() {
+
+  function printPDF() {
+  // ✅ gate on /cart only
   if (path === "/cart" && !isLoggedIn()) {
+    // either show a message OR send to login with return_url
     location.href =
       "/account/login?return_url=" + encodeURIComponent(location.pathname + location.search);
     return;
@@ -403,8 +406,6 @@ th{background:#f7f7f7}
     w.print();
   }, 400);
 }
-
-
 
 
 function mountButtons() {
