@@ -242,7 +242,7 @@
   .logo img { max-width:100%; max-height:100%; object-fit:contain; }
   .logo-text { font-weight:800; letter-spacing:.02em; font-size:34px; line-height:1; }
   .logo-text small { display:block; font-weight:500; font-size:12px; letter-spacing:.08em; margin-top:6px; color:#444; }
-  .docbox { border:1.5px solid #d9b9a6; padding:10px 12px; min-width:230px; text-align:right; }
+  .docbox { padding:10px 12px; min-width:230px; text-align:right; }
   .docbox .title { font-size:18px; letter-spacing:.08em; font-weight:700; }
   .docbox .ref { font-weight:800; font-size:14px; margin-top:2px; }
   .docbox .meta { margin-top:6px; font-size:11px; line-height:1.5; color:#333; }
