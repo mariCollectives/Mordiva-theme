@@ -103,6 +103,10 @@
    <script src="{{ 'send-qoute.js' | asset_url }}" defer="defer"></script>
    <script src="{{ 'print-save.js' | asset_url }}" defer="defer"></script>
 
+  <script>
+    window.__customerLoggedIn = {% if customer %}true{% else %}false{% endif %};
+  </script>
+
 
 
     <script>
@@ -226,6 +230,9 @@
     {% if settings.pcard_show_quickview_button or settings.pcard_choose_options_actions == 'open_popup' %}
       <script src="{{ 'quick-view.js' | asset_url }}" defer="defer"></script>
     {% endif %}
+
+
+
 
 
   </body>
