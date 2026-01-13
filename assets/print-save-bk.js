@@ -2,7 +2,6 @@
   var path = location.pathname.replace(/\/+$/, "");
 
   var isCartPage = path === "/cart";
-  var isSavedCartPage = path.startsWith("/apps/cart-saved-data");
 
   if (!isCartPage && !isSavedCartPage) return;
 
@@ -42,27 +41,6 @@
   function getTitle() {
     var h1 = document.querySelector("h1");
     return h1 ? h1.textContent.trim() : (isCartPage ? "Cart" : "Quote");
-  }
-
-  // ---- NEW: read shipping address written by Liquid into DOM ----
-  function getShippingAddressFromDom() {
-    var el = document.getElementById("cp-shipping-address");
-    if (!el) return null;
-
-    function d(name) {
-      return (el.getAttribute("data-" + name) || "").trim();
-    }
-
-    var addr2 = d("address2");
-    return {
-      name: d("name"),
-      address1: d("address1"),
-      address2: addr2,
-      city: d("city"),
-      province: d("province"),
-      zip: d("zip"),
-      country: d("country")
-    };
   }
 
   function findRoomNoteFromDtDd(row) {
@@ -203,7 +181,6 @@
 
     var logoUrl = "https://cdn.shopify.com/s/files/1/0845/4868/2025/files/CollectivePlay_Logo_Tagline_Green_5a0f9f08-4f68-42b7-bb5a-d1195ceceadb.png?v=1768289033";
 
-    // Existing fallbacks
     var customerName =
       text(document.querySelector(".customer-name")) ||
       text(document.querySelector("[data-customer-name]")) ||
@@ -223,23 +200,6 @@
       text(document.querySelector(".delivery-address-line2")) ||
       text(document.querySelector("[data-delivery-address-line2]")) ||
       "";
-
-    // ---- NEW: override with Shopify customer default address (Liquid -> DOM) if available ----
-    var ship = getShippingAddressFromDom();
-    if (ship) {
-      deliverTo = ship.name || deliverTo;
-      deliverAddr1 = ship.address1 || deliverAddr1;
-
-      // Put the rest on line 2 so it matches your “like second picture” requirement
-      var line2Parts = [];
-      if (ship.address2) line2Parts.push(ship.address2);
-      var cityLine = [ship.city, ship.province, ship.zip].filter(Boolean).join(" ");
-      if (cityLine) line2Parts.push(cityLine);
-      if (ship.country) line2Parts.push(ship.country);
-
-      deliverAddr2 = line2Parts.join(", ") || deliverAddr2;
-      customerName = ship.name || customerName;
-    }
 
     var rows = data.items
       .map(function (i, idx) {
@@ -280,6 +240,8 @@
   .brand { display:flex; align-items:flex-start; gap:12px; }
   .logo { width:220px; height:160px; display:flex; align-items:center; }
   .logo img { max-width:100%; max-height:100%; object-fit:contain; }
+  .logo-text { font-weight:800; letter-spacing:.02em; font-size:34px; line-height:1; }
+  .logo-text small { display:block; font-weight:500; font-size:12px; letter-spacing:.08em; margin-top:6px; color:#444; }
   .docbox { padding:10px 12px; min-width:230px; text-align:right; }
   .docbox .title { font-size:23px; letter-spacing:.08em; font-weight:500; }
   .docbox .ref { font-weight:800; font-size:14px; margin-top:2px; }
@@ -322,7 +284,7 @@
           ${
             logoUrl
               ? `<img src="${escapeHtml(logoUrl)}" alt="${escapeHtml(shopName)}">`
-              : `<div style="font-weight:800;font-size:34px;line-height:1;">collective<br>play</div>`
+              : `<div class="logo-text">collective<br>play<small>${escapeHtml(shopName)}</small></div>`
           }
         </div>
       </div>
@@ -425,19 +387,25 @@
     openPrintWindow(buildPrintHtml(data));
   }
 
-  // ---------------- Inject button ----------------
+  // ---------------- Inject button (FIX) ----------------
   function ensurePrintButton() {
+    // already exists?
     var btn = document.getElementById("printCartPdfButton") || document.getElementById("printQuoteBtn");
     if (btn) return btn;
 
+    // create
     btn = document.createElement("button");
     btn.type = "button";
     btn.id = "printCartPdfButton";
     btn.className = "button button--secondary";
     btn.textContent = "Print / Save PDF";
 
+    // place it somewhere sensible:
+    // 1) On saved cart page: right under H1 (your screenshot)
+    // 2) Fallback: before the items container
     var h1 = document.querySelector("h1");
     if (h1 && h1.parentNode) {
+      // add a small wrap so it doesn't look jammed
       var wrap = document.createElement("div");
       wrap.style.margin = "12px 0 18px";
       wrap.style.display = "flex";
@@ -458,11 +426,13 @@
       return btn;
     }
 
+    // last resort
     document.body.insertBefore(btn, document.body.firstChild);
     btn.style.margin = "12px";
     return btn;
   }
 
+  // ---------------- Bind button ----------------
   function bind() {
     var btn = ensurePrintButton();
     if (!btn) return;
@@ -476,13 +446,16 @@
     });
   }
 
+  // Run now
   bind();
 
+  // Watch for app content loaded later (Shopify app blocks often render async)
   var mo = new MutationObserver(function () {
     bind();
   });
   mo.observe(document.documentElement, { childList: true, subtree: true });
 
+  // Safety stop after it binds successfully
   var stopCheck = setInterval(function () {
     var btn = document.getElementById("printCartPdfButton") || document.getElementById("printQuoteBtn");
     if (btn && btn.dataset.printBound === "1") {
