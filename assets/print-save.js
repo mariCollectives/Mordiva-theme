@@ -398,7 +398,7 @@
     btn = document.createElement("button");
     btn.type = "button";
     btn.id = "printCartPdfButton";
-    btn.className = "button button--secondary";
+    btn.className = "button button--secondary positionAbsolute";
     btn.textContent = "Print / Save PDF";
 
     // place it somewhere sensible:

@@ -73,3 +73,7 @@
     width: 15%;
     margin-top: 2em;
 }
+
+.positionAbsolute{
+    background-color: #fff !important;
+}
