@@ -226,10 +226,12 @@
     {% endif %}
 
 
-<script>window.__cartToken = "{{ cart.token }}";</script>
 
+  // cart icons are added
 
- <script src="{{ 'assign-to-rooms.js' | asset_url }}" defer="defer"></script>
+  <script>window.__cartToken = "{{ cart.token }}";</script>
+   <script src="{{ 'data-added-id.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'assign-to-rooms.js' | asset_url }}" defer="defer"></script>
 
 
 

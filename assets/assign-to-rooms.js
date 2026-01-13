@@ -246,12 +246,14 @@ if (!isCart && !isSaved && !isSaveCartList) return;
     var itemDetails = qs(".item-details", row);
 
     if (itemDetails && itemDetails.parentNode) {
-      // insert after itemDetails
-      if (itemDetails.nextSibling) {
-        itemDetails.parentNode.insertBefore(wrap, itemDetails.nextSibling);
-      } else {
+            // insert after itemDetails
+         if (itemDetails.nextElementSibling) {
+        itemDetails.parentNode.insertBefore(wrap, itemDetails.nextElementSibling);
+        } else {
         itemDetails.parentNode.appendChild(wrap);
-      }
+        }
+
+
     } else {
       // fallback: try after tag-items
       var tagItems = qs(".item-meta.tag-items", row);
@@ -291,74 +293,49 @@ if (!isCart && !isSaved && !isSaveCartList) return;
 }
 
 function initSaveCartListPage() {
-  // We’ll capture clicks on VIEW CART / LOAD CART and copy notes to the target cartId scope
   document.addEventListener(
     "click",
     function (e) {
-      var btn = e.target.closest("a,button");
+      var btn = e.target.closest("button");
       if (!btn) return;
 
-      var txt = (btn.textContent || "").trim().toLowerCase();
-      if (txt !== "view cart" && txt !== "load cart") return;
+      var isLoad = btn.classList.contains("load-cart-btn") || /load cart/i.test(btn.textContent || "");
+      var isView = btn.classList.contains("view-cart-btn") || /view cart/i.test(btn.textContent || "");
+      if (!isLoad && !isView) return;
 
-      // Try to find a link containing the destination cartId
-      // Many implementations use <a href="/apps/cart-saved-data?cartId=123">
-      var href = btn.getAttribute("href") || "";
+      // Find the saved cart row
+      var row = btn.closest(".saved-cart-item");
+      if (!row) return;
 
-      // If it’s a <button> that navigates via JS, try nearest <a>
-      if (!href) {
-        var a = btn.closest("a");
-        if (a) href = a.getAttribute("href") || "";
+      // ✅ Get cartId from data attribute (this is what you should add)
+      var destCartId = row.getAttribute("data-cart-id") || "";
+
+      // Backup: try hidden inputs if app uses them
+      if (!destCartId) {
+        var hidden = row.querySelector('input[type="hidden"][name*="cartId"], input[type="hidden"][id*="cartId"]');
+        if (hidden) destCartId = hidden.value || "";
       }
 
-      // If still empty, try row container for any link
-      if (!href) {
-        var row = btn.closest("tr, .saved-cart-row, .saved-cart-item, li, div");
-        if (row) {
-          var link = row.querySelector('a[href*="cartId="]');
-          if (link) href = link.getAttribute("href") || "";
-        }
+      // Still nothing? Then we can't map.
+      if (!destCartId) {
+        console.warn("[Assign to Room] Missing data-cart-id on .saved-cart-item. Add data-cart-id to markup.");
+        return;
       }
 
-      // Extract destination cartId
-      var destCartId = "";
-      try {
-        // Support relative URLs
-        var u = new URL(href, location.origin);
-        destCartId = u.searchParams.get("cartId") || "";
-      } catch (err) {
-        // ignore
-      }
-
-      if (!destCartId) return; // nothing to map to
-
-      // Source scope: if you already came from a detail page, current cartId exists.
-      // On list page, we can’t know which saved cart without reading the row’s data,
-      // but we can: look for a link in the SAME ROW that contains cartId and use that.
-      var row2 = btn.closest("tr, .saved-cart-row, .saved-cart-item, li, div");
-      var srcCartId = "";
-      if (row2) {
-        var anyLink = row2.querySelector('a[href*="cartId="]');
-        if (anyLink) {
-          try {
-            var u2 = new URL(anyLink.getAttribute("href"), location.origin);
-            srcCartId = u2.searchParams.get("cartId") || "";
-          } catch (err2) {}
-        }
-      }
-
-      // If we STILL can’t determine srcCartId, do nothing (we refuse to guess wrong).
-      if (!srcCartId) return;
-
-      // Copy map
-      var srcKey = "cp_assign_to_room__" + srcCartId;
+      // ✅ Source scope: where the notes are currently stored.
+      // On /pages/save-cart you DON'T have a cartId in URL, so we should copy from the current cart-token scope
+      // (this matches your current scope logic)
+      var srcScope = (window.__cartToken || "cart");
+      var srcKey = "cp_assign_to_room__" + srcScope;
       var destKey = "cp_assign_to_room__" + destCartId;
 
       try {
         var srcMap = safeJsonParse(localStorage.getItem(srcKey) || "{}", {});
         localStorage.setItem(destKey, JSON.stringify(srcMap || {}));
-      } catch (err3) {
-        // ignore
+        // optional: keep also a pointer for later use
+        localStorage.setItem("cp_last_saved_cart_id", destCartId);
+      } catch (err) {
+        console.warn("[Assign to Room] Copy failed", err);
       }
     },
     true
