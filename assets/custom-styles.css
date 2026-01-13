@@ -76,8 +76,7 @@
 
 .positionAbsolute{
     background-color: #fff !important;
-    position: absolute;
-    margin-top: 30px;
+    position: absolute !important;
     left: 78%;
     margin-top: -3em !important;
 }
