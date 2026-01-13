@@ -103,6 +103,19 @@
    <script src="{{ 'send-qoute.js' | asset_url }}" defer="defer"></script>
    <script src="{{ 'print-save.js' | asset_url }}" defer="defer"></script>
 
+
+   
+  // cart icons are added
+
+  <script>window.__cartToken = "{{ cart.token }}";</script>
+   <script src="{{ 'data-added-id.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'assign-to-rooms.js' | asset_url }}" defer="defer"></script>
+
+
+
+
+
+
     <script>
     (function () {
       // Only run on cart page
@@ -225,13 +238,6 @@
       <script src="{{ 'quick-view.js' | asset_url }}" defer="defer"></script>
     {% endif %}
 
-
-
-  // cart icons are added
-
-  <script>window.__cartToken = "{{ cart.token }}";</script>
-   <script src="{{ 'data-added-id.js' | asset_url }}" defer="defer"></script>
-  <script src="{{ 'assign-to-rooms.js' | asset_url }}" defer="defer"></script>
 
 
 
