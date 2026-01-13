@@ -2,7 +2,6 @@
   var path = location.pathname.replace(/\/+$/, "");
 
   var isCartPage = path === "/cart";
-  var isSavedCartPage = path.startsWith("/apps/cart-saved-data");
 
   if (!isCartPage && !isSavedCartPage) return;
 
