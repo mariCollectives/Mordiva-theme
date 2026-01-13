@@ -15,7 +15,7 @@
         "cart_custom_liquid_eGXXWX": {
           "type": "cart_custom_liquid",
           "settings": {
-            "custom_liquid": "<button type=\"button\" id=\"printCartPdfButton\" class=\"button button--secondary\">\n    Print / Save PDF\n  </button>"
+            "custom_liquid": "{% if customer %}\n  <button\n    type=\"button\"\n    id=\"printCartPdfButton\"\n    class=\"button button--secondary\">\n    Print / Save PDF\n  </button>\n{% else %}\n  <a\n    href=\"/account/login?return_url={{ request.path | url_encode }}\"\n    class=\"button button--secondary btn printbutton\">\n    Login to Print / Save PDF\n  </a>\n{% endif %}"
           }
         },
         "uncap_save_share_cart_product_save_cart_TnnaJz": {
