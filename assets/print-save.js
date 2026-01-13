@@ -215,7 +215,7 @@
       customerName;
 
     var deliverAddr1 =
-      text(document.querySelector(".delivery-address-line1")) ||
+      text(document.querySelector(".ShippingAddress")) ||
       text(document.querySelector("[data-delivery-address-line1]")) ||
       "";
 
