@@ -66,3 +66,10 @@
 #saved-carts-container:has(#carts-list:empty) {
   display: none;
 }
+
+
+.printbutton{
+    position: absolute;
+    width: 15%;
+    margin-top: 2em;
+}
