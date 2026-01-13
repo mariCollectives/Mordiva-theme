@@ -398,7 +398,7 @@
     btn = document.createElement("button");
     btn.type = "button";
     btn.id = "printCartPdfButton";
-    btn.className = "button button--secondary positionAbsolute";
+    btn.className = "button button--secondary";
     btn.textContent = "Print / Save PDF";
 
     // place it somewhere sensible:
@@ -433,150 +433,6 @@
     return btn;
   }
 
-  // ---------------- Render Room / Note on page ----------------
-function ensureRoomStyles() {
-  if (document.getElementById("room-note-inline-style")) return;
-  var st = document.createElement("style");
-  st.id = "room-note-inline-style";
-  st.textContent = `
-    .room-note-inline{
-      font-size: 12px;
-      line-height: 1.2;
-      margin-top: 6px;
-      opacity: .85;
-    }
-    .room-note-inline strong{ font-weight: 600; }
-  `;
-  document.head.appendChild(st);
-}
-
-function renderRoomNotesOnSavedCartPage() {
-  // For /apps/cart-saved-data
-  $all(".cart-item").forEach(function (row) {
-    if (row.querySelector(".room-note-inline")) return;
-
-    var room = findRoomValueInSavedRow(row);
-    if (!room) return;
-
-    var qtyEl = row.querySelector(".item-quantity"); // "Qty: 1"
-    if (!qtyEl) return;
-
-    var note = document.createElement("div");
-    note.className = "room-note-inline";
-    note.innerHTML = "<strong>Room / Note:</strong> " + escapeHtml(room);
-
-    // Put it directly beside qty (same column/area)
-    // Most layouts: qtyEl is inside a right-side container; appending after it is safest.
-    qtyEl.insertAdjacentElement("afterend", note);
-  });
-}
-
-function renderRoomNotesOnCartPage() {
-  // For /cart (Dawn-like table rows)
-  $all("tr.cart-item").forEach(function (row) {
-    if (row.querySelector(".room-note-inline")) return;
-
-    var room = findRoomValueInCartRow(row);
-    if (!room) return;
-
-    var qtyInput = row.querySelector("input.quantity__input");
-    if (!qtyInput) return;
-
-    // Try to place in the same cell as quantity controls
-    var qtyCell =
-      qtyInput.closest("td") ||
-      qtyInput.closest(".cart-item__quantity") ||
-      qtyInput.parentElement;
-
-    if (!qtyCell) return;
-
-    var note = document.createElement("div");
-    note.className = "room-note-inline";
-    note.innerHTML = "<strong>Room / Note:</strong> " + escapeHtml(room);
-
-    qtyCell.appendChild(note);
-  });
-}
-
-function renderRoomNotesOnPage() {
-  ensureRoomStyles();
-  if (isSavedCartPage) renderRoomNotesOnSavedCartPage();
-  if (isCartPage) renderRoomNotesOnCartPage();
-}
-
-// ---------------- Render Room / Note on page ----------------
-function ensureRoomStyles() {
-  if (document.getElementById("room-note-inline-style")) return;
-  var st = document.createElement("style");
-  st.id = "room-note-inline-style";
-  st.textContent = `
-    .room-note-inline{
-      font-size: 12px;
-      line-height: 1.2;
-      margin-top: 6px;
-      opacity: .85;
-    }
-    .room-note-inline strong{ font-weight: 600; }
-  `;
-  document.head.appendChild(st);
-}
-
-function renderRoomNotesOnSavedCartPage() {
-  // For /apps/cart-saved-data
-  $all(".cart-item").forEach(function (row) {
-    if (row.querySelector(".room-note-inline")) return;
-
-    var room = findRoomValueInSavedRow(row);
-    if (!room) return;
-
-    var qtyEl = row.querySelector(".item-quantity"); // "Qty: 1"
-    if (!qtyEl) return;
-
-    var note = document.createElement("div");
-    note.className = "room-note-inline";
-    note.innerHTML = "<strong>Room / Note:</strong> " + escapeHtml(room);
-
-    // Put it directly beside qty (same column/area)
-    // Most layouts: qtyEl is inside a right-side container; appending after it is safest.
-    qtyEl.insertAdjacentElement("afterend", note);
-  });
-}
-
-function renderRoomNotesOnCartPage() {
-  // For /cart (Dawn-like table rows)
-  $all("tr.cart-item").forEach(function (row) {
-    if (row.querySelector(".room-note-inline")) return;
-
-    var room = findRoomValueInCartRow(row);
-    if (!room) return;
-
-    var qtyInput = row.querySelector("input.quantity__input");
-    if (!qtyInput) return;
-
-    // Try to place in the same cell as quantity controls
-    var qtyCell =
-      qtyInput.closest("td") ||
-      qtyInput.closest(".cart-item__quantity") ||
-      qtyInput.parentElement;
-
-    if (!qtyCell) return;
-
-    var note = document.createElement("div");
-    note.className = "room-note-inline";
-    note.innerHTML = "<strong>Room / Note:</strong> " + escapeHtml(room);
-
-    qtyCell.appendChild(note);
-  });
-}
-
-function renderRoomNotesOnPage() {
-  ensureRoomStyles();
-  if (isSavedCartPage) renderRoomNotesOnSavedCartPage();
-  if (isCartPage) renderRoomNotesOnCartPage();
-}
-
-
-
   // ---------------- Bind button ----------------
   function bind() {
     var btn = ensurePrintButton();
@@ -593,13 +449,10 @@ function renderRoomNotesOnPage() {
 
   // Run now
   bind();
-  renderRoomNotesOnPage();
-
 
   // Watch for app content loaded later (Shopify app blocks often render async)
   var mo = new MutationObserver(function () {
     bind();
-    renderRoomNotesOnPage();
   });
   mo.observe(document.documentElement, { childList: true, subtree: true });
 
