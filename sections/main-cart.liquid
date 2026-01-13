@@ -851,7 +851,7 @@
               <div class="AddressInfo">
                 <h3>Shipping Address</h3>
                 <p>
-                  {{ customer.default_address.name }}<br>
+                 <span class="customer-name"> {{ customer.default_address.name }}</span><br>
                   <span class="ShippingAddress">{{ customer.default_address.address1 }}{% if customer.default_address.address2 %}, {{ customer.default_address.address2 }}{% endif %}</span><br>
                   {{ customer.default_address.city }}, {{ customer.default_address.province }} {{ customer.default_address.zip }}<br>
                   {{ customer.default_address.country }}
