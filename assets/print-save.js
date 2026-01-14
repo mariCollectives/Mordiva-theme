@@ -2,9 +2,6 @@
   var path = location.pathname.replace(/\/+$/, "");
 
   var isCartPage = path === "/cart";
-  var isSavedCartPage = path.startsWith("/apps/cart-saved-data");
-
-  if (!isCartPage && !isSavedCartPage) return;
 
   function $(sel, root) {
     return (root || document).querySelector(sel);
@@ -343,8 +340,6 @@
         <div class="field"><div class="label">Customer Name:</div><div class="value">${escapeHtml(customerName)}</div></div>
 
         <div class="field"><div class="label">Delivery Address Line 1:</div><div class="value">${escapeHtml(deliverAddr1)}</div></div>
-        <div class="field"><div class="label">Customer Code:</div><div class="value"> ${cartId ? `<div><b>Cart ID:</b> ${escapeHtml(cartId)}</div>` : ``}</div></div>
-
         <div class="field"><div class="label">Delivery Address Line 2:</div><div class="value">${escapeHtml(deliverAddr2)}</div></div>
         <div class="field"><div class="label">Customer Type:</div><div class="value">—</div></div>
 
