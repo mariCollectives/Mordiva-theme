@@ -847,6 +847,14 @@
 
 
               {% if customer and customer.default_address %}
+              
+              {% assign customer_type = 'Retail' %}
+                {% for tag in customer.tags %}
+                  {% if tag contains 'CustomerType:' %}
+                    {% assign customer_type = tag | remove: 'CustomerType:' %}
+                  {% endif %}
+                {% endfor %}
+
 
              <div class="AddressInfo">
               <h3>Shipping Address</h3>
@@ -859,6 +867,8 @@
                   {{ customer.default_address.city }}, {{ customer.default_address.province }} {{ customer.default_address.zip }}
                 </span><br>
                 <span class="defaultDeliveryCity">{{ customer.default_address.country }}</span>
+                <strong  class="customerType">Customer Type:</strong> {{ customer_type }}
+
               </p>
             </div>
 
