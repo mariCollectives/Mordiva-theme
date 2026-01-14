@@ -3,6 +3,8 @@
 
   var isCartPage = path === "/cart";
 
+  if (!isCartPage) return;
+
   function $(sel, root) {
     return (root || document).querySelector(sel);
   }
