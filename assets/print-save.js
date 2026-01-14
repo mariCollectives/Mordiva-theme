@@ -374,6 +374,7 @@
     background: #f3f3f3;
     text-transform:none;
     letter-spacing:0;
+     border-bottom: 1px solid #777;
   }
   tbody td {
     padding:3px 3px;
