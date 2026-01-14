@@ -202,26 +202,37 @@
 
     var logoUrl = "https://cdn.shopify.com/s/files/1/0845/4868/2025/files/CollectivePlay_Logo_Tagline_Green_5a0f9f08-4f68-42b7-bb5a-d1195ceceadb.png?v=1768289033";
 
-    // Existing fallbacks
-    var customerName =
-      text(document.querySelector(".customer-name")) ||
-      text(document.querySelector("[data-customer-name]")) ||
-      "Customer";
 
-    var deliverTo =
-      text(document.querySelector(".delivery-name")) ||
-      text(document.querySelector("[data-deliver-to]")) ||
-      customerName;
+  // Existing fallbacks (UPDATED: pull from .AddressInfo first)
+  var customerName =
+    text(document.querySelector(".AddressInfo .customer-name")) ||
+    text(document.querySelector(".customer-name")) ||
+    text(document.querySelector("[data-customer-name]")) ||
+    "Customer";
 
-    var deliverAddr1 =
-      text(document.querySelector(".ShippingAddress")) ||
-      text(document.querySelector("[data-delivery-address-line1]")) ||
-      "";
+  var deliverTo =
+    text(document.querySelector(".AddressInfo .customer-name")) || // <- deliver to = shipping name
+    text(document.querySelector(".delivery-name")) ||
+    text(document.querySelector("[data-deliver-to]")) ||
+    customerName;
 
-    var deliverAddr2 =
-      text(document.querySelector(".address2")) ||
-      text(document.querySelector("[data-delivery-address-line2]")) ||
-      "";
+  var deliverAddr1 =
+    text(document.querySelector(".AddressInfo .ShippingAddress")) ||
+    text(document.querySelector(".ShippingAddress")) ||
+    text(document.querySelector("[data-delivery-address-line1]")) ||
+    "";
+
+  // line2 = ".address2" + country (".defaultDeliveryCity")
+  var a2 = text(document.querySelector(".AddressInfo .address2")) || text(document.querySelector(".address2"));
+  var country = text(document.querySelector(".AddressInfo .defaultDeliveryCity")) || text(document.querySelector(".defaultDeliveryCity"));
+
+  var deliverAddr2 =
+    [a2, country].filter(Boolean).join(", ") ||
+    text(document.querySelector("[data-delivery-address-line2]")) ||
+    "";
+
+
+
 
     // ---- NEW: override with Shopify customer default address (Liquid -> DOM) if available ----
     var ship = getShippingAddressFromDom();
@@ -338,16 +349,20 @@
 
     <div class="panel">
       <div class="panel-inner">
-        <div class="field"><div class="label">Deliver To:</div><div class="value">${escapeHtml(deliverTo)}</div></div>
+       <div class="panel-inner">
+        <div class="field"><div class="label">Shipping Name:</div><div class="value">${escapeHtml(deliverTo)}</div></div>
         <div class="field"><div class="label">Customer Name:</div><div class="value">${escapeHtml(customerName)}</div></div>
 
-        <div class="field"><div class="label">Delivery Address Line 1:</div><div class="value">${escapeHtml(deliverAddr1)}</div></div>
-        <div class="field"><div class="label">Delivery Address Line 2:</div><div class="value">${escapeHtml(deliverAddr2)}</div></div>
-        <div class="field"><div class="label">Customer Type:</div><div class="value">—</div></div>
+        <div class="field"><div class="label">Shipping Address:</div><div class="value">${escapeHtml(deliverAddr1)}</div></div>
+        <div class="field"><div class="label">City/State/ZIP, Country:</div><div class="value">${escapeHtml(deliverAddr2)}</div></div>
+
+
+      <div class="field"><div class="label">Customer Type:</div><div class="value">—</div></div>
 
         <div class="field"><div class="label">Delivery Method:</div><div class="value">—</div></div>
         <div class="field"><div class="label">Delivery Instructions:</div><div class="value">—</div></div>
-      </div>
+      
+        </div>
     </div>
 
     <table>
