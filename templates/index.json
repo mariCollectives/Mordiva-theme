@@ -41,7 +41,7 @@
       ],
       "name": "t:sections.slideshow.name",
       "settings": {
-        "container": "full",
+        "container": "fixed",
         "layout": "standard",
         "slide_height": "adapt",
         "show_dots": true,
