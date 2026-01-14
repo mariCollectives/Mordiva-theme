@@ -847,10 +847,7 @@
 
 
               {% if customer and customer.default_address %}
-              
-               {% assign customer_type = customer.metafields.custom.customer_type.value | default: 'Retail' %}
-
-
+            
 
              <div class="AddressInfo">
               <h3>Shipping Address</h3>
@@ -863,7 +860,19 @@
                   {{ customer.default_address.city }}, {{ customer.default_address.province }} {{ customer.default_address.zip }}
                 </span><br>
                 <span class="defaultDeliveryCity">{{ customer.default_address.country }}</span><br>
-                <strong  class="customerType">Customer Type:</strong> {{ customer_type }}
+              
+                {% assign tier_tag = '' %}
+                {% for tag in customer.tags %}
+                  {% if tag contains 'tier-' %}
+                    {% assign tier_tag = tag %}
+                  {% endif %}
+                {% endfor %}
+
+                {% if tier_tag != '' %}
+                  <strong class="customerType">Customer Tier:</strong> {{ tier_tag }}
+                {% endif %}
+
+
 
               </p>
             </div>
