@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "breadcrumbs_Gxg9wp": {
@@ -57,6 +66,7 @@
             "content_position": "middle-center",
             "content_alignment": "center",
             "content_spacing": "small",
+            "card_link": "",
             "color_scheme_mobile": "",
             "show_text_below": true,
             "content_alignment_mobile": "left",
@@ -81,6 +91,7 @@
             "content_position": "middle-center",
             "content_alignment": "center",
             "content_spacing": "small",
+            "card_link": "",
             "color_scheme_mobile": "",
             "show_text_below": true,
             "content_alignment_mobile": "left",
@@ -105,6 +116,7 @@
             "content_position": "middle-center",
             "content_alignment": "center",
             "content_spacing": "small",
+            "card_link": "",
             "color_scheme_mobile": "",
             "show_text_below": true,
             "content_alignment_mobile": "left",
@@ -129,6 +141,7 @@
             "content_position": "middle-center",
             "content_alignment": "center",
             "content_spacing": "small",
+            "card_link": "",
             "color_scheme_mobile": "",
             "show_text_below": true,
             "content_alignment_mobile": "left",
@@ -153,6 +166,7 @@
             "content_position": "middle-center",
             "content_alignment": "center",
             "content_spacing": "small",
+            "card_link": "",
             "color_scheme_mobile": "",
             "show_text_below": true,
             "content_alignment_mobile": "left",
@@ -213,12 +227,42 @@
         "show_section_divider": true,
         "divider_width": "fixed"
       }
+    },
+    "176837362952c72cdb": {
+      "type": "apps",
+      "blocks": {
+        "wishlist_hero_header_icon_mEKWxN": {
+          "type": "shopify://apps/wishlist-hero/blocks/header-icon/a9a5079b-59e8-47cb-b659-ecf1c60b9b72",
+          "settings": {
+            "customThemeName": "~",
+            "useCustomHeaderColor": false,
+            "customHeaderColor": "",
+            "useCustomHeaderSize": false,
+            "customHeaderIconSize": 22,
+            "additionalIconCssClassNames": "",
+            "additionalIconStyle": "",
+            "additionalContainerClasses": "",
+            "additionalContainerStyle": "",
+            "replaceExistingClasses": false
+          }
+        }
+      },
+      "block_order": [
+        "wishlist_hero_header_icon_mEKWxN"
+      ],
+      "settings": {
+        "include_margins": true,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "custom_class": ""
+      }
     }
   },
   "order": [
     "breadcrumbs_Gxg9wp",
     "banner",
     "custom_content_RecVe9",
-    "product-grid"
+    "product-grid",
+    "176837362952c72cdb"
   ]
 }
