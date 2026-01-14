@@ -86,6 +86,6 @@
      color: #fff !important;
 }
 
-.cart-item__sku, .cart-item__options{
+.cart-item__sku, .cart-item__options, .AddressInfo{
     visibility: hidden !important;
 }
