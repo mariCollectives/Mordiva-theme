@@ -11,6 +11,7 @@
   "sections": {
     "custom_liquid_z4KV4e": {
       "type": "custom-liquid",
+      "disabled": true,
       "name": "t:sections.custom-liquid.presets.name",
       "settings": {
         "custom_liquid": "",
@@ -52,7 +53,7 @@
       ],
       "name": "t:sections.slideshow.name",
       "settings": {
-        "container": "fixed",
+        "container": "full",
         "layout": "standard",
         "slide_height": "adapt",
         "show_dots": true,
