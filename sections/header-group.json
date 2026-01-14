@@ -45,7 +45,7 @@
     "header": {
       "type": "header",
       "settings": {
-        "container": "full",
+        "container": "fixed",
         "color_scheme": "scheme-1",
         "menu": "new-menu",
         "menu_mobile": "",
