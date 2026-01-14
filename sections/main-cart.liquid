@@ -868,11 +868,12 @@
                   {% endif %}
                 {% endfor %}
 
-                {% if tier_tag != '' %}
-                  <strong class="customerType">Customer Tier:</strong> {{ tier_tag }}
+                 {% if tier_tag != '' %}
+                  <div class="customerTypeRow">
+                    <strong class="customerType">Customer Type:</strong>
+                    <span class="customerTypeValue">{{ tier_tag }}</span>
+                  </div>
                 {% endif %}
-
-
 
               </p>
             </div>

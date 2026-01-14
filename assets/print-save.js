@@ -186,25 +186,22 @@
     return isCartPage ? parseFromCartPage() : parseFromSavedCartPage();
   }
 
-  
+  function getOrderNote() {
+    // Common Shopify cart note inputs
+    var noteEl =
+      document.querySelector('textarea[name="note"]') ||
+      document.querySelector('textarea#CartNote') ||
+      document.querySelector('textarea.cart__note') ||
+      document.querySelector('[name="note"]');
 
+    // Some themes store/display it elsewhere
+    var displayed =
+      text(document.querySelector("[data-order-note]")) ||
+      text(document.querySelector(".order-note")) ||
+      text(document.querySelector(".cart-note"));
 
-function getOrderNote() {
-  // Common Shopify cart note inputs
-  var noteEl =
-    document.querySelector('textarea[name="note"]') ||
-    document.querySelector('textarea#CartNote') ||
-    document.querySelector('textarea.cart__note') ||
-    document.querySelector('[name="note"]');
-
-  // Some themes store/display it elsewhere
-  var displayed =
-    text(document.querySelector("[data-order-note]")) ||
-    text(document.querySelector(".order-note")) ||
-    text(document.querySelector(".cart-note"));
-
-  return (val(noteEl) || displayed || "").trim();
-}
+    return (val(noteEl) || displayed || "").trim();
+  }
 
   // ---------------- Print HTML ----------------
   function buildPrintHtml(data) {
@@ -220,44 +217,47 @@ function getOrderNote() {
     var refSeed = (cartId || String(Date.now()));
     var quoteRef = "SQ-" + refSeed.toString().slice(-8).padStart(8, "0");
 
-    var logoUrl = "https://cdn.shopify.com/s/files/1/0845/4868/2025/files/CollectivePlay_Logo_Tagline_Green_5a0f9f08-4f68-42b7-bb5a-d1195ceceadb.png?v=1768289033";
+    var logoUrl = "https://cdn.shopify.com/s/files/1/0845/4868/2025/files/CollectivePlay_Logo_Tagline_Green_5a0f9f08-4f68-42b7-bb5a-d1195cececeadb.png?v=1768289033";
 
+    // Existing fallbacks (UPDATED: pull from .AddressInfo first)
+    var customerName =
+      text(document.querySelector(".AddressInfo .customer-name")) ||
+      text(document.querySelector(".customer-name")) ||
+      text(document.querySelector("[data-customer-name]")) ||
+      "Customer";
 
-  // Existing fallbacks (UPDATED: pull from .AddressInfo first)
-  var customerName =
-    text(document.querySelector(".AddressInfo .customer-name")) ||
-    text(document.querySelector(".customer-name")) ||
-    text(document.querySelector("[data-customer-name]")) ||
-    "Customer";
+    var deliverTo =
+      text(document.querySelector(".AddressInfo .customer-name")) || // <- deliver to = shipping name
+      text(document.querySelector(".delivery-name")) ||
+      text(document.querySelector("[data-deliver-to]")) ||
+      customerName;
 
-  var deliverTo =
-    text(document.querySelector(".AddressInfo .customer-name")) || // <- deliver to = shipping name
-    text(document.querySelector(".delivery-name")) ||
-    text(document.querySelector("[data-deliver-to]")) ||
-    customerName;
+    var deliverAddr1 =
+      text(document.querySelector(".AddressInfo .ShippingAddress")) ||
+      text(document.querySelector(".ShippingAddress")) ||
+      text(document.querySelector("[data-delivery-address-line1]")) ||
+      "";
 
-  var deliverAddr1 =
-    text(document.querySelector(".AddressInfo .ShippingAddress")) ||
-    text(document.querySelector(".ShippingAddress")) ||
-    text(document.querySelector("[data-delivery-address-line1]")) ||
-    "";
+    // line2 = ".address2" + country (".defaultDeliveryCity")
+    var a2 = text(document.querySelector(".AddressInfo .address2")) || text(document.querySelector(".address2"));
+    var country = text(document.querySelector(".AddressInfo .defaultDeliveryCity")) || text(document.querySelector(".defaultDeliveryCity"));
 
-  // line2 = ".address2" + country (".defaultDeliveryCity")
-  var a2 = text(document.querySelector(".AddressInfo .address2")) || text(document.querySelector(".address2"));
-  var country = text(document.querySelector(".AddressInfo .defaultDeliveryCity")) || text(document.querySelector(".defaultDeliveryCity"));
+    var deliverAddr2 =
+      [a2, country].filter(Boolean).join(", ") ||
+      text(document.querySelector("[data-delivery-address-line2]")) ||
+      "";
 
-  var deliverAddr2 =
-    [a2, country].filter(Boolean).join(", ") ||
-    text(document.querySelector("[data-delivery-address-line2]")) ||
-    "";
+    // ✅ NEW: Customer Type from DOM (tags rendered by Liquid)
+    var customerType =
+      text(document.querySelector(".AddressInfo .customerTypeValue")) ||
+      text(document.querySelector(".customerTypeValue")) ||
+      text(document.querySelector("[data-customer-type]")) ||
+      "";
 
-
-  var deliveryInstructions =
-  getOrderNote() ||
-  text(document.querySelector("[data-delivery-instructions]")) ||
-  "";
-
-
+    var deliveryInstructions =
+      getOrderNote() ||
+      text(document.querySelector("[data-delivery-instructions]")) ||
+      "";
 
     // ---- NEW: override with Shopify customer default address (Liquid -> DOM) if available ----
     var ship = getShippingAddressFromDom();
@@ -324,7 +324,7 @@ function getOrderNote() {
   .panel-inner { background:#efefef; padding:10px 12px; display:grid; grid-template-columns:1fr 1fr; gap:10px 18px; font-size:11px; color:#222; }
   .field { display:grid; grid-template-columns:150px 1fr; gap:8px; align-items:baseline; }
   .label { color:#333; font-weight:600; text-align:right; }
-  .value { color:#111; font-weight:500; }
+  .value { color:#111; font-weight:500; white-space: pre-wrap; }
   table { width:100%; border-collapse:collapse; margin-top:10mm; font-size:11px; }
   thead th { text-transform:uppercase; font-size:10px; letter-spacing:.08em; color:#333; border-bottom:1px solid #333; padding:6px 6px; }
   tbody td { border-bottom:1px solid #d9d9d9; padding:6px 6px; vertical-align:top; }
@@ -339,10 +339,6 @@ function getOrderNote() {
   .footer { margin-top:14mm; padding-top:8mm; border-top:1px solid #e6e6e6; display:grid; grid-template-columns:1fr auto; gap:10px; font-size:10px; color:#444; align-items:end; }
   .footer .lines { line-height:1.4; }
   .footer .right { text-align:right; }
-
-  .value { white-space: pre-wrap; }
-
-  
   @media print {
     @page { size:A4; margin:0; }
     body { margin:0; }
@@ -351,7 +347,6 @@ function getOrderNote() {
     tr { break-inside:avoid; }
     .pagenum::after { content:"Page " counter(page) " of " counter(pages); }
   }
-    
 </style>
 </head>
 <body>
@@ -379,23 +374,21 @@ function getOrderNote() {
 
     <div class="panel">
       <div class="panel-inner">
-       <div class="panel-inner">
         <div class="field"><div class="label">Shipping Name:</div><div class="value">${escapeHtml(deliverTo)}</div></div>
         <div class="field"><div class="label">Customer Name:</div><div class="value">${escapeHtml(customerName)}</div></div>
 
         <div class="field"><div class="label">Shipping Address:</div><div class="value">${escapeHtml(deliverAddr1)}</div></div>
         <div class="field"><div class="label">City/State/ZIP, Country:</div><div class="value">${escapeHtml(deliverAddr2)}</div></div>
 
-
-      <div class="field"><div class="label">Customer Type:</div><div class="value">—</div></div>
+        <div class="field"><div class="label">Customer Type:</div><div class="value">${escapeHtml(customerType || "—")}</div></div>
 
         <div class="field"><div class="label">Delivery Method:</div><div class="value">—</div></div>
-       <div class="field">
-        <div class="label">Delivery Instructions:</div>
-        <div class="value">${escapeHtml(deliveryInstructions || "—")}</div>
-      </div>
 
+        <div class="field">
+          <div class="label">Delivery Instructions:</div>
+          <div class="value">${escapeHtml(deliveryInstructions || "—")}</div>
         </div>
+      </div>
     </div>
 
     <table>
