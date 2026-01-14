@@ -1,8 +1,6 @@
 (function () {
   var path = location.pathname.replace(/\/+$/, "");
-
   var isCartPage = path === "/cart";
-
   if (!isCartPage) return;
 
   function $(sel, root) {
@@ -27,11 +25,37 @@
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;");
   }
+
   function moneyKeepDollar(raw) {
     raw = (raw || "").replace(/\b[A-Z]{3}\b/g, "").trim();
+    if (!raw) return "";
     if (raw.includes("$")) return raw;
     var n = raw.replace(/[^\d.,-]/g, "");
     return n ? "$" + n : "";
+  }
+
+  function moneyToNumber(raw) {
+    var s = (raw || "").replace(/\b[A-Z]{3}\b/g, "").replace(/[^0-9.,-]/g, "").trim();
+    if (!s) return NaN;
+    // handle "1,234.56" vs "1234,56" loosely
+    // If both comma and dot exist, assume comma is thousand sep
+    if (s.indexOf(",") !== -1 && s.indexOf(".") !== -1) s = s.replace(/,/g, "");
+    // If only comma exists, treat it as decimal separator
+    else if (s.indexOf(",") !== -1 && s.indexOf(".") === -1) s = s.replace(",", ".");
+    var n = parseFloat(s);
+    return isNaN(n) ? NaN : n;
+  }
+
+  function fmtMoney2(rawOrNumber) {
+    var n = typeof rawOrNumber === "number" ? rawOrNumber : moneyToNumber(rawOrNumber);
+    if (isNaN(n)) return moneyKeepDollar(String(rawOrNumber || "")) || "";
+    return "$" + n.toFixed(2);
+  }
+
+  function fmtQty2(q) {
+    var n = parseFloat(String(q || "0").replace(/[^\d.-]/g, ""));
+    if (isNaN(n)) return "0.00";
+    return n.toFixed(2);
   }
 
   function getCartId() {
@@ -40,7 +64,7 @@
 
   function getTitle() {
     var h1 = document.querySelector("h1");
-    return h1 ? h1.textContent.trim() : (isCartPage ? "Cart" : "Quote");
+    return h1 ? h1.textContent.trim() : "Cart";
   }
 
   // ---- NEW: read shipping address written by Liquid into DOM ----
@@ -69,17 +93,13 @@
     for (var i = 0; i < dts.length; i++) {
       var dt = dts[i];
       var dtText = (dt.textContent || "").replace(/\s+/g, " ").trim().toLowerCase();
-
       if (dtText.indexOf("room") !== -1 && dtText.indexOf("note") !== -1) {
         var dd = null;
-
-        if (dt.nextElementSibling && dt.nextElementSibling.tagName === "DD") {
-          dd = dt.nextElementSibling;
-        } else {
+        if (dt.nextElementSibling && dt.nextElementSibling.tagName === "DD") dd = dt.nextElementSibling;
+        else {
           var parent = dt.parentElement;
           if (parent) dd = parent.querySelector("dd");
         }
-
         var value = text(dd);
         if (value) return value;
       }
@@ -102,120 +122,97 @@
     return val(anyInput);
   }
 
-  function findRoomValueInSavedRow(row) {
-    var fromDtDd = findRoomNoteFromDtDd(row);
-    if (fromDtDd) return fromDtDd;
-
-    var propInput =
-      row.querySelector('[name^="properties["][name*="Assign to Room"]') ||
-      row.querySelector('[name^="properties["][name*="Room"]') ||
-      row.querySelector('[name^="properties["][name*="Note"]');
-
-    if (propInput) return val(propInput);
-
-    var label =
-      row.querySelector(".item-room") ||
-      row.querySelector("[data-room]");
-
-    if (label) return val(label) || text(label);
-
-    return val(row.querySelector("input, textarea, select"));
-  }
-
-
-function parseFromCartPage() {
-  var items = [];
-
-  $all("tr.cart-item").forEach(function (row) {
-    var titleEl = row.querySelector(".cart-item__title");
-    var qtyEl = row.querySelector("input.quantity__input");
-    var unitEl = row.querySelector(".cart-item__price .price, .cart-item__prices .price");
-    var lineEl = row.querySelector(".cart-item__total, td.cart-item__total span");
-
-    // ✅ SKU must be read per row
-    var skuEl = row.querySelector(".cart-item__sku");
-    var sku = skuEl ? (skuEl.getAttribute("data-sku") || text(skuEl)) : "";
-
-    // ✅ Image from DOM
-    var imgEl = row.querySelector(".cart-item__media img");
-    var img = imgEl ? (imgEl.getAttribute("src") || "") : "";
-    if (img && img.indexOf("//") === 0) img = "https:" + img;
-
-    items.push({
-      sku: sku,
-      image: img,
-      title: text(titleEl),
-      room_note: findRoomValueInCartRow(row),
-      quantity: qtyEl ? String(qtyEl.value || qtyEl.getAttribute("value") || "1") : "1",
-      unit: moneyKeepDollar(text(unitEl)),
-      line_total: moneyKeepDollar(text(lineEl))
-    });
-  });
-
-  var grandTotal = moneyKeepDollar(text(document.querySelector(".totals__subtotal-value")));
-  return { items: items, grandTotal: grandTotal };
-}
-
-
-
-
-
-  function parseFromSavedCartPage() {
-    var items = [];
-
-    $all(".cart-item").forEach(function (row) {
-      var t = row.querySelector(".item-title");
-      var q = row.querySelector(".item-quantity");
-      var u = row.querySelector(".item-price");
-      var lt = row.querySelector(".item-total");
-
-      function extractQty(txt) {
-        var m = (txt || "").match(/Qty\s*:\s*(\d+)/i);
-        return m ? m[1] : "1";
-      }
-      function extractLineTotal(txt) {
-        var m = (txt || "").match(/Total\s*:\s*(.*)$/i);
-        return moneyKeepDollar(m ? m[1] : txt);
-      }
-
-      items.push({
-        title: text(t),
-        room_note: findRoomValueInSavedRow(row),
-        quantity: extractQty(text(q)),
-        unit: moneyKeepDollar(text(u)),
-        line_total: extractLineTotal(text(lt))
-      });
-    });
-
-    var gtRow = document.querySelector(".cart-summary-row.cart-summary-total");
-    var gt = "";
-    if (gtRow) {
-      var divs = gtRow.querySelectorAll("div");
-      if (divs.length >= 2) gt = moneyKeepDollar(text(divs[1]));
-    }
-
-    return { items: items, grandTotal: gt };
-  }
-
-  function parseItems() {
-    return isCartPage ? parseFromCartPage() : parseFromSavedCartPage();
-  }
-
   function getOrderNote() {
-    // Common Shopify cart note inputs
     var noteEl =
       document.querySelector('textarea[name="note"]') ||
       document.querySelector('textarea#CartNote') ||
       document.querySelector('textarea.cart__note') ||
       document.querySelector('[name="note"]');
 
-    // Some themes store/display it elsewhere
     var displayed =
       text(document.querySelector("[data-order-note]")) ||
       text(document.querySelector(".order-note")) ||
       text(document.querySelector(".cart-note"));
 
     return (val(noteEl) || displayed || "").trim();
+  }
+
+  // ---- Price extraction: regular vs discounted (per unit) ----
+  function getUnitPricesFromRow(row) {
+    // Try common Shopify/Dawn patterns first
+    var regularEl =
+      row.querySelector(".price__regular .price-item--regular") ||
+      row.querySelector(".price__regular .price-item") ||
+      row.querySelector(".price-item--regular");
+
+    var saleEl =
+      row.querySelector(".price__sale .price-item--sale") ||
+      row.querySelector(".price__sale .price-item") ||
+      row.querySelector(".price-item--sale") ||
+      row.querySelector(".price-item--final");
+
+    // Fallback: whatever price text is visible
+    var anyPriceEl =
+      row.querySelector(".cart-item__price .price") ||
+      row.querySelector(".cart-item__prices .price") ||
+      row.querySelector(".price");
+
+    var regularTxt = moneyKeepDollar(text(regularEl));
+    var saleTxt = moneyKeepDollar(text(saleEl));
+
+    // If theme only shows one price, treat it as both
+    if (!regularTxt && anyPriceEl) regularTxt = moneyKeepDollar(text(anyPriceEl));
+    if (!saleTxt) saleTxt = regularTxt;
+
+    // If both exist but regular missing $ formatting
+    regularTxt = regularTxt || "";
+    saleTxt = saleTxt || regularTxt;
+
+    return { regular: regularTxt, discounted: saleTxt };
+  }
+
+  function parseFromCartPage() {
+    var items = [];
+
+    $all("tr.cart-item").forEach(function (row) {
+      var titleEl = row.querySelector(".cart-item__title");
+      var qtyEl = row.querySelector("input.quantity__input");
+
+      // line total (usually discounted already)
+      var lineEl = row.querySelector(".cart-item__total, td.cart-item__total span");
+
+      // SKU
+      var skuEl = row.querySelector(".cart-item__sku");
+      var sku = skuEl ? (skuEl.getAttribute("data-sku") || text(skuEl)) : "";
+
+      // Image
+      var imgEl = row.querySelector(".cart-item__media img");
+      var img = imgEl ? (imgEl.getAttribute("src") || "") : "";
+      if (img && img.indexOf("//") === 0) img = "https:" + img;
+
+      var qtyRaw = qtyEl ? String(qtyEl.value || qtyEl.getAttribute("value") || "1") : "1";
+
+      // Unit prices
+      var unitPrices = getUnitPricesFromRow(row);
+
+      items.push({
+        sku: sku,
+        image: img,
+        title: text(titleEl),
+        room_note: findRoomValueInCartRow(row),
+        quantity: qtyRaw,
+        unit_regular: unitPrices.regular,      // Unit Price
+        unit_discounted: unitPrices.discounted, // Disc Unit Pri
+        line_total: moneyKeepDollar(text(lineEl))
+      });
+    });
+
+    var grandTotal = moneyKeepDollar(text(document.querySelector(".totals__subtotal-value")));
+    return { items: items, grandTotal: grandTotal };
+  }
+
+  function parseItems() {
+    return parseFromCartPage();
   }
 
   // ---------------- Print HTML ----------------
@@ -234,7 +231,6 @@ function parseFromCartPage() {
 
     var logoUrl = "https://cdn.shopify.com/s/files/1/0845/4868/2025/files/CollectivePlay_Logo_Tagline_Green_5a0f9f08-4f68-42b7-bb5a-d1195ceceadb.png";
 
-    // Existing fallbacks (UPDATED: pull from .AddressInfo first)
     var customerName =
       text(document.querySelector(".AddressInfo .customer-name")) ||
       text(document.querySelector(".customer-name")) ||
@@ -242,7 +238,7 @@ function parseFromCartPage() {
       "Customer";
 
     var deliverTo =
-      text(document.querySelector(".AddressInfo .customer-name")) || // <- deliver to = shipping name
+      text(document.querySelector(".AddressInfo .customer-name")) ||
       text(document.querySelector(".delivery-name")) ||
       text(document.querySelector("[data-deliver-to]")) ||
       customerName;
@@ -253,7 +249,6 @@ function parseFromCartPage() {
       text(document.querySelector("[data-delivery-address-line1]")) ||
       "";
 
-    // line2 = ".address2" + country (".defaultDeliveryCity")
     var a2 = text(document.querySelector(".AddressInfo .address2")) || text(document.querySelector(".address2"));
     var country = text(document.querySelector(".AddressInfo .defaultDeliveryCity")) || text(document.querySelector(".defaultDeliveryCity"));
 
@@ -262,7 +257,6 @@ function parseFromCartPage() {
       text(document.querySelector("[data-delivery-address-line2]")) ||
       "";
 
-    // ✅ NEW: Customer Type from DOM (tags rendered by Liquid)
     var customerType =
       text(document.querySelector(".AddressInfo .customerTypeValue")) ||
       text(document.querySelector(".customerTypeValue")) ||
@@ -274,13 +268,11 @@ function parseFromCartPage() {
       text(document.querySelector("[data-delivery-instructions]")) ||
       "";
 
-    // ---- NEW: override with Shopify customer default address (Liquid -> DOM) if available ----
     var ship = getShippingAddressFromDom();
     if (ship) {
       deliverTo = ship.name || deliverTo;
       deliverAddr1 = ship.address1 || deliverAddr1;
 
-      // Put the rest on line 2 so it matches your “like second picture” requirement
       var line2Parts = [];
       if (ship.address2) line2Parts.push(ship.address2);
       var cityLine = [ship.city, ship.province, ship.zip].filter(Boolean).join(" ");
@@ -291,33 +283,42 @@ function parseFromCartPage() {
       customerName = ship.name || customerName;
     }
 
-var rows = data.items
-  .map(function (i, idx) {
-    var desc = escapeHtml(i.title || "");
-    var room = escapeHtml(i.room_note || "");
-    var roomHtml = room ? ("<div class='subline'><strong>Room / Note:</strong> " + room + "</div>") : "";
+    var rows = data.items
+      .map(function (i, idx) {
+        var desc = escapeHtml(i.title || "");
 
-    var sku = escapeHtml(i.sku || "—");
+        var room = escapeHtml(i.room_note || "");
+        var roomHtml = room ? ("<div class='subline'><b>Room / Note:</b> " + room + "</div>") : "";
 
-    var imgHtml = i.image
-      ? ("<img src='" + escapeHtml(i.image) + "' style='width:48px;height:48px;object-fit:cover;border:1px solid #ddd;border-radius:6px;'/>")
-      : "—";
+        var sku = escapeHtml(i.sku || "—");
 
-    return (
-      "<tr>" +
-        "<td class='ln'>" + (idx + 1) + "</td>" +
-        "<td class='code'>" + sku + "</td>" +
-        "<td class='desc'>" + desc + roomHtml + "</td>" +
-        "<td class='imgcell'>" + imgHtml + "</td>" +
-        "<td class='qty'>" + escapeHtml(i.quantity) + "</td>" +
-        "<td class='money'>" + escapeHtml(i.unit) + "</td>" +
-        "<td class='money'>" + "—" + "</td>" +
-        "<td class='money'>" + escapeHtml(i.line_total) + "</td>" +
-      "</tr>"
-    );
-  })
-  .join("");
+        var imgHtml = i.image
+          ? ("<img class='thumb' src='" + escapeHtml(i.image) + "'/>")
+          : "";
 
+        var qty = fmtQty2(i.quantity);
+
+        // Unit Price (regular) and Disc Unit Pri (discounted)
+        var unitRegular = i.unit_regular ? fmtMoney2(i.unit_regular) : "";
+        var unitDisc = i.unit_discounted ? fmtMoney2(i.unit_discounted) : unitRegular;
+
+        // If identical, still display both columns like your screenshot
+        var lineTotal = i.line_total ? fmtMoney2(i.line_total) : "";
+
+        return (
+          "<tr>" +
+            "<td class='c-ln'>" + (idx + 1) + "</td>" +
+            "<td class='c-code'>" + sku + "</td>" +
+            "<td class='c-desc'>" + desc + roomHtml + "</td>" +
+            "<td class='c-img'>" + imgHtml + "</td>" +
+            "<td class='c-qty'>" + qty + "</td>" +
+            "<td class='c-money'>" + escapeHtml(unitRegular) + "</td>" +
+            "<td class='c-money'>" + escapeHtml(unitDisc) + "</td>" +
+            "<td class='c-money'>" + escapeHtml(lineTotal) + "</td>" +
+          "</tr>"
+        );
+      })
+      .join("");
 
     return (
 `<!doctype html>
@@ -336,64 +337,97 @@ var rows = data.items
     background: #fff;
   }
   .page { padding: 18mm 14mm 16mm; }
-  .top { display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 0;
-    margin-bottom: 0; }
-  .brand { display:flex; align-items:flex-start; gap:12px; }
-  .logo {width: 265px;
-    height: 160px;
-    display: flex;
-    align-items: center;
-    margin-top: -1em; }
+
+  .top { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom: 2mm; }
+  .logo { width: 260px; height: 90px; display:flex; align-items:center; }
   .logo img { max-width:100%; max-height:100%; object-fit:contain; }
-  .docbox { padding:10px 12px; min-width:230px; text-align:right; }
-  .docbox .title { font-size:23px; letter-spacing:.08em; font-weight:500; }
-  .docbox .ref { font-weight:800; font-size:14px; margin-top:2px; }
-  .docbox .meta { margin-top:6px; font-size:11px; line-height:1.5; color:#333; }
-  .docbox .meta b { color:#111; font-weight:700; }
-  .panel {border-top: 6px solid #efefef; margin-top: -27px; }
-  .panel-inner { background:#efefef; padding:10px 12px; display:grid; grid-template-columns:1fr 1fr; gap:10px 18px; font-size:11px; color:#222; }
+  .docbox { text-align:right; }
+  .docbox .title { font-size:22px; letter-spacing:.08em; font-weight:600; }
+  .docbox .ref { font-weight:800; font-size:13px; margin-top:2px; }
+  .docbox .meta { margin-top:6px; font-size:10.5px; line-height:1.5; color:#333; }
+
+  .panel { margin-top: 2mm; }
+  .panel-inner {
+    background:#efefef;
+    padding:10px 12px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px 16px;
+    font-size:11px;
+  }
   .field { display:grid; grid-template-columns:150px 1fr; gap:8px; align-items:baseline; }
-  .label { color:#333; font-weight:600; text-align:right; }
-  .value { color:#111; font-weight:500; white-space: pre-wrap; }
-  table { width:100%; border-collapse:collapse; margin-top:10mm; font-size:11px; }
-  thead th { text-transform:uppercase; font-size:10px; letter-spacing:.08em; color:#333; border-bottom:1px solid #333; padding:6px 6px; }
-  tbody td { border-bottom:1px solid #d9d9d9; padding:6px 6px; vertical-align:top; }
-  .ln { width:36px; text-align:left; }
-  .qty { width:70px; text-align:right; white-space:nowrap; }
-  .money { width:110px; text-align:right; white-space:nowrap; }
-  .subline { margin-top:3px; color:#444; font-size:10px; line-height:1.3; }
-  .totals { margin-top:8mm; display:flex; justify-content:flex-end; }
-  .totals-box { min-width:260px; border-top:1px solid #333; padding-top:6px; font-size:12px; }
+  .label { font-weight:700; text-align:right; color:#222; }
+  .value { font-weight:500; color:#111; white-space: pre-wrap; }
+
+  /* ====== TABLE LIKE YOUR SCREENSHOT ====== */
+  table {
+    width:100%;
+    border-collapse:collapse;
+    margin-top: 8mm;
+    font-size:11px;
+    table-layout: fixed;
+    border: 1px solid #777;
+  }
+  thead th {
+    font-weight:700;
+    color:#111;
+    padding:6px 6px;
+    border: 1px solid #777;
+    background: #f3f3f3;
+    text-transform:none;
+    letter-spacing:0;
+  }
+  tbody td {
+    padding:6px 6px;
+    border: 1px solid #777;
+    vertical-align: top;
+  }
+
+  /* column widths close to screenshot */
+  .c-ln { width: 34px; text-align:left; }
+  .c-code { width: 92px; text-align:left; }
+  .c-desc { width: auto; text-align:left; }
+  .c-img { width: 54px; text-align:center; vertical-align: middle; }
+  .c-qty { width: 62px; text-align:right; white-space:nowrap; }
+  .c-money { width: 86px; text-align:right; white-space:nowrap; }
+
+  .thumb {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    display: inline-block;
+  }
+
+  .subline { margin-top:3px; color:#444; font-size:10px; line-height:1.2; }
+
+  .totals { margin-top:6mm; display:flex; justify-content:flex-end; }
+  .totals-box { min-width:240px; font-size:12px; }
   .totals-row { display:flex; justify-content:space-between; padding:4px 0; }
-  .totals-row.total { font-weight:800; }
-  .footer { margin-top:14mm; padding-top:8mm; border-top:1px solid #e6e6e6; display:grid; grid-template-columns:1fr auto; gap:10px; font-size:10px; color:#444; align-items:end; }
-  .footer .lines { line-height:1.4; }
-  .footer .right { text-align:right; }
+  .totals-row.total { font-weight:800; border-top: 1px solid #111; padding-top:6px; }
+
+  .footer { margin-top:12mm; padding-top:6mm; border-top:1px solid #e6e6e6; display:flex; justify-content:space-between; font-size:10px; color:#444; }
+  .pagenum::after { content:"Page " counter(page) " of " counter(pages); }
+
   @media print {
     @page { size:A4; margin:0; }
     body { margin:0; }
     .page { page-break-after:always; }
     thead { display:table-header-group; }
     tr { break-inside:avoid; }
-    .pagenum::after { content:"Page " counter(page) " of " counter(pages); }
   }
 </style>
 </head>
 <body>
   <div class="page">
     <div class="top">
-      <div class="brand">
-        <div class="logo">
-          ${
-            logoUrl
-              ? `<img src="${escapeHtml(logoUrl)}" alt="${escapeHtml(shopName)}">`
-              : `<div style="font-weight:800;font-size:34px;line-height:1;">collective<br>play</div>`
-          }
-        </div>
+      <div class="logo">
+        ${
+          logoUrl
+            ? `<img src="${escapeHtml(logoUrl)}" alt="${escapeHtml(shopName)}">`
+            : `<div style="font-weight:800;font-size:34px;line-height:1;">collective<br>play</div>`
+        }
       </div>
+
       <div class="docbox">
         <div class="title">SALES QUOTE</div>
         <div class="ref">${escapeHtml(quoteRef)}</div>
@@ -414,7 +448,6 @@ var rows = data.items
         <div class="field"><div class="label">City/State/ZIP, Country:</div><div class="value">${escapeHtml(deliverAddr2)}</div></div>
 
         <div class="field"><div class="label">Customer Type:</div><div class="value">${escapeHtml(customerType || "—")}</div></div>
-
         <div class="field"><div class="label">Delivery Method:</div><div class="value">—</div></div>
 
         <div class="field">
@@ -427,14 +460,14 @@ var rows = data.items
     <table>
       <thead>
         <tr>
-          <th style="text-align:left">Ln</th>
-          <th style="text-align:left">Product Code</th>
-          <th style="text-align:left">Product Description</th>
-           <th style="text-align:left">Image</th>
-          <th style="text-align:right">Qty</th>
-          <th style="text-align:right">Unit Price</th>
-          <th style="text-align:right">Disc Pri</th>
-          <th style="text-align:right">Total</th>
+          <th class="c-ln">Ln</th>
+          <th class="c-code">Product Code</th>
+          <th class="c-desc">Product Description</th>
+          <th class="c-img">Image</th>
+          <th class="c-qty">Qty</th>
+          <th class="c-money">Unit Price</th>
+          <th class="c-money">Disc Unit Pri</th>
+          <th class="c-money">Total</th>
         </tr>
       </thead>
       <tbody>${rows}</tbody>
@@ -444,19 +477,19 @@ var rows = data.items
       <div class="totals-box">
         <div class="totals-row total">
           <span>Total</span>
-          <span>${escapeHtml(data.grandTotal || "")}</span>
+          <span>${escapeHtml(fmtMoney2(data.grandTotal || ""))}</span>
         </div>
       </div>
     </div>
 
     <div class="footer">
-      <div class="lines">
+      <div>
         <div>www.collectiveplay.com.au</div>
         <div>Suite 2.13 - 21 Crombie Avenue Bundall, QLD 4217</div>
         <div>ABN: 52 653 111 472</div>
         <div>Private and Confidential &nbsp; hello@collectiveplay.com.au</div>
       </div>
-      <div class="right"><div class="pagenum"></div></div>
+      <div class="pagenum"></div>
     </div>
   </div>
 </body>
