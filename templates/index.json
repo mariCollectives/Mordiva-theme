@@ -9,6 +9,17 @@
  */
 {
   "sections": {
+    "custom_liquid_z4KV4e": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "custom_liquid": "",
+        "color_scheme": "",
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "custom_class": ""
+      }
+    },
     "slideshow_zKPFFV": {
       "type": "slideshow",
       "blocks": {
@@ -716,6 +727,7 @@
     }
   },
   "order": [
+    "custom_liquid_z4KV4e",
     "slideshow_zKPFFV",
     "rich_text_yAEBMr",
     "custom_content_FQyrQN",
