@@ -244,6 +244,21 @@
                               <div class="flex items-center justify-between gap-1 flex-wrap">
                                 <div class="block">
                                   <a href="{{ item.url }}" class="cart-item__title text-pcard-title reversed-link">{{- item.product.title | escape -}}</a>
+                                  {%- assign item_sku = item.variant.sku | default: item.sku -%}
+                                    {%- if item_sku != blank -%}
+                                      <div class="cart-item__sku text-sm text-subtext"
+                                          data-sku="{{ item_sku | escape }}">
+                                        <span class="sku-label">Product Code:</span>
+                                        <span class="sku-value">{{ item_sku | escape }}</span>
+                                      </div>
+                                    {%- else -%}
+                                      <div class="cart-item__sku text-sm text-subtext" data-sku="">
+                                        <span class="sku-label">Product Code:</span>
+                                        <span class="sku-value">—</span>
+                                      </div>
+                                    {%- endif -%}
+
+                                
                                 </div>
                                 <div class="cart-item__prices lg:hidden">
                                   <div class="price text-right flex flex-wrap items-center gap-x-2 font-body-bolder{% if item.original_price != item.final_price %} price--on-sale{% endif %}">
