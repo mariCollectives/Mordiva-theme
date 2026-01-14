@@ -89,3 +89,7 @@
 .cart-item__sku, .cart-item__options, .AddressInfo{
     visibility: hidden !important;
 }
+
+.header__menu.flex a, .menu__item>span{
+     color: #000 !important;
+}

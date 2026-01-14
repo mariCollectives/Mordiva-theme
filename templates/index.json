@@ -11,7 +11,6 @@
   "sections": {
     "custom_liquid_z4KV4e": {
       "type": "custom-liquid",
-      "disabled": true,
       "name": "t:sections.custom-liquid.presets.name",
       "settings": {
         "custom_liquid": "",
