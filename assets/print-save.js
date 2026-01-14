@@ -366,7 +366,6 @@
     margin-top: 8mm;
     font-size:11px;
     table-layout: fixed;
-    border: 1px solid #777;
   }
   thead th {
     font-weight:700;
@@ -377,7 +376,7 @@
     letter-spacing:0;
   }
   tbody td {
-    padding:6px 6px;
+    padding:3px 3px;
     border-bottom: 1px solid #777;
     vertical-align: top;
   }
