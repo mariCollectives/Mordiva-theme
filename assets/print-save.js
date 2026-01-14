@@ -311,16 +311,24 @@
     background: #fff;
   }
   .page { padding: 18mm 14mm 16mm; }
-  .top { display:flex; align-items:flex-start; justify-content:space-between; gap:16px; margin-bottom:10mm; }
+  .top { display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0;
+    margin-bottom: 0; }
   .brand { display:flex; align-items:flex-start; gap:12px; }
-  .logo { width:220px; height:160px; display:flex; align-items:center; }
+  .logo {width: 265px;
+    height: 160px;
+    display: flex;
+    align-items: center;
+    margin-top: -1em; }
   .logo img { max-width:100%; max-height:100%; object-fit:contain; }
   .docbox { padding:10px 12px; min-width:230px; text-align:right; }
   .docbox .title { font-size:23px; letter-spacing:.08em; font-weight:500; }
   .docbox .ref { font-weight:800; font-size:14px; margin-top:2px; }
   .docbox .meta { margin-top:6px; font-size:11px; line-height:1.5; color:#333; }
   .docbox .meta b { color:#111; font-weight:700; }
-  .panel { border-top:6px solid #efefef; margin-top:6mm; padding-top:6mm; }
+  .panel {border-top: 6px solid #efefef; margin-top: -27px; }
   .panel-inner { background:#efefef; padding:10px 12px; display:grid; grid-template-columns:1fr 1fr; gap:10px 18px; font-size:11px; color:#222; }
   .field { display:grid; grid-template-columns:150px 1fr; gap:8px; align-items:baseline; }
   .label { color:#333; font-weight:600; text-align:right; }
