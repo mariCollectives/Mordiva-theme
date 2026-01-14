@@ -186,6 +186,26 @@
     return isCartPage ? parseFromCartPage() : parseFromSavedCartPage();
   }
 
+  
+
+
+function getOrderNote() {
+  // Common Shopify cart note inputs
+  var noteEl =
+    document.querySelector('textarea[name="note"]') ||
+    document.querySelector('textarea#CartNote') ||
+    document.querySelector('textarea.cart__note') ||
+    document.querySelector('[name="note"]');
+
+  // Some themes store/display it elsewhere
+  var displayed =
+    text(document.querySelector("[data-order-note]")) ||
+    text(document.querySelector(".order-note")) ||
+    text(document.querySelector(".cart-note"));
+
+  return (val(noteEl) || displayed || "").trim();
+}
+
   // ---------------- Print HTML ----------------
   function buildPrintHtml(data) {
     var now = new Date();
@@ -231,6 +251,11 @@
     text(document.querySelector("[data-delivery-address-line2]")) ||
     "";
 
+
+  var deliveryInstructions =
+  getOrderNote() ||
+  text(document.querySelector("[data-delivery-instructions]")) ||
+  "";
 
 
 
@@ -314,6 +339,10 @@
   .footer { margin-top:14mm; padding-top:8mm; border-top:1px solid #e6e6e6; display:grid; grid-template-columns:1fr auto; gap:10px; font-size:10px; color:#444; align-items:end; }
   .footer .lines { line-height:1.4; }
   .footer .right { text-align:right; }
+
+  .value { white-space: pre-wrap; }
+
+  
   @media print {
     @page { size:A4; margin:0; }
     body { margin:0; }
@@ -322,6 +351,7 @@
     tr { break-inside:avoid; }
     .pagenum::after { content:"Page " counter(page) " of " counter(pages); }
   }
+    
 </style>
 </head>
 <body>
@@ -360,8 +390,11 @@
       <div class="field"><div class="label">Customer Type:</div><div class="value">—</div></div>
 
         <div class="field"><div class="label">Delivery Method:</div><div class="value">—</div></div>
-        <div class="field"><div class="label">Delivery Instructions:</div><div class="value">—</div></div>
-      
+       <div class="field">
+        <div class="label">Delivery Instructions:</div>
+        <div class="value">${escapeHtml(deliveryInstructions || "—")}</div>
+      </div>
+
         </div>
     </div>
 
