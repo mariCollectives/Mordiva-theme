@@ -3,6 +3,11 @@
   var isCartPage = path === "/cart";
   if (!isCartPage) return;
 
+  // ===== TAX (EDIT ME) =====
+  var TAX_RATE = 0.10;               // AU GST 10%
+  var TAX_INCLUDED_IN_SUBTOTAL = false; // set true if your prices already include tax
+  // =========================
+
   function $(sel, root) {
     return (root || document).querySelector(sel);
   }
@@ -37,10 +42,7 @@
   function moneyToNumber(raw) {
     var s = (raw || "").replace(/\b[A-Z]{3}\b/g, "").replace(/[^0-9.,-]/g, "").trim();
     if (!s) return NaN;
-    // handle "1,234.56" vs "1234,56" loosely
-    // If both comma and dot exist, assume comma is thousand sep
     if (s.indexOf(",") !== -1 && s.indexOf(".") !== -1) s = s.replace(/,/g, "");
-    // If only comma exists, treat it as decimal separator
     else if (s.indexOf(",") !== -1 && s.indexOf(".") === -1) s = s.replace(",", ".");
     var n = parseFloat(s);
     return isNaN(n) ? NaN : n;
@@ -65,6 +67,22 @@
   function getTitle() {
     var h1 = document.querySelector("h1");
     return h1 ? h1.textContent.trim() : "Cart";
+  }
+
+  // ===== TAX helper =====
+  function calcTaxFromSubtotal(subtotalNum) {
+    if (isNaN(subtotalNum)) return { sub: NaN, tax: NaN, total: NaN };
+
+    if (TAX_INCLUDED_IN_SUBTOTAL) {
+      // subtotalNum is TOTAL (tax included): tax = total * rate / (1+rate)
+      var tax = subtotalNum * (TAX_RATE / (1 + TAX_RATE));
+      var sub = subtotalNum - tax;
+      return { sub: sub, tax: tax, total: subtotalNum };
+    } else {
+      // subtotalNum is PRE-TAX subtotal: tax = sub * rate; total = sub + tax
+      var tax2 = subtotalNum * TAX_RATE;
+      return { sub: subtotalNum, tax: tax2, total: subtotalNum + tax2 };
+    }
   }
 
   // ---- NEW: read shipping address written by Liquid into DOM ----
@@ -137,9 +155,7 @@
     return (val(noteEl) || displayed || "").trim();
   }
 
-  // ---- Price extraction: regular vs discounted (per unit) ----
   function getUnitPricesFromRow(row) {
-    // Try common Shopify/Dawn patterns first
     var regularEl =
       row.querySelector(".price__regular .price-item--regular") ||
       row.querySelector(".price__regular .price-item") ||
@@ -151,7 +167,6 @@
       row.querySelector(".price-item--sale") ||
       row.querySelector(".price-item--final");
 
-    // Fallback: whatever price text is visible
     var anyPriceEl =
       row.querySelector(".cart-item__price .price") ||
       row.querySelector(".cart-item__prices .price") ||
@@ -160,11 +175,9 @@
     var regularTxt = moneyKeepDollar(text(regularEl));
     var saleTxt = moneyKeepDollar(text(saleEl));
 
-    // If theme only shows one price, treat it as both
     if (!regularTxt && anyPriceEl) regularTxt = moneyKeepDollar(text(anyPriceEl));
     if (!saleTxt) saleTxt = regularTxt;
 
-    // If both exist but regular missing $ formatting
     regularTxt = regularTxt || "";
     saleTxt = saleTxt || regularTxt;
 
@@ -177,22 +190,16 @@
     $all("tr.cart-item").forEach(function (row) {
       var titleEl = row.querySelector(".cart-item__title");
       var qtyEl = row.querySelector("input.quantity__input");
-
-      // line total (usually discounted already)
       var lineEl = row.querySelector(".cart-item__total, td.cart-item__total span");
 
-      // SKU
       var skuEl = row.querySelector(".cart-item__sku");
       var sku = skuEl ? (skuEl.getAttribute("data-sku") || text(skuEl)) : "";
 
-      // Image
       var imgEl = row.querySelector(".cart-item__media img");
       var img = imgEl ? (imgEl.getAttribute("src") || "") : "";
       if (img && img.indexOf("//") === 0) img = "https:" + img;
 
       var qtyRaw = qtyEl ? String(qtyEl.value || qtyEl.getAttribute("value") || "1") : "1";
-
-      // Unit prices
       var unitPrices = getUnitPricesFromRow(row);
 
       items.push({
@@ -201,12 +208,13 @@
         title: text(titleEl),
         room_note: findRoomValueInCartRow(row),
         quantity: qtyRaw,
-        unit_regular: unitPrices.regular,      // Unit Price
-        unit_discounted: unitPrices.discounted, // Disc Unit Pri
+        unit_regular: unitPrices.regular,
+        unit_discounted: unitPrices.discounted,
         line_total: moneyKeepDollar(text(lineEl))
       });
     });
 
+    // This value is whatever your cart shows as "estimated total"
     var grandTotal = moneyKeepDollar(text(document.querySelector(".totals__subtotal-value")));
     return { items: items, grandTotal: grandTotal };
   }
@@ -215,7 +223,6 @@
     return parseFromCartPage();
   }
 
-  // ---------------- Print HTML ----------------
   function buildPrintHtml(data) {
     var now = new Date();
 
@@ -283,6 +290,15 @@
       customerName = ship.name || customerName;
     }
 
+    // ===== TAX: build Sub Total / Tax Total / Total =====
+    var subtotalNum = moneyToNumber(data.grandTotal || "");
+    var t = calcTaxFromSubtotal(subtotalNum);
+
+    var subText = isNaN(t.sub) ? fmtMoney2(data.grandTotal || "") : fmtMoney2(t.sub);
+    var taxText = isNaN(t.tax) ? "$0.00" : fmtMoney2(t.tax);
+    var totalText = isNaN(t.total) ? fmtMoney2(data.grandTotal || "") : fmtMoney2(t.total);
+    // ================================================
+
     var rows = data.items
       .map(function (i, idx) {
         var desc = escapeHtml(i.title || "");
@@ -298,11 +314,9 @@
 
         var qty = fmtQty2(i.quantity);
 
-        // Unit Price (regular) and Disc Unit Pri (discounted)
         var unitRegular = i.unit_regular ? fmtMoney2(i.unit_regular) : "";
         var unitDisc = i.unit_discounted ? fmtMoney2(i.unit_discounted) : unitRegular;
 
-        // If identical, still display both columns like your screenshot
         var lineTotal = i.line_total ? fmtMoney2(i.line_total) : "";
 
         return (
@@ -359,7 +373,6 @@
   .label { font-weight:700; text-align:right; color:#222; }
   .value { font-weight:500; color:#111; white-space: pre-wrap; }
 
-  /* ====== TABLE LIKE YOUR SCREENSHOT ====== */
   table {
     width:100%;
     border-collapse:collapse;
@@ -374,14 +387,13 @@
     background: #f3f3f3;
     text-transform:none;
     letter-spacing:0;
-     border-bottom: 1px solid #777;
+    border-bottom: 1px solid #777;
   }
   tbody td {
     padding:3px 3px;
     border-bottom: 1px solid #777;
     vertical-align: top;
   }
-
 
   .c-ln { width: 34px; text-align:left; }
   .c-code { width: 92px; text-align:left; }
@@ -400,7 +412,7 @@
   .subline { margin-top:3px; color:#444; font-size:10px; line-height:1.2; }
 
   .totals { margin-top:6mm; display:flex; justify-content:flex-end; }
-  .totals-box { min-width:240px; font-size:12px; }
+  .totals-box { min-width:260px; font-size:12px; }
   .totals-row { display:flex; justify-content:space-between; padding:4px 0; }
   .totals-row.total { font-weight:800; border-top: 1px solid #111; padding-top:6px; }
 
@@ -472,14 +484,24 @@
       <tbody>${rows}</tbody>
     </table>
 
+    <!-- ===== TAX TOTALS BLOCK (like your screenshot) ===== -->
     <div class="totals">
       <div class="totals-box">
+        <div class="totals-row">
+          <span><b>Sub Total</b></span>
+          <span>${escapeHtml(subText)}</span>
+        </div>
+        <div class="totals-row">
+          <span><b>Tax Total</b></span>
+          <span>${escapeHtml(taxText)}</span>
+        </div>
         <div class="totals-row total">
           <span>Total</span>
-          <span>${escapeHtml(fmtMoney2(data.grandTotal || ""))}</span>
+          <span>${escapeHtml(totalText)}</span>
         </div>
       </div>
     </div>
+    <!-- ================================================ -->
 
     <div class="footer">
       <div>
@@ -531,7 +553,6 @@
     openPrintWindow(buildPrintHtml(data));
   }
 
-  // ---------------- Inject button ----------------
   function ensurePrintButton() {
     var btn = document.getElementById("printCartPdfButton") || document.getElementById("printQuoteBtn");
     if (btn) return btn;
