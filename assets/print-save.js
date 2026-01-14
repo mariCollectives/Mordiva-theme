@@ -122,33 +122,43 @@
     return val(row.querySelector("input, textarea, select"));
   }
 
-  // ---------------- Parse items (per page) ----------------
-  function parseFromCartPage() {
-    var items = [];
 
+function parseFromCartPage() {
+  var items = [];
+
+  $all("tr.cart-item").forEach(function (row) {
+    var titleEl = row.querySelector(".cart-item__title");
+    var qtyEl = row.querySelector("input.quantity__input");
+    var unitEl = row.querySelector(".cart-item__price .price, .cart-item__prices .price");
+    var lineEl = row.querySelector(".cart-item__total, td.cart-item__total span");
+
+    // ✅ SKU must be read per row
     var skuEl = row.querySelector(".cart-item__sku");
-    var sku = skuEl ? (skuEl.getAttribute("data-sku") || skuEl.textContent.trim()) : "";
+    var sku = skuEl ? (skuEl.getAttribute("data-sku") || text(skuEl)) : "";
 
+    // ✅ Image from DOM
+    var imgEl = row.querySelector(".cart-item__media img");
+    var img = imgEl ? (imgEl.getAttribute("src") || "") : "";
+    if (img && img.indexOf("//") === 0) img = "https:" + img;
 
-    $all("tr.cart-item").forEach(function (row) {
-      var titleEl = row.querySelector(".cart-item__title");
-      var qtyEl = row.querySelector("input.quantity__input");
-      var unitEl = row.querySelector(".cart-item__price .price");
-      var lineEl = row.querySelector(".cart-item__total");
-
-      items.push({
-         sku: sku,
-        title: text(titleEl),
-        room_note: findRoomValueInCartRow(row),
-        quantity: qtyEl ? String(qtyEl.value || qtyEl.getAttribute("value") || "1") : "1",
-        unit: moneyKeepDollar(text(unitEl)),
-        line_total: moneyKeepDollar(text(lineEl))
-      });
+    items.push({
+      sku: sku,
+      image: img,
+      title: text(titleEl),
+      room_note: findRoomValueInCartRow(row),
+      quantity: qtyEl ? String(qtyEl.value || qtyEl.getAttribute("value") || "1") : "1",
+      unit: moneyKeepDollar(text(unitEl)),
+      line_total: moneyKeepDollar(text(lineEl))
     });
+  });
 
-    var grandTotal = moneyKeepDollar(text(document.querySelector(".totals__subtotal-value")));
-    return { items: items, grandTotal: grandTotal };
-  }
+  var grandTotal = moneyKeepDollar(text(document.querySelector(".totals__subtotal-value")));
+  return { items: items, grandTotal: grandTotal };
+}
+
+
+
+
 
   function parseFromSavedCartPage() {
     var items = [];
@@ -281,24 +291,33 @@
       customerName = ship.name || customerName;
     }
 
-    var rows = data.items
-      .map(function (i, idx) {
-        var desc = escapeHtml(i.title || "");
-        var room = escapeHtml(i.room_note || "");
-        var roomHtml = room ? ("<div class='subline'><strong>Room / Note:</strong> " + room + "</div>") : "";
+  var rows = data.items
+    .map(function (i, idx) {
+      var desc = escapeHtml(i.title || "");
+      var room = escapeHtml(i.room_note || "");
+      var roomHtml = room ? ("<div class='subline'><strong>Room / Note:</strong> " + room + "</div>") : "";
 
-        return (
-          "<tr>" +
+      var sku = escapeHtml(i.sku || "—");
+
+      var imgHtml = i.image
+        ? ("<img src='" + escapeHtml(i.image) + "' style='width:48px;height:48px;object-fit:cover;border:1px solid #ddd;border-radius:6px;'/>")
+        : "—";
+
+      return (
+        "<tr>" +
           "<td class='ln'>" + (idx + 1) + "</td>" +
-          "<td class='ln'>" + (img + 1) + "</td>" +
+          "<td class='code'>" + sku + "</td>" +
           "<td class='desc'>" + desc + roomHtml + "</td>" +
+          "<td class='imgcell'>" + imgHtml + "</td>" +
           "<td class='qty'>" + escapeHtml(i.quantity) + "</td>" +
           "<td class='money'>" + escapeHtml(i.unit) + "</td>" +
+          "<td class='money'>" + "—" + "</td>" +
           "<td class='money'>" + escapeHtml(i.line_total) + "</td>" +
-          "</tr>"
-        );
-      })
-      .join("");
+        "</tr>"
+      );
+    })
+    .join("");
+
 
     return (
 `<!doctype html>
