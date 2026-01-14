@@ -219,7 +219,7 @@
       "";
 
     var deliverAddr2 =
-      text(document.querySelector(".delivery-address-line2")) ||
+      text(document.querySelector(".address2")) ||
       text(document.querySelector("[data-delivery-address-line2]")) ||
       "";
 
