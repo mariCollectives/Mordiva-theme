@@ -85,3 +85,7 @@
      background-color: #000 !important;
      color: #fff !important;
 }
+
+.cart-item__sku, .cart-item__options{
+    visibility: hidden !important;
+}
