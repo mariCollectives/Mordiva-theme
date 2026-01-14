@@ -217,7 +217,7 @@
     var refSeed = (cartId || String(Date.now()));
     var quoteRef = "SQ-" + refSeed.toString().slice(-8).padStart(8, "0");
 
-    var logoUrl = "https://cdn.shopify.com/s/files/1/0845/4868/2025/files/CollectivePlay_Logo_Tagline_Green_5a0f9f08-4f68-42b7-bb5a-d1195cececeadb.png?v=1768289033";
+    var logoUrl = "https://cdn.shopify.com/s/files/1/0845/4868/2025/files/CollectivePlay_Logo_Tagline_Green_5a0f9f08-4f68-42b7-bb5a-d1195ceceadb.png";
 
     // Existing fallbacks (UPDATED: pull from .AddressInfo first)
     var customerName =
