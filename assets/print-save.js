@@ -372,14 +372,13 @@
     font-weight:700;
     color:#111;
     padding:6px 6px;
-    border: 1px solid #777;
     background: #f3f3f3;
     text-transform:none;
     letter-spacing:0;
   }
   tbody td {
     padding:6px 6px;
-    border: 1px solid #777;
+    border-bottom: 1px solid #777;
     vertical-align: top;
   }
 
