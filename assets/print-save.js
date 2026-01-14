@@ -291,32 +291,32 @@ function parseFromCartPage() {
       customerName = ship.name || customerName;
     }
 
-  var rows = data.items
-    .map(function (i, idx) {
-      var desc = escapeHtml(i.title || "");
-      var room = escapeHtml(i.room_note || "");
-      var roomHtml = room ? ("<div class='subline'><strong>Room / Note:</strong> " + room + "</div>") : "";
+var rows = data.items
+  .map(function (i, idx) {
+    var desc = escapeHtml(i.title || "");
+    var room = escapeHtml(i.room_note || "");
+    var roomHtml = room ? ("<div class='subline'><strong>Room / Note:</strong> " + room + "</div>") : "";
 
-      var sku = escapeHtml(i.sku || "—");
+    var sku = escapeHtml(i.sku || "—");
 
-      var imgHtml = i.image
-        ? ("<img src='" + escapeHtml(i.image) + "' style='width:48px;height:48px;object-fit:cover;border:1px solid #ddd;border-radius:6px;'/>")
-        : "—";
+    var imgHtml = i.image
+      ? ("<img src='" + escapeHtml(i.image) + "' style='width:48px;height:48px;object-fit:cover;border:1px solid #ddd;border-radius:6px;'/>")
+      : "—";
 
-      return (
-        "<tr>" +
-          "<td class='ln'>" + (idx + 1) + "</td>" +
-          "<td class='code'>" + sku + "</td>" +
-          "<td class='desc'>" + desc + roomHtml + "</td>" +
-          "<td class='imgcell'>" + imgHtml + "</td>" +
-          "<td class='qty'>" + escapeHtml(i.quantity) + "</td>" +
-          "<td class='money'>" + escapeHtml(i.unit) + "</td>" +
-          "<td class='money'>" + "—" + "</td>" +
-          "<td class='money'>" + escapeHtml(i.line_total) + "</td>" +
-        "</tr>"
-      );
-    })
-    .join("");
+    return (
+      "<tr>" +
+        "<td class='ln'>" + (idx + 1) + "</td>" +
+        "<td class='code'>" + sku + "</td>" +
+        "<td class='desc'>" + desc + roomHtml + "</td>" +
+        "<td class='imgcell'>" + imgHtml + "</td>" +
+        "<td class='qty'>" + escapeHtml(i.quantity) + "</td>" +
+        "<td class='money'>" + escapeHtml(i.unit) + "</td>" +
+        "<td class='money'>" + "—" + "</td>" +
+        "<td class='money'>" + escapeHtml(i.line_total) + "</td>" +
+      "</tr>"
+    );
+  })
+  .join("");
 
 
     return (
