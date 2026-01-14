@@ -450,7 +450,7 @@
       </div>
     </div>
 
-    <div class="panel">
+    <div class="panel" style="background-color:#efefef;">
       <div class="panel-inner">
         <div class="field"><div class="label">Shipping Name:</div><div class="value">${escapeHtml(deliverTo)}</div></div>
         <div class="field"><div class="label">Customer Name:</div><div class="value">${escapeHtml(customerName)}</div></div>
