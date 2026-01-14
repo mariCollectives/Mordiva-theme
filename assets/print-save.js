@@ -382,7 +382,7 @@
     vertical-align: top;
   }
 
-  /* column widths close to screenshot */
+
   .c-ln { width: 34px; text-align:left; }
   .c-code { width: 92px; text-align:left; }
   .c-desc { width: auto; text-align:left; }
