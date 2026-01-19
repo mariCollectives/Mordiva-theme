@@ -137,8 +137,8 @@
 }
 
 #saveToCartButton{
-    width: 100%;
-    border-radius: 20px;
-    color: #fff;
-    background: #000;
+    width: 100% !important;
+    border-radius: 20px !important;
+    color: #fff !important;
+    background: #000 !important;
 }
