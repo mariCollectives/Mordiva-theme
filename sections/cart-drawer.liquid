@@ -861,6 +861,42 @@
                 </button>
               </form>
             </div>
+
+
+              
+              <div id="saveButton">
+
+                <div class="product-save-cart-container cart__ctas" style="margin-top: 10px; margin-bottom: 10px;text-align: right;">
+                    <button id="saveToCartButton" class="save-to-cart-button button button--primory">
+                      Save to Cart
+                    </button>
+                  </div>
+
+                  <script>
+                    if (typeof window.productSaveCartConfig === 'undefined') {
+                      window.productSaveCartConfig = {
+                        shopDomain: "collectiveplay.com.au",
+                        shopId: 84548682025,
+                        button_text: "Save to Cart",
+                        added_tocart_button_text: "Add to this cart",
+                        modal_title: "Save Product to Cart",
+                        default_cart_name: "My Saved Cart",
+                        use_theme_styles: "true",
+                        button_spacing: "10",
+                        added_cart_text: "Added!",
+                        dont_saved_carts: "You don't have any saved carts yet.",
+                        product_added_cart_successfully: "Product added to cart successfully!",
+                        create_new_cart: "Create New Cart",
+                        cart_name: "Cart Name",
+                        addto_existing_cart: "Add to Existing Cart",
+                        createandcart_button_text: "Create & Cart"
+                      };
+                    }
+                    </script>
+              
+              
+              </div> <!-----save----->
+
           </div>
         </div>
       </div>
