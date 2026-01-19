@@ -206,53 +206,7 @@
                               {%- endif -%}
                             </div>
                           {%- endif -%}
-                          <div class="cart-item__prices">
-                            <div class="price font-body-bolder{% if item.original_price != item.final_price %} price--on-sale{% endif %}">
-                              {%- liquid
-                                assign money_price = item.original_price | money
-                                if settings.currency_code_enabled
-                                  assign money_price = item.original_price | money_with_currency
-                                endif
-                              -%}
-                              {%- if item.original_price != item.final_price -%}
-                                <span class="visually-hidden">{{ 'products.product.price.regular_price' | t }}</span>
-                                <s class="price__sale font-body text-sm text-subtext">{{ money_price }}</s>
-                                <span class="visually-hidden">{{ 'products.product.price.sale_price' | t }}</span>
-                                <span class="price__regular">
-                                  {%- liquid 
-                                    if settings.currency_code_enabled
-                                      echo item.final_price | money_with_currency
-                                    else
-                                      echo item.final_price | money
-                                    endif  
-                                  -%}
-                                </span>
-                              {%- else -%}
-                                {{- money_price -}}
-                              {%- endif -%}
-                            </div>
-                              {%- if item.variant.available and item.unit_price_measurement -%}
-                                <div>
-                                <span class="visually-hidden">{{ 'products.product.price.unit_price' | t }}</span>
-                                <span class="unit-price flex items-center text-sm font-body text-subtext">
-                                  {%- liquid
-                                    capture unit_price_base_unit
-                                      if item.variant.unit_price_measurement
-                                        if item.variant.unit_price_measurement.reference_value != 1
-                                          echo item.variant.unit_price_measurement.reference_value
-                                        endif
-                                        echo item.variant.unit_price_measurement.reference_unit
-                                      endif
-                                    endcapture
-                                  -%}
-                                  ({{ item.variant.unit_price | money }}
-                                  <span aria-hidden="true">/</span>
-                                  <span class="visually-hidden">&nbsp;{{ 'accessibility.unit_price_separator' | t }}&nbsp;</span>
-                                  {{ unit_price_base_unit }})
-                                  </span>
-                                </div>
-                              {%- endif -%}
-                          </div>
+                        
                         </div>
                         {%- if item.line_level_discount_allocations != blank -%}
                           <ul class="cart-item__discounts discounts list-unstyled flex flex-wrap gap-1" role="list" aria-label="{{ 'customer.order.discount' | t }}">
