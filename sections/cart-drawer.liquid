@@ -206,7 +206,53 @@
                               {%- endif -%}
                             </div>
                           {%- endif -%}
-                        
+                          <div class="cart-item__prices">
+                            <div class="price font-body-bolder{% if item.original_price != item.final_price %} price--on-sale{% endif %}">
+                              {%- liquid
+                                assign money_price = item.original_price | money
+                                if settings.currency_code_enabled
+                                  assign money_price = item.original_price | money_with_currency
+                                endif
+                              -%}
+                              {%- if item.original_price != item.final_price -%}
+                                <span class="visually-hidden">{{ 'products.product.price.regular_price' | t }}</span>
+                                <s class="price__sale font-body text-sm text-subtext">{{ money_price }}</s>
+                                <span class="visually-hidden">{{ 'products.product.price.sale_price' | t }}</span>
+                                <span class="price__regular">
+                                  {%- liquid 
+                                    if settings.currency_code_enabled
+                                      echo item.final_price | money_with_currency
+                                    else
+                                      echo item.final_price | money
+                                    endif  
+                                  -%}
+                                </span>
+                              {%- else -%}
+                                {{- money_price -}}
+                              {%- endif -%}
+                            </div>
+                              {%- if item.variant.available and item.unit_price_measurement -%}
+                                <div>
+                                <span class="visually-hidden">{{ 'products.product.price.unit_price' | t }}</span>
+                                <span class="unit-price flex items-center text-sm font-body text-subtext">
+                                  {%- liquid
+                                    capture unit_price_base_unit
+                                      if item.variant.unit_price_measurement
+                                        if item.variant.unit_price_measurement.reference_value != 1
+                                          echo item.variant.unit_price_measurement.reference_value
+                                        endif
+                                        echo item.variant.unit_price_measurement.reference_unit
+                                      endif
+                                    endcapture
+                                  -%}
+                                  ({{ item.variant.unit_price | money }}
+                                  <span aria-hidden="true">/</span>
+                                  <span class="visually-hidden">&nbsp;{{ 'accessibility.unit_price_separator' | t }}&nbsp;</span>
+                                  {{ unit_price_base_unit }})
+                                  </span>
+                                </div>
+                              {%- endif -%}
+                          </div>
                         </div>
                         {%- if item.line_level_discount_allocations != blank -%}
                           <ul class="cart-item__discounts discounts list-unstyled flex flex-wrap gap-1" role="list" aria-label="{{ 'customer.order.discount' | t }}">
@@ -467,353 +513,8 @@
             </cart-items>
           </div>
         </div>
-        <div
-          id="CartDrawerFooter-{{ section.id }}"
-          class="drawer__footer cart-drawer__footer grid gap-4{% if cart == empty %} hidden{% endif %}"
-        >
-          <div class="drawer__footer-head">
-            {%- render 'gift-wrapping',
-              section_id: section.id,
-              gift_wrapping: gift_wrapping,
-              gift_wrap_id: gift_wrap_id,
-              gift_wraps_in_cart: gift_wraps_in_cart,
-              items_in_cart: items_in_cart
-            -%}
-            {%- if section.settings.show_cart_note
-              or section.settings.show_shipping_rates_calculator
-              or section.settings.show_cart_discount
-            -%}
-              <div class="cart-drawer__addons">
-                <div class="flex gap-6">
-                  {%- if section.settings.show_cart_note -%}
-                    <button
-                      type="button"
-                      class="btn--inherit flex gap-2 items-center justify-center"
-                      aria-controls="CartNote-{{ section.id }}"
-                      aria-expanded="false"
-                    >
-                      {%- render 'icon-pencil' -%}
-                      <span class="reversed-link">{{ 'general.cart.note.title' | t }}</span>
-                    </button>
-                  {%- endif -%}
-                  {%- if section.settings.show_shipping_rates_calculator -%}
-                    <button
-                      type="button"
-                      class="btn--inherit flex gap-2 items-center justify-center"
-                      aria-controls="ShippingCalculator-{{ section.id }}"
-                      aria-expanded="false"
-                    >
-                      {%- render 'icon-clock' -%}
-                      <span class="reversed-link">{{ 'general.cart.shipping_calculator.title' | t }}</span>
-                    </button>
-                  {%- endif -%}
-
-                  {%- if section.settings.show_cart_discount -%}
-                    <button
-                      type="button"
-                      class="btn--inherit flex gap-2 items-center justify-center"
-                      aria-controls="CartDiscount-{{ section.id }}"
-                      aria-expanded="false"
-                    >
-                      {% render 'icon-discount', size: 'medium' %}
-                      <span class="reversed-link">{{ 'general.cart.coupon.title' | t }}</span>
-                    </button>
-                  {%- endif -%}
-
-                  {%- if section.settings.show_cart_note -%}
-                    <cart-addon-modal
-                      id="CartNote-{{ section.id }}"
-                      class="drawer cart-addons-drawer drawer--bottom"
-                      hidden
-                    >
-                      <div class="fixed-overlay absolute" aria-controls="CartNote-{{ section.id }}"></div>
-                      <div class="drawer__inner">
-                        <button aria-controls="CartNote-{{ section.id }}" class="drawer__close-btn z-1">
-                          {%- render 'icon-close' -%}
-                        </button>
-                        <div class="drawer__content cart-addons-drawer__content grid gap-5">
-                          <h4>{{ 'general.cart.note.title' | t }}</h4>
-                          <cart-note class="flex flex-col items-start gap-5">
-                            <div class="form-field w-full">
-                              <textarea
-                                name="note"
-                                class="form-control form-control--textarea"
-                                rows="5"
-                                placeholder="{{ 'general.cart.note.caption' | t }}"
-                                id="CartNoteForm-{{ section.id }}"
-                              >{{ cart.note }}</textarea>
-                              <label class="visually-hidden" for="CartNoteForm-{{ section.id }}">
-                                {{- 'general.cart.note.title' | t -}}
-                              </label>
-                            </div>
-                            <button
-                              class="btn btn--primary"
-                              type="button"
-                              aria-controls="CartNote-{{ section.id }}"
-                              aria-expanded="false"
-                            >
-                              <span>{{ 'general.cart.note.button' | t }}</span>
-                            </button>
-                          </cart-note>
-                        </div>
-                      </div>
-                    </cart-addon-modal>
-                  {%- endif -%}
-                  {%- if section.settings.show_shipping_rates_calculator -%}
-                    <calculate-shipping
-                      id="ShippingCalculator-{{ section.id }}"
-                      class="drawer cart-addons-drawer drawer--bottom"
-                      hidden
-                      data-show="fasle"
-                    >
-                      <div class="fixed-overlay absolute" aria-controls="ShippingCalculator-{{ section.id }}"></div>
-                      <div class="drawer__inner cart-addons-drawer__inner flex flex-col w-full h-full">
-                        <button aria-controls="ShippingCalculator-{{ section.id }}" class="drawer__close-btn z-1">
-                          {%- render 'icon-close' -%}
-                        </button>
-                        <div class="drawer__content v-scrollable cart-addons-drawer__content flex flex-col gap-4">
-                          <h4>{{ 'general.cart.shipping_calculator.title' | t }}</h4>
-                          <form
-                            class="grid gap-4"
-                            action="{{ routes.cart_url }}"
-                            method="POST"
-                            novalidate
-                            is="shipping-calculator"
-                          >
-                            <country-province
-                              class="grid gap-4"
-                              {% if shop.customer_accounts_enabled and customer %}
-                                data-country="{{ customer.default_address.country }}"
-                                {%- if customer.default_address.province != '' %}
-                                  data-province="{{ customer.default_address.province }}"
-                                {%- endif -%}
-                              {% endif %}
-                            >
-                              <div class="form-field reset-spacing">
-                                <label class="form-label" for="ShippingCalculatorCountry-{{ section.id }}">
-                                  {{- 'customer.addresses.country' | t -}}
-                                </label>
-                                <div class="select">
-                                  <select
-                                    name="address[country]"
-                                    class="form-control form-control--select"
-                                    autocomplete="country"
-                                    id="ShippingCalculatorCountry-{{ section.id }}"
-                                  >
-                                    <template>{{- all_country_option_tags -}}</template>
-                                  </select>
-                                  {%- render 'icon-caret-down' -%}
-                                </div>
-                              </div>
-                              <div class="form-field reset-spacing" hidden>
-                                <label class="form-label" for="ShippingCalculatorProvince-{{ section.id }}">
-                                  {{- 'customer.addresses.province' | t -}}
-                                </label>
-                                <div class="select">
-                                  <select
-                                    name="address[province]"
-                                    class="form-control form-control--select"
-                                    autocomplete="address-level1"
-                                    id="ShippingCalculatorProvince-{{ section.id }}"
-                                  ></select>
-                                  {%- render 'icon-caret-down' -%}
-                                </div>
-                              </div>
-                            </country-province>
-                            <div class="form-field">
-                              <label class="form-label" for="ShippingCalculatorZip-{{ section.id }}">
-                                {{- 'customer.addresses.zip' | t -}}
-                              </label>
-                              <input
-                                name="address[zip]"
-                                class="form-control form-control--input"
-                                type="text"
-                                autocapitalize="characters"
-                                autocomplete="postal-code"
-                                placeholder=" "
-                                id="ShippingCalculatorZip-{{ section.id }}"
-                                {% if shop.customer_accounts_enabled and customer %}
-                                  value="{{ customer.default_address.zip }}"
-                                {% endif %}
-                              >
-                            </div>
-                            <div class="">
-                              <button class="btn btn--primary" type="submit">
-                                <span>{{ 'general.cart.shipping_calculator.button' | t }}</span>
-                                {%- render 'loading-spinner' -%}
-                              </button>
-                            </div>
-                            <div class="grid gap-3"></div>
-                          </form>
-                        </div>
-                      </div>
-                    </calculate-shipping>
-                  {%- endif -%}
-                  {%- if section.settings.show_cart_discount -%}
-                    <cart-addon-modal
-                      id="CartDiscount-{{ section.id }}"
-                      class="drawer cart-addons-drawer drawer--bottom"
-                      hidden
-                    >
-                      <div class="fixed-overlay absolute" aria-controls="CartDiscount-{{ section.id }}"></div>
-                      <div class="drawer__inner">
-                        <button aria-controls="CartDiscount-{{ section.id }}" class="drawer__close-btn z-1">
-                          {%- render 'icon-close' -%}
-                        </button>
-                        <div class="drawer__content cart-addons-drawer__content grid gap-5">
-                          <h4>{{ 'general.cart.coupon.title' | t }}</h4>
-                          <form
-                            is="cart-discount"
-                            class="cart-discount__form flex flex-col items-start gap-5"
-                            action="{{ routes.cart_url }}"
-                            method="POST"
-                          >
-                            <div class="form-field w-full">
-                              <label class="visually-hidden" for="CartCouponForm-{{ section.id }}">
-                                {{- 'general.cart.coupon.title' | t -}}
-                              </label>
-                              <input
-                                id="CartCouponForm-{{ section.id }}"
-                                class="form-control"
-                                name="discount"
-                                placeholder="{{ 'general.cart.coupon.caption' | t }}"
-                                required
-                                aria-required="true"
-                              >
-                            </div>
-                            <div class="form-submit w-full">
-                              <button class="btn btn--primary w-full" type="submit">
-                                <span class="btn__text">{{ 'general.cart.coupon.button' | t }}</span>
-                                {%- render 'loading-spinner' -%}
-                              </button>
-                            </div>
-                            <div class="form__message w-full alert alert--error blocks-radius grid gap-2"></div>
-                          </form>
-                        </div>
-                      </div>
-                    </cart-addon-modal>
-                  {%- endif -%}
-                </div>
-              </div>
-            {%- endif -%}
-          </div>
-          <div class="drawer__footer-body">
-            <div class="grid gap-4">
-              <div class="grid gap-2">
-                {%- liquid
-                  assign discount_codes = cart.cart_level_discount_applications | where: 'type', 'discount_code' | map: 'title'
-                  assign cart_items_has_discount = false
-                  for item in cart.items
-                    for allocation in item.line_level_discount_allocations
-                      if allocation.discount_application.type == 'discount_code'
-                        assign cart_items_has_discount = true
-                      endif
-                    endfor
-                  endfor
-                -%}
-                {%- if cart.cart_level_discount_applications.size > 0 or cart_items_has_discount -%}
-                  <ul
-                    class="discounts cart__discounts list-unstyled flex flex-wrap justify-end gap-1"
-                    role="list"
-                    aria-label="{{ 'customer.order.discount' | t }}"
-                  >
-                    {%- for discount in cart.cart_level_discount_applications -%}
-                      <li
-                        class="discount cart__discount text-sm flex items-center"
-                        data-discount-code="{{ discount.title }}"
-                      >
-                        {% render 'icon-discount' %}
-                        <span>{{- discount.title -}}</span>
-                        <span class="font-body-bold">(-{{ discount.total_allocated_amount | money }})</span>
-
-                        <button
-                          is="cart-discount-remove"
-                          type="button"
-                          aria-label="{{ 'general.cart.coupon.remove' | t: code: discount.title }}"
-                          class="btn btn--inherit btn-remove discount__btn-remove"
-                        >
-                          {% render 'icon-close', size: 'extra-small' %}
-                          {%- render 'loading-spinner', size: 'extra-small' -%}
-                        </button>
-                      </li>
-                    {%- endfor -%}
-                    {%- if cart_items_has_discount -%}
-                      {%- for item in cart.items -%}
-                        {%- for allocation in item.line_level_discount_allocations -%}
-                          {%- liquid
-                            unless allocation.discount_application.type == 'discount_code'
-                              continue
-                            endunless
-
-                            assign discount = allocation.discount_application
-
-                            assign is_displayed = discount_codes | has: discount.title
-                            if is_displayed
-                              continue
-                            endif
-
-                            assign discount_codes = item.line_level_discount_allocations | slice: forloop.index0 | map: 'discount_application' | map: 'title' | concat: discount_codes
-                          -%}
-                          <li
-                            class="discount cart__discount text-sm flex items-center"
-                            data-discount-code="{{ discount.title }}"
-                          >
-                            {% render 'icon-discount' %}
-                            <span>{{- discount.title -}}</span>
-                            <span class="font-body-bold">(-{{ discount.total_allocated_amount | money }})</span>
-
-                            <button
-                              is="cart-discount-remove"
-                              type="button"
-                              aria-label="{{ 'general.cart.coupon.remove' | t: code: discount.title }}"
-                              class="btn btn--inherit btn-remove discount__btn-remove"
-                            >
-                              {% render 'icon-close', size: 'extra-small' %}
-                              {%- render 'loading-spinner', size: 'extra-small' -%}
-                            </button>
-                          </li>
-                        {%- endfor -%}
-                      {%- endfor -%}
-                    {%- endif -%}
-                  </ul>
-                {%- endif -%}
-                <div class="totals flex justify-between items-center">
-                  <span class="totals__subtotal h4">
-                    {{- 'sections.cart.estimated_total' | t -}}
-                  </span>
-                  <span class="totals__subtotal-value h4 font-body-bolder">
-                    {{- cart.total_price | money_with_currency -}}
-                  </span>
-                </div>
-                <div class="tax-note">
-                  {%- liquid
-                    if cart.taxes_included and shop.shipping_policy.body != blank
-                      echo 'sections.cart.taxes_included_and_shipping_policy_html' | t: link: shop.shipping_policy.url
-                    elsif cart.taxes_included
-                      echo 'sections.cart.taxes_included_but_shipping_at_checkout' | t
-                    elsif shop.shipping_policy.body != blank
-                      echo 'sections.cart.taxes_and_shipping_policy_at_checkout_html' | t: link: shop.shipping_policy.url
-                    else
-                      echo 'sections.cart.taxes_and_shipping_at_checkout' | t
-                    endif
-                  -%}
-                </div>
-              </div>
-              <form
-                action="{{ routes.cart_url }}"
-                method="POST"
-                novalidate
-                class="drawer__footer-buttons flex flex-wrap gap-2"
-              >
-                <a href="{{ routes.cart_url }}" class="btn btn--secondary flex-3">
-                  {{ 'general.cart.view_empty_cart' | t }}
-                </a>
-                <button class="btn btn--primary flex-5" type="submit" name="checkout">
-                  {{ 'sections.cart.checkout' | t }}
-                </button>
-              </form>
-            </div>
-          </div>
+      
+  
         </div>
       </div>
     </div>
