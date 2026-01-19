@@ -1,3 +1,12 @@
+<style>
+#saveToCartButton{
+    width: 100% !important;
+    border-radius: 20px !important;
+    color: #fff !important;
+    background: #000 !important;
+}
+</style>
+
 {%- if request.page_type != 'cart' and settings.cart_type == 'drawer' -%}
   {%- if request.page_type == 'cart' -%}
     {{ 'cart.css' | asset_url | stylesheet_tag }}
@@ -880,7 +889,7 @@
               
               </div> <!-----save----->
 
-              
+
               <form
                 action="{{ routes.cart_url }}"
                 method="POST"
