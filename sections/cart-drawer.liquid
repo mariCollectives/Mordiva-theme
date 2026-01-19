@@ -513,7 +513,10 @@
             </cart-items>
           </div>
         </div>
-      
+        <div
+          id="CartDrawerFooter-{{ section.id }}"
+          class="drawer__footer cart-drawer__footer grid gap-4{% if cart == empty %} hidden{% endif %}"
+        >
           <div class="drawer__footer-head">
             {%- render 'gift-wrapping',
               section_id: section.id,
@@ -760,10 +763,6 @@
                     role="list"
                     aria-label="{{ 'customer.order.discount' | t }}"
                   >
-
-
-
-
                     {%- for discount in cart.cart_level_discount_applications -%}
                       <li
                         class="discount cart__discount text-sm flex items-center"
@@ -782,9 +781,6 @@
                           {% render 'icon-close', size: 'extra-small' %}
                           {%- render 'loading-spinner', size: 'extra-small' -%}
                         </button>
-
-
-
                       </li>
                     {%- endfor -%}
                     {%- if cart_items_has_discount -%}
@@ -825,10 +821,6 @@
                         {%- endfor -%}
                       {%- endfor -%}
                     {%- endif -%}
-
-
-
-
                   </ul>
                 {%- endif -%}
                 <div class="totals flex justify-between items-center">
@@ -872,9 +864,6 @@
       </div>
     </div>
   </cart-drawer>
-
-
-  
 {%- endif -%}
 
 {% schema %}
