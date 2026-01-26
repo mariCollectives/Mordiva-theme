@@ -107,11 +107,11 @@
         "collapsible_tab_t7Qdjt": {
           "type": "collapsible_tab",
           "settings": {
-            "heading": "Collapsible row",
+            "heading": "FAQ",
             "icon": "check-circle",
             "content": "",
             "custom_liquid": "",
-            "page": "",
+            "page": "faq",
             "default_open": false
           }
         }
