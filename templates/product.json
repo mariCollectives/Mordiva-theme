@@ -114,6 +114,17 @@
             "page": "faq",
             "default_open": false
           }
+        },
+        "collapsible_tab_U3QBL3": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Return Policy",
+            "icon": "check-circle",
+            "content": "",
+            "custom_liquid": "",
+            "page": "our-brands",
+            "default_open": false
+          }
         }
       },
       "block_order": [
@@ -128,7 +139,8 @@
         "pickup_availability",
         "complementary",
         "addons",
-        "collapsible_tab_t7Qdjt"
+        "collapsible_tab_t7Qdjt",
+        "collapsible_tab_U3QBL3"
       ],
       "custom_css": [
         ".loox-rating {margin-top: -1rem;}",
