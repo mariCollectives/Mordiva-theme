@@ -108,7 +108,7 @@
           "type": "collapsible_tab",
           "settings": {
             "heading": "FAQ",
-            "icon": "check-circle",
+            "icon": "gear",
             "content": "",
             "custom_liquid": "",
             "page": "faq",
