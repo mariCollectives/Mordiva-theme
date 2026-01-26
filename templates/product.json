@@ -81,6 +81,17 @@
             "heading_3": ""
           }
         },
+        "collapsible_tab_t7Qdjt": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Collapsible row",
+            "icon": "check-circle",
+            "content": "",
+            "custom_liquid": "",
+            "page": "",
+            "default_open": false
+          }
+        },
         "pickup_availability": {
           "type": "pickup_availability",
           "settings": {}
@@ -114,6 +125,7 @@
         "variant_picker",
         "buy_buttons",
         "icon_with_text",
+        "collapsible_tab_t7Qdjt",
         "pickup_availability",
         "complementary",
         "addons"
