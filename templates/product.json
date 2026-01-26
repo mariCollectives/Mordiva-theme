@@ -119,7 +119,7 @@
           "type": "collapsible_tab",
           "settings": {
             "heading": "Return Policy",
-            "icon": "check-circle",
+            "icon": "gear",
             "content": "",
             "custom_liquid": "",
             "page": "our-brands",
