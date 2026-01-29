@@ -66,162 +66,6 @@
         "custom_class": ""
       }
     },
-    "rich_text_yAEBMr": {
-      "type": "rich-text",
-      "blocks": {
-        "subheading_ziBG3r": {
-          "type": "subheading",
-          "settings": {
-            "subheading": "Design a beautiful space"
-          }
-        },
-        "heading_NbVPmx": {
-          "type": "heading",
-          "settings": {
-            "heading": "Nurturing & enchanting environments FOR YOUNG MINDS",
-            "heading_size": "h2",
-            "heading_highlight_style": "none"
-          }
-        }
-      },
-      "block_order": [
-        "subheading_ziBG3r",
-        "heading_NbVPmx"
-      ],
-      "custom_css": [
-        ".rich-text {max-width: 550px; margin: 0 auto;}"
-      ],
-      "settings": {
-        "color_scheme": "scheme-3",
-        "content_alignment": "center",
-        "padding_top": 100,
-        "padding_bottom": 0,
-        "show_section_divider": false,
-        "divider_width": "fixed",
-        "custom_class": ""
-      }
-    },
-    "custom_content_FQyrQN": {
-      "type": "custom-content",
-      "blocks": {
-        "collection_card_rKedQ6": {
-          "type": "collection_card",
-          "settings": {
-            "card_color_inherited": true,
-            "card_style": "",
-            "collection": "outdoor-play",
-            "image": "shopify://shop_images/Asset_2_ed7cf94a-a905-49ad-94f9-a7df9be27de7.png",
-            "image_ratio": "adapt",
-            "card_width": "narrow",
-            "width": "50%",
-            "alignment": "center",
-            "block_custom_class": ""
-          }
-        },
-        "collection_card_jJAhin": {
-          "type": "collection_card",
-          "settings": {
-            "card_color_inherited": true,
-            "card_style": "",
-            "collection": "physical-wellbeing-copy",
-            "image": "shopify://shop_images/Asset_1_cd6da499-2d00-42f0-87e4-00301fd01648.png",
-            "image_ratio": "adapt",
-            "card_width": "full",
-            "width": "50%",
-            "alignment": "center",
-            "block_custom_class": ""
-          }
-        }
-      },
-      "block_order": [
-        "collection_card_rKedQ6",
-        "collection_card_jJAhin"
-      ],
-      "custom_css": [
-        ".rich-text {max-width: 500px; margin: 0 auto;}",
-        "@media (min-width: 1280px) {.card-width-narrow {max-width: 67%; margin: 0 auto; } .card-width-narrow .collection-card {width: 40rem; max-width: 100%; margin: 0; }}",
-        ".f-grid--gap-extra-small {--column-gap: 1rem; --column-gap-mobile: 2.4rem;}"
-      ],
-      "settings": {
-        "container": "fixed",
-        "color_scheme": "scheme-3",
-        "enable_sticky_column": false,
-        "heading": "",
-        "heading_size": "h1",
-        "heading_highlight_style": "none",
-        "subheading": "",
-        "description": "",
-        "column_gap": "extra-small",
-        "row_gap": "inherit",
-        "swipe_on_mobile": true,
-        "columns_mobile": "1",
-        "padding_top": 100,
-        "padding_bottom": 0,
-        "show_section_divider": false,
-        "divider_width": "fixed",
-        "custom_class": ""
-      }
-    },
-    "custom_content_zRk47d": {
-      "type": "custom-content",
-      "blocks": {
-        "collection_card_yPYQWG": {
-          "type": "collection_card",
-          "settings": {
-            "card_color_inherited": true,
-            "card_style": "",
-            "collection": "construction-and-engineering-copy",
-            "image": "shopify://shop_images/Asset_3_e7ce92f4-1499-4591-9f3b-d1ab5ed00fa5.png",
-            "image_ratio": "adapt",
-            "card_width": "full",
-            "width": "50%",
-            "alignment": "center",
-            "block_custom_class": ""
-          }
-        },
-        "collection_card_iQnt8g": {
-          "type": "collection_card",
-          "settings": {
-            "card_color_inherited": true,
-            "card_style": "",
-            "collection": "dramatic-play-copy",
-            "image": "shopify://shop_images/Asset_4_a6287256-351d-4e32-9939-e8d8480f2778.png",
-            "image_ratio": "adapt",
-            "card_width": "narrow",
-            "width": "50%",
-            "alignment": "center",
-            "block_custom_class": ""
-          }
-        }
-      },
-      "block_order": [
-        "collection_card_yPYQWG",
-        "collection_card_iQnt8g"
-      ],
-      "custom_css": [
-        "@media (min-width: 1280px) {.card-width-narrow {max-width: 67%; margin: 0 auto; } .card-width-narrow .collection-card {width: 40rem; max-width: 100%; margin: 0 0 0 auto; }}",
-        ".f-grid--gap-extra-small {--column-gap: 1rem; --column-gap-mobile: 2.4rem;}"
-      ],
-      "settings": {
-        "container": "fixed",
-        "color_scheme": "scheme-3",
-        "enable_sticky_column": false,
-        "heading": "",
-        "heading_size": "h1",
-        "heading_highlight_style": "none",
-        "subheading": "",
-        "description": "",
-        "column_gap": "extra-small",
-        "row_gap": "inherit",
-        "swipe_on_mobile": true,
-        "columns_mobile": "1",
-        "padding_top": 80,
-        "padding_bottom": 100,
-        "show_section_divider": false,
-        "divider_width": "fixed",
-        "custom_class": ""
-      }
-    },
     "product_tabs_jhb9aJ": {
       "type": "product-tabs",
       "blocks": {
@@ -252,21 +96,13 @@
             "title": "Games & Puzzles",
             "collection": "games-and-puzzles-1"
           }
-        },
-        "tab_pNMeJd": {
-          "type": "tab",
-          "settings": {
-            "title": "Play",
-            "collection": "dramatic-play-2"
-          }
         }
       },
       "block_order": [
         "tab_d4xCmQ",
         "tab_XDJLTi",
         "tab_dzp3dT",
-        "tab_jrYb6E",
-        "tab_pNMeJd"
+        "tab_jrYb6E"
       ],
       "custom_css": [
         ".f-grid--row-gap-medium {--row-gap-mobile: 2.4rem;}",
@@ -278,7 +114,7 @@
         "heading": "Our picks for you",
         "heading_size": "h1",
         "heading_highlight_style": "none",
-        "limit": 6,
+        "limit": 3,
         "columns": 4,
         "column_gap": "extra-small",
         "row_gap": "medium",
@@ -730,9 +566,6 @@
   "order": [
     "custom_liquid_z4KV4e",
     "slideshow_zKPFFV",
-    "rich_text_yAEBMr",
-    "custom_content_FQyrQN",
-    "custom_content_zRk47d",
     "product_tabs_jhb9aJ",
     "lookbook_slider_cte8Fy",
     "custom_liquid_pJ7MQg",
