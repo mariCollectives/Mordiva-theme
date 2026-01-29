@@ -25,3 +25,7 @@ body, button, input, select, textarea {
 .slideshow__content .slideshow__text{
     margin: 0 auto !important;
 }
+
+.header__menu.flex a, .menu__item>span{
+    font-weight: 400 !important;
+}
