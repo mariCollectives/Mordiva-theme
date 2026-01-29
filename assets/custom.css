@@ -21,3 +21,7 @@
 body, button, input, select, textarea {
     font-family: "Lexend", sans-serif !important;
 }
+
+.slideshow__content .slideshow__text{
+    margin: 0 auto !important;
+}
