@@ -44,10 +44,32 @@
             "button_link": "",
             "button_style": "btn--underline"
           }
+        },
+        "slide_dpgX9Q": {
+          "type": "slide",
+          "settings": {
+            "color_scheme": "scheme-inverse",
+            "background": "shopify://shop_images/slider2.png",
+            "background_mobile": "shopify://shop_images/slier2.png",
+            "image_overlay_opacity": 10,
+            "show_content_in_container": false,
+            "content_position": "bottom-left",
+            "content_position_mobile": "middle-center",
+            "text_alignment": "left",
+            "title": "",
+            "heading_size": "hd1",
+            "subheading": "",
+            "description": "",
+            "description_size": "text-lg",
+            "button_label": "explore now",
+            "button_link": "",
+            "button_style": "btn--underline"
+          }
         }
       },
       "block_order": [
-        "slide_dheMCD"
+        "slide_dheMCD",
+        "slide_dpgX9Q"
       ],
       "custom_css": [
         ".slideshow__text {max-width: 40rem;}"
