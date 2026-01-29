@@ -29,6 +29,7 @@
           "settings": {
             "color_scheme": "scheme-inverse",
             "background": "shopify://shop_images/Slider1_bf41ff7d-82ce-4b4f-b4dd-fb8ef18348d2.png",
+            "background_mobile": "shopify://shop_images/mobileDev-slider-1_1.png",
             "image_overlay_opacity": 10,
             "show_content_in_container": false,
             "content_position": "bottom-left",
