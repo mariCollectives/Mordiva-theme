@@ -27,5 +27,9 @@ body, button, input, select, textarea {
 }
 
 .header__menu.flex a, .menu__item>span{
-    font-weight: 400 !important;
+    font-weight: 300 !important;
+}
+
+.slideshow__buttons a.btn--underline{
+    opacity: 1 !important;
 }
