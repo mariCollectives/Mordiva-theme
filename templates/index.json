@@ -89,6 +89,32 @@
         "custom_class": ""
       }
     },
+    "rich_text_w8arFx": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_emtj3R": {
+          "type": "heading",
+          "settings": {
+            "heading": "Trending Now.",
+            "heading_size": "hd2",
+            "heading_highlight_style": "none"
+          }
+        }
+      },
+      "block_order": [
+        "heading_emtj3R"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "color_scheme": "",
+        "content_alignment": "center",
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": ""
+      }
+    },
     "product_tabs_jhb9aJ": {
       "type": "product-tabs",
       "blocks": {
@@ -589,6 +615,7 @@
   "order": [
     "custom_liquid_z4KV4e",
     "slideshow_zKPFFV",
+    "rich_text_w8arFx",
     "product_tabs_jhb9aJ",
     "lookbook_slider_cte8Fy",
     "custom_liquid_pJ7MQg",
