@@ -30,6 +30,9 @@ body, button, input, select, textarea {
     font-weight: 300 !important;
 }
 
-.slideshow__buttons a.btn--underline{
+.slideshow__buttons a, .slideshow__buttons.rich-text__button a{
     opacity: 1 !important;
+    background-color: #27544F !important;
+    padding: 10px 40px !important;
+    border: 0 none !important;
 }
