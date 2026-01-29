@@ -30,7 +30,7 @@
             "color_scheme": "scheme-inverse",
             "background": "shopify://shop_images/Slider1_bf41ff7d-82ce-4b4f-b4dd-fb8ef18348d2.png",
             "background_mobile": "shopify://shop_images/mobileDev-slider-1_1.png",
-            "image_overlay_opacity": 10,
+            "image_overlay_opacity": 0,
             "show_content_in_container": false,
             "content_position": "bottom-left",
             "content_position_mobile": "middle-center",
@@ -40,9 +40,9 @@
             "subheading": "",
             "description": "",
             "description_size": "text-lg",
-            "button_label": "explore now",
+            "button_label": "Shop Now",
             "button_link": "",
-            "button_style": "btn--underline"
+            "button_style": "btn--secondary"
           }
         },
         "slide_dpgX9Q": {
