@@ -49,7 +49,7 @@
         "color_scheme": "scheme-1",
         "menu": "new-menu",
         "menu_mobile": "",
-        "header_layout": "left-center",
+        "header_layout": "center-left",
         "sticky_header": "always",
         "menu_trigger": "hover",
         "show_sperator_line": true,
