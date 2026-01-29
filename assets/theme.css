@@ -6621,6 +6621,15 @@ body:not(.header-pinned) .header-scrolled .header {
   margin-inline: auto;
 }
 
+
+.announcement-bar-section{
+     background-color: #F9AB88 !important;
+}
+
+
+
+
+
 @media (min-width: 768px) {
   .list-payment {
     justify-content: flex-end;
