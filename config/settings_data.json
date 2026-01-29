@@ -12,8 +12,8 @@
     "enable_rtl": true,
     "language_support_rtl": "hear",
     "enable_back_to_top": true,
-    "logo": "shopify://shop_images/Asset_1.png",
-    "logo_transparent": "shopify://shop_images/Asset_1.png",
+    "logo": "shopify://shop_images/logoGreen.png",
+    "logo_transparent": "shopify://shop_images/logoGreen.png",
     "logo_width": 125,
     "logo_mobile": "shopify://shop_images/Asset_1.png",
     "logo_transparent_mobile": "shopify://shop_images/Asset_1.png",
@@ -108,11 +108,6 @@
       },
       "1008767869563187842": {
         "type": "shopify://apps/uncap-save-share-cart/blocks/app-embed/40605216-fe5a-427f-964b-2bafece0e83a",
-        "disabled": false,
-        "settings": {}
-      },
-      "8183701962187534751": {
-        "type": "shopify://apps/wc-wishlist-club/blocks/wishlist-script/582a225b-bd58-49d0-b0b6-9479192e79c5",
         "disabled": false,
         "settings": {}
       }
