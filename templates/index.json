@@ -332,40 +332,6 @@
         "custom_class": ""
       }
     },
-    "featured_collection_nTAnFG": {
-      "type": "featured-collection",
-      "custom_css": [],
-      "settings": {
-        "color_scheme": "",
-        "header_layout": "vertical",
-        "heading": "Discover unique items",
-        "heading_size": "h1",
-        "heading_highlight_style": "none",
-        "subheading": "",
-        "description": "",
-        "text_size": "text-base",
-        "show_collection_description": false,
-        "collection": "craft-furniture-essentials",
-        "limit": 8,
-        "columns": 4,
-        "column_gap": "extra-small",
-        "row_gap": "medium",
-        "grid_layout": "standard",
-        "enable_slider": true,
-        "controls_position": "outside",
-        "pcard_image_ratio": "",
-        "columns_mobile": "1",
-        "swipe_on_mobile": true,
-        "show_all_button_on_top": false,
-        "button_label": "",
-        "button_style": "btn--primary",
-        "padding_top": 100,
-        "padding_bottom": 0,
-        "show_section_divider": false,
-        "divider_width": "fixed",
-        "custom_class": ""
-      }
-    },
     "collections_slider_yD633Y": {
       "type": "collections-slider",
       "blocks": {
@@ -621,7 +587,6 @@
     "custom_liquid_pJ7MQg",
     "image_comparison_CLXe7t",
     "rich_text_HphPmy",
-    "featured_collection_nTAnFG",
     "collections_slider_yD633Y",
     "video_hero_kqkWdj",
     "multicolumn_RFyHwL"
