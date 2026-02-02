@@ -1,0 +1,45 @@
+{% liquid
+  assign c = block.settings.collection
+  assign title = block.settings.override_title
+  if title == blank and c != blank
+    assign title = c.title
+  endif
+
+  assign href = '#'
+  if c != blank
+    assign href = c.url
+  endif
+
+  assign img = block.settings.image
+
+  assign h_desktop = block.settings.height_desktop | default: 240
+  assign h_mobile = block.settings.height_mobile | default: 220
+%}
+
+{% if block != blank %}
+  <a class="tile {{ class_name }}" href="{{ href }}"
+     style="--tile-h: {{ h_desktop }}px;"
+     {% if c != blank %} aria-label="{{ title | escape }}"{% endif %}>
+
+    <div class="tile__media">
+      {% if img != blank %}
+        {{ img | image_url: width: 2000 | image_tag: loading: 'lazy', alt: title | escape }}
+      {% else %}
+        <img
+          src="https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png"
+          alt="{{ title | escape }}"
+          loading="lazy">
+      {% endif %}
+    </div>
+
+    {% if title != blank %}
+      <span class="tile__label">{{ title }}</span>
+    {% endif %}
+  </a>
+
+  <style>
+    @media (max-width: {{ section.settings.mobile_breakpoint }}px){
+      #cat-mosaic-{{ section.id }} a.tile[href="{{ href }}"]{ --tile-h: {{ h_mobile }}px; }
+    }
+  </style>
+{% endif %}
