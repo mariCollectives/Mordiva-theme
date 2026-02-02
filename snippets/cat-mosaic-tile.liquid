@@ -18,16 +18,20 @@
 
 {% if block != blank %}
   <a class="tile {{ class_name }}" href="{{ href }}" style="--tile-h: {{ h_desktop }}px;">
-    <div class="tile__media">
-      {% if img != blank %}
-        {{ img
-          | image_url: width: 2000
-          | image_tag: loading: 'lazy', alt: title
-        }}
-      {% else %}
-        {{ 'image' | placeholder_svg_tag }}
-      {% endif %}
-    </div>
+   <div class="tile__media">
+        {% if block.settings.image != blank %}
+            <img
+            src="{{ block.settings.image | img_url: '2000x' }}"
+            alt="{{ title | escape }}"
+            loading="lazy"
+            width="2000"
+            height="{{ h_desktop }}"
+            >
+        {% else %}
+            {{ 'image' | placeholder_svg_tag }}
+        {% endif %}
+        </div>
+
 
     {% if title != blank %}
       <span class="tile__label">{{ title }}</span>
