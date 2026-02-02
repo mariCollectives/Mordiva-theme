@@ -1,0 +1,35 @@
+{% comment %}
+  Renders a single tile block.
+  Params:
+  - block: a block object (can be nil if not added)
+  - pos_class: positioning class name
+{% endcomment %}
+
+{% if block != blank %}
+  {% liquid
+    assign img = block.settings.image
+    assign title = block.settings.title | strip
+    assign col = block.settings.collection
+    assign href = col.url | default: '#'
+  %}
+
+  <a class="tile {{ pos_class }}" href="{{ href }}" {{ block.shopify_attributes }}>
+    <div class="tile__media">
+      {% if img != blank %}
+        {{ img | image_url: width: 2000 | image_tag: loading: 'lazy', alt: title }}
+      {% else %}
+        {{ 'image' | placeholder_svg_tag }}
+      {% endif %}
+    </div>
+
+    {% if title != blank %}
+      <div class="tile__title">{{ title }}</div>
+    {% endif %}
+  </a>
+{% else %}
+  <div class="tile {{ pos_class }}">
+    <div class="tile__media">
+      {{ 'image' | placeholder_svg_tag }}
+    </div>
+  </div>
+{% endif %}

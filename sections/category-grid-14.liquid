@@ -1,0 +1,332 @@
+{% liquid
+  assign sid = section.id
+%}
+
+<section class="cat14" id="cat14-{{ sid }}">
+  {% style %}
+    #cat14-{{ sid }}{
+      --gap: {{ section.settings.gap }}px;
+      --radius: {{ section.settings.radius }}px;
+      --maxw: {{ section.settings.max_width }}px;
+      --padx: {{ section.settings.side_padding }}px;
+      --text: {{ section.settings.text_color }};
+      --textSize: {{ section.settings.text_size }}px;
+      --textWeight: {{ section.settings.text_weight }};
+    }
+
+    #cat14-{{ sid }} .cat14__wrap{
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 0 var(--padx);
+    }
+
+    /* ===== Base tile ===== */
+    #cat14-{{ sid }} .tile{
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+      text-decoration: none;
+      display: block;
+      background: #f4f4f4;
+      transform: translateZ(0);
+    }
+
+    #cat14-{{ sid }} .tile__media{
+      width: 100%;
+      height: 100%;
+    }
+
+    #cat14-{{ sid }} .tile__media img,
+    #cat14-{{ sid }} .tile__media svg{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 260ms ease;
+    }
+
+    #cat14-{{ sid }} .tile:hover .tile__media img{
+      transform: scale(1.05);
+    }
+
+    #cat14-{{ sid }} .tile::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: linear-gradient(to top, rgba(0,0,0,.45), transparent 60%);
+      pointer-events:none;
+    }
+
+    #cat14-{{ sid }} .tile__title{
+      position:absolute;
+      left:16px;
+      bottom:16px;
+      z-index:2;
+      color: var(--text);
+      font-size: var(--textSize);
+      font-weight: var(--textWeight);
+      line-height: 1.15;
+      text-shadow: 0 2px 10px rgba(0,0,0,.25);
+    }
+
+    /* ===== Top: two columns ===== */
+    #cat14-{{ sid }} .cat14__top{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--gap);
+      align-items: start;
+    }
+
+    #cat14-{{ sid }} .left{
+      display:flex;
+      flex-direction:column;
+      gap: var(--gap);
+    }
+
+    #cat14-{{ sid }} .right{
+      display:block;
+    }
+
+    /* left grid: (tile1 tall) + (tile2, tile3) */
+    #cat14-{{ sid }} .grid-2{
+      display:grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      grid-template-rows: 240px 240px;
+      gap: var(--gap);
+    }
+
+    #cat14-{{ sid }} .pos-1{ grid-row: 1 / span 2; grid-column: 1 / 2; }
+    #cat14-{{ sid }} .pos-2{ grid-row: 1; grid-column: 2 / 4; }
+    #cat14-{{ sid }} .pos-3{ grid-row: 2; grid-column: 2 / 4; }
+
+    /* left bottom: 1 + 3 style (culture 25%, infant 75% across 4 cols) */
+    #cat14-{{ sid }} .grid-1-3{
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: 240px;
+      gap: var(--gap);
+    }
+    #cat14-{{ sid }} .pos-4{ grid-column: 1 / 2; }
+    #cat14-{{ sid }} .pos-5{ grid-column: 2 / 5; }
+
+    /* right grid: 12-col */
+    #cat14-{{ sid }} .grid-12{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-auto-rows: 240px;
+      gap: var(--gap);
+    }
+
+    #cat14-{{ sid }} .pos-6{ grid-column: 1 / -1; grid-row: span 1; height: 260px; }
+    #cat14-{{ sid }} .pos-7{ grid-column: 1 / -1; grid-row: span 1; height: 220px; }
+    #cat14-{{ sid }} .pos-8{ grid-column: 1 / 7; height: 240px; }
+    #cat14-{{ sid }} .pos-9{ grid-column: 7 / -1; height: 240px; }
+
+    #cat14-{{ sid }} .pos-6 .tile__media,
+    #cat14-{{ sid }} .pos-7 .tile__media,
+    #cat14-{{ sid }} .pos-8 .tile__media,
+    #cat14-{{ sid }} .pos-9 .tile__media{
+      height: 100%;
+    }
+
+    /* ===== Middle: 35/65 row (tile10 + (tile11 wide + tile12 tall)) ===== */
+    #cat14-{{ sid }} .cat14__mid{
+      display:grid;
+      grid-template-columns: 35% 65%;
+      gap: var(--gap);
+      margin-top: var(--gap);
+      align-items: start;
+    }
+
+    #cat14-{{ sid }} .mid-left{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: var(--gap);
+    }
+
+    #cat14-{{ sid }} .pos-10{ grid-column: 1 / -1; height: 245px; }
+
+    #cat14-{{ sid }} .mid-right .grid-inner{
+      display:grid;
+      grid-template-columns: 1.45fr 1fr;
+      gap: var(--gap);
+      align-items: end;
+    }
+
+    #cat14-{{ sid }} .pos-11{ height: 280px; margin-bottom: 55px; }
+    #cat14-{{ sid }} .pos-12{
+      height: 300px;
+      transform: translateY(-18px);
+      border-radius: calc(var(--radius) + 2px);
+    }
+
+    /* ===== Bottom: 3 cols 25/35/40 (tiles 13-14 + optional filler) ===== */
+    #cat14-{{ sid }} .cat14__bottom{
+      margin-top: var(--gap);
+    }
+
+    #cat14-{{ sid }} .grid-3{
+      display:grid;
+      grid-template-columns: 25% 35% 40%;
+      gap: var(--gap);
+      max-width: 95%;
+      margin: 0 auto 30px;
+    }
+
+    #cat14-{{ sid }} .pos-13{ height: 280px; }
+    #cat14-{{ sid }} .pos-14{ height: 280px; }
+
+    /* In case you want a 3rd tile in bottom row later */
+    #cat14-{{ sid }} .pos-15{ height: 280px; display:none; }
+
+    /* ===== Mobile ===== */
+    @media (max-width: 780px){
+      #cat14-{{ sid }} .cat14__top{
+        grid-template-columns: 1fr;
+      }
+
+      #cat14-{{ sid }} .grid-2{
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+      }
+
+      #cat14-{{ sid }} .grid-1-3{
+        grid-template-columns: 1fr;
+      }
+
+      #cat14-{{ sid }} .grid-12{
+        grid-template-columns: 1fr;
+      }
+
+      #cat14-{{ sid }} .pos-6,
+      #cat14-{{ sid }} .pos-7,
+      #cat14-{{ sid }} .pos-8,
+      #cat14-{{ sid }} .pos-9{
+        grid-column: 1;
+        height: 220px;
+      }
+
+      #cat14-{{ sid }} .cat14__mid{
+        grid-template-columns: 1fr;
+      }
+
+      #cat14-{{ sid }} .pos-10,
+      #cat14-{{ sid }} .pos-11,
+      #cat14-{{ sid }} .pos-12{
+        height: 220px;
+        transform: none;
+        margin: 0;
+      }
+
+      #cat14-{{ sid }} .mid-right .grid-inner{
+        grid-template-columns: 1fr;
+      }
+
+      #cat14-{{ sid }} .grid-3{
+        grid-template-columns: 1fr;
+        max-width: 100%;
+        margin-bottom: 0;
+      }
+
+      #cat14-{{ sid }} .pos-13,
+      #cat14-{{ sid }} .pos-14{
+        height: 220px;
+      }
+    }
+  {% endstyle %}
+
+  <div class="cat14__wrap">
+    {% assign blocks_sorted = section.blocks %}
+
+    <div class="cat14__top">
+      <div class="left">
+        <div class="grid-2">
+          {%- render 'cat14-tile', block: blocks_sorted[0], pos_class: 'pos-1' -%}
+          {%- render 'cat14-tile', block: blocks_sorted[1], pos_class: 'pos-2' -%}
+          {%- render 'cat14-tile', block: blocks_sorted[2], pos_class: 'pos-3' -%}
+        </div>
+
+        <div class="grid-1-3">
+          {%- render 'cat14-tile', block: blocks_sorted[3], pos_class: 'pos-4' -%}
+          {%- render 'cat14-tile', block: blocks_sorted[4], pos_class: 'pos-5' -%}
+        </div>
+      </div>
+
+      <div class="right">
+        <div class="grid-12">
+          {%- render 'cat14-tile', block: blocks_sorted[5], pos_class: 'pos-6' -%}
+          {%- render 'cat14-tile', block: blocks_sorted[6], pos_class: 'pos-7' -%}
+          {%- render 'cat14-tile', block: blocks_sorted[7], pos_class: 'pos-8' -%}
+          {%- render 'cat14-tile', block: blocks_sorted[8], pos_class: 'pos-9' -%}
+        </div>
+      </div>
+    </div>
+
+    <div class="cat14__mid">
+      <div class="mid-left">
+        {%- render 'cat14-tile', block: blocks_sorted[9], pos_class: 'pos-10' -%}
+      </div>
+
+      <div class="mid-right">
+        <div class="grid-inner">
+          {%- render 'cat14-tile', block: blocks_sorted[10], pos_class: 'pos-11' -%}
+          {%- render 'cat14-tile', block: blocks_sorted[11], pos_class: 'pos-12' -%}
+        </div>
+      </div>
+    </div>
+
+    <div class="cat14__bottom">
+      <div class="grid-3">
+        {%- render 'cat14-tile', block: blocks_sorted[12], pos_class: 'pos-13' -%}
+        {%- render 'cat14-tile', block: blocks_sorted[13], pos_class: 'pos-14' -%}
+        <div class="pos-15"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Category Grid (14 blocks)",
+  "settings": [
+    { "type": "range", "id": "max_width", "label": "Max width", "min": 900, "max": 1800, "step": 50, "default": 1400, "unit": "px" },
+    { "type": "range", "id": "side_padding", "label": "Side padding", "min": 0, "max": 40, "step": 2, "default": 16, "unit": "px" },
+    { "type": "range", "id": "gap", "label": "Gap", "min": 8, "max": 40, "step": 2, "default": 16, "unit": "px" },
+    { "type": "range", "id": "radius", "label": "Tile radius", "min": 0, "max": 40, "step": 2, "default": 18, "unit": "px" },
+
+    { "type": "color", "id": "text_color", "label": "Text color", "default": "#ffffff" },
+    { "type": "range", "id": "text_size", "label": "Text size", "min": 12, "max": 32, "step": 1, "default": 18, "unit": "px" },
+    {
+      "type": "select",
+      "id": "text_weight",
+      "label": "Text weight",
+      "default": "500",
+      "options": [
+        { "value": "400", "label": "Normal" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi bold" },
+        { "value": "700", "label": "Bold" }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tile",
+      "name": "Tile",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "collection", "id": "collection", "label": "Collection link" }
+      ]
+    }
+  ],
+  "max_blocks": 14,
+  "presets": [
+    { "name": "Category Grid (14 blocks)", "blocks": [
+      { "type": "tile" }, { "type": "tile" }, { "type": "tile" }, { "type": "tile" }, { "type": "tile" },
+      { "type": "tile" }, { "type": "tile" }, { "type": "tile" }, { "type": "tile" }, { "type": "tile" },
+      { "type": "tile" }, { "type": "tile" }, { "type": "tile" }, { "type": "tile" }
+    ]}
+  ]
+}
+{% endschema %}
