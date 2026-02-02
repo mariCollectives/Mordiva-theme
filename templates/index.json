@@ -106,6 +106,7 @@
           "type": "tile",
           "settings": {
             "collection": "",
+            "image": "shopify://shop_images/Art_craft.png",
             "height_desktop": 240,
             "height_mobile": 220,
             "override_title": "title"
