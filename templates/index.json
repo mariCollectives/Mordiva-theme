@@ -576,6 +576,162 @@
         "divider_width": "fixed",
         "custom_class": ""
       }
+    },
+    "category_mosaic_collections_NkacbU": {
+      "type": "category-mosaic-collections",
+      "blocks": {
+        "tile_bR6Fkd": {
+          "type": "tile",
+          "settings": {
+            "collection": "",
+            "image_url": "shopify://shop_images/Science.png",
+            "height_desktop": 240,
+            "height_mobile": 220,
+            "override_title": "title"
+          }
+        },
+        "tile_fgimWz": {
+          "type": "tile",
+          "settings": {
+            "collection": "",
+            "height_desktop": 240,
+            "height_mobile": 220,
+            "override_title": "title"
+          }
+        },
+        "tile_nGR3fL": {
+          "type": "tile",
+          "settings": {
+            "collection": "",
+            "height_desktop": 240,
+            "height_mobile": 220,
+            "override_title": "title"
+          }
+        },
+        "tile_hXTN3H": {
+          "type": "tile",
+          "settings": {
+            "collection": "",
+            "height_desktop": 240,
+            "height_mobile": 220,
+            "override_title": "title"
+          }
+        },
+        "tile_Qa3TK9": {
+          "type": "tile",
+          "settings": {
+            "collection": "",
+            "height_desktop": 240,
+            "height_mobile": 220,
+            "override_title": "title"
+          }
+        },
+        "tile_TLi7ng": {
+          "type": "tile",
+          "settings": {
+            "collection": "",
+            "height_desktop": 240,
+            "height_mobile": 220,
+            "override_title": "title"
+          }
+        },
+        "tile_xDNtq8": {
+          "type": "tile",
+          "settings": {
+            "collection": "",
+            "height_desktop": 240,
+            "height_mobile": 220,
+            "override_title": "title"
+          }
+        },
+        "tile_3DUgzd": {
+          "type": "tile",
+          "settings": {
+            "collection": "",
+            "height_desktop": 240,
+            "height_mobile": 220,
+            "override_title": "title"
+          }
+        },
+        "tile_xccQf6": {
+          "type": "tile",
+          "settings": {
+            "collection": "",
+            "height_desktop": 240,
+            "height_mobile": 220,
+            "override_title": "title"
+          }
+        },
+        "tile_XnJ9KP": {
+          "type": "tile",
+          "settings": {
+            "collection": "",
+            "height_desktop": 240,
+            "height_mobile": 220,
+            "override_title": "title"
+          }
+        },
+        "tile_eWVhr3": {
+          "type": "tile",
+          "settings": {
+            "collection": "",
+            "height_desktop": 240,
+            "height_mobile": 220,
+            "override_title": "title"
+          }
+        },
+        "tile_aKfqB7": {
+          "type": "tile",
+          "settings": {
+            "collection": "",
+            "height_desktop": 240,
+            "height_mobile": 220,
+            "override_title": "title"
+          }
+        },
+        "tile_rHN7TK": {
+          "type": "tile",
+          "settings": {
+            "collection": "",
+            "height_desktop": 240,
+            "height_mobile": 220,
+            "override_title": "title"
+          }
+        },
+        "tile_xN8ahn": {
+          "type": "tile",
+          "settings": {
+            "collection": "",
+            "height_desktop": 240,
+            "height_mobile": 220,
+            "override_title": "title"
+          }
+        }
+      },
+      "block_order": [
+        "tile_bR6Fkd",
+        "tile_fgimWz",
+        "tile_nGR3fL",
+        "tile_hXTN3H",
+        "tile_Qa3TK9",
+        "tile_TLi7ng",
+        "tile_xDNtq8",
+        "tile_3DUgzd",
+        "tile_xccQf6",
+        "tile_XnJ9KP",
+        "tile_eWVhr3",
+        "tile_aKfqB7",
+        "tile_rHN7TK",
+        "tile_xN8ahn"
+      ],
+      "name": "Category Mosaic",
+      "settings": {
+        "max_width": 1400,
+        "side_padding": 0,
+        "gap": 16,
+        "radius": 18,
+        "mobile_breakpoint": 780
+      }
     }
   },
   "order": [
@@ -589,6 +745,7 @@
     "rich_text_HphPmy",
     "collections_slider_yD633Y",
     "video_hero_kqkWdj",
-    "multicolumn_RFyHwL"
+    "multicolumn_RFyHwL",
+    "category_mosaic_collections_NkacbU"
   ]
 }
