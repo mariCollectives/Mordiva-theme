@@ -537,6 +537,7 @@
         "tile_hK8nFD": {
           "type": "tile",
           "settings": {
+            "image": "shopify://shop_images/Science.png",
             "title": "",
             "collection": ""
           }
