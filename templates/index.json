@@ -89,6 +89,162 @@
         "custom_class": ""
       }
     },
+    "category_mosaic_collections_4rPajk": {
+      "type": "category-mosaic-collections",
+      "blocks": {
+        "tile_kx4GLk": {
+          "type": "tile",
+          "settings": {
+            "collection": "",
+            "image": "shopify://shop_images/Science.png",
+            "height_desktop": 240,
+            "height_mobile": 220,
+            "override_title": "title"
+          }
+        },
+        "tile_PjkU9a": {
+          "type": "tile",
+          "settings": {
+            "collection": "",
+            "height_desktop": 240,
+            "height_mobile": 220,
+            "override_title": "title"
+          }
+        },
+        "tile_McCh9f": {
+          "type": "tile",
+          "settings": {
+            "collection": "",
+            "height_desktop": 240,
+            "height_mobile": 220,
+            "override_title": "title"
+          }
+        },
+        "tile_6emmTU": {
+          "type": "tile",
+          "settings": {
+            "collection": "",
+            "height_desktop": 240,
+            "height_mobile": 220,
+            "override_title": "title"
+          }
+        },
+        "tile_JneJxh": {
+          "type": "tile",
+          "settings": {
+            "collection": "",
+            "height_desktop": 240,
+            "height_mobile": 220,
+            "override_title": "title"
+          }
+        },
+        "tile_yVghye": {
+          "type": "tile",
+          "settings": {
+            "collection": "",
+            "height_desktop": 240,
+            "height_mobile": 220,
+            "override_title": "title"
+          }
+        },
+        "tile_Mw7J7H": {
+          "type": "tile",
+          "settings": {
+            "collection": "",
+            "height_desktop": 240,
+            "height_mobile": 220,
+            "override_title": "title"
+          }
+        },
+        "tile_jJt48V": {
+          "type": "tile",
+          "settings": {
+            "collection": "",
+            "height_desktop": 240,
+            "height_mobile": 220,
+            "override_title": "title"
+          }
+        },
+        "tile_xNgVzP": {
+          "type": "tile",
+          "settings": {
+            "collection": "",
+            "height_desktop": 240,
+            "height_mobile": 220,
+            "override_title": "title"
+          }
+        },
+        "tile_gF84G4": {
+          "type": "tile",
+          "settings": {
+            "collection": "",
+            "height_desktop": 240,
+            "height_mobile": 220,
+            "override_title": "title"
+          }
+        },
+        "tile_CXWrcB": {
+          "type": "tile",
+          "settings": {
+            "collection": "",
+            "height_desktop": 240,
+            "height_mobile": 220,
+            "override_title": "title"
+          }
+        },
+        "tile_PjfLff": {
+          "type": "tile",
+          "settings": {
+            "collection": "",
+            "height_desktop": 240,
+            "height_mobile": 220,
+            "override_title": "title"
+          }
+        },
+        "tile_N9GFHY": {
+          "type": "tile",
+          "settings": {
+            "collection": "",
+            "height_desktop": 240,
+            "height_mobile": 220,
+            "override_title": "title"
+          }
+        },
+        "tile_eUUmJP": {
+          "type": "tile",
+          "settings": {
+            "collection": "",
+            "height_desktop": 240,
+            "height_mobile": 220,
+            "override_title": "title"
+          }
+        }
+      },
+      "block_order": [
+        "tile_kx4GLk",
+        "tile_PjkU9a",
+        "tile_McCh9f",
+        "tile_6emmTU",
+        "tile_JneJxh",
+        "tile_yVghye",
+        "tile_Mw7J7H",
+        "tile_jJt48V",
+        "tile_xNgVzP",
+        "tile_gF84G4",
+        "tile_CXWrcB",
+        "tile_PjfLff",
+        "tile_N9GFHY",
+        "tile_eUUmJP"
+      ],
+      "name": "Category Mosaic",
+      "settings": {
+        "max_width": 1400,
+        "side_padding": 0,
+        "gap": 16,
+        "radius": 18,
+        "mobile_breakpoint": 780
+      }
+    },
     "rich_text_w8arFx": {
       "type": "rich-text",
       "blocks": {
@@ -581,6 +737,7 @@
   "order": [
     "custom_liquid_z4KV4e",
     "slideshow_zKPFFV",
+    "category_mosaic_collections_4rPajk",
     "rich_text_w8arFx",
     "product_tabs_jhb9aJ",
     "lookbook_slider_cte8Fy",
