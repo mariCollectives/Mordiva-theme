@@ -434,52 +434,6 @@
         "custom_class": ""
       }
     },
-    "video_hero_kqkWdj": {
-      "type": "video-hero",
-      "blocks": {
-        "text_FaEYgN": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Discover the interior design of your dreams</p>",
-            "text_size": "text-lg"
-          }
-        },
-        "button_h4yyRt": {
-          "type": "button",
-          "settings": {
-            "button_label": "shop now",
-            "button_link": "",
-            "button_style": "btn--underline"
-          }
-        }
-      },
-      "block_order": [
-        "text_FaEYgN",
-        "button_h4yyRt"
-      ],
-      "disabled": true,
-      "custom_css": [
-        ".video-hero__content {--padding-y: 8rem;}"
-      ],
-      "settings": {
-        "container": "full",
-        "video_url": "",
-        "description": "Video banner",
-        "video_height": "extra-large",
-        "overlay_opacity": 20,
-        "enable_parallax": false,
-        "parallax_direction": "vertical",
-        "color_scheme": "",
-        "content_position": "bottom-center",
-        "content_alignment": "center",
-        "video_mobile_height": "extra-large",
-        "padding_top": 0,
-        "padding_bottom": 0,
-        "show_section_divider": false,
-        "divider_width": "fixed",
-        "custom_class": ""
-      }
-    },
     "multicolumn_RFyHwL": {
       "type": "multicolumn",
       "blocks": {
@@ -576,6 +530,135 @@
         "divider_width": "fixed",
         "custom_class": ""
       }
+    },
+    "category_grid_14_MWN9m3": {
+      "type": "category-grid-14",
+      "blocks": {
+        "tile_hK8nFD": {
+          "type": "tile",
+          "settings": {
+            "title": "",
+            "collection": ""
+          }
+        },
+        "tile_tVJLze": {
+          "type": "tile",
+          "settings": {
+            "title": "",
+            "collection": ""
+          }
+        },
+        "tile_8neQiJ": {
+          "type": "tile",
+          "settings": {
+            "title": "",
+            "collection": ""
+          }
+        },
+        "tile_yEmA7W": {
+          "type": "tile",
+          "settings": {
+            "title": "",
+            "collection": ""
+          }
+        },
+        "tile_bYcpxp": {
+          "type": "tile",
+          "settings": {
+            "title": "",
+            "collection": ""
+          }
+        },
+        "tile_rwjqbJ": {
+          "type": "tile",
+          "settings": {
+            "title": "",
+            "collection": ""
+          }
+        },
+        "tile_cphYJw": {
+          "type": "tile",
+          "settings": {
+            "title": "",
+            "collection": ""
+          }
+        },
+        "tile_JfQiqA": {
+          "type": "tile",
+          "settings": {
+            "title": "",
+            "collection": ""
+          }
+        },
+        "tile_k3W77t": {
+          "type": "tile",
+          "settings": {
+            "title": "",
+            "collection": ""
+          }
+        },
+        "tile_h6epkW": {
+          "type": "tile",
+          "settings": {
+            "title": "",
+            "collection": ""
+          }
+        },
+        "tile_UetHCp": {
+          "type": "tile",
+          "settings": {
+            "title": "",
+            "collection": ""
+          }
+        },
+        "tile_Kd6GFq": {
+          "type": "tile",
+          "settings": {
+            "title": "",
+            "collection": ""
+          }
+        },
+        "tile_fhFYD6": {
+          "type": "tile",
+          "settings": {
+            "title": "",
+            "collection": ""
+          }
+        },
+        "tile_zYkmCR": {
+          "type": "tile",
+          "settings": {
+            "title": "",
+            "collection": ""
+          }
+        }
+      },
+      "block_order": [
+        "tile_hK8nFD",
+        "tile_tVJLze",
+        "tile_8neQiJ",
+        "tile_yEmA7W",
+        "tile_bYcpxp",
+        "tile_rwjqbJ",
+        "tile_cphYJw",
+        "tile_JfQiqA",
+        "tile_k3W77t",
+        "tile_h6epkW",
+        "tile_UetHCp",
+        "tile_Kd6GFq",
+        "tile_fhFYD6",
+        "tile_zYkmCR"
+      ],
+      "name": "Category Grid",
+      "settings": {
+        "max_width": 1400,
+        "side_padding": 16,
+        "gap": 16,
+        "radius": 18,
+        "text_color": "#ffffff",
+        "text_size": 18,
+        "text_weight": "500"
+      }
     }
   },
   "order": [
@@ -588,7 +671,7 @@
     "image_comparison_CLXe7t",
     "rich_text_HphPmy",
     "collections_slider_yD633Y",
-    "video_hero_kqkWdj",
-    "multicolumn_RFyHwL"
+    "multicolumn_RFyHwL",
+    "category_grid_14_MWN9m3"
   ]
 }
