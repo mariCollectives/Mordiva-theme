@@ -2,7 +2,6 @@
   assign c = block.settings.collection
   assign title = block.settings.override_title | strip
 
-  
   if title == blank and c != blank
     assign title = c.title
   endif
@@ -13,24 +12,20 @@
   endif
 
   assign img = block.settings.image
-
   assign h_desktop = block.settings.height_desktop | default: 240
-  assign h_mobile = block.settings.height_mobile | default: 220
+  assign h_mobile  = block.settings.height_mobile  | default: 220
 %}
 
 {% if block != blank %}
-  <a class="tile {{ class_name }}" href="{{ href }}"
-     style="--tile-h: {{ h_desktop }}px;"
-     {% if c != blank %} aria-label="{{ title | escape }}"{% endif %}>
-
+  <a class="tile {{ class_name }}" href="{{ href }}" style="--tile-h: {{ h_desktop }}px;">
     <div class="tile__media">
       {% if img != blank %}
-        {{ img | image_url: width: 2000 | image_tag: loading: 'lazy', alt: title | escape }}
+        {{ img
+          | image_url: width: 2000
+          | image_tag: loading: 'lazy', alt: title
+        }}
       {% else %}
-        <img
-          src="https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png"
-          alt="{{ title | escape }}"
-          loading="lazy">
+        {{ 'image' | placeholder_svg_tag }}
       {% endif %}
     </div>
 
@@ -41,7 +36,7 @@
 
   <style>
     @media (max-width: {{ section.settings.mobile_breakpoint }}px){
-      #cat-mosaic-{{ section.id }} a.tile[href="{{ href }}"]{ --tile-h: {{ h_mobile }}px; }
+      #cat-mosaic-{{ section.id }} .tile[style*="--tile-h: {{ h_desktop }}px"]{ --tile-h: {{ h_mobile }}px; }
     }
   </style>
 {% endif %}
