@@ -1,6 +1,8 @@
 {% liquid
   assign c = block.settings.collection
-  assign title = block.settings.override_title
+  assign title = block.settings.override_title | strip
+
+  
   if title == blank and c != blank
     assign title = c.title
   endif
