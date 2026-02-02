@@ -95,7 +95,7 @@
         "tile_TLBUgn": {
           "type": "tile",
           "settings": {
-            "collection": "",
+            "collection": "science-1",
             "image": "shopify://shop_images/Science.png",
             "height_desktop": 240,
             "height_mobile": 220,
