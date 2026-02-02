@@ -576,6 +576,54 @@
         "divider_width": "fixed",
         "custom_class": ""
       }
+    },
+    "177002535419f6ee71": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_85d49d9_ThQ4pT": {
+          "type": "ai_gen_block_85d49d9",
+          "settings": {
+            "desktop_width_percent": 100,
+            "tile_border_radius": 18,
+            "text_color": "#ffffff",
+            "text_size": 18,
+            "text_weight": "500",
+            "tile_1_title": "Science",
+            "tile_1_collection": "",
+            "tile_2_title": "Art & Craft",
+            "tile_2_collection": "",
+            "tile_3_title": "Construction & Engineering",
+            "tile_3_collection": "",
+            "tile_4_title": "Culture & Communities",
+            "tile_4_collection": "",
+            "tile_5_title": "Infant & Toddler",
+            "tile_5_collection": "",
+            "tile_6_title": "Kitchen Resources",
+            "tile_6_collection": "",
+            "tile_7_title": "Physical Wellbeing",
+            "tile_7_collection": "",
+            "tile_8_title": "Category 8",
+            "tile_8_collection": "",
+            "tile_9_title": "Category 9",
+            "tile_9_collection": "",
+            "tile_10_title": "Category 10",
+            "tile_10_collection": "",
+            "tile_11_title": "Category 11",
+            "tile_11_collection": "",
+            "tile_12_title": "Category 12",
+            "tile_12_collection": "",
+            "tile_13_title": "Category 13",
+            "tile_13_collection": "",
+            "tile_14_title": "Category 14",
+            "tile_14_collection": ""
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_85d49d9_ThQ4pT"
+      ],
+      "settings": {}
     }
   },
   "order": [
@@ -589,6 +637,7 @@
     "rich_text_HphPmy",
     "collections_slider_yD633Y",
     "video_hero_kqkWdj",
-    "multicolumn_RFyHwL"
+    "multicolumn_RFyHwL",
+    "177002535419f6ee71"
   ]
 }
