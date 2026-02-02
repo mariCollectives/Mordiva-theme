@@ -89,6 +89,136 @@
         "custom_class": ""
       }
     },
+    "category_grid_14_MWN9m3": {
+      "type": "category-grid-14",
+      "blocks": {
+        "tile_hK8nFD": {
+          "type": "tile",
+          "settings": {
+            "image": "shopify://shop_images/Science.png",
+            "title": "",
+            "collection": ""
+          }
+        },
+        "tile_tVJLze": {
+          "type": "tile",
+          "settings": {
+            "title": "",
+            "collection": ""
+          }
+        },
+        "tile_8neQiJ": {
+          "type": "tile",
+          "settings": {
+            "title": "",
+            "collection": ""
+          }
+        },
+        "tile_yEmA7W": {
+          "type": "tile",
+          "settings": {
+            "title": "",
+            "collection": ""
+          }
+        },
+        "tile_bYcpxp": {
+          "type": "tile",
+          "settings": {
+            "title": "",
+            "collection": ""
+          }
+        },
+        "tile_rwjqbJ": {
+          "type": "tile",
+          "settings": {
+            "title": "",
+            "collection": ""
+          }
+        },
+        "tile_cphYJw": {
+          "type": "tile",
+          "settings": {
+            "title": "",
+            "collection": ""
+          }
+        },
+        "tile_JfQiqA": {
+          "type": "tile",
+          "settings": {
+            "title": "",
+            "collection": ""
+          }
+        },
+        "tile_k3W77t": {
+          "type": "tile",
+          "settings": {
+            "title": "",
+            "collection": ""
+          }
+        },
+        "tile_h6epkW": {
+          "type": "tile",
+          "settings": {
+            "title": "",
+            "collection": ""
+          }
+        },
+        "tile_UetHCp": {
+          "type": "tile",
+          "settings": {
+            "title": "",
+            "collection": ""
+          }
+        },
+        "tile_Kd6GFq": {
+          "type": "tile",
+          "settings": {
+            "title": "",
+            "collection": ""
+          }
+        },
+        "tile_fhFYD6": {
+          "type": "tile",
+          "settings": {
+            "title": "",
+            "collection": ""
+          }
+        },
+        "tile_zYkmCR": {
+          "type": "tile",
+          "settings": {
+            "title": "",
+            "collection": ""
+          }
+        }
+      },
+      "block_order": [
+        "tile_hK8nFD",
+        "tile_tVJLze",
+        "tile_8neQiJ",
+        "tile_yEmA7W",
+        "tile_bYcpxp",
+        "tile_rwjqbJ",
+        "tile_cphYJw",
+        "tile_JfQiqA",
+        "tile_k3W77t",
+        "tile_h6epkW",
+        "tile_UetHCp",
+        "tile_Kd6GFq",
+        "tile_fhFYD6",
+        "tile_zYkmCR"
+      ],
+      "name": "Category Grid",
+      "settings": {
+        "max_width": 1400,
+        "side_padding": 16,
+        "gap": 16,
+        "radius": 18,
+        "text_color": "#ffffff",
+        "text_size": 18,
+        "text_weight": "500"
+      }
+    },
     "rich_text_w8arFx": {
       "type": "rich-text",
       "blocks": {
@@ -530,141 +660,12 @@
         "divider_width": "fixed",
         "custom_class": ""
       }
-    },
-    "category_grid_14_MWN9m3": {
-      "type": "category-grid-14",
-      "blocks": {
-        "tile_hK8nFD": {
-          "type": "tile",
-          "settings": {
-            "image": "shopify://shop_images/Science.png",
-            "title": "",
-            "collection": ""
-          }
-        },
-        "tile_tVJLze": {
-          "type": "tile",
-          "settings": {
-            "title": "",
-            "collection": ""
-          }
-        },
-        "tile_8neQiJ": {
-          "type": "tile",
-          "settings": {
-            "title": "",
-            "collection": ""
-          }
-        },
-        "tile_yEmA7W": {
-          "type": "tile",
-          "settings": {
-            "title": "",
-            "collection": ""
-          }
-        },
-        "tile_bYcpxp": {
-          "type": "tile",
-          "settings": {
-            "title": "",
-            "collection": ""
-          }
-        },
-        "tile_rwjqbJ": {
-          "type": "tile",
-          "settings": {
-            "title": "",
-            "collection": ""
-          }
-        },
-        "tile_cphYJw": {
-          "type": "tile",
-          "settings": {
-            "title": "",
-            "collection": ""
-          }
-        },
-        "tile_JfQiqA": {
-          "type": "tile",
-          "settings": {
-            "title": "",
-            "collection": ""
-          }
-        },
-        "tile_k3W77t": {
-          "type": "tile",
-          "settings": {
-            "title": "",
-            "collection": ""
-          }
-        },
-        "tile_h6epkW": {
-          "type": "tile",
-          "settings": {
-            "title": "",
-            "collection": ""
-          }
-        },
-        "tile_UetHCp": {
-          "type": "tile",
-          "settings": {
-            "title": "",
-            "collection": ""
-          }
-        },
-        "tile_Kd6GFq": {
-          "type": "tile",
-          "settings": {
-            "title": "",
-            "collection": ""
-          }
-        },
-        "tile_fhFYD6": {
-          "type": "tile",
-          "settings": {
-            "title": "",
-            "collection": ""
-          }
-        },
-        "tile_zYkmCR": {
-          "type": "tile",
-          "settings": {
-            "title": "",
-            "collection": ""
-          }
-        }
-      },
-      "block_order": [
-        "tile_hK8nFD",
-        "tile_tVJLze",
-        "tile_8neQiJ",
-        "tile_yEmA7W",
-        "tile_bYcpxp",
-        "tile_rwjqbJ",
-        "tile_cphYJw",
-        "tile_JfQiqA",
-        "tile_k3W77t",
-        "tile_h6epkW",
-        "tile_UetHCp",
-        "tile_Kd6GFq",
-        "tile_fhFYD6",
-        "tile_zYkmCR"
-      ],
-      "name": "Category Grid",
-      "settings": {
-        "max_width": 1400,
-        "side_padding": 16,
-        "gap": 16,
-        "radius": 18,
-        "text_color": "#ffffff",
-        "text_size": 18,
-        "text_weight": "500"
-      }
     }
   },
   "order": [
     "custom_liquid_z4KV4e",
     "slideshow_zKPFFV",
+    "category_grid_14_MWN9m3",
     "rich_text_w8arFx",
     "product_tabs_jhb9aJ",
     "lookbook_slider_cte8Fy",
@@ -672,7 +673,6 @@
     "image_comparison_CLXe7t",
     "rich_text_HphPmy",
     "collections_slider_yD633Y",
-    "multicolumn_RFyHwL",
-    "category_grid_14_MWN9m3"
+    "multicolumn_RFyHwL"
   ]
 }
