@@ -222,6 +222,16 @@
     "hotspot_slider_ABgtpP": {
       "type": "hotspot-slider",
       "blocks": {
+        "slide_8VRjqq": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/slide1.png",
+            "alt": "Crafting boutique spaces for young minds to thrive.",
+            "caption": "Crafting boutique spaces for young minds to thrive.",
+            "button_label": "VIEW ALL",
+            "button_link": "shopify://collections/classroom-resources-1"
+          }
+        },
         "slide_8fxTmL": {
           "type": "slide",
           "settings": {
@@ -243,6 +253,7 @@
         }
       },
       "block_order": [
+        "slide_8VRjqq",
         "slide_8fxTmL",
         "hotspot_CFVdMH"
       ],
