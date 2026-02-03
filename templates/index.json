@@ -219,49 +219,58 @@
         "text_weight": "500"
       }
     },
-    "hotspot_slider_ABgtpP": {
+    "hotspot_slider_CWTf6t": {
       "type": "hotspot-slider",
       "blocks": {
-        "slide_8VRjqq": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/slide1.png",
-            "alt": "Crafting boutique spaces for young minds to thrive.",
-            "caption": "Crafting boutique spaces for young minds to thrive.",
-            "button_label": "VIEW ALL",
-            "button_link": "shopify://collections/classroom-resources-1"
-          }
-        },
-        "slide_8fxTmL": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/slide4.png",
-            "alt": "Art & Craft",
-            "caption": "Crafting boutique spaces for young minds to thrive.",
-            "button_label": "VIEW ALL",
-            "button_link": "shopify://collections/art-and-craft"
-          }
-        },
-        "hotspot_CFVdMH": {
+        "hotspot_Gbm6ye": {
           "type": "hotspot",
           "settings": {
             "slide_number": 1,
             "product": "designer-building-blocks",
             "x": 10,
+            "y": 68
+          }
+        },
+        "slide_Vaijaa": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/slide4.png",
+            "alt": "Shelving & Cabinets",
+            "caption": "Shelving & Cabinets",
+            "button_label": "VIEW ALL",
+            "button_link": "shopify://collections/construction-and-engineering-copy"
+          }
+        },
+        "slide_Rew8HW": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/slide1.png",
+            "alt": "Craft Resources",
+            "caption": "Craft Resources",
+            "button_label": "VIEW ALL",
+            "button_link": "shopify://collections/craft-resources"
+          }
+        },
+        "hotspot_fnbhPX": {
+          "type": "hotspot",
+          "settings": {
+            "slide_number": 1,
+            "product": "",
+            "x": 50,
             "y": 50
           }
         }
       },
       "block_order": [
-        "slide_8VRjqq",
-        "slide_8fxTmL",
-        "hotspot_CFVdMH"
+        "hotspot_Gbm6ye",
+        "slide_Vaijaa",
+        "slide_Rew8HW",
+        "hotspot_fnbhPX"
       ],
       "name": "Hotspot slider",
       "settings": {
-        "autoplay": true,
-        "autoplay_seconds": 5,
-        "pause_on_hover": true
+        "arrow_left": "shopify://shop_images/arrow_15031868_4.png",
+        "arrow_right": "shopify://shop_images/arrow_15031868_3.png"
       }
     },
     "rich_text_w8arFx": {
@@ -711,7 +720,7 @@
     "custom_liquid_z4KV4e",
     "slideshow_zKPFFV",
     "category_grid_14_MWN9m3",
-    "hotspot_slider_ABgtpP",
+    "hotspot_slider_CWTf6t",
     "rich_text_w8arFx",
     "product_tabs_jhb9aJ",
     "lookbook_slider_cte8Fy",

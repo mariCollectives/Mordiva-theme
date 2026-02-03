@@ -6,6 +6,16 @@
 
 <section class="hotspot-slider" id="hotspot-slider-{{ section.id }}" aria-label="Image slider with hotspots">
   <div class="hs-slider" data-hs-slider>
+
+      <button class="hs-nav hs-nav--prev" type="button" data-hs-prev aria-label="Previous slide">
+      {%- if section.settings.arrow_left != blank -%}
+        {{ section.settings.arrow_left | image_url: width: 120 | image_tag: alt: 'Previous' }}
+      {%- else -%}
+        ‹
+      {%- endif -%}
+    </button>
+
+    
     <div class="hs-slides" data-hs-slides>
       {%- assign slide_blocks = section.blocks | where: "type", "slide" -%}
       {%- assign hotspot_blocks = section.blocks | where: "type", "hotspot" -%}
@@ -57,14 +67,6 @@
         </article>
       {%- endfor -%}
     </div>
-
-    <button class="hs-nav hs-nav--prev" type="button" data-hs-prev aria-label="Previous slide">
-      {%- if section.settings.arrow_left != blank -%}
-        {{ section.settings.arrow_left | image_url: width: 120 | image_tag: alt: 'Previous' }}
-      {%- else -%}
-        ‹
-      {%- endif -%}
-    </button>
 
     <button class="hs-nav hs-nav--next" type="button" data-hs-next aria-label="Next slide">
       {%- if section.settings.arrow_right != blank -%}
