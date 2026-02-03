@@ -11,25 +11,24 @@
           {%- assign slide_image = block.settings.image -%}
 
           <article class="slide {% if forloop.first %}is-active{% endif %}" data-slide {{ block.shopify_attributes }}>
-            <div class="slide-media">
-            
-              {% if slide_bg != blank %}
-                    style="background-image:url({{ slide_bg | image_url: width: 2400 }});"
-                {% endif %}
-                >
-                {%- comment -%}
-                    Keep img for accessibility + to preserve height.
-                    If you ONLY want background and no visible img, we’ll hide it via CSS when bg exists.
-                {%- endcomment -%}
+            {%- assign slide_collection = block.settings.collection -%}
+            {%- assign slide_image = block.settings.image -%}
+            {%- assign slide_bg = block.settings.bg_image -%}
 
-                {% if slide_image != blank %}
-                    {{ slide_image
-                    | image_url: width: 2000
-                    | image_tag: loading: 'lazy', alt: block.settings.image_alt, class: 'slide-media__img'
-                    }}
-                {% elsif slide_bg == blank %}
-                    {{ 'lifestyle-1' | placeholder_svg_tag }}
-                {% endif %}
+            <div
+            class="slide-media{% if slide_bg != blank %} has-bg{% endif %}"
+            {% if slide_bg != blank %}
+                style="background-image:url({{ slide_bg | image_url: width: 2400 }});"
+            {% endif %}
+            >
+            {% if slide_image != blank %}
+                {{ slide_image
+                | image_url: width: 2000
+                | image_tag: loading: 'lazy', alt: block.settings.image_alt, class: 'slide-media__img'
+                }}
+            {% elsif slide_bg == blank %}
+                {{ 'lifestyle-1' | placeholder_svg_tag }}
+            {% endif %}
 
 
 
@@ -157,11 +156,8 @@ body{
   display:block;
 }
 
-.slide-media{
-  position: relative;
-  aspect-ratio: 16 / 9;
-  background:#eaeaea;
-}
+.slide-media{ background-size: contain; background-color:#eaeaea; }
+
 
 .slide-media img{
   width:100%;
@@ -498,6 +494,7 @@ body{
         { "type": "text", "id": "slide_id", "label": "Slide ID (unique, e.g. slide-1)", "default": "slide-1" },
         { "type": "collection", "id": "collection", "label": "Collection (VIEW ALL links here)" },
         { "type": "image_picker", "id": "image", "label": "Slide image" },
+        { "type": "image_picker", "id": "bg_image", "label": "Background image (optional)" },
         { "type": "text", "id": "image_alt", "label": "Image alt text", "default": "Hotspot slide image" },
         { "type": "text", "id": "caption", "label": "Caption" },
         { "type": "text", "id": "button_label", "label": "Button label", "default": "VIEW ALL" }
