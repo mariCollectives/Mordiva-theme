@@ -660,6 +660,18 @@
         "divider_width": "fixed",
         "custom_class": ""
       }
+    },
+    "hotspot_slider_GXcqaF": {
+      "type": "hotspot-slider",
+      "name": "Hotspot Slider",
+      "settings": {
+        "max_width": 1400,
+        "radius": 18,
+        "prev_icon": "shopify://shop_images/arrow_15031868_4.png",
+        "next_icon": "shopify://shop_images/arrow_15031868_3.png",
+        "plus_bg": "#ffffff",
+        "plus_color": "#000000"
+      }
     }
   },
   "order": [
@@ -673,6 +685,7 @@
     "image_comparison_CLXe7t",
     "rich_text_HphPmy",
     "collections_slider_yD633Y",
-    "multicolumn_RFyHwL"
+    "multicolumn_RFyHwL",
+    "hotspot_slider_GXcqaF"
   ]
 }
