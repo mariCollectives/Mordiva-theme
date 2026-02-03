@@ -689,7 +689,10 @@
         "hotspot_fnbhPX"
       ],
       "name": "Hotspot slider",
-      "settings": {}
+      "settings": {
+        "arrow_left": "shopify://shop_images/arrow_15031868_4.png",
+        "arrow_right": "shopify://shop_images/arrow_15031868_3.png"
+      }
     }
   },
   "order": [
