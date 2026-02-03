@@ -334,10 +334,13 @@
 {% schema %}
 {
   "name": "Hotspot slider",
-  "settings": [
+    "settings": [
     { "type": "image_picker", "id": "arrow_left", "label": "Left arrow image" },
-    { "type": "image_picker", "id": "arrow_right", "label": "Right arrow image" }
-  ],
+    { "type": "image_picker", "id": "arrow_right", "label": "Right arrow image" },
+    { "type": "checkbox", "id": "autoplay", "label": "Autoplay", "default": true },
+    { "type": "range", "id": "autoplay_seconds", "label": "Autoplay speed (seconds)", "min": 2, "max": 12, "step": 1, "default": 5 },
+    { "type": "checkbox", "id": "pause_on_hover", "label": "Pause on hover", "default": true }
+    ],
   "blocks": [
     {
       "type": "slide",
