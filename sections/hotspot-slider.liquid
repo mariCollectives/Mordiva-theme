@@ -12,14 +12,26 @@
 
           <article class="slide {% if forloop.first %}is-active{% endif %}" data-slide {{ block.shopify_attributes }}>
             <div class="slide-media">
-              {% if slide_image != blank %}
-                {{ slide_image
-                  | image_url: width: 2000
-                  | image_tag: loading: 'lazy', alt: block.settings.image_alt
-                }}
-              {% else %}
-                {{ 'lifestyle-1' | placeholder_svg_tag }}
-              {% endif %}
+            
+              {% if slide_bg != blank %}
+                    style="background-image:url({{ slide_bg | image_url: width: 2400 }});"
+                {% endif %}
+                >
+                {%- comment -%}
+                    Keep img for accessibility + to preserve height.
+                    If you ONLY want background and no visible img, we’ll hide it via CSS when bg exists.
+                {%- endcomment -%}
+
+                {% if slide_image != blank %}
+                    {{ slide_image
+                    | image_url: width: 2000
+                    | image_tag: loading: 'lazy', alt: block.settings.image_alt, class: 'slide-media__img'
+                    }}
+                {% elsif slide_bg == blank %}
+                    {{ 'lifestyle-1' | placeholder_svg_tag }}
+                {% endif %}
+
+
 
               {%- comment -%} Render hotspots that match this slide_id {%- endcomment -%}
               {%- for hb in section.blocks -%}
@@ -110,184 +122,359 @@
 </div>
 
 <style>
-  /* ====== basic layout (keep your existing CSS if you already have it) ====== */
-  #hotspot-slider-{{ section.id }} .slider { position: relative; max-width: {{ section.settings.max_width }}px; margin: 0 auto; }
-  #hotspot-slider-{{ section.id }} .slides { position: relative; overflow: hidden; }
-  #hotspot-slider-{{ section.id }} .slide { display: none; }
-  #hotspot-slider-{{ section.id }} .slide.is-active { display: block; }
 
-  #hotspot-slider-{{ section.id }} .slide-media { position: relative; border-radius: {{ section.settings.radius }}px; overflow: hidden; }
-  #hotspot-slider-{{ section.id }} .slide-media img { width: 100%; height: auto; display: block; }
+:root{
+  --maxw: 1100px;
+  --gap: 16px;
+}
 
-  /* hotspots */
-  #hotspot-slider-{{ section.id }} .hotspot {
-    position: absolute;
-    left: var(--x);
-    top: var(--y);
-    transform: translate(-50%, -50%);
-    border: 0;
-    background: transparent;
-    cursor: pointer;
-    z-index: 2;
-  }
-  #hotspot-slider-{{ section.id }} .hotspot__plus{
-    width: 34px; height: 34px;
-    display: grid; place-items: center;
-    border-radius: 999px;
-    background: {{ section.settings.plus_bg }};
-    color: {{ section.settings.plus_color }};
-    font-weight: 700;
-    line-height: 1;
-  }
+*{ box-sizing:border-box; }
+body{
+  margin:0;
+}
 
-  /* footer */
-  #hotspot-slider-{{ section.id }} .slide-footer{
-    display:flex; align-items:center; justify-content:space-between;
-    gap: 16px;
-    padding: 14px 2px 0;
-  }
-  #hotspot-slider-{{ section.id }} .slide-caption{ margin:0; }
-  #hotspot-slider-{{ section.id }} .btn{
-    display:inline-flex; align-items:center; justify-content:center;
-    padding: 10px 14px;
-    border-radius: 999px;
-    text-decoration:none;
-    border: 1px solid currentColor;
-  }
+.hotspot-slider{
+  padding: 32px 16px;
+}
 
-  /* nav */
-  #hotspot-slider-{{ section.id }} .nav{
-    position:absolute; top: 50%; transform: translateY(-50%);
-    border:0; background: rgba(255,255,255,.85);
-    width: 44px; height: 44px; border-radius: 999px;
-    display:grid; place-items:center;
-    cursor:pointer; z-index: 5;
-  }
-  #hotspot-slider-{{ section.id }} .nav--prev{ left: 10px; }
-  #hotspot-slider-{{ section.id }} .nav--next{ right: 10px; }
-  #hotspot-slider-{{ section.id }} .nav img{ width: 18px; height: auto; display:block; }
+.slider{
+  position: relative;
+  max-width: var(--maxw);
+  margin: 0 auto;
+}
 
-  /* dots */
-  #hotspot-slider-{{ section.id }} .dots{
-    display:flex; justify-content:center; gap: 8px;
-    padding-top: 12px;
-  }
-  #hotspot-slider-{{ section.id }} .dot{
-    width: 8px; height: 8px; border-radius: 999px;
-    border:0; cursor:pointer;
-    opacity: .35;
-    background: currentColor;
-  }
-  #hotspot-slider-{{ section.id }} .dot.is-active{ opacity: 1; }
+.slides{
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background:#f3f3f3;
+}
 
-  /* modal */
-  .modal{ position: fixed; inset:0; display:none; z-index: 9999; }
-  .modal.is-open{ display:block; }
-  .modal__backdrop{ position:absolute; inset:0; background: rgba(0,0,0,.55); }
-  .modal__panel{
+.slide{
+  display:none;
+}
+.slide.is-active{
+  display:block;
+}
+
+.slide-media{
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background:#eaeaea;
+}
+
+.slide-media img{
+  width:100%;
+  height:100%;
+  object-fit: cover;
+  display:block;
+}
+
+/* Hotspots */
+.hotspot{
+  
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  border: 0;
+  cursor: pointer;
+  background: rgba(33, 41, 66, .75);
+  display:grid;
+  place-items:center;
+  color:#fff;
+  box-shadow: 0 8px 20px rgba(0,0,0,.18);
+
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  transform: translate(-50%, -50%);
+
+
+}
+
+.hotspot::after{
+  content:"";
+  position:absolute;
+  inset:-10px;
+  border-radius:999px;
+  background: rgba(33, 41, 66, .18);
+  opacity: .9;
+}
+
+.hotspot__plus{
+  position:relative;
+  z-index:1;
+  font-size: 18px;
+  line-height: 1;
+}
+
+/* Nav arrows */
+.nav{
+  position:absolute;
+  top: 37%;
+  border: 0;
+  cursor:pointer;
+  display:grid;
+  place-items:center;
+  background:transparent;
+}
+
+/* Footer */
+.slide-footer{
+  text-align:center;
+  padding: 18px 12px 24px;
+  background:#fff;
+}
+.slide-caption{
+  margin: 0 0 27px;
+  font-size: 18px;
+  color:#000;
+  font-family: "Shantell Sans", cursive;
+  font-weight: 500;
+
+}
+.btn{
+  display:inline-block;
+  padding: 10px 18px;
+  border-radius: 0;
+  background:#111;
+  color:#fff;
+  text-decoration:none;
+  font-size: 13px;
+  letter-spacing: .06em;
+   font-family: "Lexend", sans-serif;
+   text-decoration:underline;
+
+}
+
+/* Dots */
+.dots{
+  display:flex;
+  justify-content:center;
+  gap: 8px;
+  padding: 12px 0 0;
+}
+.dot{
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  border:0;
+  background:#d2d2d2;
+  cursor:pointer;
+}
+.dot.is-active{
+  background:#111;
+}
+
+/* Modal */
+.modal{
+  position: fixed;
+  inset: 0;
+  display:none;
+  z-index: 50;
+}
+.modal.is-open{
+  display:block;
+}
+.modal__backdrop{
+  position:absolute;
+  inset:0;
+  background: rgba(0,0,0,.55);
+}
+.modal__panel{
+  position:absolute;
+  left: 50%;
+  top: 55%;
+  transform: translate(-50%, -50%);
+  width: min(720px, calc(100% - 32px));
+  background: transparent;
+}
+.modal__close{
+  position:absolute;
+  right: 6px;
+  top: -44px;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  border:0;
+  cursor:pointer;
+  background: rgba(255,255,255,.9);
+  font-size: 22px;
+}
+
+/* Product card (matches your popup vibe) */
+.product-card{
+  display:flex;
+  gap: 18px;
+  align-items:center;
+  padding: 22px;
+  border-radius: 18px;
+  background:#fff;
+  box-shadow: 0 18px 60px rgba(0,0,0,.28);
+}
+
+.product-card__img{
+  width: 150px;
+  height: 150px;
+  border-radius: 12px;
+  background:#f5f5f5;
+  overflow:hidden;
+  flex: 0 0 auto;
+  display:grid;
+  place-items:center;
+}
+.product-card__img img{
+  width:100%;
+  height:100%;
+  object-fit: contain;
+  display:block;
+}
+
+.product-card__title{
+  margin:0 0 8px;
+  font-size: 22px;
+  font-weight: 600;
+}
+.product-card__price{
+  color: #d61f1f;
+  font-weight: 700;
+  font-size: 20px;
+  margin-bottom: 14px;
+}
+
+.product-card__actions{
+  display:flex;
+  gap: 10px;
+}
+
+.icon-btn{
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  border: 0;
+  cursor:pointer;
+  background:#111;
+  color:#fff;
+  display:grid;
+  place-items:center;
+  font-size: 16px;
+}
+
+
+.nav--prev img, .nav--next  img{
+    height:40px;
+    width:40px;
+}
+
+.nav--next{
+    right:5px;
+}
+
+.nav--prev img{
     position: relative;
-    width: min(520px, calc(100% - 32px));
-    margin: 8vh auto 0;
-    background: #fff;
-    border-radius: 18px;
-    padding: 16px;
-    z-index: 1;
-  }
-  .modal__close{
-    position:absolute; top: 10px; right: 12px;
-    border:0; background: transparent;
-    font-size: 26px; cursor:pointer;
-  }
-  .product-card{ display:grid; grid-template-columns: 120px 1fr; gap: 14px; align-items:center; }
-  .product-card__img img{ width: 120px; height: 120px; object-fit: cover; border-radius: 14px; display:block; }
-  .product-card__title{ margin:0 0 8px; font-size: 18px; }
-  .product-card__price{ margin-bottom: 10px; }
-  .icon-btn{
-    display:inline-flex; align-items:center; justify-content:center;
-    width: 40px; height: 40px; border-radius: 999px;
-    border: 1px solid rgba(0,0,0,.15);
-    text-decoration:none;
-  }
+    margin-left: -5em;
+
+}
+
+.nav--next  img{
+     position: relative;
+    margin-right: -5em;
+}
+
+@media (max-width: 680px){
+  .slide-caption{ font-size: 16px; }
+  .product-card{ flex-direction: column; align-items: flex-start; }
+  .product-card__img{ width: 100%; height: 190px; }
+}
+
+
+
 </style>
 
 <script>
-  (() => {
-    const root = document.querySelector('#hotspot-slider-{{ section.id }}');
-    if (!root) return;
+  (function () {
+  const slider = document.querySelector("[data-slider]");
+  if (!slider) return;
 
-    const slidesWrap = root.querySelector('[data-slides]');
-    const slides = Array.from(root.querySelectorAll('[data-slide]'));
-    const prevBtn = root.querySelector('[data-prev]');
-    const nextBtn = root.querySelector('[data-next]');
-    const dotsWrap = root.querySelector('[data-dots]');
+  const slidesWrap = slider.querySelector("[data-slides]");
+  const slides = Array.from(slidesWrap.querySelectorAll("[data-slide]"));
+  const prevBtn = slider.querySelector("[data-prev]");
+  const nextBtn = slider.querySelector("[data-next]");
+  const dotsWrap = slider.querySelector("[data-dots]");
 
-    const modal = document.querySelector('[data-modal]');
-    const modalImg = modal?.querySelector('[data-modal-image]');
-    const modalTitle = modal?.querySelector('[data-modal-title]');
-    const modalPrice = modal?.querySelector('[data-modal-price]');
-    const modalLink = modal?.querySelector('[data-modal-link]');
-    const closeEls = modal ? Array.from(modal.querySelectorAll('[data-close]')) : [];
+  const modal = document.querySelector("[data-modal]");
+  const modalTitle = document.querySelector("[data-modal-title]");
+  const modalPrice = document.querySelector("[data-modal-price]");
+  const modalImage = document.querySelector("[data-modal-image]");
+  const modalClosers = Array.from(document.querySelectorAll("[data-close]"));
 
-    let index = 0;
+  let index = slides.findIndex(s => s.classList.contains("is-active"));
+  if (index < 0) index = 0;
 
-    function setActive(i){
-      index = (i + slides.length) % slides.length;
-      slides.forEach((s, idx) => s.classList.toggle('is-active', idx === index));
-      Array.from(dotsWrap.children).forEach((d, idx) => d.classList.toggle('is-active', idx === index));
-    }
+  // Build dots
+  slides.forEach((_, i) => {
+    const b = document.createElement("button");
+    b.className = "dot" + (i === index ? " is-active" : "");
+    b.type = "button";
+    b.setAttribute("aria-label", `Go to slide ${i + 1}`);
+    b.addEventListener("click", () => goTo(i));
+    dotsWrap.appendChild(b);
+  });
 
-    function buildDots(){
-      dotsWrap.innerHTML = '';
-      slides.forEach((_, i) => {
-        const b = document.createElement('button');
-        b.type = 'button';
-        b.className = 'dot' + (i === 0 ? ' is-active' : '');
-        b.setAttribute('aria-label', 'Go to slide ' + (i + 1));
-        b.addEventListener('click', () => setActive(i));
-        dotsWrap.appendChild(b);
-      });
-    }
+  const dots = Array.from(dotsWrap.querySelectorAll(".dot"));
 
-    function openModal(product){
-      if (!modal) return;
-      modal.classList.add('is-open');
-      modal.setAttribute('aria-hidden', 'false');
-      if (modalImg) modalImg.src = product.image || '';
-      if (modalTitle) modalTitle.textContent = product.title || '';
-      if (modalPrice) modalPrice.textContent = product.price || '';
-      if (modalLink) modalLink.href = product.url || '#';
-    }
+  function goTo(i) {
+    slides[index].classList.remove("is-active");
+    dots[index].classList.remove("is-active");
 
-    function closeModal(){
-      if (!modal) return;
-      modal.classList.remove('is-open');
-      modal.setAttribute('aria-hidden', 'true');
-    }
+    index = (i + slides.length) % slides.length;
 
-    root.addEventListener('click', (e) => {
-      const btn = e.target.closest('.hotspot');
-      if (!btn) return;
+    slides[index].classList.add("is-active");
+    dots[index].classList.add("is-active");
+  }
 
-      const raw = btn.getAttribute('data-product');
-      if (!raw) return;
+  prevBtn?.addEventListener("click", () => goTo(index - 1));
+  nextBtn?.addEventListener("click", () => goTo(index + 1));
 
-      try {
-        const product = JSON.parse(raw);
-        openModal(product);
-      } catch (err) {}
-    });
+  // Hotspot -> modal
+  slider.addEventListener("click", (e) => {
+    const hotspot = e.target.closest(".hotspot");
+    if (!hotspot) return;
 
-    closeEls.forEach(el => el.addEventListener('click', closeModal));
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeModal();
-    });
+    const raw = hotspot.getAttribute("data-product");
+    if (!raw) return;
 
-    prevBtn?.addEventListener('click', () => setActive(index - 1));
-    nextBtn?.addEventListener('click', () => setActive(index + 1));
+    let data;
+    try { data = JSON.parse(raw); } catch { return; }
 
-    buildDots();
-    setActive(0);
-  })();
+    modalTitle.textContent = data.title || "";
+    modalPrice.textContent = data.price || "";
+    modalImage.src = data.image || "";
+    modalImage.alt = data.title || "Product image";
+
+    openModal();
+  });
+
+  function openModal() {
+    modal.classList.add("is-open");
+    modal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeModal() {
+    modal.classList.remove("is-open");
+    modal.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+  }
+
+  modalClosers.forEach(el => el.addEventListener("click", closeModal));
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && modal.classList.contains("is-open")) closeModal();
+    if (e.key === "ArrowLeft") goTo(index - 1);
+    if (e.key === "ArrowRight") goTo(index + 1);
+  });
+})();
+
 </script>
 
 {% schema %}
