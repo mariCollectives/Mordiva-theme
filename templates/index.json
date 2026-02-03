@@ -660,6 +660,36 @@
         "divider_width": "fixed",
         "custom_class": ""
       }
+    },
+    "hotspot_slider_CWTf6t": {
+      "type": "hotspot-slider",
+      "blocks": {
+        "slide_Vaijaa": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/slide4.png",
+            "alt": "Shelving & Cabinets",
+            "caption": "Shelving & Cabinets",
+            "button_label": "VIEW ALL",
+            "button_link": "shopify://collections/construction-and-engineering-copy"
+          }
+        },
+        "hotspot_fnbhPX": {
+          "type": "hotspot",
+          "settings": {
+            "slide_number": 1,
+            "product": "",
+            "x": 50,
+            "y": 50
+          }
+        }
+      },
+      "block_order": [
+        "slide_Vaijaa",
+        "hotspot_fnbhPX"
+      ],
+      "name": "Hotspot slider",
+      "settings": {}
     }
   },
   "order": [
@@ -673,6 +703,7 @@
     "image_comparison_CLXe7t",
     "rich_text_HphPmy",
     "collections_slider_yD633Y",
-    "multicolumn_RFyHwL"
+    "multicolumn_RFyHwL",
+    "hotspot_slider_CWTf6t"
   ]
 }
