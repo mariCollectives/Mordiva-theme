@@ -270,7 +270,10 @@
       "name": "Hotspot slider",
       "settings": {
         "arrow_left": "shopify://shop_images/arrow_15031868_4.png",
-        "arrow_right": "shopify://shop_images/arrow_15031868_3.png"
+        "arrow_right": "shopify://shop_images/arrow_15031868_3.png",
+        "autoplay": true,
+        "autoplay_seconds": 2,
+        "pause_on_hover": true
       }
     },
     "rich_text_w8arFx": {
