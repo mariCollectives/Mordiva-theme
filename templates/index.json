@@ -21,6 +21,30 @@
         "custom_class": ""
       }
     },
+    "hotspot_slider_HfHwAM": {
+      "type": "hotspot-slider",
+      "blocks": {
+        "hotspot_xRkq6y": {
+          "type": "hotspot",
+          "settings": {
+            "slide_id": "slide-1",
+            "x": 10,
+            "y": 50,
+            "product": "1-10-counting-board"
+          }
+        }
+      },
+      "block_order": [
+        "hotspot_xRkq6y"
+      ],
+      "name": "Hotspot Slider",
+      "settings": {
+        "max_width": 1400,
+        "radius": 18,
+        "plus_bg": "#ffffff",
+        "plus_color": "#000000"
+      }
+    },
     "slideshow_zKPFFV": {
       "type": "slideshow",
       "blocks": {
@@ -664,6 +688,7 @@
   },
   "order": [
     "custom_liquid_z4KV4e",
+    "hotspot_slider_HfHwAM",
     "slideshow_zKPFFV",
     "category_grid_14_MWN9m3",
     "rich_text_w8arFx",
