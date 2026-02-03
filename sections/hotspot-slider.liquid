@@ -1,0 +1,336 @@
+<section class="hotspot-slider" id="hotspot-slider-{{ section.id }}" aria-label="Image slider with hotspots">
+  <div class="slider" data-slider>
+    <div class="slides" data-slides>
+      {%- assign first_slide_id = blank -%}
+
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'slide' -%}
+          {%- if first_slide_id == blank -%}{%- assign first_slide_id = block.settings.slide_id -%}{%- endif -%}
+
+          {%- assign slide_collection = block.settings.collection -%}
+          {%- assign slide_image = block.settings.image -%}
+
+          <article class="slide {% if forloop.first %}is-active{% endif %}" data-slide {{ block.shopify_attributes }}>
+            <div class="slide-media">
+              {% if slide_image != blank %}
+                {{ slide_image
+                  | image_url: width: 2000
+                  | image_tag: loading: 'lazy', alt: block.settings.image_alt
+                }}
+              {% else %}
+                {{ 'lifestyle-1' | placeholder_svg_tag }}
+              {% endif %}
+
+              {%- comment -%} Render hotspots that match this slide_id {%- endcomment -%}
+              {%- for hb in section.blocks -%}
+                {%- if hb.type == 'hotspot' and hb.settings.slide_id == block.settings.slide_id -%}
+                  {%- assign p = hb.settings.product -%}
+                  {%- if p != blank -%}
+                    <button class="hotspot"
+                      style="--x: {{ hb.settings.x }}%; --y: {{ hb.settings.y }}%;"
+                      data-product='{
+                        "title": {{ p.title | json }},
+                        "price": {{ p.price | money | json }},
+                        "compare_at": {{ p.compare_at_price | money | json }},
+                        "image": {{ p.featured_image | image_url: width: 600 | json }},
+                        "url": {{ p.url | json }}
+                      }'
+                      aria-label="View product: {{ p.title | escape }}">
+                      <span class="hotspot__plus" aria-hidden="true">+</span>
+                    </button>
+                  {%- endif -%}
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+
+            <div class="slide-footer">
+              {% if block.settings.caption != blank %}
+                <p class="slide-caption">{{ block.settings.caption }}</p>
+              {% endif %}
+
+              {%- if slide_collection != blank -%}
+                <a class="btn" href="{{ slide_collection.url }}">
+                  {{ block.settings.button_label | default: 'VIEW ALL' }}
+                </a>
+              {%- else -%}
+                <a class="btn" href="#">
+                  {{ block.settings.button_label | default: 'VIEW ALL' }}
+                </a>
+              {%- endif -%}
+            </div>
+          </article>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    <!-- Arrows -->
+    <button class="nav nav--prev" data-prev aria-label="Previous slide">
+      {% if section.settings.prev_icon != blank %}
+        {{ section.settings.prev_icon | image_url: width: 120 | image_tag: loading: 'lazy', alt: 'Previous' }}
+      {% else %}
+        ‹
+      {% endif %}
+    </button>
+
+    <button class="nav nav--next" data-next aria-label="Next slide">
+      {% if section.settings.next_icon != blank %}
+        {{ section.settings.next_icon | image_url: width: 120 | image_tag: loading: 'lazy', alt: 'Next' }}
+      {% else %}
+        ›
+      {% endif %}
+    </button>
+
+    <!-- Dots -->
+    <div class="dots" data-dots aria-label="Slide navigation"></div>
+  </div>
+</section>
+
+<!-- Modal -->
+<div class="modal" data-modal aria-hidden="true">
+  <div class="modal__backdrop" data-close></div>
+
+  <div class="modal__panel" role="dialog" aria-modal="true" aria-label="Product details">
+    <button class="modal__close" data-close aria-label="Close">×</button>
+
+    <div class="product-card">
+      <div class="product-card__img">
+        <img data-modal-image alt="" />
+      </div>
+
+      <div class="product-card__info">
+        <h3 class="product-card__title" data-modal-title></h3>
+        <div class="product-card__price" data-modal-price></div>
+
+        <div class="product-card__actions" aria-label="Actions">
+          <a class="icon-btn" data-modal-link title="View" aria-label="View details">🔍</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* ====== basic layout (keep your existing CSS if you already have it) ====== */
+  #hotspot-slider-{{ section.id }} .slider { position: relative; max-width: {{ section.settings.max_width }}px; margin: 0 auto; }
+  #hotspot-slider-{{ section.id }} .slides { position: relative; overflow: hidden; }
+  #hotspot-slider-{{ section.id }} .slide { display: none; }
+  #hotspot-slider-{{ section.id }} .slide.is-active { display: block; }
+
+  #hotspot-slider-{{ section.id }} .slide-media { position: relative; border-radius: {{ section.settings.radius }}px; overflow: hidden; }
+  #hotspot-slider-{{ section.id }} .slide-media img { width: 100%; height: auto; display: block; }
+
+  /* hotspots */
+  #hotspot-slider-{{ section.id }} .hotspot {
+    position: absolute;
+    left: var(--x);
+    top: var(--y);
+    transform: translate(-50%, -50%);
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    z-index: 2;
+  }
+  #hotspot-slider-{{ section.id }} .hotspot__plus{
+    width: 34px; height: 34px;
+    display: grid; place-items: center;
+    border-radius: 999px;
+    background: {{ section.settings.plus_bg }};
+    color: {{ section.settings.plus_color }};
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  /* footer */
+  #hotspot-slider-{{ section.id }} .slide-footer{
+    display:flex; align-items:center; justify-content:space-between;
+    gap: 16px;
+    padding: 14px 2px 0;
+  }
+  #hotspot-slider-{{ section.id }} .slide-caption{ margin:0; }
+  #hotspot-slider-{{ section.id }} .btn{
+    display:inline-flex; align-items:center; justify-content:center;
+    padding: 10px 14px;
+    border-radius: 999px;
+    text-decoration:none;
+    border: 1px solid currentColor;
+  }
+
+  /* nav */
+  #hotspot-slider-{{ section.id }} .nav{
+    position:absolute; top: 50%; transform: translateY(-50%);
+    border:0; background: rgba(255,255,255,.85);
+    width: 44px; height: 44px; border-radius: 999px;
+    display:grid; place-items:center;
+    cursor:pointer; z-index: 5;
+  }
+  #hotspot-slider-{{ section.id }} .nav--prev{ left: 10px; }
+  #hotspot-slider-{{ section.id }} .nav--next{ right: 10px; }
+  #hotspot-slider-{{ section.id }} .nav img{ width: 18px; height: auto; display:block; }
+
+  /* dots */
+  #hotspot-slider-{{ section.id }} .dots{
+    display:flex; justify-content:center; gap: 8px;
+    padding-top: 12px;
+  }
+  #hotspot-slider-{{ section.id }} .dot{
+    width: 8px; height: 8px; border-radius: 999px;
+    border:0; cursor:pointer;
+    opacity: .35;
+    background: currentColor;
+  }
+  #hotspot-slider-{{ section.id }} .dot.is-active{ opacity: 1; }
+
+  /* modal */
+  .modal{ position: fixed; inset:0; display:none; z-index: 9999; }
+  .modal.is-open{ display:block; }
+  .modal__backdrop{ position:absolute; inset:0; background: rgba(0,0,0,.55); }
+  .modal__panel{
+    position: relative;
+    width: min(520px, calc(100% - 32px));
+    margin: 8vh auto 0;
+    background: #fff;
+    border-radius: 18px;
+    padding: 16px;
+    z-index: 1;
+  }
+  .modal__close{
+    position:absolute; top: 10px; right: 12px;
+    border:0; background: transparent;
+    font-size: 26px; cursor:pointer;
+  }
+  .product-card{ display:grid; grid-template-columns: 120px 1fr; gap: 14px; align-items:center; }
+  .product-card__img img{ width: 120px; height: 120px; object-fit: cover; border-radius: 14px; display:block; }
+  .product-card__title{ margin:0 0 8px; font-size: 18px; }
+  .product-card__price{ margin-bottom: 10px; }
+  .icon-btn{
+    display:inline-flex; align-items:center; justify-content:center;
+    width: 40px; height: 40px; border-radius: 999px;
+    border: 1px solid rgba(0,0,0,.15);
+    text-decoration:none;
+  }
+</style>
+
+<script>
+  (() => {
+    const root = document.querySelector('#hotspot-slider-{{ section.id }}');
+    if (!root) return;
+
+    const slidesWrap = root.querySelector('[data-slides]');
+    const slides = Array.from(root.querySelectorAll('[data-slide]'));
+    const prevBtn = root.querySelector('[data-prev]');
+    const nextBtn = root.querySelector('[data-next]');
+    const dotsWrap = root.querySelector('[data-dots]');
+
+    const modal = document.querySelector('[data-modal]');
+    const modalImg = modal?.querySelector('[data-modal-image]');
+    const modalTitle = modal?.querySelector('[data-modal-title]');
+    const modalPrice = modal?.querySelector('[data-modal-price]');
+    const modalLink = modal?.querySelector('[data-modal-link]');
+    const closeEls = modal ? Array.from(modal.querySelectorAll('[data-close]')) : [];
+
+    let index = 0;
+
+    function setActive(i){
+      index = (i + slides.length) % slides.length;
+      slides.forEach((s, idx) => s.classList.toggle('is-active', idx === index));
+      Array.from(dotsWrap.children).forEach((d, idx) => d.classList.toggle('is-active', idx === index));
+    }
+
+    function buildDots(){
+      dotsWrap.innerHTML = '';
+      slides.forEach((_, i) => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'dot' + (i === 0 ? ' is-active' : '');
+        b.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+        b.addEventListener('click', () => setActive(i));
+        dotsWrap.appendChild(b);
+      });
+    }
+
+    function openModal(product){
+      if (!modal) return;
+      modal.classList.add('is-open');
+      modal.setAttribute('aria-hidden', 'false');
+      if (modalImg) modalImg.src = product.image || '';
+      if (modalTitle) modalTitle.textContent = product.title || '';
+      if (modalPrice) modalPrice.textContent = product.price || '';
+      if (modalLink) modalLink.href = product.url || '#';
+    }
+
+    function closeModal(){
+      if (!modal) return;
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden', 'true');
+    }
+
+    root.addEventListener('click', (e) => {
+      const btn = e.target.closest('.hotspot');
+      if (!btn) return;
+
+      const raw = btn.getAttribute('data-product');
+      if (!raw) return;
+
+      try {
+        const product = JSON.parse(raw);
+        openModal(product);
+      } catch (err) {}
+    });
+
+    closeEls.forEach(el => el.addEventListener('click', closeModal));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    prevBtn?.addEventListener('click', () => setActive(index - 1));
+    nextBtn?.addEventListener('click', () => setActive(index + 1));
+
+    buildDots();
+    setActive(0);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Hotspot Slider",
+  "settings": [
+    { "type": "range", "id": "max_width", "min": 900, "max": 1800, "step": 10, "default": 1400, "label": "Max width (px)" },
+    { "type": "range", "id": "radius", "min": 0, "max": 32, "step": 1, "default": 18, "label": "Image radius (px)" },
+
+    { "type": "image_picker", "id": "prev_icon", "label": "Prev arrow icon" },
+    { "type": "image_picker", "id": "next_icon", "label": "Next arrow icon" },
+
+    { "type": "color", "id": "plus_bg", "default": "#ffffff", "label": "Plus background" },
+    { "type": "color", "id": "plus_color", "default": "#000000", "label": "Plus color" }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide (collection)",
+      "settings": [
+        { "type": "text", "id": "slide_id", "label": "Slide ID (unique, e.g. slide-1)", "default": "slide-1" },
+        { "type": "collection", "id": "collection", "label": "Collection (VIEW ALL links here)" },
+        { "type": "image_picker", "id": "image", "label": "Slide image" },
+        { "type": "text", "id": "image_alt", "label": "Image alt text", "default": "Hotspot slide image" },
+        { "type": "text", "id": "caption", "label": "Caption" },
+        { "type": "text", "id": "button_label", "label": "Button label", "default": "VIEW ALL" }
+      ]
+    },
+    {
+      "type": "hotspot",
+      "name": "Hotspot",
+      "settings": [
+        { "type": "text", "id": "slide_id", "label": "Assign to Slide ID (must match a slide)", "default": "slide-1" },
+
+        { "type": "range", "id": "x", "min": 0, "max": 100, "step": 1, "default": 10, "label": "X position (%)" },
+        { "type": "range", "id": "y", "min": 0, "max": 100, "step": 1, "default": 50, "label": "Y position (%)" },
+
+        { "type": "product", "id": "product", "label": "Product (should belong to that slide’s collection)" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "Hotspot Slider", "category": "Media" }
+  ]
+}
+{% endschema %}
