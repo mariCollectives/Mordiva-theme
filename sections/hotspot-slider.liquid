@@ -5,7 +5,13 @@
 {% endcomment %}
 
 <section class="hotspot-slider" id="hotspot-slider-{{ section.id }}" aria-label="Image slider with hotspots">
-  <div class="hs-slider" data-hs-slider>
+    <div
+      class="hs-slider"
+      data-hs-slider
+      data-autoplay="{{ section.settings.autoplay }}"
+      data-interval="{{ section.settings.autoplay_seconds | times: 1000 }}"
+      data-pause-hover="{{ section.settings.pause_on_hover }}"
+    >
 
       <button class="hs-nav hs-nav--prev" type="button" data-hs-prev aria-label="Previous slide">
       {%- if section.settings.arrow_left != blank -%}
@@ -67,6 +73,11 @@
         </article>
       {%- endfor -%}
     </div>
+
+    <div class="hs-dots" data-hs-dots></div>
+
+
+
 
     <button class="hs-nav hs-nav--next" type="button" data-hs-next aria-label="Next slide">
       {%- if section.settings.arrow_right != blank -%}
@@ -170,10 +181,24 @@
       position: fixed; inset: 0;
       display:none; z-index: 9999;
     }
-    #hotspot-slider-{{ section.id }} .hs-modal.is-open{ display:block; }
+
+    #hotspot-slider-{{ section.id }} .hs-modal.is-open{
+      display:flex;
+      align-items:flex-start;
+      justify-content:center;
+    }
+    #hotspot-slider-{{ section.id }} .hs-modal__panel{
+      margin: 10vh 14px 0;
+    }
+
+
+
     #hotspot-slider-{{ section.id }} .hs-modal__backdrop{
       position:absolute; inset:0; background: rgba(0,0,0,.55);
     }
+
+
+
     #hotspot-slider-{{ section.id }} .hs-modal__panel{
       position: relative;
       max-width: 900px;
@@ -255,6 +280,7 @@
   const prevBtn = root.querySelector("[data-hs-prev]");
   const nextBtn = root.querySelector("[data-hs-next]");
   const dotsWrap = root.querySelector("[data-hs-dots]");
+  dotsWrap.innerHTML = "";
 
   const modal = root.querySelector("[data-hs-modal]");
   const modalTitle = root.querySelector("[data-hs-modal-title]");
@@ -268,7 +294,9 @@
   let index = slides.findIndex(s => s.classList.contains("is-active"));
   if (index < 0) index = 0;
 
-  // Build dots
+  // Build dots (SAFE)
+let dots = [];
+if (dotsWrap) {
   dotsWrap.innerHTML = "";
   slides.forEach((_, i) => {
     const b = document.createElement("button");
@@ -277,21 +305,26 @@
     b.setAttribute("aria-label", `Go to slide ${i + 1}`);
     b.addEventListener("click", () => {
       goTo(i);
-      resetAutoplay(); // user interacted
+      resetAutoplay();
     });
     dotsWrap.appendChild(b);
   });
-  const dots = Array.from(dotsWrap.querySelectorAll(".hs-dot"));
+  dots = Array.from(dotsWrap.querySelectorAll(".hs-dot"));
+}
 
-  function goTo(i) {
-    slides[index].classList.remove("is-active");
-    dots[index].classList.remove("is-active");
+function goTo(i) {
+  slides[index].classList.remove("is-active");
+  if (dots[index]) dots[index].classList.remove("is-active");
 
-    index = (i + slides.length) % slides.length;
+  index = (i + slides.length) % slides.length;
 
-    slides[index].classList.add("is-active");
-    dots[index].classList.add("is-active");
-  }
+  slides[index].classList.add("is-active");
+  if (dots[index]) dots[index].classList.add("is-active");
+}
+
+
+
+
 
   prevBtn && prevBtn.addEventListener("click", () => { goTo(index - 1); resetAutoplay(); });
   nextBtn && nextBtn.addEventListener("click", () => { goTo(index + 1); resetAutoplay(); });
