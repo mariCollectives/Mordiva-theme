@@ -182,17 +182,10 @@
       display:none; z-index: 9999;
     }
 
-    #hotspot-slider-{{ section.id }} .hs-modal.is-open{
-      display:flex;
-      align-items:flex-start;
-      justify-content:center;
-    }
-    #hotspot-slider-{{ section.id }} .hs-modal__panel{
-      margin: 10vh 14px 0;
-    }
 
+    #hotspot-slider-{{ section.id }} .hs-modal.is-open{ display:block; }
 
-
+    
     #hotspot-slider-{{ section.id }} .hs-modal__backdrop{
       position:absolute; inset:0; background: rgba(0,0,0,.55);
     }
@@ -201,7 +194,7 @@
 
     #hotspot-slider-{{ section.id }} .hs-modal__panel{
       position: relative;
-      max-width: 900px;
+      max-width: 350px;
       margin: 10vh auto 0;
       background: #fff;
       border-radius: 18px;
@@ -216,15 +209,17 @@
     }
     #hotspot-slider-{{ section.id }} .hs-product-card{
       display:grid;
-      grid-template-columns: 220px 1fr;
-      gap: 18px;
+      grid-template-columns: 120px 1fr;
+      gap: 0;
       align-items: center;
     }
     #hotspot-slider-{{ section.id }} .hs-product-card__img{
-      width: 220px; height: 220px;
-      border-radius: 14px; overflow:hidden;
-      background:#f6f6f6;
-      display:grid; place-items:center;
+      width: 110px; height: 110px;
+      border-radius: 14px; 
+      overflow:hidden;
+      background:#fff;
+      display:grid; 
+      place-items:center;
     }
     #hotspot-slider-{{ section.id }} .hs-product-card__img img{
       width:100%; height:100%; object-fit: cover; display:block;
@@ -322,15 +317,11 @@ function goTo(i) {
   if (dots[index]) dots[index].classList.add("is-active");
 }
 
-
-
-
-
   prevBtn && prevBtn.addEventListener("click", () => { goTo(index - 1); resetAutoplay(); });
   nextBtn && nextBtn.addEventListener("click", () => { goTo(index + 1); resetAutoplay(); });
 
   // -------- Autoplay (configurable from Theme Editor) --------
-  const autoplayEnabled = slider?.dataset.autoplay === "true";
+  const autoplayEnabled = slider?.dataset.autoplay === "false";
   const intervalMs = Math.max(parseInt(slider?.dataset.interval || "0", 10) || 0, 1000);
   const pauseOnHover = slider?.dataset.pauseHover === "true";
 

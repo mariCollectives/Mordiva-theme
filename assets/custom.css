@@ -59,3 +59,28 @@ body, button, input, select, textarea {
 .color-scheme-6{
     background-color: #21433E !important;
 }
+
+.hs-product-card__actions .hs-icon-btn{
+    width: 22px !important;
+    height: 22px !important;
+    --buttons-padding: 10px;
+    font-size: 15px;
+}
+
+.hs-product-card__title{
+    font-family: "Lexend", sans-serif;
+    font-weight: 400 !important;
+    font-size: 16px;
+}
+
+.hs-icon-btn{
+    line-height: 22px;
+}
+
+.hs-modal__close{
+
+    width: 20px;
+    height: 20px;
+    font-size: 16px  !important;
+    padding: 10px !important;
+}
