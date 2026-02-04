@@ -2,6 +2,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Shantell+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 
 
+.hd1, .hd2, .hd3, h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6{
+   font-family: "Lexend", sans-serif;
+    font-weight: 400 !important;
+}
 
 .announcement-bar-section, .announcement-bar.color-scheme-inverse{
      background: #F9AB88 !important;
@@ -92,6 +96,6 @@ body, button, input, select, textarea {
     right: 25em !important;
  }
 
- .section--image-comparison{
+ .section--image-comparison, .convertingPlaceSection{
     background-color: #21433E !important;
  }
