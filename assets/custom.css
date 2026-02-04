@@ -87,3 +87,8 @@ body, button, input, select, textarea {
  .hs-modal__panel{
     width: 320px;
  }
+
+ .is-pop-8{
+    right: 25em !important;
+ }
+

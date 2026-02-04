@@ -212,9 +212,7 @@
 
 
     #hotspot-slider-{{ section.id }} .hs-modal__close{
-      position:absolute; 
-      right: 2px; 
-      top: 12px;
+      position:absolute; right: 14px; top: 12px;
       width: 40px; height: 40px;
       border:0; border-radius: 999px;
       background: #f3f3f3; cursor:pointer;
@@ -265,6 +263,12 @@
 
   #hotspot-slider-{{ section.id }} .hs-slider { overflow: visible; }
   #hotspot-slider-{{ section.id }} .hs-feedback{ margin-top: 10px; font-size: 14px; }
+
+
+  #hotspot-slider-{{ section.id }} [data-hs-idx="5"] {
+      /* styles */
+  }
+
   
   @media (max-width: 700px){
       #hotspot-slider-{{ section.id }} .hs-product-card{ grid-template-columns: 1fr; }
@@ -445,6 +449,32 @@ function goTo(i) {
 })();
 
   </script>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const root = document.querySelector('[data-hs-slider]') || document;
+  const modal = document.querySelector('.hs-modal'); // the single shared modal
+  if (!modal) return;
+
+  // helper: remove previous is-pop-* classes
+  const clearPopClasses = () => {
+    modal.className = modal.className.replace(/\bis-pop-\d+\b/g, '').trim();
+  };
+
+  root.addEventListener('click', (e) => {
+    const btn = e.target.closest('.hs-hotspot[data-hs-idx]');
+    if (!btn) return;
+
+    const idx = btn.getAttribute('data-hs-idx');
+    clearPopClasses();
+    modal.classList.add(`is-pop-${idx}`);
+
+    // optional: also store as data attr for easier CSS
+    modal.setAttribute('data-active-pop', idx);
+  });
+});
+</script>
 
 
 
