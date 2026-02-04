@@ -258,6 +258,15 @@
             "y": 65
           }
         },
+        "hotspot_VkPY4h": {
+          "type": "hotspot",
+          "settings": {
+            "slide_number": 1,
+            "product": "masterkidz-is-it-magnetic-game-board",
+            "x": 45,
+            "y": 60
+          }
+        },
         "slide_Vaijaa": {
           "type": "slide",
           "settings": {
@@ -293,6 +302,7 @@
         "hotspot_pFJDD4",
         "hotspot_UBQMr9",
         "hotspot_UjwVbJ",
+        "hotspot_VkPY4h",
         "slide_Vaijaa",
         "slide_Rew8HW",
         "hotspot_fnbhPX"
