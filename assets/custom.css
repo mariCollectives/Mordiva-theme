@@ -78,9 +78,12 @@ body, button, input, select, textarea {
 }
 
 .hs-modal__close{
-
     width: 20px;
     height: 20px;
     font-size: 16px  !important;
     padding: 10px !important;
 }
+
+ .hs-modal__panel{
+    width: 320px;
+ }

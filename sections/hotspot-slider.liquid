@@ -46,6 +46,7 @@
                 <button
                   class="hs-hotspot"
                   type="button"
+                   data-hs-idx="{{ forloop.index }}"
                   style="--x: {{ h.settings.x }}%; --y: {{ h.settings.y }}%;"
                   data-hs-product='{
                     "title": {{ p.title | json }},
@@ -60,6 +61,33 @@
               {%- endif -%}
             {%- endfor -%}
           </div>
+
+            <div class="hs-modal " data-hs-modal aria-hidden="true">
+              <div class="hs-modal__backdrop" data-hs-close></div>
+
+              <div class="hs-modal__panel" role="dialog" aria-modal="true" aria-label="Product details">
+                <button class="hs-modal__close" type="button" data-hs-close aria-label="Close">×</button>
+
+                <div class="hs-product-card">
+                  <div class="hs-product-card__img">
+                    <img data-hs-modal-image alt="" loading="lazy" />
+                  </div>
+
+                  <div class="hs-product-card__info">
+                    <h3 class="hs-product-card__title" data-hs-modal-title></h3>
+                    <div class="hs-product-card__price" data-hs-modal-price></div>
+
+                    <div class="hs-product-card__actions" aria-label="Actions">
+                      <button class="hs-icon-btn" type="button" title="Wishlist" aria-label="Wishlist">♡</button>
+                      <button class="hs-icon-btn" type="button" data-hs-add title="Add" aria-label="Add to cart">+</button>
+                      <a class="hs-icon-btn" data-hs-view title="Search" aria-label="View details">🔍</a>
+                    </div>
+
+                    <div class="hs-feedback" data-hs-feedback aria-live="polite"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
 
           <div class="hs-slide-footer">
             {%- if s.settings.caption != blank -%}
@@ -89,33 +117,8 @@
 
   </div>
 
-  <!-- Modal (scoped per section instance) -->
-  <div class="hs-modal" data-hs-modal aria-hidden="true">
-    <div class="hs-modal__backdrop" data-hs-close></div>
 
-    <div class="hs-modal__panel" role="dialog" aria-modal="true" aria-label="Product details">
-      <button class="hs-modal__close" type="button" data-hs-close aria-label="Close">×</button>
 
-      <div class="hs-product-card">
-        <div class="hs-product-card__img">
-          <img data-hs-modal-image alt="" loading="lazy" />
-        </div>
-
-        <div class="hs-product-card__info">
-          <h3 class="hs-product-card__title" data-hs-modal-title></h3>
-          <div class="hs-product-card__price" data-hs-modal-price></div>
-
-          <div class="hs-product-card__actions" aria-label="Actions">
-            <button class="hs-icon-btn" type="button" title="Wishlist" aria-label="Wishlist">♡</button>
-            <button class="hs-icon-btn" type="button" data-hs-add title="Add" aria-label="Add to cart">+</button>
-            <a class="hs-icon-btn" data-hs-view title="Search" aria-label="View details">🔍</a>
-          </div>
-
-          <div class="hs-feedback" data-hs-feedback aria-live="polite"></div>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <style>
     #hotspot-slider-{{ section.id }} { position: relative; max-width: 100%; }
@@ -194,15 +197,24 @@
 
     #hotspot-slider-{{ section.id }} .hs-modal__panel{
       position: relative;
-      max-width: 350px;
-      margin: 10vh auto 0;
       background: #fff;
       border-radius: 18px;
       padding: 22px;
       z-index: 1;
     }
+
+
+    #hotspot-slider-{{ section.id }} .hs-modal__panel{
+      left: calc(var(--hx));
+      top:17em;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+    }
+
+
     #hotspot-slider-{{ section.id }} .hs-modal__close{
-      position:absolute; right: 14px; top: 12px;
+      position:absolute; 
+      right: 2px; 
+      top: 12px;
       width: 40px; height: 40px;
       border:0; border-radius: 999px;
       background: #f3f3f3; cursor:pointer;
@@ -369,6 +381,11 @@ function goTo(i) {
     const hotspot = e.target.closest(".hs-hotspot");
     if (!hotspot) return;
 
+      const hx = hotspot.style.getPropertyValue("--x") || "50%";
+      const hy = hotspot.style.getPropertyValue("--y") || "50%";
+      modal.style.setProperty("--hx", hx);
+      modal.style.setProperty("--hy", hy);
+
     const raw = hotspot.getAttribute("data-hs-product");
     if (!raw) return;
 
@@ -428,6 +445,10 @@ function goTo(i) {
 })();
 
   </script>
+
+
+
+
 </section>
 
 {% schema %}
