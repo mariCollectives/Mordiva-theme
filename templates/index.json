@@ -276,6 +276,15 @@
             "y": 40
           }
         },
+        "hotspot_3b8YTA": {
+          "type": "hotspot",
+          "settings": {
+            "slide_number": 1,
+            "product": "soft-foam-building-rocks",
+            "x": 70,
+            "y": 65
+          }
+        },
         "slide_Vaijaa": {
           "type": "slide",
           "settings": {
@@ -313,6 +322,7 @@
         "hotspot_UjwVbJ",
         "hotspot_VkPY4h",
         "hotspot_AADkLH",
+        "hotspot_3b8YTA",
         "slide_Vaijaa",
         "slide_Rew8HW",
         "hotspot_fnbhPX"
