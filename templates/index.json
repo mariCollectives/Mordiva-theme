@@ -231,6 +231,15 @@
             "y": 68
           }
         },
+        "hotspot_pFJDD4": {
+          "type": "hotspot",
+          "settings": {
+            "slide_number": 1,
+            "product": "haba-ball-track-klingeling",
+            "x": 22,
+            "y": 50
+          }
+        },
         "slide_Vaijaa": {
           "type": "slide",
           "settings": {
@@ -263,6 +272,7 @@
       },
       "block_order": [
         "hotspot_Gbm6ye",
+        "hotspot_pFJDD4",
         "slide_Vaijaa",
         "slide_Rew8HW",
         "hotspot_fnbhPX"
@@ -270,7 +280,10 @@
       "name": "Hotspot slider",
       "settings": {
         "arrow_left": "shopify://shop_images/arrow_15031868_4.png",
-        "arrow_right": "shopify://shop_images/arrow_15031868_3.png"
+        "arrow_right": "shopify://shop_images/arrow_15031868_3.png",
+        "autoplay": true,
+        "autoplay_seconds": 5,
+        "pause_on_hover": true
       }
     },
     "rich_text_w8arFx": {
