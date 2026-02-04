@@ -304,6 +304,15 @@
             "button_link": "shopify://collections/construction-and-engineering-copy"
           }
         },
+        "hotspot_fnbhPX": {
+          "type": "hotspot",
+          "settings": {
+            "slide_number": 2,
+            "product": "rainbow-glitter-bulk-1-kg-jar-silver",
+            "x": 50,
+            "y": 50
+          }
+        },
         "slide_Rew8HW": {
           "type": "slide",
           "settings": {
@@ -312,15 +321,6 @@
             "caption": "Craft Resources",
             "button_label": "VIEW ALL",
             "button_link": "shopify://collections/craft-resources"
-          }
-        },
-        "hotspot_fnbhPX": {
-          "type": "hotspot",
-          "settings": {
-            "slide_number": 2,
-            "product": "rainbow-glitter-bulk-1-kg-jar-silver",
-            "x": 50,
-            "y": 50
           }
         }
       },
@@ -334,8 +334,8 @@
         "hotspot_3b8YTA",
         "hotspot_3KkjGj",
         "slide_Vaijaa",
-        "slide_Rew8HW",
-        "hotspot_fnbhPX"
+        "hotspot_fnbhPX",
+        "slide_Rew8HW"
       ],
       "name": "Hotspot slider",
       "settings": {
