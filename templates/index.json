@@ -246,7 +246,16 @@
             "slide_number": 1,
             "product": "janod-diy-barrel",
             "x": 30,
-            "y": 50
+            "y": 65
+          }
+        },
+        "hotspot_UjwVbJ": {
+          "type": "hotspot",
+          "settings": {
+            "slide_number": 1,
+            "product": "haba-ball-track-funnel-set",
+            "x": 30,
+            "y": 65
           }
         },
         "slide_Vaijaa": {
@@ -283,6 +292,7 @@
         "hotspot_Gbm6ye",
         "hotspot_pFJDD4",
         "hotspot_UBQMr9",
+        "hotspot_UjwVbJ",
         "slide_Vaijaa",
         "slide_Rew8HW",
         "hotspot_fnbhPX"
