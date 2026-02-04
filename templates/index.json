@@ -237,6 +237,15 @@
             "slide_number": 1,
             "product": "haba-ball-track-klingeling",
             "x": 22,
+            "y": 85
+          }
+        },
+        "hotspot_UBQMr9": {
+          "type": "hotspot",
+          "settings": {
+            "slide_number": 1,
+            "product": "janod-diy-barrel",
+            "x": 30,
             "y": 50
           }
         },
@@ -273,6 +282,7 @@
       "block_order": [
         "hotspot_Gbm6ye",
         "hotspot_pFJDD4",
+        "hotspot_UBQMr9",
         "slide_Vaijaa",
         "slide_Rew8HW",
         "hotspot_fnbhPX"
