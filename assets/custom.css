@@ -48,3 +48,14 @@ body, button, input, select, textarea {
 .trendingNowCollage{
     padding-bottom: 50px;
 }
+
+.hotspot-slider{
+    margin: 0 auto 40px auto !important;
+    max-width: 1400px !important;
+
+}
+
+
+.color-scheme-6{
+    background-color: #21433E !important;
+}
