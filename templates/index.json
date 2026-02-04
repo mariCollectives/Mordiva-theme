@@ -267,6 +267,15 @@
             "y": 60
           }
         },
+        "hotspot_AADkLH": {
+          "type": "hotspot",
+          "settings": {
+            "slide_number": 1,
+            "product": "free-standing-mobile-stem-wall",
+            "x": 55,
+            "y": 40
+          }
+        },
         "slide_Vaijaa": {
           "type": "slide",
           "settings": {
@@ -303,6 +312,7 @@
         "hotspot_UBQMr9",
         "hotspot_UjwVbJ",
         "hotspot_VkPY4h",
+        "hotspot_AADkLH",
         "slide_Vaijaa",
         "slide_Rew8HW",
         "hotspot_fnbhPX"
