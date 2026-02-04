@@ -586,7 +586,7 @@
         "padding_bottom": 100,
         "show_section_divider": false,
         "divider_width": "fixed",
-        "custom_class": ""
+        "custom_class": "convertingPlaceSection"
       }
     },
     "collections_slider_yD633Y": {
