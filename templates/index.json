@@ -708,6 +708,31 @@
         "custom_class": ""
       }
     },
+    "rich_text_bg6ANt": {
+      "type": "rich-text",
+      "blocks": {
+        "text_f4AkNN": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Need help choosing? <span style=\"text-decoration:underline\">Speak</span> to an education specialist.</p>",
+            "text_size": "text-base"
+          }
+        }
+      },
+      "block_order": [
+        "text_f4AkNN"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "color_scheme": "",
+        "content_alignment": "center",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": ""
+      }
+    },
     "contact_form_4hKEeH": {
       "type": "contact-form",
       "name": "t:sections.contact-form.presets.name",
@@ -1031,6 +1056,7 @@
     "product_tabs_jhb9aJ",
     "lookbook_slider_cte8Fy",
     "custom_liquid_pJ7MQg",
+    "rich_text_bg6ANt",
     "contact_form_4hKEeH",
     "image_comparison_CLXe7t",
     "rich_text_HphPmy",
