@@ -242,7 +242,7 @@
         "padding_bottom": 50,
         "show_section_divider": false,
         "divider_width": "fixed",
-        "custom_class": ""
+        "custom_class": "ShopNowHead"
       }
     },
     "hotspot_slider_CWTf6t": {
