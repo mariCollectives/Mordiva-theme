@@ -394,6 +394,15 @@
             "button_link": "shopify://collections/craft-resources"
           }
         },
+        "hotspot_U7GGD7": {
+          "type": "hotspot",
+          "settings": {
+            "slide_number": 2,
+            "product": "",
+            "x": 50,
+            "y": 50
+          }
+        },
         "slide_brtxej": {
           "type": "slide",
           "settings": {
@@ -432,6 +441,7 @@
         "hotspot_LNWh3b",
         "hotspot_ppjqpt",
         "slide_Rew8HW",
+        "hotspot_U7GGD7",
         "slide_brtxej",
         "slide_mkaRce"
       ],
