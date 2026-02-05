@@ -473,7 +473,16 @@
             "slide_number": 4,
             "product": "janod-sunshine-drum",
             "x": 5,
-            "y": 50
+            "y": 55
+          }
+        },
+        "hotspot_iycyTc": {
+          "type": "hotspot",
+          "settings": {
+            "slide_number": 4,
+            "product": "janod-cocoon-musical-caterpillar",
+            "x": 48,
+            "y": 65
           }
         },
         "slide_mkaRce": {
@@ -513,6 +522,7 @@
         "slide_brtxej",
         "hotspot_NLeccd",
         "hotspot_UAaWa9",
+        "hotspot_iycyTc",
         "slide_mkaRce"
       ],
       "name": "Hotspot slider",
