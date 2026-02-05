@@ -763,10 +763,17 @@
     "rich_text_HphPmy": {
       "type": "rich-text",
       "blocks": {
+        "text_AMbtar": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Converting a space into a</p>",
+            "text_size": "text-lg"
+          }
+        },
         "heading_eAXU9P": {
           "type": "heading",
           "settings": {
-            "heading": "Converting a space into a BETTER PLACE to play & learn",
+            "heading": "BETTER PLACE to play & learn",
             "heading_size": "h1",
             "heading_highlight_style": "none"
           }
@@ -781,6 +788,7 @@
         }
       },
       "block_order": [
+        "text_AMbtar",
         "heading_eAXU9P",
         "button_YWF7i6"
       ],
