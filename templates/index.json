@@ -832,8 +832,8 @@
           "type": "collection",
           "settings": {
             "color_scheme": "scheme-inverse",
-            "collection": "",
-            "title": "Sofa Living",
+            "collection": "games-and-puzzles-1",
+            "title": "Games & Puzzle",
             "title_size": "hd2",
             "description": "",
             "text_size": "text-lg",
