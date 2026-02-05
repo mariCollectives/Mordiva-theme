@@ -330,16 +330,6 @@
             "button_link": "shopify://collections/construction-and-engineering-copy"
           }
         },
-        "slide_Rew8HW": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/slide1.png",
-            "alt": "Craft Resources",
-            "caption": "Craft Resources",
-            "button_label": "VIEW ALL",
-            "button_link": "shopify://collections/craft-resources"
-          }
-        },
         "hotspot_fnbhPX": {
           "type": "hotspot",
           "settings": {
@@ -393,6 +383,16 @@
             "x": 95,
             "y": 55
           }
+        },
+        "slide_Rew8HW": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/slide1.png",
+            "alt": "Craft Resources",
+            "caption": "Craft Resources",
+            "button_label": "VIEW ALL",
+            "button_link": "shopify://collections/craft-resources"
+          }
         }
       },
       "block_order": [
@@ -405,13 +405,13 @@
         "hotspot_3b8YTA",
         "hotspot_3KkjGj",
         "slide_Vaijaa",
-        "slide_Rew8HW",
         "hotspot_fnbhPX",
         "hotspot_JFma34",
         "hotspot_CNXwBc",
         "hotspot_PPJ64N",
         "hotspot_LNWh3b",
-        "hotspot_ppjqpt"
+        "hotspot_ppjqpt",
+        "slide_Rew8HW"
       ],
       "name": "Hotspot slider",
       "settings": {
