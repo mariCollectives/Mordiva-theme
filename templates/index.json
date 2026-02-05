@@ -393,6 +393,16 @@
             "button_label": "VIEW ALL",
             "button_link": "shopify://collections/craft-resources"
           }
+        },
+        "slide_brtxej": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/slider2_c3227430-ca80-4ca7-98cb-3694aa687fc6.png",
+            "alt": "Art and Craft",
+            "caption": "",
+            "button_label": "VIEW ALL",
+            "button_link": "shopify://collections/art-and-craft"
+          }
         }
       },
       "block_order": [
@@ -411,7 +421,8 @@
         "hotspot_PPJ64N",
         "hotspot_LNWh3b",
         "hotspot_ppjqpt",
-        "slide_Rew8HW"
+        "slide_Rew8HW",
+        "slide_brtxej"
       ],
       "name": "Hotspot slider",
       "settings": {
