@@ -357,6 +357,15 @@
             "x": 18,
             "y": 45
           }
+        },
+        "hotspot_CNXwBc": {
+          "type": "hotspot",
+          "settings": {
+            "slide_number": 2,
+            "product": "rainbow-glitter-bulk-1-kg-jar-green",
+            "x": 23,
+            "y": 50
+          }
         }
       },
       "block_order": [
@@ -371,7 +380,8 @@
         "slide_Vaijaa",
         "slide_Rew8HW",
         "hotspot_fnbhPX",
-        "hotspot_JFma34"
+        "hotspot_JFma34",
+        "hotspot_CNXwBc"
       ],
       "name": "Hotspot slider",
       "settings": {
