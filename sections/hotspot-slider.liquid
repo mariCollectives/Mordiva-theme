@@ -265,9 +265,14 @@
   #hotspot-slider-{{ section.id }} .hs-feedback{ margin-top: 10px; font-size: 14px; }
 
 
-  #hotspot-slider-{{ section.id }} [data-hs-idx="5"] {
-      /* styles */
+
+  #hotspot-slider-{{ section.id }} .hs-modal__panel{
+    position: fixed;
+    left: var(--hx);
+    top: var(--hy);
+    transform: translate(-50%, -50%);
   }
+
 
   
   @media (max-width: 700px){
@@ -280,175 +285,7 @@
 
   </style>
 
-  <script>
-  (function () {
-  const root = document.getElementById("hotspot-slider-{{ section.id }}");
-  if (!root) return;
 
-  const slider = root.querySelector("[data-hs-slider]");
-  const slidesWrap = root.querySelector("[data-hs-slides]");
-  const slides = Array.from(slidesWrap.querySelectorAll("[data-hs-slide]"));
-  const prevBtn = root.querySelector("[data-hs-prev]");
-  const nextBtn = root.querySelector("[data-hs-next]");
-  const dotsWrap = root.querySelector("[data-hs-dots]");
-  dotsWrap.innerHTML = "";
-
-  const modal = root.querySelector("[data-hs-modal]");
-  const modalTitle = root.querySelector("[data-hs-modal-title]");
-  const modalPrice = root.querySelector("[data-hs-modal-price]");
-  const modalImage = root.querySelector("[data-hs-modal-image]");
-  const modalClosers = Array.from(root.querySelectorAll("[data-hs-close]"));
-  const addBtn = root.querySelector("[data-hs-add]");
-  const viewLink = root.querySelector("[data-hs-view]");
-  const feedback = root.querySelector("[data-hs-feedback]");
-
-  let index = slides.findIndex(s => s.classList.contains("is-active"));
-  if (index < 0) index = 0;
-
-  // Build dots (SAFE)
-let dots = [];
-if (dotsWrap) {
-  dotsWrap.innerHTML = "";
-  slides.forEach((_, i) => {
-    const b = document.createElement("button");
-    b.className = "hs-dot" + (i === index ? " is-active" : "");
-    b.type = "button";
-    b.setAttribute("aria-label", `Go to slide ${i + 1}`);
-    b.addEventListener("click", () => {
-      goTo(i);
-      resetAutoplay();
-    });
-    dotsWrap.appendChild(b);
-  });
-  dots = Array.from(dotsWrap.querySelectorAll(".hs-dot"));
-}
-
-function goTo(i) {
-  slides[index].classList.remove("is-active");
-  if (dots[index]) dots[index].classList.remove("is-active");
-
-  index = (i + slides.length) % slides.length;
-
-  slides[index].classList.add("is-active");
-  if (dots[index]) dots[index].classList.add("is-active");
-}
-
-  prevBtn && prevBtn.addEventListener("click", () => { goTo(index - 1); resetAutoplay(); });
-  nextBtn && nextBtn.addEventListener("click", () => { goTo(index + 1); resetAutoplay(); });
-
-  // -------- Autoplay (configurable from Theme Editor) --------
-  const autoplayEnabled = slider?.dataset.autoplay === "false";
-  const intervalMs = Math.max(parseInt(slider?.dataset.interval || "0", 10) || 0, 1000);
-  const pauseOnHover = slider?.dataset.pauseHover === "true";
-
-  let timer = null;
-
-  function startAutoplay() {
-    if (!autoplayEnabled || slides.length <= 1) return;
-    stopAutoplay();
-    timer = window.setInterval(() => goTo(index + 1), intervalMs);
-  }
-
-  function stopAutoplay() {
-    if (timer) {
-      window.clearInterval(timer);
-      timer = null;
-    }
-  }
-
-  // After manual interaction, restart autoplay so it doesn't feel "stuck"
-  function resetAutoplay() {
-    if (!autoplayEnabled) return;
-    stopAutoplay();
-    startAutoplay();
-  }
-
-  if (pauseOnHover) {
-    slider.addEventListener("mouseenter", stopAutoplay);
-    slider.addEventListener("mouseleave", startAutoplay);
-  }
-
-  // Pause autoplay while modal is open (prevents slide jumping behind modal)
-  function pauseForModal(open) {
-    if (!autoplayEnabled) return;
-    if (open) stopAutoplay();
-    else startAutoplay();
-  }
-
-  startAutoplay();
-  // ----------------------------------------------------------
-
-  let currentVariantId = null;
-
-  // Hotspot -> modal
-  slider.addEventListener("click", (e) => {
-    const hotspot = e.target.closest(".hs-hotspot");
-    if (!hotspot) return;
-
-      const hx = hotspot.style.getPropertyValue("--x") || "50%";
-      const hy = hotspot.style.getPropertyValue("--y") || "50%";
-      modal.style.setProperty("--hx", hx);
-      modal.style.setProperty("--hy", hy);
-
-    const raw = hotspot.getAttribute("data-hs-product");
-    if (!raw) return;
-
-    let data;
-    try { data = JSON.parse(raw); } catch { return; }
-
-    modalTitle.textContent = data.title || "";
-    modalPrice.textContent = data.price || "";
-    modalImage.src = data.image || "";
-    modalImage.alt = data.title || "Product image";
-    currentVariantId = data.variant_id || null;
-    if (viewLink) viewLink.href = data.url || "#";
-    if (feedback) feedback.textContent = "";
-
-    openModal();
-  });
-
-  function openModal() {
-    modal.classList.add("is-open");
-    modal.setAttribute("aria-hidden", "false");
-    document.body.style.overflow = "hidden";
-    pauseForModal(true);
-  }
-
-  function closeModal() {
-    modal.classList.remove("is-open");
-    modal.setAttribute("aria-hidden", "true");
-    document.body.style.overflow = "";
-    pauseForModal(false);
-  }
-
-  modalClosers.forEach(el => el.addEventListener("click", closeModal));
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && modal.classList.contains("is-open")) closeModal();
-    if (e.key === "ArrowLeft") { goTo(index - 1); resetAutoplay(); }
-    if (e.key === "ArrowRight") { goTo(index + 1); resetAutoplay(); }
-  });
-
-  // Add to cart
-  addBtn && addBtn.addEventListener("click", async () => {
-    if (!currentVariantId) return;
-    addBtn.disabled = true;
-    try {
-      const res = await fetch("/cart/add.js", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id: currentVariantId, quantity: 1 })
-      });
-      if (!res.ok) throw new Error("Add failed");
-      if (feedback) feedback.textContent = "Added to cart.";
-    } catch (err) {
-      if (feedback) feedback.textContent = "Could not add to cart.";
-    } finally {
-      addBtn.disabled = false;
-    }
-  });
-})();
-
-  </script>
 
 
 <script>
@@ -477,6 +314,175 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 
 
+<script>
+(function () {
+  const root = document.getElementById("hotspot-slider-{{ section.id }}");
+  if (!root) return;
+
+  const slider = root.querySelector("[data-hs-slider]");
+  const slidesWrap = root.querySelector("[data-hs-slides]");
+  const slides = Array.from(slidesWrap.querySelectorAll("[data-hs-slide]"));
+  const prevBtn = root.querySelector("[data-hs-prev]");
+  const nextBtn = root.querySelector("[data-hs-next]");
+  const dotsWrap = root.querySelector("[data-hs-dots]");
+
+  let index = slides.findIndex(s => s.classList.contains("is-active"));
+  if (index < 0) index = 0;
+
+  // Dots (safe if dotsWrap exists)
+  let dots = [];
+  if (dotsWrap) {
+    dotsWrap.innerHTML = "";
+    slides.forEach((_, i) => {
+      const b = document.createElement("button");
+      b.className = "hs-dot" + (i === index ? " is-active" : "");
+      b.type = "button";
+      b.setAttribute("aria-label", `Go to slide ${i + 1}`);
+      b.addEventListener("click", () => { goTo(i); resetAutoplay(); });
+      dotsWrap.appendChild(b);
+    });
+    dots = Array.from(dotsWrap.querySelectorAll(".hs-dot"));
+  }
+
+  function goTo(i) {
+    slides[index].classList.remove("is-active");
+    if (dots[index]) dots[index].classList.remove("is-active");
+
+    index = (i + slides.length) % slides.length;
+
+    slides[index].classList.add("is-active");
+    if (dots[index]) dots[index].classList.add("is-active");
+  }
+
+  prevBtn && prevBtn.addEventListener("click", () => { goTo(index - 1); resetAutoplay(); });
+  nextBtn && nextBtn.addEventListener("click", () => { goTo(index + 1); resetAutoplay(); });
+
+  // ✅ FIXED: autoplay boolean was backwards in your code
+  const autoplayEnabled = slider?.dataset.autoplay === "true";
+  const intervalMs = Math.max(parseInt(slider?.dataset.interval || "0", 10) || 0, 1000);
+  const pauseOnHover = slider?.dataset.pauseHover === "true";
+
+  let timer = null;
+  function startAutoplay() {
+    if (!autoplayEnabled || slides.length <= 1) return;
+    stopAutoplay();
+    timer = window.setInterval(() => goTo(index + 1), intervalMs);
+  }
+  function stopAutoplay() { if (timer) { clearInterval(timer); timer = null; } }
+  function resetAutoplay() { if (!autoplayEnabled) return; stopAutoplay(); startAutoplay(); }
+
+  if (pauseOnHover && slider) {
+    slider.addEventListener("mouseenter", stopAutoplay);
+    slider.addEventListener("mouseleave", startAutoplay);
+  }
+
+  let activeModal = null;
+  let currentVariantId = null;
+
+  function pauseForModal(open) {
+    if (!autoplayEnabled) return;
+    if (open) stopAutoplay();
+    else startAutoplay();
+  }
+
+  function openModal(modalEl) {
+    modalEl.classList.add("is-open");
+    modalEl.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+    pauseForModal(true);
+  }
+
+  function closeModal() {
+    if (!activeModal) return;
+    activeModal.classList.remove("is-open");
+    activeModal.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+    pauseForModal(false);
+    activeModal = null;
+    currentVariantId = null;
+  }
+
+  // Hotspot -> open the modal INSIDE the same slide
+  slider.addEventListener("click", (e) => {
+    const hotspot = e.target.closest(".hs-hotspot");
+    if (!hotspot) return;
+
+    const slideEl = hotspot.closest("[data-hs-slide]");
+    if (!slideEl) return;
+
+    const modal = slideEl.querySelector("[data-hs-modal]");
+    if (!modal) return;
+
+    activeModal = modal;
+
+    // grab modal fields INSIDE this slide’s modal
+    const modalTitle = modal.querySelector("[data-hs-modal-title]");
+    const modalPrice = modal.querySelector("[data-hs-modal-price]");
+    const modalImage = modal.querySelector("[data-hs-modal-image]");
+    const addBtn = modal.querySelector("[data-hs-add]");
+    const viewLink = modal.querySelector("[data-hs-view]");
+    const feedback = modal.querySelector("[data-hs-feedback]");
+
+    const hx = hotspot.style.getPropertyValue("--x") || "50%";
+    const hy = hotspot.style.getPropertyValue("--y") || "50%";
+    modal.style.setProperty("--hx", hx);
+    modal.style.setProperty("--hy", hy);
+
+    const raw = hotspot.getAttribute("data-hs-product");
+    if (!raw) return;
+
+    let data;
+    try { data = JSON.parse(raw); } catch { return; }
+
+    if (modalTitle) modalTitle.textContent = data.title || "";
+    if (modalPrice) modalPrice.textContent = data.price || "";
+    if (modalImage) {
+      modalImage.src = data.image || "";
+      modalImage.alt = data.title || "Product image";
+    }
+    currentVariantId = data.variant_id || null;
+    if (viewLink) viewLink.href = data.url || "#";
+    if (feedback) feedback.textContent = "";
+
+    // bind closers ONCE per modal
+    if (!modal.dataset.bound) {
+      modal.querySelectorAll("[data-hs-close]").forEach(el => el.addEventListener("click", closeModal));
+      modal.dataset.bound = "1";
+    }
+
+    // bind add button per open (overwrite is fine)
+    if (addBtn) {
+      addBtn.onclick = async () => {
+        if (!currentVariantId) return;
+        addBtn.disabled = true;
+        try {
+          const res = await fetch("/cart/add.js", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ id: currentVariantId, quantity: 1 })
+          });
+          if (!res.ok) throw new Error("Add failed");
+          if (feedback) feedback.textContent = "Added to cart.";
+        } catch {
+          if (feedback) feedback.textContent = "Could not add to cart.";
+        } finally {
+          addBtn.disabled = false;
+        }
+      };
+    }
+
+    openModal(modal);
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeModal();
+    if (e.key === "ArrowLeft") { goTo(index - 1); resetAutoplay(); }
+    if (e.key === "ArrowRight") { goTo(index + 1); resetAutoplay(); }
+  });
+
+  startAutoplay();
+})();
+</script>
 
 
 </section>
