@@ -418,6 +418,15 @@
             "slide_number": 3,
             "product": "bingo-dabber-bottles-pack-of-6",
             "x": 29,
+            "y": 80
+          }
+        },
+        "hotspot_JEa6Q6": {
+          "type": "hotspot",
+          "settings": {
+            "slide_number": 3,
+            "product": "fluoro-crepe-paper-green-500mm-x-2-5m-green",
+            "x": 55,
             "y": 50
           }
         },
@@ -462,6 +471,7 @@
         "hotspot_U7GGD7",
         "hotspot_UVEKwx",
         "hotspot_LgfMGq",
+        "hotspot_JEa6Q6",
         "slide_brtxej",
         "slide_mkaRce"
       ],
