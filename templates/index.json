@@ -464,6 +464,15 @@
             "slide_number": 4,
             "product": "tiger-tune-musical-toy",
             "x": 16,
+            "y": 75
+          }
+        },
+        "hotspot_UAaWa9": {
+          "type": "hotspot",
+          "settings": {
+            "slide_number": 4,
+            "product": "janod-sunshine-drum",
+            "x": 5,
             "y": 50
           }
         },
@@ -503,6 +512,7 @@
         "hotspot_Cg4Hpk",
         "slide_brtxej",
         "hotspot_NLeccd",
+        "hotspot_UAaWa9",
         "slide_mkaRce"
       ],
       "name": "Hotspot slider",
