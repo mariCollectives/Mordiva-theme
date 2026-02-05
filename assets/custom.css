@@ -172,3 +172,12 @@ body, button, input, select, textarea {
  .contact__fields input{
     margin-bottom: 20px !important;
  }
+
+ .contact__fields input{
+    border-radius: 20px  !important;
+ }
+
+ .contact__fields .form-control--textarea{
+     border-radius: 20px  !important;
+     padding: 20px 10px !important;
+ }
