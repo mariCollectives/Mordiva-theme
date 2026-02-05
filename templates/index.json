@@ -458,6 +458,15 @@
             "button_link": "shopify://collections/music-and-movement-1"
           }
         },
+        "hotspot_NLeccd": {
+          "type": "hotspot",
+          "settings": {
+            "slide_number": 4,
+            "product": "tiger-tune-musical-toy",
+            "x": 16,
+            "y": 50
+          }
+        },
         "slide_mkaRce": {
           "type": "slide",
           "settings": {
@@ -493,6 +502,7 @@
         "hotspot_ifa4h4",
         "hotspot_Cg4Hpk",
         "slide_brtxej",
+        "hotspot_NLeccd",
         "slide_mkaRce"
       ],
       "name": "Hotspot slider",
