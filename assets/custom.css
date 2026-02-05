@@ -145,4 +145,30 @@ body, button, input, select, textarea {
  .contact__button button{
     border-radius: 20px !important;
     background: #D9D9D9;
+    color: #000 !important;
+    font-size: 14px !important;
+    text-transform: capitalize !important;
+ }
+
+ .btn--bordered-icon:hover .button-icon, .btn:not(.btn--plain):not(.btn--underline, 
+ .btn--inherit):not(.btn--bordered-icon):not(.spr-button):hover, 
+ .btn:not(.btn--plain):not(.btn--underline, 
+ .btn--inherit):not(.btn--bordered-icon):not(.spr-button).btn--active{
+     color: #fff !important;
+ }
+
+ .form-label{
+    display: none !important;
+ }
+
+ .contact__button{
+    text-align: left !important;
+ }
+
+ .contact__title{
+    text-align: center !important;
+ }
+
+ .contact__fields input{
+    margin-bottom: 20px !important;
  }
