@@ -373,6 +373,15 @@
             "slide_number": 2,
             "product": "rainbow-glitter-bulk-1-kg-jar-gold",
             "x": 45,
+            "y": 60
+          }
+        },
+        "hotspot_LNWh3b": {
+          "type": "hotspot",
+          "settings": {
+            "slide_number": 2,
+            "product": "rainbow-glitter-bulk-1-kg-jar-rainbow",
+            "x": 85,
             "y": 50
           }
         }
@@ -391,7 +400,8 @@
         "hotspot_fnbhPX",
         "hotspot_JFma34",
         "hotspot_CNXwBc",
-        "hotspot_PPJ64N"
+        "hotspot_PPJ64N",
+        "hotspot_LNWh3b"
       ],
       "name": "Hotspot slider",
       "settings": {
