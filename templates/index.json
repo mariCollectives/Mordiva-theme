@@ -403,6 +403,16 @@
             "button_label": "VIEW ALL",
             "button_link": "shopify://collections/art-and-craft"
           }
+        },
+        "slide_mkaRce": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/slider3.png",
+            "alt": "Music and Movement",
+            "caption": "Music and Movement",
+            "button_label": "VIEW ALL",
+            "button_link": "shopify://collections/music-and-movement-1"
+          }
         }
       },
       "block_order": [
@@ -422,7 +432,8 @@
         "hotspot_LNWh3b",
         "hotspot_ppjqpt",
         "slide_Rew8HW",
-        "slide_brtxej"
+        "slide_brtxej",
+        "slide_mkaRce"
       ],
       "name": "Hotspot slider",
       "settings": {
