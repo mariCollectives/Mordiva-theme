@@ -46,7 +46,13 @@
                 <button
                   class="hs-hotspot"
                   type="button"
-                   data-hs-idx="{{ forloop.index }}"
+                  {% assign global_idx = global_idx | default: 0 %}
+                  {% assign global_idx = global_idx | plus: 1 %}
+                  {% if global_idx > 10 %}
+                    {% assign global_idx = 10 %}
+                  {% endif %}
+                  data-hs-idx="{{ global_idx }}"
+
                   style="--x: {{ h.settings.x }}%; --y: {{ h.settings.y }}%;"
                   data-hs-product='{
                     "title": {{ p.title | json }},
@@ -289,39 +295,21 @@
 
 
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-  const root = document.querySelector('[data-hs-slider]') || document;
-  const modal = document.querySelector('.hs-modal'); // the single shared modal
-  if (!modal) return;
-
-  // helper: remove previous is-pop-* classes
-  const clearPopClasses = () => {
-    modal.className = modal.className.replace(/\bis-pop-\d+\b/g, '').trim();
-  };
-
-  root.addEventListener('click', (e) => {
-    const btn = e.target.closest('.hs-hotspot[data-hs-idx]');
-    if (!btn) return;
-
-    const idx = btn.getAttribute('data-hs-idx');
-    clearPopClasses();
-    modal.classList.add(`is-pop-${idx}`);
-
-    // optional: also store as data attr for easier CSS
-    modal.setAttribute('data-active-pop', idx);
-  });
-});
-</script>
-
-
-<script>
 (function () {
   const root = document.getElementById("hotspot-slider-{{ section.id }}");
   if (!root) return;
 
   const slider = root.querySelector("[data-hs-slider]");
   const slidesWrap = root.querySelector("[data-hs-slides]");
-  const slides = Array.from(slidesWrap.querySelectorAll("[data-hs-slide]"));
+  if (!slider || !slidesWrap) return;
+
+  // ✅ ONLY TAKE FIRST 10 SLIDES
+  const allSlides = Array.from(slidesWrap.querySelectorAll("[data-hs-slide]"));
+  const slides = allSlides.slice(0, 10);
+
+  // Optional: hide any slides beyond 10 so they don't accidentally show
+  allSlides.slice(10).forEach(s => s.style.display = "none");
+
   const prevBtn = root.querySelector("[data-hs-prev]");
   const nextBtn = root.querySelector("[data-hs-next]");
   const dotsWrap = root.querySelector("[data-hs-dots]");
@@ -329,7 +317,11 @@ document.addEventListener('DOMContentLoaded', () => {
   let index = slides.findIndex(s => s.classList.contains("is-active"));
   if (index < 0) index = 0;
 
-  // Dots (safe if dotsWrap exists)
+  // Ensure only one active in the first 10
+  allSlides.forEach(s => s.classList.remove("is-active"));
+  slides[index]?.classList.add("is-active");
+
+  // Dots
   let dots = [];
   if (dotsWrap) {
     dotsWrap.innerHTML = "";
@@ -345,20 +337,20 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function goTo(i) {
-    slides[index].classList.remove("is-active");
+    slides[index]?.classList.remove("is-active");
     if (dots[index]) dots[index].classList.remove("is-active");
 
     index = (i + slides.length) % slides.length;
 
-    slides[index].classList.add("is-active");
+    slides[index]?.classList.add("is-active");
     if (dots[index]) dots[index].classList.add("is-active");
   }
 
   prevBtn && prevBtn.addEventListener("click", () => { goTo(index - 1); resetAutoplay(); });
   nextBtn && nextBtn.addEventListener("click", () => { goTo(index + 1); resetAutoplay(); });
 
-  // ✅ FIXED: autoplay boolean was backwards in your code
-  const autoplayEnabled = slider?.dataset.autoplay === "true";
+  // ✅ FIXED autoplay boolean
+  const autoplayEnabled = slider?.dataset.autoplay === "false";
   const intervalMs = Math.max(parseInt(slider?.dataset.interval || "0", 10) || 0, 1000);
   const pauseOnHover = slider?.dataset.pauseHover === "true";
 
@@ -371,7 +363,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function stopAutoplay() { if (timer) { clearInterval(timer); timer = null; } }
   function resetAutoplay() { if (!autoplayEnabled) return; stopAutoplay(); startAutoplay(); }
 
-  if (pauseOnHover && slider) {
+  if (pauseOnHover) {
     slider.addEventListener("mouseenter", stopAutoplay);
     slider.addEventListener("mouseleave", startAutoplay);
   }
@@ -402,7 +394,7 @@ document.addEventListener('DOMContentLoaded', () => {
     currentVariantId = null;
   }
 
-  // Hotspot -> open the modal INSIDE the same slide
+  // Hotspot -> modal (clamp idx to 10 + only first 10 slides are navigable anyway)
   slider.addEventListener("click", (e) => {
     const hotspot = e.target.closest(".hs-hotspot");
     if (!hotspot) return;
@@ -415,7 +407,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     activeModal = modal;
 
-    // grab modal fields INSIDE this slide’s modal
+    // ✅ clamp hotspot idx (for is-pop-1..10 CSS)
+    const idx = Math.min(parseInt(hotspot.getAttribute("data-hs-idx") || "1", 10), 10);
+    modal.className = modal.className.replace(/\bis-pop-\d+\b/g, "").trim();
+    modal.classList.add(`is-pop-${idx}`);
+    modal.setAttribute("data-active-pop", idx);
+
     const modalTitle = modal.querySelector("[data-hs-modal-title]");
     const modalPrice = modal.querySelector("[data-hs-modal-price]");
     const modalImage = modal.querySelector("[data-hs-modal-image]");
@@ -444,13 +441,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (viewLink) viewLink.href = data.url || "#";
     if (feedback) feedback.textContent = "";
 
-    // bind closers ONCE per modal
     if (!modal.dataset.bound) {
       modal.querySelectorAll("[data-hs-close]").forEach(el => el.addEventListener("click", closeModal));
       modal.dataset.bound = "1";
     }
 
-    // bind add button per open (overwrite is fine)
     if (addBtn) {
       addBtn.onclick = async () => {
         if (!currentVariantId) return;
@@ -482,6 +477,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
   startAutoplay();
 })();
+</script>
+
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const root = document.querySelector('[data-hs-slider]') || document;
+  const modal = document.querySelector('.hs-modal'); // the single shared modal
+  if (!modal) return;
+
+  // helper: remove previous is-pop-* classes
+  const clearPopClasses = () => {
+    modal.className = modal.className.replace(/\bis-pop-\d+\b/g, '').trim();
+  };
+
+  root.addEventListener('click', (e) => {
+    const btn = e.target.closest('.hs-hotspot[data-hs-idx]');
+    if (!btn) return;
+
+    const idx = btn.getAttribute('data-hs-idx');
+    clearPopClasses();
+    modal.classList.add(`is-pop-${idx}`);
+
+    // optional: also store as data attr for easier CSS
+    modal.setAttribute('data-active-pop', idx);
+  });
+});
 </script>
 
 

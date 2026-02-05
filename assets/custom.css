@@ -96,6 +96,23 @@ body, button, input, select, textarea {
     right: 32em !important;
  }
 
+ .is-pop-10{
+     left: -250em !important;
+    
+ }
+
+
+ .is-pop-9{
+    top: -150em !important;
+ }
+
  .section--image-comparison, .convertingPlaceSection{
     background-color: #21433E !important;
+ }
+
+ .ShopNowHead h2.rich-text__heading{
+    font-family: "Lexend", sans-serif;
+    font-weight: 400 !important;
+    font-size: 30px  !important;
+    margin-bottom: -12px !important;
  }
