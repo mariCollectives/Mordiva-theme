@@ -219,6 +219,32 @@
         "text_weight": "500"
       }
     },
+    "rich_text_cP9tUt": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_Jh8Y33": {
+          "type": "heading",
+          "settings": {
+            "heading": "Talk about your brand",
+            "heading_size": "hd1",
+            "heading_highlight_style": "none"
+          }
+        }
+      },
+      "block_order": [
+        "heading_Jh8Y33"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "color_scheme": "",
+        "content_alignment": "center",
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": ""
+      }
+    },
     "hotspot_slider_CWTf6t": {
       "type": "hotspot-slider",
       "blocks": {
@@ -342,7 +368,7 @@
         "arrow_left": "shopify://shop_images/arrow_15031868_4.png",
         "arrow_right": "shopify://shop_images/arrow_15031868_3.png",
         "autoplay": true,
-        "autoplay_seconds": 5,
+        "autoplay_seconds": 12,
         "pause_on_hover": true
       }
     },
@@ -793,6 +819,7 @@
     "custom_liquid_z4KV4e",
     "slideshow_zKPFFV",
     "category_grid_14_MWN9m3",
+    "rich_text_cP9tUt",
     "hotspot_slider_CWTf6t",
     "rich_text_w8arFx",
     "product_tabs_jhb9aJ",
