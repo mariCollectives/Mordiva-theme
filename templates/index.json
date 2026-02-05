@@ -399,7 +399,7 @@
           "settings": {
             "image": "shopify://shop_images/slider2_c3227430-ca80-4ca7-98cb-3694aa687fc6.png",
             "alt": "Art and Craft",
-            "caption": "",
+            "caption": "Art and Craft",
             "button_label": "VIEW ALL",
             "button_link": "shopify://collections/art-and-craft"
           }
