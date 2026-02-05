@@ -412,6 +412,15 @@
             "y": 45
           }
         },
+        "hotspot_LgfMGq": {
+          "type": "hotspot",
+          "settings": {
+            "slide_number": 3,
+            "product": "bingo-dabber-bottles-pack-of-6",
+            "x": 29,
+            "y": 50
+          }
+        },
         "slide_brtxej": {
           "type": "slide",
           "settings": {
@@ -452,6 +461,7 @@
         "slide_Rew8HW",
         "hotspot_U7GGD7",
         "hotspot_UVEKwx",
+        "hotspot_LgfMGq",
         "slide_brtxej",
         "slide_mkaRce"
       ],
