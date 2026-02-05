@@ -116,3 +116,28 @@ body, button, input, select, textarea {
     font-size: 30px  !important;
     margin-bottom: -12px !important;
  }
+
+ .convertingPlaceSection .rich-text__text p{
+    font-family: "Lexend", sans-serif;
+    font-weight: 400 !important;
+    font-size: 25px  !important;
+    margin-bottom: 30px;
+ }
+
+ .convertingPlaceSection .rich-text__heading{
+    max-width: 60rem !important;
+ }
+
+.convertingPlaceSection .block a.btn{
+    font-size: 16px  !important;
+    letter-spacing: 1px;
+ }
+
+.footer__wrapper a.reversed-link{
+     font-size: 16px  !important;
+     font-weight: 200 !important;
+ }
+
+ .ContactFormSection{
+    background: #F4F0EC !important;
+ }
