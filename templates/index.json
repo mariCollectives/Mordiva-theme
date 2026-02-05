@@ -430,6 +430,15 @@
             "y": 49
           }
         },
+        "hotspot_ifa4h4": {
+          "type": "hotspot",
+          "settings": {
+            "slide_number": 3,
+            "product": "coloured-raffia-box-assorted-25bags",
+            "x": 68,
+            "y": 50
+          }
+        },
         "slide_brtxej": {
           "type": "slide",
           "settings": {
@@ -472,6 +481,7 @@
         "hotspot_UVEKwx",
         "hotspot_LgfMGq",
         "hotspot_JEa6Q6",
+        "hotspot_ifa4h4",
         "slide_brtxej",
         "slide_mkaRce"
       ],
