@@ -102,50 +102,22 @@
     },
     "category_grid_custom_JNR9ia": {
       "type": "category-grid-custom",
+      "blocks": {
+        "tile_VCQ73p": {
+          "type": "tile",
+          "settings": {
+            "slot": "science",
+            "image": "shopify://shop_images/Science.png",
+            "collection": "science-1",
+            "title": "Science"
+          }
+        }
+      },
+      "block_order": [
+        "tile_VCQ73p"
+      ],
       "name": "Category Grid",
-      "settings": {
-        "tile_1_image": "shopify://shop_images/Science.png",
-        "tile_1_collection": "science-1",
-        "tile_1_title": "Science",
-        "tile_2_image": "shopify://shop_images/Art_craft.png",
-        "tile_2_collection": "art-and-craft",
-        "tile_2_title": "Art & Craft",
-        "tile_3_image": "shopify://shop_images/constructionsEngr.png",
-        "tile_3_collection": "construction-and-engineering-1",
-        "tile_3_title": "Construction & Engineering",
-        "tile_4_image": "shopify://shop_images/cultureComms.png",
-        "tile_4_collection": "culture-and-communities-1",
-        "tile_4_title": "Culture & Communities",
-        "tile_5_image": "shopify://shop_images/Infant.png",
-        "tile_5_collection": "infant-and-toddler-1",
-        "tile_5_title": "Infant & Toddler",
-        "tile_6_image": "shopify://shop_images/kitchen_e88af7a6-19ed-4c03-a63b-dff5cba3e86e.png",
-        "tile_6_collection": "kitchen-resources-and-whitegoods-1",
-        "tile_6_title": "Kitchen Resources& Whitegoods",
-        "tile_7_image": "shopify://shop_images/physicalWellbeing.png",
-        "tile_7_collection": "physical-wellbeing-1",
-        "tile_7_title": "Physical Wellbeing",
-        "tile_8_image": "shopify://shop_images/14_categories_2_1.png",
-        "tile_8_collection": "english-language-and-literacy-1",
-        "tile_8_title": "English Language& Literacy",
-        "tile_9_image": "shopify://shop_images/games_puzzles.png",
-        "tile_9_collection": "games-and-puzzles-1",
-        "tile_9_title": "Games & Puzzles",
-        "tile_10_collection": "",
-        "tile_10_title": "",
-        "tile_11_collection": "",
-        "tile_11_title": "",
-        "tile_12_collection": "",
-        "tile_12_title": "",
-        "tile_13_collection": "",
-        "tile_13_title": "",
-        "tile_14_collection": "",
-        "tile_14_title": "",
-        "tile_15_collection": "",
-        "tile_15_title": "",
-        "tile_16_collection": "",
-        "tile_16_title": ""
-      }
+      "settings": {}
     },
     "rich_text_w8arFx": {
       "type": "rich-text",
