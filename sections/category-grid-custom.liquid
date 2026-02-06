@@ -1,0 +1,513 @@
+{% comment %}
+  Section: Category Grid (Custom)
+  - Same CSS/layout as provided
+  - Each tile uses: image picker + collection link + custom title
+{% endcomment %}
+
+<section id="cat-grid-{{ section.id }}">
+
+  <style>
+  #cat-grid-{{ section.id }} {
+
+  }
+
+  #cat-grid-{{ section.id }} .category-grid-2-1 {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: 260px 220px auto;
+    gap: 16px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  #cat-grid-{{ section.id }} .category-grid-1-3 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    grid-template-rows: 240px 0;
+    gap: 16px;
+    max-width: 100%;
+  }
+
+  #cat-grid-{{ section.id }} .category-grid-2 {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: 240px 240px;
+    gap: 16px;
+    max-width: 100%;
+  }
+
+  #cat-grid-{{ section.id }} .grid-inner-70-30 {
+    display: grid;
+    grid-template-columns: 1.45fr 1fr; 
+    gap: 18px;
+    align-items: end; 
+  }
+
+  #cat-grid-{{ section.id }} .tile {
+    position: relative;
+    border-radius: 18px;
+    overflow: hidden;
+    text-decoration: none;
+  }
+
+  #cat-grid-{{ section.id }} .tile img {
+    width: 100%;
+    height: 248px;
+    object-fit: cover;
+    display: block;
+  }
+
+  #cat-grid-{{ section.id }} .tile span {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    z-index: 2;
+  }
+
+  #cat-grid-{{ section.id }} .tile--science {
+    grid-row: 1 / span 2;
+    grid-column: 1 / 2;
+  }
+
+  #cat-grid-{{ section.id }} .tile--art { grid-column: 2 / 4; }
+  #cat-grid-{{ section.id }} .tile--engineering { grid-column: 2 / 4; }
+
+  #cat-grid-{{ section.id }} .tile--culture { grid-column: 1 / 2; }
+  #cat-grid-{{ section.id }} .tile--infant { grid-column: 2 / 5; }
+
+  #cat-grid-{{ section.id }} .padding-15 { padding-top: 15px; }
+
+  #cat-grid-{{ section.id }} .width-50{
+    width:48%; 
+    display: inline-block;
+    float:left;
+  }
+
+  #cat-grid-{{ section.id }} .margin-left-2{ margin-right: 20px; }
+
+  #cat-grid-{{ section.id }} .tile--hero { grid-column: 1 / -1; }
+  #cat-grid-{{ section.id }} .tile--wide { grid-column: 1 / -1; }
+
+  #cat-grid-{{ section.id }} .tile--half-left {
+    grid-column: 1 / 7;
+    height: 240px;
+  }
+
+  #cat-grid-{{ section.id }} .tile--half-right {
+    grid-column: 7 / -1;
+    height: 200px;
+  }
+
+  #cat-grid-{{ section.id }} .height-auto{ height: auto; }
+  #cat-grid-{{ section.id }} .height-set{ height: 245px; }
+  #cat-grid-{{ section.id }} .float-left{ float: left; }
+  #cat-grid-{{ section.id }} .clear{ clear: both; }
+
+  #cat-grid-{{ section.id }} .width-35{
+    width:35%;
+    display: inline-block;
+    float:left;
+  } 
+
+  #cat-grid-{{ section.id }} .width-65{
+    width: 65%;
+    display: inline-block;
+  }
+
+  #cat-grid-{{ section.id }} .tile:hover img {
+    transform: scale(1.05);
+    transition: transform 260ms ease;
+  }
+  #cat-grid-{{ section.id }} .tile img {
+    transition: transform 260ms ease;
+  }
+
+  #cat-grid-{{ section.id }} .tile--tall {
+    transform: translateY(-18px);
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    left: 73%;
+    top: -9%;
+    left: -1.6%;
+    width: 90%;
+    border-radius: 20px;
+  }
+
+  #cat-grid-{{ section.id }} .tile--tall img{ height: 300px; }
+  #cat-grid-{{ section.id }} .cat-tile--wide{ margin-bottom: 55px; }
+  #cat-grid-{{ section.id }} .tile--science img{ height: 100%; }
+  #cat-grid-{{ section.id }} .tile--hero img{ height: 265px; }
+
+  #cat-grid-{{ section.id }} .category-grid-3-col {
+    display: grid;
+    grid-template-columns: 25% 35% 40%;
+    gap: 16px;
+    max-width: 95%;
+    margin-top: -2em;
+    margin-bottom: 30px;
+  }
+
+  #cat-grid-{{ section.id }} .tile-image-height-fix img{ height: 280px; }
+  </style>
+
+  {% liquid
+    assign t1 = section.settings.tile_1_collection
+    assign t2 = section.settings.tile_2_collection
+    assign t3 = section.settings.tile_3_collection
+    assign t4 = section.settings.tile_4_collection
+    assign t5 = section.settings.tile_5_collection
+    assign t6 = section.settings.tile_6_collection
+    assign t7 = section.settings.tile_7_collection
+    assign t8 = section.settings.tile_8_collection
+    assign t9 = section.settings.tile_9_collection
+    assign t10 = section.settings.tile_10_collection
+    assign t11 = section.settings.tile_11_collection
+    assign t12 = section.settings.tile_12_collection
+    assign t13 = section.settings.tile_13_collection
+    assign t14 = section.settings.tile_14_collection
+
+    assign url1 = t1.url | default: '#'
+    assign url2 = t2.url | default: '#'
+    assign url3 = t3.url | default: '#'
+    assign url4 = t4.url | default: '#'
+    assign url5 = t5.url | default: '#'
+    assign url6 = t6.url | default: '#'
+    assign url7 = t7.url | default: '#'
+    assign url8 = t8.url | default: '#'
+    assign url9 = t9.url | default: '#'
+    assign url10 = t10.url | default: '#'
+    assign url11 = t11.url | default: '#'
+    assign url12 = t12.url | default: '#'
+    assign url13 = t13.url | default: '#'
+    assign url14 = t14.url | default: '#'
+
+    assign title1 = section.settings.tile_1_title | default: t1.title | default: 'Science'
+    assign title2 = section.settings.tile_2_title | default: t2.title | default: 'Art & Craft'
+    assign title3 = section.settings.tile_3_title | default: t3.title | default: 'Construction & Engineering'
+    assign title4 = section.settings.tile_4_title | default: t4.title | default: 'Culture & Communities'
+    assign title5 = section.settings.tile_5_title | default: t5.title | default: 'Infant & Toddler'
+    assign title6 = section.settings.tile_6_title | default: t6.title | default: 'Kitchen Resources<br>& Whitegoods'
+    assign title7 = section.settings.tile_7_title | default: t7.title | default: 'Physical Wellbeing'
+    assign title8 = section.settings.tile_8_title | default: t8.title | default: 'English, Language<br>& Literacy'
+    assign title9 = section.settings.tile_9_title | default: t9.title | default: 'Games & Puzzles'
+    assign title10 = section.settings.tile_10_title | default: t10.title | default: 'English, Language<br>& Literacy'
+    assign title11 = section.settings.tile_11_title | default: t11.title | default: 'Games & Puzzles'
+    assign title12 = section.settings.tile_12_title | default: t12.title | default: 'Music & Movement'
+    assign title13 = section.settings.tile_13_title | default: t13.title | default: 'Mathematics'
+    assign title14 = section.settings.tile_14_title | default: t14.title | default: 'Inclusion & Development'
+    assign title15 = section.settings.tile_15_title | default: section.settings.tile_15_collection.title | default: 'Modelling & Accessories'
+    assign title16 = section.settings.tile_16_title | default: section.settings.tile_16_collection.title | default: 'Classroom Resources'
+  %}
+
+  {% comment %} LEFT HALF {% endcomment %}
+  <div class="width-50 margin-left-2">
+
+    <div class="category-grid-2">
+      <a class="tile tile--science" href="{{ url1 }}">
+        {% if section.settings.tile_1_image != blank %}
+          {{ section.settings.tile_1_image | image_url: width: 2000 | image_tag: alt: title1, loading: 'lazy' }}
+        {% else %}
+          {{ 'image' | placeholder_svg_tag }}
+        {% endif %}
+        <span>{{ title1 }}</span>
+      </a>
+
+      <a class="tile tile--art" href="{{ url2 }}">
+        {% if section.settings.tile_2_image != blank %}
+          {{ section.settings.tile_2_image | image_url: width: 2000 | image_tag: alt: title2, loading: 'lazy' }}
+        {% else %}
+          {{ 'image' | placeholder_svg_tag }}
+        {% endif %}
+        <span>{{ title2 }}</span>
+      </a>
+
+      <a class="tile tile--engineering" href="{{ url3 }}">
+        {% if section.settings.tile_3_image != blank %}
+          {{ section.settings.tile_3_image | image_url: width: 2000 | image_tag: alt: title3, loading: 'lazy' }}
+        {% else %}
+          {{ 'image' | placeholder_svg_tag }}
+        {% endif %}
+        <span>{{ title3 }}</span>
+      </a>
+    </div>
+
+    <div class="category-grid-1-3 padding-15">
+      <a class="tile tile--culture" href="{{ url4 }}">
+        {% if section.settings.tile_4_image != blank %}
+          {{ section.settings.tile_4_image | image_url: width: 2000 | image_tag: alt: title4, loading: 'lazy' }}
+        {% else %}
+          {{ 'image' | placeholder_svg_tag }}
+        {% endif %}
+        <span>{{ title4 }}</span>
+      </a>
+
+      <a class="tile tile--infant" href="{{ url5 }}">
+        {% if section.settings.tile_5_image != blank %}
+          {{ section.settings.tile_5_image | image_url: width: 2000 | image_tag: alt: title5, loading: 'lazy' }}
+        {% else %}
+          {{ 'image' | placeholder_svg_tag }}
+        {% endif %}
+        <span>{{ title5 }}</span>
+      </a>
+    </div>
+
+  </div>
+
+  {% comment %} RIGHT HALF {% endcomment %}
+  <div class="width-50">
+    <div class="category-grid-2-1">
+      <a class="tile tile--hero" href="{{ url6 }}">
+        {% if section.settings.tile_6_image != blank %}
+          {{ section.settings.tile_6_image | image_url: width: 2400 | image_tag: alt: title6, loading: 'lazy' }}
+        {% else %}
+          {{ 'image' | placeholder_svg_tag }}
+        {% endif %}
+        <span>{{ title6 }}</span>
+      </a>
+
+      <a class="tile tile--wide" href="{{ url7 }}">
+        {% if section.settings.tile_7_image != blank %}
+          {{ section.settings.tile_7_image | image_url: width: 2400 | image_tag: alt: title7, loading: 'lazy' }}
+        {% else %}
+          {{ 'image' | placeholder_svg_tag }}
+        {% endif %}
+        <span>{{ title7 }}</span>
+      </a>
+
+      <a class="tile tile--half-left" href="{{ url8 }}">
+        {% if section.settings.tile_8_image != blank %}
+          {{ section.settings.tile_8_image | image_url: width: 2400 | image_tag: alt: title8, loading: 'lazy' }}
+        {% else %}
+          {{ 'image' | placeholder_svg_tag }}
+        {% endif %}
+        <span>{{ title8 }}</span>
+      </a>
+
+      <a class="tile tile--half-right" href="{{ url9 }}">
+        {% if section.settings.tile_9_image != blank %}
+          {{ section.settings.tile_9_image | image_url: width: 2400 | image_tag: alt: title9, loading: 'lazy' }}
+        {% else %}
+          {{ 'image' | placeholder_svg_tag }}
+        {% endif %}
+        <span>{{ title9 }}</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="clear"></div>
+
+  {% comment %} LOWER AREA {% endcomment %}
+  <div class="width-full">
+
+    <div class="width-35">
+      <div class="width-full margin-left-2">
+        <div class="category-grid-2-1 height-set">
+          <a class="tile tile--half-left height-set" href="{{ url10 }}">
+            {% if section.settings.tile_10_image != blank %}
+              {{ section.settings.tile_10_image | image_url: width: 2400 | image_tag: alt: title10, loading: 'lazy' }}
+            {% else %}
+              {{ 'image' | placeholder_svg_tag }}
+            {% endif %}
+            <span>{{ title10 }}</span>
+          </a>
+
+          <a class="tile tile--half-right height-set" href="{{ url11 }}">
+            {% if section.settings.tile_11_image != blank %}
+              {{ section.settings.tile_11_image | image_url: width: 2400 | image_tag: alt: title11, loading: 'lazy' }}
+            {% else %}
+              {{ 'image' | placeholder_svg_tag }}
+            {% endif %}
+            <span>{{ title11 }}</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="width-65">
+      <div class="grid-inner-70-30">
+        <a class="tile cat-tile--wide" href="{{ url12 }}">
+          {% if section.settings.tile_12_image != blank %}
+            {{ section.settings.tile_12_image | image_url: width: 2400 | image_tag: alt: title12, loading: 'lazy' }}
+          {% else %}
+            {{ 'image' | placeholder_svg_tag }}
+          {% endif %}
+          <span>{{ title12 }}</span>
+        </a>
+
+        <a class="tile tile--tall" href="{{ url13 }}">
+          {% if section.settings.tile_13_image != blank %}
+            {{ section.settings.tile_13_image | image_url: width: 2400 | image_tag: alt: title13, loading: 'lazy' }}
+          {% else %}
+            {{ 'image' | placeholder_svg_tag }}
+          {% endif %}
+          <span>{{ title13 }}</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="width-full">
+    <div class="category-grid-3-col">
+      <a href="{{ section.settings.tile_14_collection.url | default: '#' }}" class="tile tile-image-height-fix">
+        {% if section.settings.tile_14_image != blank %}
+          {{ section.settings.tile_14_image | image_url: width: 2400 | image_tag: alt: title14, loading: 'lazy' }}
+        {% else %}
+          {{ 'image' | placeholder_svg_tag }}
+        {% endif %}
+        <span>{{ title14 }}</span>
+      </a>
+
+      <a href="{{ section.settings.tile_15_collection.url | default: '#' }}" class="tile tile-image-height-fix">
+        {% if section.settings.tile_15_image != blank %}
+          {{ section.settings.tile_15_image | image_url: width: 2400 | image_tag: alt: title15, loading: 'lazy' }}
+        {% else %}
+          {{ 'image' | placeholder_svg_tag }}
+        {% endif %}
+        <span>{{ title15 }}</span>
+      </a>
+
+      <a href="{{ section.settings.tile_16_collection.url | default: '#' }}" class="tile tile-image-height-fix">
+        {% if section.settings.tile_16_image != blank %}
+          {{ section.settings.tile_16_image | image_url: width: 2400 | image_tag: alt: title16, loading: 'lazy' }}
+        {% else %}
+          {{ 'image' | placeholder_svg_tag }}
+        {% endif %}
+        <span>{{ title16 }}</span>
+      </a>
+    </div>
+  </div>
+
+  <style>
+  @media (max-width: 780px) {
+
+    #cat-grid-{{ section.id }} .category-grid-2-1 {
+      grid-template-columns: 1fr;
+      grid-template-rows: none;
+    }
+
+    #cat-grid-{{ section.id }} .grid-inner-70-30 {
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    #cat-grid-{{ section.id }} .category-grid-1-3 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr); 
+      grid-template-rows: 240px 0;
+      gap: 16px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    #cat-grid-{{ section.id }} .category-grid-2 {
+      grid-template-columns: 1fr;
+      grid-template-rows: none;
+    }
+
+    #cat-grid-{{ section.id }} .category-grid-3-35-65 {
+      grid-template-columns: 1fr;
+    }
+
+    #cat-grid-{{ section.id }} .tile {
+      height: 220px;
+    }
+
+    #cat-grid-{{ section.id }} .tile--science,
+    #cat-grid-{{ section.id }} .tile--art,
+    #cat-grid-{{ section.id }} .tile--engineering,
+    #cat-grid-{{ section.id }} .tile--culture,
+    #cat-grid-{{ section.id }} .tile--infant {
+      grid-column: auto;
+      grid-row: auto;
+    }
+  }
+  </style>
+
+</section>
+
+{% schema %}
+{
+  "name": "Category Grid",
+  "settings": [
+    { "type": "header", "content": "Tiles 1–5 (left column)" },
+
+    { "type": "image_picker", "id": "tile_1_image", "label": "Tile 1 image" },
+    { "type": "collection", "id": "tile_1_collection", "label": "Tile 1 link (collection)" },
+    { "type": "text", "id": "tile_1_title", "label": "Tile 1 title (optional)" },
+
+    { "type": "image_picker", "id": "tile_2_image", "label": "Tile 2 image" },
+    { "type": "collection", "id": "tile_2_collection", "label": "Tile 2 link (collection)" },
+    { "type": "text", "id": "tile_2_title", "label": "Tile 2 title (optional)" },
+
+    { "type": "image_picker", "id": "tile_3_image", "label": "Tile 3 image" },
+    { "type": "collection", "id": "tile_3_collection", "label": "Tile 3 link (collection)" },
+    { "type": "text", "id": "tile_3_title", "label": "Tile 3 title (optional)" },
+
+    { "type": "image_picker", "id": "tile_4_image", "label": "Tile 4 image" },
+    { "type": "collection", "id": "tile_4_collection", "label": "Tile 4 link (collection)" },
+    { "type": "text", "id": "tile_4_title", "label": "Tile 4 title (optional)" },
+
+    { "type": "image_picker", "id": "tile_5_image", "label": "Tile 5 image" },
+    { "type": "collection", "id": "tile_5_collection", "label": "Tile 5 link (collection)" },
+    { "type": "text", "id": "tile_5_title", "label": "Tile 5 title (optional)" },
+
+    { "type": "header", "content": "Tiles 6–9 (right column top)" },
+
+    { "type": "image_picker", "id": "tile_6_image", "label": "Tile 6 image (hero)" },
+    { "type": "collection", "id": "tile_6_collection", "label": "Tile 6 link (collection)" },
+    { "type": "text", "id": "tile_6_title", "label": "Tile 6 title (optional, HTML allowed like <br>)" },
+
+    { "type": "image_picker", "id": "tile_7_image", "label": "Tile 7 image (wide)" },
+    { "type": "collection", "id": "tile_7_collection", "label": "Tile 7 link (collection)" },
+    { "type": "text", "id": "tile_7_title", "label": "Tile 7 title (optional)" },
+
+    { "type": "image_picker", "id": "tile_8_image", "label": "Tile 8 image (half left)" },
+    { "type": "collection", "id": "tile_8_collection", "label": "Tile 8 link (collection)" },
+    { "type": "text", "id": "tile_8_title", "label": "Tile 8 title (optional, HTML allowed like <br>)" },
+
+    { "type": "image_picker", "id": "tile_9_image", "label": "Tile 9 image (half right)" },
+    { "type": "collection", "id": "tile_9_collection", "label": "Tile 9 link (collection)" },
+    { "type": "text", "id": "tile_9_title", "label": "Tile 9 title (optional)" },
+
+    { "type": "header", "content": "Tiles 10–13 (lower 35/65 area)" },
+
+    { "type": "image_picker", "id": "tile_10_image", "label": "Tile 10 image" },
+    { "type": "collection", "id": "tile_10_collection", "label": "Tile 10 link (collection)" },
+    { "type": "text", "id": "tile_10_title", "label": "Tile 10 title (optional, HTML allowed like <br>)" },
+
+    { "type": "image_picker", "id": "tile_11_image", "label": "Tile 11 image" },
+    { "type": "collection", "id": "tile_11_collection", "label": "Tile 11 link (collection)" },
+    { "type": "text", "id": "tile_11_title", "label": "Tile 11 title (optional)" },
+
+    { "type": "image_picker", "id": "tile_12_image", "label": "Tile 12 image (wide)" },
+    { "type": "collection", "id": "tile_12_collection", "label": "Tile 12 link (collection)" },
+    { "type": "text", "id": "tile_12_title", "label": "Tile 12 title (optional)" },
+
+    { "type": "image_picker", "id": "tile_13_image", "label": "Tile 13 image (tall)" },
+    { "type": "collection", "id": "tile_13_collection", "label": "Tile 13 link (collection)" },
+    { "type": "text", "id": "tile_13_title", "label": "Tile 13 title (optional)" },
+
+    { "type": "header", "content": "Tiles 14–16 (bottom 3 columns)" },
+
+    { "type": "image_picker", "id": "tile_14_image", "label": "Tile 14 image" },
+    { "type": "collection", "id": "tile_14_collection", "label": "Tile 14 link (collection)" },
+    { "type": "text", "id": "tile_14_title", "label": "Tile 14 title (optional)" },
+
+    { "type": "image_picker", "id": "tile_15_image", "label": "Tile 15 image" },
+    { "type": "collection", "id": "tile_15_collection", "label": "Tile 15 link (collection)" },
+    { "type": "text", "id": "tile_15_title", "label": "Tile 15 title (optional)" },
+
+    { "type": "image_picker", "id": "tile_16_image", "label": "Tile 16 image" },
+    { "type": "collection", "id": "tile_16_collection", "label": "Tile 16 link (collection)" },
+    { "type": "text", "id": "tile_16_title", "label": "Tile 16 title (optional)" }
+  ],
+  "presets": [
+    { "name": "Category Grid" }
+  ]
+}
+{% endschema %}
