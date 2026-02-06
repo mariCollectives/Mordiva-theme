@@ -89,6 +89,58 @@
         "custom_class": ""
       }
     },
+    "custom_liquid_3BLL9T": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "custom_liquid": "",
+        "color_scheme": "",
+        "padding_top": 20,
+        "padding_bottom": 0,
+        "custom_class": ""
+      }
+    },
+    "category_grid_custom_JNR9ia": {
+      "type": "category-grid-custom",
+      "name": "Category Grid",
+      "settings": {
+        "tile_1_image": "shopify://shop_images/Science.png",
+        "tile_1_collection": "science-1",
+        "tile_1_title": "Science",
+        "tile_2_image": "shopify://shop_images/Art_craft.png",
+        "tile_2_collection": "art-and-craft",
+        "tile_2_title": "Art & Craft",
+        "tile_3_image": "shopify://shop_images/constructionsEngr.png",
+        "tile_3_collection": "construction-and-engineering-1",
+        "tile_3_title": "Construction & Engineering",
+        "tile_4_collection": "construction-and-engineering-1",
+        "tile_4_title": "",
+        "tile_5_collection": "",
+        "tile_5_title": "",
+        "tile_6_collection": "",
+        "tile_6_title": "",
+        "tile_7_collection": "",
+        "tile_7_title": "",
+        "tile_8_collection": "",
+        "tile_8_title": "",
+        "tile_9_collection": "",
+        "tile_9_title": "",
+        "tile_10_collection": "",
+        "tile_10_title": "",
+        "tile_11_collection": "",
+        "tile_11_title": "",
+        "tile_12_collection": "",
+        "tile_12_title": "",
+        "tile_13_collection": "",
+        "tile_13_title": "",
+        "tile_14_collection": "",
+        "tile_14_title": "",
+        "tile_15_collection": "",
+        "tile_15_title": "",
+        "tile_16_collection": "",
+        "tile_16_title": ""
+      }
+    },
     "rich_text_w8arFx": {
       "type": "rich-text",
       "blocks": {
@@ -915,52 +967,13 @@
         "divider_width": "fixed",
         "custom_class": ""
       }
-    },
-    "category_grid_custom_JNR9ia": {
-      "type": "category-grid-custom",
-      "name": "Category Grid",
-      "settings": {
-        "tile_1_image": "shopify://shop_images/Science.png",
-        "tile_1_collection": "science-1",
-        "tile_1_title": "Science",
-        "tile_2_image": "shopify://shop_images/Art_craft.png",
-        "tile_2_collection": "art-and-craft",
-        "tile_2_title": "Art & Craft",
-        "tile_3_image": "shopify://shop_images/constructionsEngr.png",
-        "tile_3_collection": "construction-and-engineering-1",
-        "tile_3_title": "Construction & Engineering",
-        "tile_4_collection": "construction-and-engineering-1",
-        "tile_4_title": "",
-        "tile_5_collection": "",
-        "tile_5_title": "",
-        "tile_6_collection": "",
-        "tile_6_title": "",
-        "tile_7_collection": "",
-        "tile_7_title": "",
-        "tile_8_collection": "",
-        "tile_8_title": "",
-        "tile_9_collection": "",
-        "tile_9_title": "",
-        "tile_10_collection": "",
-        "tile_10_title": "",
-        "tile_11_collection": "",
-        "tile_11_title": "",
-        "tile_12_collection": "",
-        "tile_12_title": "",
-        "tile_13_collection": "",
-        "tile_13_title": "",
-        "tile_14_collection": "",
-        "tile_14_title": "",
-        "tile_15_collection": "",
-        "tile_15_title": "",
-        "tile_16_collection": "",
-        "tile_16_title": ""
-      }
     }
   },
   "order": [
     "custom_liquid_z4KV4e",
     "slideshow_zKPFFV",
+    "custom_liquid_3BLL9T",
+    "category_grid_custom_JNR9ia",
     "rich_text_w8arFx",
     "product_tabs_jhb9aJ",
     "rich_text_PebUge",
@@ -972,7 +985,6 @@
     "image_comparison_CLXe7t",
     "rich_text_HphPmy",
     "collections_slider_yD633Y",
-    "multicolumn_RFyHwL",
-    "category_grid_custom_JNR9ia"
+    "multicolumn_RFyHwL"
   ]
 }
