@@ -111,10 +111,20 @@
             "collection": "science-1",
             "title": "Science"
           }
+        },
+        "tile_p4E94J": {
+          "type": "tile",
+          "settings": {
+            "slot": "art",
+            "image": "shopify://shop_images/Art_craft.png",
+            "collection": "art-and-craft",
+            "title": "Art & Craft"
+          }
         }
       },
       "block_order": [
-        "tile_VCQ73p"
+        "tile_VCQ73p",
+        "tile_p4E94J"
       ],
       "name": "Category Grid",
       "settings": {}
