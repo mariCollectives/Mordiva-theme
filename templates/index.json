@@ -219,6 +219,32 @@
         "text_weight": "500"
       }
     },
+    "rich_text_w8arFx": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_emtj3R": {
+          "type": "heading",
+          "settings": {
+            "heading": "Trending Now.",
+            "heading_size": "hd2",
+            "heading_highlight_style": "none"
+          }
+        }
+      },
+      "block_order": [
+        "heading_emtj3R"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "color_scheme": "",
+        "content_alignment": "center",
+        "padding_top": 50,
+        "padding_bottom": 0,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": "trending-now"
+      }
+    },
     "rich_text_cP9tUt": {
       "type": "rich-text",
       "blocks": {
@@ -552,32 +578,6 @@
         "autoplay": true,
         "autoplay_seconds": 12,
         "pause_on_hover": true
-      }
-    },
-    "rich_text_w8arFx": {
-      "type": "rich-text",
-      "blocks": {
-        "heading_emtj3R": {
-          "type": "heading",
-          "settings": {
-            "heading": "Trending Now.",
-            "heading_size": "hd2",
-            "heading_highlight_style": "none"
-          }
-        }
-      },
-      "block_order": [
-        "heading_emtj3R"
-      ],
-      "name": "t:sections.rich-text.presets.name",
-      "settings": {
-        "color_scheme": "",
-        "content_alignment": "center",
-        "padding_top": 50,
-        "padding_bottom": 0,
-        "show_section_divider": false,
-        "divider_width": "fixed",
-        "custom_class": "trending-now"
       }
     },
     "product_tabs_jhb9aJ": {
@@ -1050,10 +1050,10 @@
     "custom_liquid_z4KV4e",
     "slideshow_zKPFFV",
     "category_grid_14_MWN9m3",
-    "rich_text_cP9tUt",
-    "hotspot_slider_CWTf6t",
     "rich_text_w8arFx",
     "product_tabs_jhb9aJ",
+    "rich_text_cP9tUt",
+    "hotspot_slider_CWTf6t",
     "lookbook_slider_cte8Fy",
     "custom_liquid_pJ7MQg",
     "rich_text_bg6ANt",
