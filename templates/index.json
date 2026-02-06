@@ -922,6 +922,7 @@
         "ai_gen_block_ffd7da0_GY4kxM": {
           "type": "ai_gen_block_ffd7da0",
           "settings": {
+            "tile_1_image": "shopify://shop_images/Science.png",
             "tile_1_text": "Science",
             "tile_1_link": "",
             "tile_2_text": "Art & Craft",
