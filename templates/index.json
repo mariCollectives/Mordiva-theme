@@ -703,8 +703,8 @@
         "ai_gen_block_41301ac_3GLcft": {
           "type": "ai_gen_block_41301ac",
           "settings": {
-            "heading": "Latest Products",
-            "subheading": "Discover our newest arrivals",
+            "heading": "What’s New.",
+            "subheading": "",
             "heading_alignment": "center",
             "product_count": 12,
             "container_width": 1400,
