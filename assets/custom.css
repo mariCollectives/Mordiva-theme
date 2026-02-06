@@ -121,7 +121,7 @@ body, button, input, select, textarea {
     font-family: "Lexend", sans-serif;
     font-weight: 400 !important;
     font-size: 25px  !important;
-    margin-bottom: 15px;
+    margin-bottom: 30px;
  }
 
  .convertingPlaceSection .rich-text__heading{
@@ -220,4 +220,9 @@ body, button, input, select, textarea {
 
  .form-control{
    background-color: #ddd !important;
+ }
+
+
+ .rich-text__heading.hd2{
+   font-size: 25px !important;
  }
