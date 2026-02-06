@@ -121,7 +121,7 @@ body, button, input, select, textarea {
     font-family: "Lexend", sans-serif;
     font-weight: 400 !important;
     font-size: 25px  !important;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
  }
 
  .convertingPlaceSection .rich-text__heading{
@@ -206,12 +206,16 @@ body, button, input, select, textarea {
     font-size: 25px !important;
  }
 
-  .neadSpecialCss p:after{
-   
+  .neadSpecialCss p:before{
+      content: url('https://cdn.shopify.com/s/files/1/0845/4868/2025/files/phoneIcon.png?v=1770341378') !important;
+      position: absolute !important;
+      left: 24%;
+      top: 45%;
+
   }
 
  .contact__wrapper{
-   max-width:80rem !important;
+   max-width:90rem !important;
  }
 
  .form-control{
