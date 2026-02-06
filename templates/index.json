@@ -697,17 +697,6 @@
         "custom_class": ""
       }
     },
-    "custom_liquid_pJ7MQg": {
-      "type": "custom-liquid",
-      "name": "t:sections.custom-liquid.presets.name",
-      "settings": {
-        "custom_liquid": "",
-        "color_scheme": "",
-        "padding_top": 100,
-        "padding_bottom": 50,
-        "custom_class": ""
-      }
-    },
     "rich_text_cP9tUt": {
       "type": "rich-text",
       "blocks": {
@@ -727,7 +716,7 @@
       "settings": {
         "color_scheme": "",
         "content_alignment": "center",
-        "padding_top": 50,
+        "padding_top": 100,
         "padding_bottom": 50,
         "show_section_divider": false,
         "divider_width": "fixed",
@@ -1081,7 +1070,6 @@
     "rich_text_PebUge",
     "hotspot_slider_CWTf6t",
     "lookbook_slider_cte8Fy",
-    "custom_liquid_pJ7MQg",
     "rich_text_cP9tUt",
     "rich_text_bg6ANt",
     "contact_form_4hKEeH",
