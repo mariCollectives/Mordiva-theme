@@ -915,6 +915,45 @@
         "divider_width": "fixed",
         "custom_class": ""
       }
+    },
+    "category_grid_custom_JNR9ia": {
+      "type": "category-grid-custom",
+      "name": "Category Grid",
+      "settings": {
+        "tile_1_image": "shopify://shop_images/Science.png",
+        "tile_1_collection": "",
+        "tile_1_title": "",
+        "tile_2_collection": "",
+        "tile_2_title": "",
+        "tile_3_collection": "",
+        "tile_3_title": "",
+        "tile_4_collection": "",
+        "tile_4_title": "",
+        "tile_5_collection": "",
+        "tile_5_title": "",
+        "tile_6_collection": "",
+        "tile_6_title": "",
+        "tile_7_collection": "",
+        "tile_7_title": "",
+        "tile_8_collection": "",
+        "tile_8_title": "",
+        "tile_9_collection": "",
+        "tile_9_title": "",
+        "tile_10_collection": "",
+        "tile_10_title": "",
+        "tile_11_collection": "",
+        "tile_11_title": "",
+        "tile_12_collection": "",
+        "tile_12_title": "",
+        "tile_13_collection": "",
+        "tile_13_title": "",
+        "tile_14_collection": "",
+        "tile_14_title": "",
+        "tile_15_collection": "",
+        "tile_15_title": "",
+        "tile_16_collection": "",
+        "tile_16_title": ""
+      }
     }
   },
   "order": [
@@ -931,6 +970,7 @@
     "image_comparison_CLXe7t",
     "rich_text_HphPmy",
     "collections_slider_yD633Y",
-    "multicolumn_RFyHwL"
+    "multicolumn_RFyHwL",
+    "category_grid_custom_JNR9ia"
   ]
 }
