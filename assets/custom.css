@@ -138,9 +138,7 @@ body, button, input, select, textarea {
      font-weight: 200 !important;
  }
 
- .ContactFormSection{
-    background: #F4F0EC !important;
- }
+
 
  .contact__button button{
     border-radius: 20px !important;
@@ -197,7 +195,7 @@ body, button, input, select, textarea {
  }
 
  
- .neadSpecialCss{
+ .neadSpecialCss, .shopify-section.section, .contact-form{
     background-color: #F4F0EC !important;
  }
 

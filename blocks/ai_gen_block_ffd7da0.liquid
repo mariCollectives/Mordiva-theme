@@ -1,286 +1,257 @@
-{% doc %}
-  @prompt
-    can you make liquid for this one without css?
-    
-    <div class="width-50 margin-left-2">
-    
-      <div class="category-grid-2">
-        <a class="tile tile--science" href="#">
-          <img src="https://cdn.shopify.com/s/files/1/0845/4868/2025/files/Science.png?v=1769692699" alt="Science">
-          <span>Science</span>
-        </a>
-    
-        <a class="tile tile--art" href="#">
-          <img src="https://cdn.shopify.com/s/files/1/0845/4868/2025/files/Art_craft.png?v=1769746351" alt="Art & Craft">
-          <span>Art & Craft</span>
-        </a>
-    
-        <a class="tile tile--engineering" href="#">
-          <img src="https://cdn.shopify.com/s/files/1/0845/4868/2025/files/constructionsEngr.png?v=1769746349" alt="Construction & Engineering">
-          <span>Construction & Engineering</span>
-        </a>
-      </div>
-    
-      <div class="category-grid-1-3 padding-15">
-          <a class="tile tile--culture" href="#">
-          <img src="https://cdn.shopify.com/s/files/1/0845/4868/2025/files/cultureComms.png?v=1769746356" alt="Culture & Communities">
-          <span>Culture & Communities</span>
-        </a>
-    
-        <a class="tile tile--infant" href="#">
-          <img src="https://cdn.shopify.com/s/files/1/0845/4868/2025/files/Infant.png?v=1769746402" alt="Infant & Toddler">
-          <span>Infant & Toddler</span>
-        </a>
-      </div>
-    
-    </div>
-    
-    
-    
-    <div class="width-50">
-      <div class="category-grid-2-1">
-        <a class="tile tile--hero" href="#">
-          <img src="https://cdn.shopify.com/s/files/1/0845/4868/2025/files/kitchen_e88af7a6-19ed-4c03-a63b-dff5cba3e86e.png?v=1769998165" alt="Kitchen Resources & Whitegoods">
-          <span>Kitchen Resources<br>& Whitegoods</span>
-        </a>
-    
-        <a class="tile tile--wide" href="#">
-          <img src="https://cdn.shopify.com/s/files/1/0845/4868/2025/files/physicalWellbeing.png?v=1769746408" alt="Physical Wellbeing">
-          <span>Physical Wellbeing</span>
-        </a>
-    
-        <a class="tile tile--half-left" href="#">
-          <img src="https://cdn.shopify.com/s/files/1/0845/4868/2025/files/14_categories_2_1.png?v=1769998398" alt="English, Language & Literacy">
-          <span>English, Language<br>& Literacy</span>
-        </a>
-    
-        <a class="tile tile--half-right" href="#">
-          <img src="https://cdn.shopify.com/s/files/1/0845/4868/2025/files/gamesPuzzles.png?v=1769999155" alt="Games & Puzzles">
-          <span>Games & Puzzles</span>
-        </a>
-      </div>
-    </div>
-    
-    
-      <div class="clear"></div>
-    
-        <div class="width-full">
-    
-              <div class="width-35">
-                <div class="width-full margin-left-2">  
-                  <div class="category-grid-2-1 height-set">
-                  
-                    <a class="tile tile--half-left height-set" href="#">
-                      <img src="https://cdn.shopify.com/s/files/1/0845/4868/2025/files/14_categories_2_1.png?v=1769998398" alt="English, Language & Literacy">
-                      <span>English, Language<br>& Literacy</span>
-                    </a>
-    
-                    <a class="tile tile--half-right height-set" href="#">
-                      <img src="https://cdn.shopify.com/s/files/1/0845/4868/2025/files/gamesPuzzles.png?v=1769999155" alt="Games & Puzzles">
-                      <span>Games & Puzzles</span>
-                    </a>
-                  </div>
-    
-                </div>
-              </div><!----end:Width-50-->
-    
-    
-              <div class="width-65">
-    
-                <div class="grid-inner-70-30">
-                    <a class="tile cat-tile--wide" href="#">
-                      <img
-                        src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=70"
-                        alt="Music & Movement"
-                        loading="lazy"
-                      />
-                      <span>Music &amp; Movement</span>
-                    </a>
-    
-                    <a class="tile tile--tall" href="#">
-                      <img
-                        src="https://cdn.shopify.com/s/files/1/0845/4868/2025/files/matheMatics.png?v=1769746401"
-                        alt="Mathematics"
-                        loading="lazy"
-                      />
-                      <span>Mathematics</span>
-                    </a>
-                </div>
-    
-    
-              </div><!----end:width-65-->
-    
-              
-        </div>
-    
-    
-          <div class="width-full"> 
-            <div class="category-grid-3-col">
-              <a href="#" class="tile tile-image-height-fix">
-                <img src="https://cdn.shopify.com/s/files/1/0845/4868/2025/files/inclusions.png?v=1769746372" alt="Inclusion & Development">
-                <span>Inclusion &amp; Development</span>
-              </a>
-    
-              <a href="#" class="tile tile-image-height-fix">
-                <img src="https://cdn.shopify.com/s/files/1/0845/4868/2025/files/modellingAccess.png?v=1769746404" alt="Modelling & Accessories">
-                <span>Modelling &amp; Accessories</span>
-              </a>
-    
-              <a href="#" class="tile tile-image-height-fix">
-                <img src="https://cdn.shopify.com/s/files/1/0845/4868/2025/files/classRoom_b9ac4d14-170b-4104-a427-8dcddc0a4a60.png?v=1770019394" alt="Classroom Resources">
-                <span>Classroom Resources</span>
-              </a>
-            </div>
-    
-          </div>
-      
-    
-    
-    </div>
-    
-{% enddoc %}
 {% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
 
-<div class="ai-category-grid-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
-  
-  <div class="ai-category-grid__row-{{ ai_gen_id }}">
-    
-    <div class="ai-category-grid__col-left-{{ ai_gen_id }}">
-      
-      <div class="ai-category-grid__group-2-{{ ai_gen_id }}">
+{%- liquid
+  assign gap = 16
+  assign radius = 18
+  assign tile_base = "position:relative; display:block; overflow:hidden; border-radius:" | append: radius | append: "px; text-decoration:none;"
+  assign img_base  = "width:100%; height:100%; display:block; object-fit:cover;"
+  assign label_base = "position:absolute; left:16px; bottom:16px; color:#fff; font-size:18px; font-weight:600; line-height:1.2; z-index:3;"
+  assign overlay_base = "position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,.45), rgba(0,0,0,0) 65%); z-index:2;"
+-%}
+
+<div {{ block.shopify_attributes }}
+  style="max-width:1400px; margin:0 auto; padding:0 16px;">
+
+  {# ---------------- ROW 1 (50/50) ---------------- #}
+  <div style="display:flex; gap:{{ gap }}px; align-items:stretch; flex-wrap:wrap;">
+
+    {# LEFT 50% #}
+    <div style="flex:1 1 0; min-width:320px;">
+
+      {# top 3 tiles in a row #}
+      <div style="display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:{{ gap }}px;">
+
         {% if block.settings.tile_1_image %}
-          <a class="ai-category-grid__tile-{{ ai_gen_id }}" href="{{ block.settings.tile_1_link }}">
-            <img src="{{ block.settings.tile_1_image | image_url: width: 600 }}" alt="{{ block.settings.tile_1_text | escape }}" loading="lazy">
-            <span>{{ block.settings.tile_1_text }}</span>
+          <a href="{{ block.settings.tile_1_link | default: '#' }}"
+             style="{{ tile_base }} height:220px;">
+            <img src="{{ block.settings.tile_1_image | image_url: width: 900 }}"
+                 alt="{{ block.settings.tile_1_text | escape }}"
+                 loading="lazy"
+                 style="{{ img_base }}">
+            <span style="{{ label_base }}">{{ block.settings.tile_1_text }}</span>
+            <span aria-hidden="true" style="{{ overlay_base }}"></span>
           </a>
         {% endif %}
 
         {% if block.settings.tile_2_image %}
-          <a class="ai-category-grid__tile-{{ ai_gen_id }}" href="{{ block.settings.tile_2_link }}">
-            <img src="{{ block.settings.tile_2_image | image_url: width: 600 }}" alt="{{ block.settings.tile_2_text | escape }}" loading="lazy">
-            <span>{{ block.settings.tile_2_text }}</span>
+          <a href="{{ block.settings.tile_2_link | default: '#' }}"
+             style="{{ tile_base }} height:220px;">
+            <img src="{{ block.settings.tile_2_image | image_url: width: 900 }}"
+                 alt="{{ block.settings.tile_2_text | escape }}"
+                 loading="lazy"
+                 style="{{ img_base }}">
+            <span style="{{ label_base }}">{{ block.settings.tile_2_text }}</span>
+            <span aria-hidden="true" style="{{ overlay_base }}"></span>
           </a>
         {% endif %}
 
         {% if block.settings.tile_3_image %}
-          <a class="ai-category-grid__tile-{{ ai_gen_id }}" href="{{ block.settings.tile_3_link }}">
-            <img src="{{ block.settings.tile_3_image | image_url: width: 600 }}" alt="{{ block.settings.tile_3_text | escape }}" loading="lazy">
-            <span>{{ block.settings.tile_3_text }}</span>
+          <a href="{{ block.settings.tile_3_link | default: '#' }}"
+             style="{{ tile_base }} height:220px;">
+            <img src="{{ block.settings.tile_3_image | image_url: width: 900 }}"
+                 alt="{{ block.settings.tile_3_text | escape }}"
+                 loading="lazy"
+                 style="{{ img_base }}">
+            <span style="{{ label_base }}">{{ block.settings.tile_3_text }}</span>
+            <span aria-hidden="true" style="{{ overlay_base }}"></span>
           </a>
         {% endif %}
+
       </div>
 
-      <div class="ai-category-grid__group-1-3-{{ ai_gen_id }}">
+      {# bottom 2 tiles (25% / 75% look) #}
+      <div style="display:grid; grid-template-columns:1fr 3fr; gap:{{ gap }}px; margin-top:{{ gap }}px;">
+
         {% if block.settings.tile_4_image %}
-          <a class="ai-category-grid__tile-{{ ai_gen_id }}" href="{{ block.settings.tile_4_link }}">
-            <img src="{{ block.settings.tile_4_image | image_url: width: 600 }}" alt="{{ block.settings.tile_4_text | escape }}" loading="lazy">
-            <span>{{ block.settings.tile_4_text }}</span>
+          <a href="{{ block.settings.tile_4_link | default: '#' }}"
+             style="{{ tile_base }} height:220px;">
+            <img src="{{ block.settings.tile_4_image | image_url: width: 900 }}"
+                 alt="{{ block.settings.tile_4_text | escape }}"
+                 loading="lazy"
+                 style="{{ img_base }}">
+            <span style="{{ label_base }}">{{ block.settings.tile_4_text }}</span>
+            <span aria-hidden="true" style="{{ overlay_base }}"></span>
           </a>
         {% endif %}
 
         {% if block.settings.tile_5_image %}
-          <a class="ai-category-grid__tile-{{ ai_gen_id }}" href="{{ block.settings.tile_5_link }}">
-            <img src="{{ block.settings.tile_5_image | image_url: width: 600 }}" alt="{{ block.settings.tile_5_text | escape }}" loading="lazy">
-            <span>{{ block.settings.tile_5_text }}</span>
+          <a href="{{ block.settings.tile_5_link | default: '#' }}"
+             style="{{ tile_base }} height:220px;">
+            <img src="{{ block.settings.tile_5_image | image_url: width: 1200 }}"
+                 alt="{{ block.settings.tile_5_text | escape }}"
+                 loading="lazy"
+                 style="{{ img_base }}">
+            <span style="{{ label_base }}">{{ block.settings.tile_5_text }}</span>
+            <span aria-hidden="true" style="{{ overlay_base }}"></span>
           </a>
         {% endif %}
+
       </div>
 
     </div>
 
-    <div class="ai-category-grid__col-right-{{ ai_gen_id }}">
-      
-      <div class="ai-category-grid__group-2-1-{{ ai_gen_id }}">
+    {# RIGHT 50% (2-1 layout) #}
+    <div style="flex:1 1 0; min-width:320px;">
+      <div style="display:grid; grid-template-columns:1.2fr 1fr; grid-template-rows:220px 220px; gap:{{ gap }}px;">
+
+        {# hero spans 2 rows #}
         {% if block.settings.tile_6_image %}
-          <a class="ai-category-grid__tile-hero-{{ ai_gen_id }}" href="{{ block.settings.tile_6_link }}">
-            <img src="{{ block.settings.tile_6_image | image_url: width: 800 }}" alt="{{ block.settings.tile_6_text | escape }}" loading="lazy">
-            <span>{{ block.settings.tile_6_text }}</span>
+          <a href="{{ block.settings.tile_6_link | default: '#' }}"
+             style="{{ tile_base }} grid-row:1 / span 2; height:100%;">
+            <img src="{{ block.settings.tile_6_image | image_url: width: 1600 }}"
+                 alt="{{ block.settings.tile_6_text | escape }}"
+                 loading="lazy"
+                 style="{{ img_base }}">
+            <span style="{{ label_base }}">{{ block.settings.tile_6_text }}</span>
+            <span aria-hidden="true" style="{{ overlay_base }}"></span>
           </a>
         {% endif %}
 
+        {# wide top-right #}
         {% if block.settings.tile_7_image %}
-          <a class="ai-category-grid__tile-wide-{{ ai_gen_id }}" href="{{ block.settings.tile_7_link }}">
-            <img src="{{ block.settings.tile_7_image | image_url: width: 800 }}" alt="{{ block.settings.tile_7_text | escape }}" loading="lazy">
-            <span>{{ block.settings.tile_7_text }}</span>
+          <a href="{{ block.settings.tile_7_link | default: '#' }}"
+             style="{{ tile_base }} height:100%;">
+            <img src="{{ block.settings.tile_7_image | image_url: width: 1200 }}"
+                 alt="{{ block.settings.tile_7_text | escape }}"
+                 loading="lazy"
+                 style="{{ img_base }}">
+            <span style="{{ label_base }}">{{ block.settings.tile_7_text }}</span>
+            <span aria-hidden="true" style="{{ overlay_base }}"></span>
           </a>
         {% endif %}
 
-        {% if block.settings.tile_8_image %}
-          <a class="ai-category-grid__tile-half-{{ ai_gen_id }}" href="{{ block.settings.tile_8_link }}">
-            <img src="{{ block.settings.tile_8_image | image_url: width: 400 }}" alt="{{ block.settings.tile_8_text | escape }}" loading="lazy">
-            <span>{{ block.settings.tile_8_text }}</span>
+        {# bottom-right split into 2 halves inside a nested grid #}
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:{{ gap }}px;">
+          {% if block.settings.tile_8_image %}
+            <a href="{{ block.settings.tile_8_link | default: '#' }}"
+               style="{{ tile_base }} height:220px;">
+              <img src="{{ block.settings.tile_8_image | image_url: width: 900 }}"
+                   alt="{{ block.settings.tile_8_text | escape }}"
+                   loading="lazy"
+                   style="{{ img_base }}">
+              <span style="{{ label_base }}">{{ block.settings.tile_8_text }}</span>
+              <span aria-hidden="true" style="{{ overlay_base }}"></span>
+            </a>
+          {% endif %}
+
+          {% if block.settings.tile_9_image %}
+            <a href="{{ block.settings.tile_9_link | default: '#' }}"
+               style="{{ tile_base }} height:220px;">
+              <img src="{{ block.settings.tile_9_image | image_url: width: 900 }}"
+                   alt="{{ block.settings.tile_9_text | escape }}"
+                   loading="lazy"
+                   style="{{ img_base }}">
+              <span style="{{ label_base }}">{{ block.settings.tile_9_text }}</span>
+              <span aria-hidden="true" style="{{ overlay_base }}"></span>
+            </a>
+          {% endif %}
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  {# ---------------- ROW 2 (35/65) ---------------- #}
+  <div style="display:flex; gap:{{ gap }}px; margin-top:{{ gap }}px; flex-wrap:wrap;">
+
+    <div style="flex:0 0 35%; min-width:320px;">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:{{ gap }}px;">
+        {% if block.settings.tile_10_image %}
+          <a href="{{ block.settings.tile_10_link | default: '#' }}"
+             style="{{ tile_base }} height:220px;">
+            <img src="{{ block.settings.tile_10_image | image_url: width: 900 }}"
+                 alt="{{ block.settings.tile_10_text | escape }}"
+                 loading="lazy"
+                 style="{{ img_base }}">
+            <span style="{{ label_base }}">{{ block.settings.tile_10_text }}</span>
+            <span aria-hidden="true" style="{{ overlay_base }}"></span>
           </a>
         {% endif %}
 
-        {% if block.settings.tile_9_image %}
-          <a class="ai-category-grid__tile-half-{{ ai_gen_id }}" href="{{ block.settings.tile_9_link }}">
-            <img src="{{ block.settings.tile_9_image | image_url: width: 400 }}" alt="{{ block.settings.tile_9_text | escape }}" loading="lazy">
-            <span>{{ block.settings.tile_9_text }}</span>
+        {% if block.settings.tile_11_image %}
+          <a href="{{ block.settings.tile_11_link | default: '#' }}"
+             style="{{ tile_base }} height:220px;">
+            <img src="{{ block.settings.tile_11_image | image_url: width: 900 }}"
+                 alt="{{ block.settings.tile_11_text | escape }}"
+                 loading="lazy"
+                 style="{{ img_base }}">
+            <span style="{{ label_base }}">{{ block.settings.tile_11_text }}</span>
+            <span aria-hidden="true" style="{{ overlay_base }}"></span>
           </a>
         {% endif %}
       </div>
+    </div>
 
+    <div style="flex:1 1 0; min-width:320px;">
+      <div style="display:grid; grid-template-columns:2.3fr 1fr; gap:{{ gap }}px;">
+        {% if block.settings.tile_12_image %}
+          <a href="{{ block.settings.tile_12_link | default: '#' }}"
+             style="{{ tile_base }} height:220px;">
+            <img src="{{ block.settings.tile_12_image | image_url: width: 1600 }}"
+                 alt="{{ block.settings.tile_12_text | escape }}"
+                 loading="lazy"
+                 style="{{ img_base }}">
+            <span style="{{ label_base }}">{{ block.settings.tile_12_text }}</span>
+            <span aria-hidden="true" style="{{ overlay_base }}"></span>
+          </a>
+        {% endif %}
+
+        {% if block.settings.tile_13_image %}
+          <a href="{{ block.settings.tile_13_link | default: '#' }}"
+             style="{{ tile_base }} height:220px;">
+            <img src="{{ block.settings.tile_13_image | image_url: width: 900 }}"
+                 alt="{{ block.settings.tile_13_text | escape }}"
+                 loading="lazy"
+                 style="{{ img_base }}">
+            <span style="{{ label_base }}">{{ block.settings.tile_13_text }}</span>
+            <span aria-hidden="true" style="{{ overlay_base }}"></span>
+          </a>
+        {% endif %}
+      </div>
     </div>
 
   </div>
 
-  <div class="ai-category-grid__row-2-{{ ai_gen_id }}">
-    
-    <div class="ai-category-grid__col-35-{{ ai_gen_id }}">
-      {% if block.settings.tile_10_image %}
-        <a class="ai-category-grid__tile-half-{{ ai_gen_id }}" href="{{ block.settings.tile_10_link }}">
-          <img src="{{ block.settings.tile_10_image | image_url: width: 400 }}" alt="{{ block.settings.tile_10_text | escape }}" loading="lazy">
-          <span>{{ block.settings.tile_10_text }}</span>
-        </a>
-      {% endif %}
+  {# ---------------- ROW 3 (3 columns) ---------------- #}
+  <div style="display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:{{ gap }}px; margin-top:{{ gap }}px;">
 
-      {% if block.settings.tile_11_image %}
-        <a class="ai-category-grid__tile-half-{{ ai_gen_id }}" href="{{ block.settings.tile_11_link }}">
-          <img src="{{ block.settings.tile_11_image | image_url: width: 400 }}" alt="{{ block.settings.tile_11_text | escape }}" loading="lazy">
-          <span>{{ block.settings.tile_11_text }}</span>
-        </a>
-      {% endif %}
-    </div>
-
-    <div class="ai-category-grid__col-65-{{ ai_gen_id }}">
-      {% if block.settings.tile_12_image %}
-        <a class="ai-category-grid__tile-70-{{ ai_gen_id }}" href="{{ block.settings.tile_12_link }}">
-          <img src="{{ block.settings.tile_12_image | image_url: width: 800 }}" alt="{{ block.settings.tile_12_text | escape }}" loading="lazy">
-          <span>{{ block.settings.tile_12_text }}</span>
-        </a>
-      {% endif %}
-
-      {% if block.settings.tile_13_image %}
-        <a class="ai-category-grid__tile-30-{{ ai_gen_id }}" href="{{ block.settings.tile_13_link }}">
-          <img src="{{ block.settings.tile_13_image | image_url: width: 400 }}" alt="{{ block.settings.tile_13_text | escape }}" loading="lazy">
-          <span>{{ block.settings.tile_13_text }}</span>
-        </a>
-      {% endif %}
-    </div>
-
-  </div>
-
-  <div class="ai-category-grid__row-3-{{ ai_gen_id }}">
     {% if block.settings.tile_14_image %}
-      <a class="ai-category-grid__tile-{{ ai_gen_id }}" href="{{ block.settings.tile_14_link }}">
-        <img src="{{ block.settings.tile_14_image | image_url: width: 600 }}" alt="{{ block.settings.tile_14_text | escape }}" loading="lazy">
-        <span>{{ block.settings.tile_14_text }}</span>
+      <a href="{{ block.settings.tile_14_link | default: '#' }}"
+         style="{{ tile_base }} height:220px;">
+        <img src="{{ block.settings.tile_14_image | image_url: width: 1200 }}"
+             alt="{{ block.settings.tile_14_text | escape }}"
+             loading="lazy"
+             style="{{ img_base }}">
+        <span style="{{ label_base }}">{{ block.settings.tile_14_text }}</span>
+        <span aria-hidden="true" style="{{ overlay_base }}"></span>
       </a>
     {% endif %}
 
     {% if block.settings.tile_15_image %}
-      <a class="ai-category-grid__tile-{{ ai_gen_id }}" href="{{ block.settings.tile_15_link }}">
-        <img src="{{ block.settings.tile_15_image | image_url: width: 600 }}" alt="{{ block.settings.tile_15_text | escape }}" loading="lazy">
-        <span>{{ block.settings.tile_15_text }}</span>
+      <a href="{{ block.settings.tile_15_link | default: '#' }}"
+         style="{{ tile_base }} height:220px;">
+        <img src="{{ block.settings.tile_15_image | image_url: width: 1200 }}"
+             alt="{{ block.settings.tile_15_text | escape }}"
+             loading="lazy"
+             style="{{ img_base }}">
+        <span style="{{ label_base }}">{{ block.settings.tile_15_text }}</span>
+        <span aria-hidden="true" style="{{ overlay_base }}"></span>
       </a>
     {% endif %}
 
     {% if block.settings.tile_16_image %}
-      <a class="ai-category-grid__tile-{{ ai_gen_id }}" href="{{ block.settings.tile_16_link }}">
-        <img src="{{ block.settings.tile_16_image | image_url: width: 600 }}" alt="{{ block.settings.tile_16_text | escape }}" loading="lazy">
-        <span>{{ block.settings.tile_16_text }}</span>
+      <a href="{{ block.settings.tile_16_link | default: '#' }}"
+         style="{{ tile_base }} height:220px;">
+        <img src="{{ block.settings.tile_16_image | image_url: width: 1200 }}"
+             alt="{{ block.settings.tile_16_text | escape }}"
+             loading="lazy"
+             style="{{ img_base }}">
+        <span style="{{ label_base }}">{{ block.settings.tile_16_text }}</span>
+        <span aria-hidden="true" style="{{ overlay_base }}"></span>
       </a>
     {% endif %}
+
   </div>
 
 </div>
