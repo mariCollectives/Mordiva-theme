@@ -313,10 +313,10 @@
         "custom_class": "trendingNowCollage"
       }
     },
-    "rich_text_cP9tUt": {
+    "rich_text_PebUge": {
       "type": "rich-text",
       "blocks": {
-        "heading_Jh8Y33": {
+        "heading_hKgAza": {
           "type": "heading",
           "settings": {
             "heading": "Shop Now.",
@@ -326,7 +326,7 @@
         }
       },
       "block_order": [
-        "heading_Jh8Y33"
+        "heading_hKgAza"
       ],
       "name": "t:sections.rich-text.presets.name",
       "settings": {
@@ -708,6 +708,32 @@
         "custom_class": ""
       }
     },
+    "rich_text_cP9tUt": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_Jh8Y33": {
+          "type": "heading",
+          "settings": {
+            "heading": "What’s New.",
+            "heading_size": "hd1",
+            "heading_highlight_style": "none"
+          }
+        }
+      },
+      "block_order": [
+        "heading_Jh8Y33"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "color_scheme": "",
+        "content_alignment": "center",
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": "ShopNowHead"
+      }
+    },
     "rich_text_bg6ANt": {
       "type": "rich-text",
       "blocks": {
@@ -1052,10 +1078,11 @@
     "category_grid_14_MWN9m3",
     "rich_text_w8arFx",
     "product_tabs_jhb9aJ",
-    "rich_text_cP9tUt",
+    "rich_text_PebUge",
     "hotspot_slider_CWTf6t",
     "lookbook_slider_cte8Fy",
     "custom_liquid_pJ7MQg",
+    "rich_text_cP9tUt",
     "rich_text_bg6ANt",
     "contact_form_4hKEeH",
     "image_comparison_CLXe7t",
