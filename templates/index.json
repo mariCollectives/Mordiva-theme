@@ -129,12 +129,22 @@
             "collection": "construction-and-engineering-1",
             "title": "Construction & Engineering"
           }
+        },
+        "tile_kQdc4c": {
+          "type": "tile",
+          "settings": {
+            "slot": "culture",
+            "image": "shopify://shop_images/cultureComms.png",
+            "collection": "culture-and-communities-1",
+            "title": "Culture & Communities"
+          }
         }
       },
       "block_order": [
         "tile_VCQ73p",
         "tile_p4E94J",
-        "tile_ATmAUx"
+        "tile_ATmAUx",
+        "tile_kQdc4c"
       ],
       "custom_css": [],
       "name": "Category Grid",
