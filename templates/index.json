@@ -219,104 +219,10 @@
         "text_weight": "500"
       }
     },
-    "rich_text_w8arFx": {
+    "rich_text_cP9tUt": {
       "type": "rich-text",
       "blocks": {
-        "heading_emtj3R": {
-          "type": "heading",
-          "settings": {
-            "heading": "Trending Now.",
-            "heading_size": "hd2",
-            "heading_highlight_style": "none"
-          }
-        }
-      },
-      "block_order": [
-        "heading_emtj3R"
-      ],
-      "name": "t:sections.rich-text.presets.name",
-      "settings": {
-        "color_scheme": "",
-        "content_alignment": "center",
-        "padding_top": 50,
-        "padding_bottom": 0,
-        "show_section_divider": false,
-        "divider_width": "fixed",
-        "custom_class": "trending-now"
-      }
-    },
-    "product_tabs_jhb9aJ": {
-      "type": "product-tabs",
-      "blocks": {
-        "tab_d4xCmQ": {
-          "type": "tab",
-          "settings": {
-            "title": "Constructions",
-            "collection": "construction-and-engineering-1"
-          }
-        },
-        "tab_XDJLTi": {
-          "type": "tab",
-          "settings": {
-            "title": "Art & Craft",
-            "collection": "craft-furniture-essentials"
-          }
-        },
-        "tab_dzp3dT": {
-          "type": "tab",
-          "settings": {
-            "title": "Kids Toys",
-            "collection": "inclusion-and-development-1"
-          }
-        },
-        "tab_jrYb6E": {
-          "type": "tab",
-          "settings": {
-            "title": "Games & Puzzles",
-            "collection": "games-and-puzzles-1"
-          }
-        }
-      },
-      "block_order": [
-        "tab_d4xCmQ",
-        "tab_XDJLTi",
-        "tab_dzp3dT",
-        "tab_jrYb6E"
-      ],
-      "custom_css": [
-        ".f-grid--row-gap-medium {--row-gap-mobile: 2.4rem;}",
-        "@media (min-width: 768px) {.tabs__header {--tab-spacing: 4rem; }}"
-      ],
-      "settings": {
-        "color_scheme": "",
-        "header_layout": "horizontal",
-        "heading": "",
-        "heading_size": "h1",
-        "heading_highlight_style": "none",
-        "limit": 3,
-        "columns": 4,
-        "column_gap": "extra-small",
-        "row_gap": "medium",
-        "grid_layout": "metro",
-        "pcard_image_ratio": "3/4",
-        "columns_mobile": "2",
-        "swipe_on_mobile": false,
-        "show_all_button_on_top": false,
-        "button_label": "",
-        "button_link": "",
-        "button_style": "btn--primary",
-        "tabs_nav_style": "design-1",
-        "padding_top": 30,
-        "padding_bottom": 0,
-        "show_section_divider": false,
-        "divider_width": "fixed",
-        "custom_class": "trendingNowCollage"
-      }
-    },
-    "rich_text_PebUge": {
-      "type": "rich-text",
-      "blocks": {
-        "heading_hKgAza": {
+        "heading_Jh8Y33": {
           "type": "heading",
           "settings": {
             "heading": "Shop Now.",
@@ -326,7 +232,7 @@
         }
       },
       "block_order": [
-        "heading_hKgAza"
+        "heading_Jh8Y33"
       ],
       "name": "t:sections.rich-text.presets.name",
       "settings": {
@@ -419,7 +325,7 @@
           "settings": {
             "image": "shopify://shop_images/slide4.png",
             "alt": "Shelving & Cabinets",
-            "caption": "Crafting boutique spaces for young minds to thrive.",
+            "caption": "Shelving & Cabinets",
             "button_label": "VIEW ALL",
             "button_link": "shopify://collections/construction-and-engineering-copy"
           }
@@ -648,6 +554,100 @@
         "pause_on_hover": true
       }
     },
+    "rich_text_w8arFx": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_emtj3R": {
+          "type": "heading",
+          "settings": {
+            "heading": "Trending Now.",
+            "heading_size": "hd2",
+            "heading_highlight_style": "none"
+          }
+        }
+      },
+      "block_order": [
+        "heading_emtj3R"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "color_scheme": "",
+        "content_alignment": "center",
+        "padding_top": 50,
+        "padding_bottom": 0,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": "trending-now"
+      }
+    },
+    "product_tabs_jhb9aJ": {
+      "type": "product-tabs",
+      "blocks": {
+        "tab_d4xCmQ": {
+          "type": "tab",
+          "settings": {
+            "title": "Constructions",
+            "collection": "construction-and-engineering-1"
+          }
+        },
+        "tab_XDJLTi": {
+          "type": "tab",
+          "settings": {
+            "title": "Art & Craft",
+            "collection": "craft-furniture-essentials"
+          }
+        },
+        "tab_dzp3dT": {
+          "type": "tab",
+          "settings": {
+            "title": "Kids Toys",
+            "collection": "inclusion-and-development-1"
+          }
+        },
+        "tab_jrYb6E": {
+          "type": "tab",
+          "settings": {
+            "title": "Games & Puzzles",
+            "collection": "games-and-puzzles-1"
+          }
+        }
+      },
+      "block_order": [
+        "tab_d4xCmQ",
+        "tab_XDJLTi",
+        "tab_dzp3dT",
+        "tab_jrYb6E"
+      ],
+      "custom_css": [
+        ".f-grid--row-gap-medium {--row-gap-mobile: 2.4rem;}",
+        "@media (min-width: 768px) {.tabs__header {--tab-spacing: 4rem; }}"
+      ],
+      "settings": {
+        "color_scheme": "",
+        "header_layout": "horizontal",
+        "heading": "",
+        "heading_size": "h1",
+        "heading_highlight_style": "none",
+        "limit": 3,
+        "columns": 4,
+        "column_gap": "extra-small",
+        "row_gap": "medium",
+        "grid_layout": "metro",
+        "pcard_image_ratio": "3/4",
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "show_all_button_on_top": false,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "btn--primary",
+        "tabs_nav_style": "design-1",
+        "padding_top": 30,
+        "padding_bottom": 0,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": "trendingNowCollage"
+      }
+    },
     "lookbook_slider_cte8Fy": {
       "type": "lookbook-slider",
       "blocks": {
@@ -697,30 +697,15 @@
         "custom_class": ""
       }
     },
-    "rich_text_cP9tUt": {
-      "type": "rich-text",
-      "blocks": {
-        "heading_Jh8Y33": {
-          "type": "heading",
-          "settings": {
-            "heading": "What’s New.",
-            "heading_size": "hd1",
-            "heading_highlight_style": "none"
-          }
-        }
-      },
-      "block_order": [
-        "heading_Jh8Y33"
-      ],
-      "name": "t:sections.rich-text.presets.name",
+    "custom_liquid_pJ7MQg": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom-liquid.presets.name",
       "settings": {
+        "custom_liquid": "",
         "color_scheme": "",
-        "content_alignment": "center",
         "padding_top": 100,
         "padding_bottom": 50,
-        "show_section_divider": false,
-        "divider_width": "fixed",
-        "custom_class": "ShopNowHead"
+        "custom_class": ""
       }
     },
     "rich_text_bg6ANt": {
@@ -1065,12 +1050,12 @@
     "custom_liquid_z4KV4e",
     "slideshow_zKPFFV",
     "category_grid_14_MWN9m3",
+    "rich_text_cP9tUt",
+    "hotspot_slider_CWTf6t",
     "rich_text_w8arFx",
     "product_tabs_jhb9aJ",
-    "rich_text_PebUge",
-    "hotspot_slider_CWTf6t",
     "lookbook_slider_cte8Fy",
-    "rich_text_cP9tUt",
+    "custom_liquid_pJ7MQg",
     "rich_text_bg6ANt",
     "contact_form_4hKEeH",
     "image_comparison_CLXe7t",
