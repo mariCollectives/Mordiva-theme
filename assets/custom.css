@@ -196,6 +196,24 @@ body, button, input, select, textarea {
     max-width: 85rem;
  }
 
+ 
  .neadSpecialCss{
     background-color: #F4F0EC !important;
+ }
+
+ .neadSpecialCss p{
+    padding-top: 20px !important;
+    font-size: 25px !important;
+ }
+
+  .neadSpecialCss p:after{
+   
+  }
+
+ .contact__wrapper{
+   max-width:80rem !important;
+ }
+
+ .form-control{
+   background-color: #ddd !important;
  }
