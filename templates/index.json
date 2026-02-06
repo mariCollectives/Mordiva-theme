@@ -915,54 +915,6 @@
         "divider_width": "fixed",
         "custom_class": ""
       }
-    },
-    "1770368511b7949cd3": {
-      "type": "_blocks",
-      "blocks": {
-        "ai_gen_block_ffd7da0_GY4kxM": {
-          "type": "ai_gen_block_ffd7da0",
-          "settings": {
-            "tile_1_image": "shopify://shop_images/Science.png",
-            "tile_1_text": "Science",
-            "tile_1_link": "",
-            "tile_2_text": "Art & Craft",
-            "tile_2_link": "",
-            "tile_3_text": "Construction & Engineering",
-            "tile_3_link": "",
-            "tile_4_text": "Culture & Communities",
-            "tile_4_link": "",
-            "tile_5_text": "Infant & Toddler",
-            "tile_5_link": "",
-            "tile_6_text": "Kitchen Resources & Whitegoods",
-            "tile_6_link": "",
-            "tile_7_text": "Physical Wellbeing",
-            "tile_7_link": "",
-            "tile_8_text": "English, Language & Literacy",
-            "tile_8_link": "",
-            "tile_9_text": "Games & Puzzles",
-            "tile_9_link": "",
-            "tile_10_text": "English, Language & Literacy",
-            "tile_10_link": "",
-            "tile_11_text": "Games & Puzzles",
-            "tile_11_link": "",
-            "tile_12_text": "Music & Movement",
-            "tile_12_link": "",
-            "tile_13_text": "Mathematics",
-            "tile_13_link": "",
-            "tile_14_text": "Inclusion & Development",
-            "tile_14_link": "",
-            "tile_15_text": "Modelling & Accessories",
-            "tile_15_link": "",
-            "tile_16_text": "Classroom Resources",
-            "tile_16_link": ""
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "ai_gen_block_ffd7da0_GY4kxM"
-      ],
-      "settings": {}
     }
   },
   "order": [
@@ -979,7 +931,6 @@
     "image_comparison_CLXe7t",
     "rich_text_HphPmy",
     "collections_slider_yD633Y",
-    "multicolumn_RFyHwL",
-    "1770368511b7949cd3"
+    "multicolumn_RFyHwL"
   ]
 }
