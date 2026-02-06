@@ -240,3 +240,11 @@ body, button, input, select, textarea {
 .image-comparison{
    max-width: 100%  !important;
 }
+
+#saveToCartButton{
+   width: 50% !important;
+}
+
+.printbutton{
+   border-radius: 20% !important;
+}
