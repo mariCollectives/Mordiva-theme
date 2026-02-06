@@ -138,13 +138,23 @@
             "collection": "culture-and-communities-1",
             "title": "Culture & Communities"
           }
+        },
+        "tile_TBkqeN": {
+          "type": "tile",
+          "settings": {
+            "slot": "infant",
+            "image": "shopify://shop_images/Infant.png",
+            "collection": "infant-and-toddler-1",
+            "title": "Infant & Toddler"
+          }
         }
       },
       "block_order": [
         "tile_VCQ73p",
         "tile_p4E94J",
         "tile_ATmAUx",
-        "tile_kQdc4c"
+        "tile_kQdc4c",
+        "tile_TBkqeN"
       ],
       "custom_css": [],
       "name": "Category Grid",
