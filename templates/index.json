@@ -921,7 +921,7 @@
       "name": "Category Grid",
       "settings": {
         "tile_1_image": "shopify://shop_images/Science.png",
-        "tile_1_collection": "",
+        "tile_1_collection": "science-1",
         "tile_1_title": "",
         "tile_2_collection": "",
         "tile_2_title": "",
