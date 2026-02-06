@@ -1,0 +1,37 @@
+{% liquid
+  assign b = block
+  assign href = '#'
+  if b != blank and b.settings.link != blank
+    assign href = b.settings.link
+  endif
+
+  assign title = ''
+  if b != blank
+    assign title = b.settings.title | strip
+  endif
+
+  assign img = blank
+  if b != blank
+    assign img = b.settings.image
+  endif
+%}
+
+{% if b != blank %}
+  <a class="{{ class_name }}" href="{{ href }}" {{ b.shopify_attributes }}>
+    {% if img != blank %}
+      {{ img | image_url: width: 2000 | image_tag: loading: 'lazy', alt: title }}
+    {% else %}
+      {{ 'image' | placeholder_svg_tag }}
+    {% endif %}
+
+    {% if title != blank %}
+      {% if b.settings.title_allow_br %}
+        <span>{{ title }}</span>
+      {% else %}
+        <span>{{ title | strip_html }}</span>
+      {% endif %}
+    {% endif %}
+  </a>
+{% else %}
+  {%- comment -%} If the user hasn't added the needed block yet, render nothing (keeps layout clean). {%- endcomment -%}
+{% endif %}

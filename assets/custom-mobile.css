@@ -1,0 +1,13 @@
+@media screen and (max-width: 1490px) {
+    .hotspot-slider{
+        max-width: 92% !important;
+    }
+
+    .contact__wrapper{
+        max-width: 100% !important;
+    }
+
+    .contact__wrapper{
+        padding: 4.8rem 0;
+    }
+}

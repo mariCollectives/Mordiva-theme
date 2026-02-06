@@ -1,0 +1,414 @@
+{% comment %}
+  Section: Category Mosaic (Custom)
+  - Keeps the SAME classes/markup structure you provided
+  - Each tile is configurable via block settings (image, title, link)
+{% endcomment %}
+
+<section id="cat-mosaic-custom-{{ section.id }}">
+  {% style %}
+    /* Optional: remove if you already have these classes styled globally */
+    #cat-mosaic-custom-{{ section.id }} .clear { clear: both; }
+  {% endstyle %}
+
+  <div class="width-50 margin-left-2">
+
+    <div class="category-grid-2">
+      {% render 'cat-mosaic-tile', block: section.blocks | where: "type", "tile" | where: "settings.tile_key", "science" | first, class_name: "tile tile--science" %}
+      {% render 'cat-mosaic-tile', block: section.blocks | where: "type", "tile" | where: "settings.tile_key", "art" | first, class_name: "tile tile--art" %}
+      {% render 'cat-mosaic-tile', block: section.blocks | where: "type", "tile" | where: "settings.tile_key", "engineering" | first, class_name: "tile tile--engineering" %}
+    </div>
+
+    <div class="category-grid-1-3 padding-15">
+      {% render 'cat-mosaic-tile', block: section.blocks | where: "type", "tile" | where: "settings.tile_key", "culture" | first, class_name: "tile tile--culture" %}
+      {% render 'cat-mosaic-tile', block: section.blocks | where: "type", "tile" | where: "settings.tile_key", "infant" | first, class_name: "tile tile--infant" %}
+    </div>
+
+  </div>
+
+  <div class="width-50">
+    <div class="category-grid-2-1">
+      {% render 'cat-mosaic-tile', block: section.blocks | where: "type", "tile" | where: "settings.tile_key", "hero" | first, class_name: "tile tile--hero" %}
+      {% render 'cat-mosaic-tile', block: section.blocks | where: "type", "tile" | where: "settings.tile_key", "wide" | first, class_name: "tile tile--wide" %}
+      {% render 'cat-mosaic-tile', block: section.blocks | where: "type", "tile" | where: "settings.tile_key", "half_left_top" | first, class_name: "tile tile--half-left" %}
+      {% render 'cat-mosaic-tile', block: section.blocks | where: "type", "tile" | where: "settings.tile_key", "half_right_top" | first, class_name: "tile tile--half-right" %}
+    </div>
+  </div>
+
+  <div class="clear"></div>
+
+  <div class="width-full">
+    <div class="width-35">
+      <div class="width-full margin-left-2">
+        <div class="category-grid-2-1 height-set">
+          {% render 'cat-mosaic-tile', block: section.blocks | where: "type", "tile" | where: "settings.tile_key", "half_left_bottom" | first, class_name: "tile tile--half-left height-set" %}
+          {% render 'cat-mosaic-tile', block: section.blocks | where: "type", "tile" | where: "settings.tile_key", "half_right_bottom" | first, class_name: "tile tile--half-right height-set" %}
+        </div>
+      </div>
+    </div>
+
+    <div class="width-65">
+      <div class="grid-inner-70-30">
+        {% render 'cat-mosaic-tile', block: section.blocks | where: "type", "tile" | where: "settings.tile_key", "music_wide" | first, class_name: "tile cat-tile--wide" %}
+        {% render 'cat-mosaic-tile', block: section.blocks | where: "type", "tile" | where: "settings.tile_key", "math_tall" | first, class_name: "tile tile--tall" %}
+      </div>
+    </div>
+  </div>
+
+  <div class="width-full">
+    <div class="category-grid-3-col">
+      {% render 'cat-mosaic-tile', block: section.blocks | where: "type", "tile" | where: "settings.tile_key", "inclusions" | first, class_name: "tile tile-image-height-fix" %}
+      {% render 'cat-mosaic-tile', block: section.blocks | where: "type", "tile" | where: "settings.tile_key", "modelling" | first, class_name: "tile tile-image-height-fix" %}
+      {% render 'cat-mosaic-tile', block: section.blocks | where: "type", "tile" | where: "settings.tile_key", "classroom" | first, class_name: "tile tile-image-height-fix" %}
+    </div>
+  </div>
+
+</section>
+
+{% schema %}
+{
+  "name": "Category Mosaic (Custom)",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "tile",
+      "name": "Tile",
+      "settings": [
+        {
+          "type": "select",
+          "id": "tile_key",
+          "label": "Tile slot",
+          "options": [
+            { "value": "science", "label": "Science" },
+            { "value": "art", "label": "Art & Craft" },
+            { "value": "engineering", "label": "Construction & Engineering" },
+            { "value": "culture", "label": "Culture & Communities" },
+            { "value": "infant", "label": "Infant & Toddler" },
+
+            { "value": "hero", "label": "Hero (Kitchen Resources & Whitegoods)" },
+            { "value": "wide", "label": "Wide (Physical Wellbeing)" },
+            { "value": "half_left_top", "label": "Half Left (Top)" },
+            { "value": "half_right_top", "label": "Half Right (Top)" },
+
+            { "value": "half_left_bottom", "label": "Half Left (Bottom)" },
+            { "value": "half_right_bottom", "label": "Half Right (Bottom)" },
+
+            { "value": "music_wide", "label": "Music & Movement (Wide)" },
+            { "value": "math_tall", "label": "Mathematics (Tall)" },
+
+            { "value": "inclusions", "label": "Inclusion & Development" },
+            { "value": "modelling", "label": "Modelling & Accessories" },
+            { "value": "classroom", "label": "Classroom Resources" }
+          ],
+          "default": "science"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Tile title"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        },
+        {
+          "type": "checkbox",
+          "id": "title_allow_br",
+          "label": "Allow line breaks (use <br>)",
+          "default": true
+        }
+      ]
+    }
+  ],
+  "max_blocks": 16,
+  "presets": [
+    {
+      "name": "Category Mosaic (Custom)",
+      "blocks": [
+        { "type": "tile", "settings": { "tile_key": "science", "title": "Science" } },
+        { "type": "tile", "settings": { "tile_key": "art", "title": "Art & Craft" } },
+        { "type": "tile", "settings": { "tile_key": "engineering", "title": "Construction & Engineering" } },
+        { "type": "tile", "settings": { "tile_key": "culture", "title": "Culture & Communities" } },
+        { "type": "tile", "settings": { "tile_key": "infant", "title": "Infant & Toddler" } },
+
+        { "type": "tile", "settings": { "tile_key": "hero", "title": "Kitchen Resources<br>& Whitegoods" } },
+        { "type": "tile", "settings": { "tile_key": "wide", "title": "Physical Wellbeing" } },
+        { "type": "tile", "settings": { "tile_key": "half_left_top", "title": "English, Language<br>& Literacy" } },
+        { "type": "tile", "settings": { "tile_key": "half_right_top", "title": "Games & Puzzles" } },
+
+        { "type": "tile", "settings": { "tile_key": "half_left_bottom", "title": "English, Language<br>& Literacy" } },
+        { "type": "tile", "settings": { "tile_key": "half_right_bottom", "title": "Games & Puzzles" } },
+
+        { "type": "tile", "settings": { "tile_key": "music_wide", "title": "Music & Movement" } },
+        { "type": "tile", "settings": { "tile_key": "math_tall", "title": "Mathematics" } },
+
+        { "type": "tile", "settings": { "tile_key": "inclusions", "title": "Inclusion & Development" } },
+        { "type": "tile", "settings": { "tile_key": "modelling", "title": "Modelling & Accessories" } },
+        { "type": "tile", "settings": { "tile_key": "classroom", "title": "Classroom Resources" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+
+<style>
+
+  .category-grid-2-1 {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: 260px 220px auto;
+    gap: 16px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+
+  .category-grid-1-3 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    grid-template-rows: 240px 0;
+    gap: 16px;
+    max-width: 100%;
+  }
+
+  .category-grid-2 {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: 240px 240px;
+  gap: 16px;
+  max-width: 100%;
+}
+
+
+
+  .grid-inner-70-30 {
+      display: grid;
+      grid-template-columns: 1.45fr 1fr; 
+      gap: 18px;
+      align-items: end; 
+    }
+
+
+.tile {
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  text-decoration: none;
+}
+
+.tile img {
+  width: 100%;
+  height: 248px;
+  object-fit: cover;
+  display: block;
+}
+
+.tile span {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 500;
+  z-index: 2;
+}
+
+
+.tile--science {
+  grid-row: 1 / span 2;
+  grid-column: 1 / 2;
+}
+
+.tile--art {
+  grid-column: 2 / 4;
+}
+
+.tile--engineering {
+  grid-column: 2 / 4;
+}
+
+
+.tile--culture {
+  grid-column: 1 / 2; 
+}
+
+.tile--infant {
+  grid-column: 2 / 5; 
+}
+
+.padding-15{
+  padding-top: 15px;
+}
+
+.width-50{
+   width:48%; 
+   display: inline-block;
+   float:left;
+}
+
+
+.margin-left-2{
+  margin-right: 20px;
+}
+
+
+  .tile--hero {
+    grid-column: 1 / -1;
+  }
+
+  /* Row 2 */
+  .tile--wide {
+    grid-column: 1 / -1;
+  }
+
+  /* Row 3 */
+  .tile--half-left {
+    grid-column: 1 / 7;
+    height: 240px;
+  }
+
+  .tile--half-right {
+    grid-column: 7 / -1;
+    height: 200px;
+  }
+
+  .height-auto{
+    height: auto;
+  }
+
+  .height-set{
+    height: 245px;
+  }
+
+
+  .float-left{
+    float: left;
+  }
+
+
+  .clear{
+    clear: both;
+  }
+
+  .width-35{
+    width:35%;
+    display: inline-block;
+    float:left;
+    } 
+
+  .width-65{
+    width: 65%;
+    display: inline-block;
+  }
+  
+  
+  .tile:hover img {
+    transform: scale(1.05);
+    transition: transform 260ms ease;
+  }
+  .tile img {
+    transition: transform 260ms ease;
+  }
+
+
+  .tile--tall {
+    transform: translateY(-18px);
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    left: 73%;
+    top: -9%;
+    left: -1.6%;
+    width: 90%;
+    border-radius: 20px;
+
+  }
+
+  .tile--tall img{
+    height: 300px;}
+
+  .cat-tile--wide{
+    margin-bottom: 55px;
+  }
+
+  .tile--science img{
+     height: 100%;
+  }
+
+  .tile--hero img{
+    height: 265px;
+  }
+
+  .category-grid-3-col {
+      display: grid;
+      grid-template-columns: 25% 35% 40%;
+      gap: 16px;
+      max-width: 95%;
+      margin-top: -2em;
+      margin-bottom: 30px;
+  }
+  
+
+  .tile-image-height-fix img{
+    height: 280px;
+  }
+
+</style>
+
+<style>
+
+@media (max-width: 780px) {
+
+   .category-grid-2-1 {
+      grid-template-columns: 1fr;
+      grid-template-rows: none;
+    }
+
+
+    .grid-inner-70-30 {
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    .category-grid-1-3 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr); 
+      grid-template-rows: 240px 0;
+      gap: 16px;
+      max-width: 1400px;
+      margin: 0 auto;
+  }
+
+
+  .category-grid-2 {
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+  }
+
+   .category-grid-3-35-65 {
+    grid-template-columns: 1fr;
+  }
+
+
+  .tile {
+    height: 220px;
+  }
+
+  .tile--science,
+  .tile--art,
+  .tile--engineering,
+  .tile--culture,
+  .tile--infant {
+    grid-column: auto;
+    grid-row: auto;
+  }
+}
+
+</style>
