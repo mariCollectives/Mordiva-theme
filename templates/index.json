@@ -641,7 +641,7 @@
         "button_link": "",
         "button_style": "btn--primary",
         "tabs_nav_style": "design-1",
-        "padding_top": 100,
+        "padding_top": 30,
         "padding_bottom": 0,
         "show_section_divider": false,
         "divider_width": "fixed",
