@@ -89,6 +89,176 @@
         "custom_class": ""
       }
     },
+    "category_mosaic_custom_jwLWcV": {
+      "type": "category-mosaic-custom",
+      "blocks": {
+        "tile_fyiyqg": {
+          "type": "tile",
+          "settings": {
+            "tile_key": "science",
+            "image": "shopify://shop_images/Science.png",
+            "title": "Science",
+            "link": "shopify://collections/science-1",
+            "title_allow_br": true
+          }
+        },
+        "tile_cbdndq": {
+          "type": "tile",
+          "settings": {
+            "tile_key": "art",
+            "title": "Art & Craft",
+            "link": "",
+            "title_allow_br": true
+          }
+        },
+        "tile_KEjaDV": {
+          "type": "tile",
+          "settings": {
+            "tile_key": "engineering",
+            "title": "Construction & Engineering",
+            "link": "",
+            "title_allow_br": true
+          }
+        },
+        "tile_VYtKnH": {
+          "type": "tile",
+          "settings": {
+            "tile_key": "culture",
+            "title": "Culture & Communities",
+            "link": "",
+            "title_allow_br": true
+          }
+        },
+        "tile_ttqfgU": {
+          "type": "tile",
+          "settings": {
+            "tile_key": "infant",
+            "title": "Infant & Toddler",
+            "link": "",
+            "title_allow_br": true
+          }
+        },
+        "tile_Q9RwDB": {
+          "type": "tile",
+          "settings": {
+            "tile_key": "hero",
+            "title": "Kitchen Resources<br>& Whitegoods",
+            "link": "",
+            "title_allow_br": true
+          }
+        },
+        "tile_x9wGzk": {
+          "type": "tile",
+          "settings": {
+            "tile_key": "wide",
+            "title": "Physical Wellbeing",
+            "link": "",
+            "title_allow_br": true
+          }
+        },
+        "tile_wqbR4X": {
+          "type": "tile",
+          "settings": {
+            "tile_key": "half_left_top",
+            "title": "English, Language<br>& Literacy",
+            "link": "",
+            "title_allow_br": true
+          }
+        },
+        "tile_PJFA7U": {
+          "type": "tile",
+          "settings": {
+            "tile_key": "half_right_top",
+            "title": "Games & Puzzles",
+            "link": "",
+            "title_allow_br": true
+          }
+        },
+        "tile_JPcDUc": {
+          "type": "tile",
+          "settings": {
+            "tile_key": "half_left_bottom",
+            "title": "English, Language<br>& Literacy",
+            "link": "",
+            "title_allow_br": true
+          }
+        },
+        "tile_LRHMHN": {
+          "type": "tile",
+          "settings": {
+            "tile_key": "half_right_bottom",
+            "title": "Games & Puzzles",
+            "link": "",
+            "title_allow_br": true
+          }
+        },
+        "tile_4HtzrJ": {
+          "type": "tile",
+          "settings": {
+            "tile_key": "music_wide",
+            "title": "Music & Movement",
+            "link": "",
+            "title_allow_br": true
+          }
+        },
+        "tile_RFqTkQ": {
+          "type": "tile",
+          "settings": {
+            "tile_key": "math_tall",
+            "title": "Mathematics",
+            "link": "",
+            "title_allow_br": true
+          }
+        },
+        "tile_Mk9pVB": {
+          "type": "tile",
+          "settings": {
+            "tile_key": "inclusions",
+            "title": "Inclusion & Development",
+            "link": "",
+            "title_allow_br": true
+          }
+        },
+        "tile_Aqp3Nq": {
+          "type": "tile",
+          "settings": {
+            "tile_key": "modelling",
+            "title": "Modelling & Accessories",
+            "link": "",
+            "title_allow_br": true
+          }
+        },
+        "tile_w8XL9X": {
+          "type": "tile",
+          "settings": {
+            "tile_key": "classroom",
+            "title": "Classroom Resources",
+            "link": "",
+            "title_allow_br": true
+          }
+        }
+      },
+      "block_order": [
+        "tile_fyiyqg",
+        "tile_cbdndq",
+        "tile_KEjaDV",
+        "tile_VYtKnH",
+        "tile_ttqfgU",
+        "tile_Q9RwDB",
+        "tile_x9wGzk",
+        "tile_wqbR4X",
+        "tile_PJFA7U",
+        "tile_JPcDUc",
+        "tile_LRHMHN",
+        "tile_4HtzrJ",
+        "tile_RFqTkQ",
+        "tile_Mk9pVB",
+        "tile_Aqp3Nq",
+        "tile_w8XL9X"
+      ],
+      "name": "Category Mosaic (Custom)",
+      "settings": {}
+    },
     "rich_text_w8arFx": {
       "type": "rich-text",
       "blocks": {
@@ -920,6 +1090,7 @@
   "order": [
     "custom_liquid_z4KV4e",
     "slideshow_zKPFFV",
+    "category_mosaic_custom_jwLWcV",
     "rich_text_w8arFx",
     "product_tabs_jhb9aJ",
     "rich_text_PebUge",
