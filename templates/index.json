@@ -922,9 +922,10 @@
       "settings": {
         "tile_1_image": "shopify://shop_images/Science.png",
         "tile_1_collection": "science-1",
-        "tile_1_title": "",
-        "tile_2_collection": "",
-        "tile_2_title": "",
+        "tile_1_title": "Science",
+        "tile_2_image": "shopify://shop_images/Art_craft.png",
+        "tile_2_collection": "art-and-craft",
+        "tile_2_title": "Art & Craft",
         "tile_3_collection": "",
         "tile_3_title": "",
         "tile_4_collection": "",
