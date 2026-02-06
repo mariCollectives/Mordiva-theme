@@ -106,8 +106,9 @@
           "type": "tile",
           "settings": {
             "tile_key": "art",
+            "image": "shopify://shop_images/Art_craft.png",
             "title": "Art & Craft",
-            "link": "",
+            "link": "shopify://collections/art-and-craft",
             "title_allow_br": true
           }
         },
