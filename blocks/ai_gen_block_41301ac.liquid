@@ -4,6 +4,8 @@
 {% enddoc %}
 {% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
 
+
+
 {% style %}
   .ai-product-slider-{{ ai_gen_id }} {
     width: 100%;
@@ -34,9 +36,10 @@
     margin: 0;
   }
 
+  /* IMPORTANT: create "safe space" for arrows so they don't overlap cards */
   .ai-product-slider-wrapper-{{ ai_gen_id }} {
     position: relative;
-    padding: 0 60px;
+    padding: 0 calc({{ block.settings.arrow_size }}px + 14px);
   }
 
   .ai-product-slider-track-{{ ai_gen_id }} {
@@ -47,6 +50,16 @@
     scrollbar-width: none;
     -ms-overflow-style: none;
     padding-bottom: 10px;
+
+    /* IMPORTANT: keep the track under arrows so arrows are clickable */
+    position: relative;
+    z-index: 1;
+
+    /* nicer touch scrolling on iOS */
+    -webkit-overflow-scrolling: touch;
+
+    /* optional: prevents accidental vertical scroll jitter */
+    overscroll-behavior-x: contain;
   }
 
   .ai-product-slider-track-{{ ai_gen_id }}::-webkit-scrollbar {
@@ -54,7 +67,10 @@
   }
 
   .ai-product-slider-item-{{ ai_gen_id }} {
-    flex: 0 0 calc((100% - ({{ block.settings.products_per_row_desktop | minus: 1 }} * {{ block.settings.gap }}px)) / {{ block.settings.products_per_row_desktop }});
+    flex: 0 0 calc(
+      (100% - ({{ block.settings.products_per_row_desktop | minus: 1 }} * {{ block.settings.gap }}px))
+      / {{ block.settings.products_per_row_desktop }}
+    );
     min-width: 200px;
   }
 
@@ -78,23 +94,21 @@
     padding-bottom: 100%;
     overflow: hidden;
     background: #f5f5f5;
+    display: block;
   }
 
   .ai-product-image-{{ ai_gen_id }} {
     position: absolute;
-    top: 0;
-    left: 0;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
   }
 
   .ai-product-image-placeholder-{{ ai_gen_id }} {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -118,6 +132,7 @@
     font-weight: 600;
     border-radius: 4px;
     text-transform: uppercase;
+    z-index: 2;
   }
 
   .ai-product-info-{{ ai_gen_id }} {
@@ -183,6 +198,7 @@
     background: {{ block.settings.button_hover_background }};
   }
 
+  /* ARROWS */
   .ai-slider-arrow-{{ ai_gen_id }} {
     position: absolute;
     top: 50%;
@@ -198,7 +214,11 @@
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
-    z-index: 10;
+
+    /* IMPORTANT: keep arrows above the track and clickable */
+    z-index: 5;
+    pointer-events: auto;
+
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   }
 
@@ -210,6 +230,15 @@
   .ai-slider-arrow-{{ ai_gen_id }}:disabled {
     opacity: 0.3;
     cursor: not-allowed;
+  }
+
+  /* your arrows are images, so size them properly */
+  .ai-slider-arrow-{{ ai_gen_id }} img {
+    width: 60%;
+    height: 60%;
+    object-fit: contain;
+    display: block;
+    pointer-events: none; /* click goes to button, not image */
   }
 
   .ai-slider-arrow-left-{{ ai_gen_id }} {
@@ -234,6 +263,7 @@
   }
 
   @media screen and (max-width: 749px) {
+    /* remove arrow safe space because arrows are hidden */
     .ai-product-slider-wrapper-{{ ai_gen_id }} {
       padding: 0;
     }
@@ -251,6 +281,7 @@
     }
   }
 {% endstyle %}
+
 
 <product-slider-{{ ai_gen_id }} class="ai-product-slider-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
   <div class="ai-product-slider-container-{{ ai_gen_id }}">
@@ -274,9 +305,7 @@
       <div class="ai-product-slider-wrapper-{{ ai_gen_id }}">
         {% if block.settings.show_arrows %}
           <button class="ai-slider-arrow-{{ ai_gen_id }} ai-slider-arrow-left-{{ ai_gen_id }}" data-slider-prev aria-label="Previous">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <polyline points="15 18 9 12 15 6"></polyline>
-            </svg>
+           <img src="https://cdn.shopify.com/s/files/1/0845/4868/2025/files/arrow_15031868_3.png?v=1770088383" />
           </button>
         {% endif %}
 
@@ -326,12 +355,6 @@
                       {{ product.price | money }}
                     {% endif %}
                   </div>
-
-                  {% if block.settings.show_view_button %}
-                    <a href="{{ product.url }}" class="ai-product-button-{{ ai_gen_id }}">
-                      {{ block.settings.button_text }}
-                    </a>
-                  {% endif %}
                 </div>
               </div>
             </div>
@@ -340,9 +363,7 @@
 
         {% if block.settings.show_arrows %}
           <button class="ai-slider-arrow-{{ ai_gen_id }} ai-slider-arrow-right-{{ ai_gen_id }}" data-slider-next aria-label="Next">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <polyline points="9 18 15 12 9 6"></polyline>
-            </svg>
+            <img src="https://cdn.shopify.com/s/files/1/0845/4868/2025/files/arrow_15031868_4.png?v=1770088383" />
           </button>
         {% endif %}
       </div>
@@ -355,6 +376,8 @@
   </div>
 </product-slider-{{ ai_gen_id }}>
 
+
+
 <script>
   (function() {
     class ProductSlider{{ ai_gen_id }} extends HTMLElement {
@@ -363,64 +386,100 @@
         this.track = this.querySelector('[data-slider-track]');
         this.prevButton = this.querySelector('[data-slider-prev]');
         this.nextButton = this.querySelector('[data-slider-next]');
+        this._onScroll = this._onScroll.bind(this);
+        this._onResize = this._onResize.bind(this);
       }
 
       connectedCallback() {
         if (!this.track) return;
 
-        this.setupNavigation();
-        this.updateButtonStates();
+        // Ensure arrows are clickable over the scroll area
+        if (this.prevButton) this.prevButton.style.pointerEvents = 'auto';
+        if (this.nextButton) this.nextButton.style.pointerEvents = 'auto';
 
-        this.track.addEventListener('scroll', () => {
-          this.updateButtonStates();
+        this.setupNavigation();
+
+        // Update after layout settles (images, fonts)
+        this.deferUpdate();
+        window.addEventListener('resize', this._onResize);
+        this.track.addEventListener('scroll', this._onScroll, { passive: true });
+
+        // If images are inside, update when they load
+        this.querySelectorAll('img').forEach(img => {
+          if (!img.complete) img.addEventListener('load', () => this.deferUpdate(), { once: true });
         });
+      }
+
+      disconnectedCallback() {
+        window.removeEventListener('resize', this._onResize);
+        if (this.track) this.track.removeEventListener('scroll', this._onScroll);
+      }
+
+      _onScroll() { this.updateButtonStates(); }
+      _onResize() { this.deferUpdate(); }
+
+      deferUpdate() {
+        requestAnimationFrame(() => this.updateButtonStates());
+        requestAnimationFrame(() => this.updateButtonStates()); // run twice for safety
       }
 
       setupNavigation() {
         if (this.prevButton) {
-          this.prevButton.addEventListener('click', () => {
-            this.scroll('prev');
+          this.prevButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            this.scrollByCard(-1);
           });
         }
 
         if (this.nextButton) {
-          this.nextButton.addEventListener('click', () => {
-            this.scroll('next');
+          this.nextButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            this.scrollByCard(1);
           });
         }
       }
 
-      scroll(direction) {
-        const scrollAmount = this.track.offsetWidth * 0.8;
-        const currentScroll = this.track.scrollLeft;
+      getCardStep() {
+        const firstItem = this.track.querySelector('.ai-product-slider-item-{{ ai_gen_id }}');
+        if (!firstItem) return this.track.clientWidth * 0.8;
 
-        if (direction === 'next') {
-          this.track.scrollTo({
-            left: currentScroll + scrollAmount,
-            behavior: 'smooth'
-          });
-        } else {
-          this.track.scrollTo({
-            left: currentScroll - scrollAmount,
-            behavior: 'smooth'
-          });
-        }
+        const itemRect = firstItem.getBoundingClientRect();
+        const gap = parseFloat(getComputedStyle(this.track).columnGap || getComputedStyle(this.track).gap || 0) || 0;
+        return itemRect.width + gap;
+      }
+
+      scrollByCard(direction) {
+        const step = this.getCardStep();
+        this.track.scrollBy({ left: step * direction, behavior: 'smooth' });
       }
 
       updateButtonStates() {
         if (!this.prevButton || !this.nextButton) return;
 
-        const isAtStart = this.track.scrollLeft <= 0;
-        const isAtEnd = this.track.scrollLeft + this.track.offsetWidth >= this.track.scrollWidth - 1;
+        const maxScroll = this.track.scrollWidth - this.track.clientWidth;
 
-        this.prevButton.disabled = isAtStart;
-        this.nextButton.disabled = isAtEnd;
+        // If there's nothing to scroll, disable both (and optionally hide)
+        if (maxScroll <= 1) {
+          this.prevButton.disabled = true;
+          this.nextButton.disabled = true;
+          return;
+        }
+
+        const left = this.track.scrollLeft;
+
+        this.prevButton.disabled = left <= 1;
+        this.nextButton.disabled = left >= (maxScroll - 1);
       }
     }
 
     customElements.define('product-slider-{{ ai_gen_id }}', ProductSlider{{ ai_gen_id }});
   })();
 </script>
+
+
+
+
+
 
 {% schema %}
 {
