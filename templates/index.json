@@ -103,6 +103,15 @@
     "category_grid_custom_JNR9ia": {
       "type": "category-grid-custom",
       "blocks": {
+        "tile_4bWb3a": {
+          "type": "tile",
+          "settings": {
+            "slot": "wide",
+            "image": "shopify://shop_images/physicalWellbeing.png",
+            "collection": "physical-wellbeing-1",
+            "title": "Physical Wellbeing"
+          }
+        },
         "tile_tr3GdE": {
           "type": "tile",
           "settings": {
@@ -159,6 +168,7 @@
         }
       },
       "block_order": [
+        "tile_4bWb3a",
         "tile_tr3GdE",
         "tile_VCQ73p",
         "tile_p4E94J",
