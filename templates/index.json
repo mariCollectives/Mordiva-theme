@@ -103,6 +103,15 @@
     "category_grid_custom_JNR9ia": {
       "type": "category-grid-custom",
       "blocks": {
+        "tile_Tihy9N": {
+          "type": "tile",
+          "settings": {
+            "slot": "half_left",
+            "image": "shopify://shop_images/14_categories_2_1.png",
+            "collection": "english-language-and-literacy-1",
+            "title": "English, Language<br>& Literacy"
+          }
+        },
         "tile_4bWb3a": {
           "type": "tile",
           "settings": {
@@ -168,6 +177,7 @@
         }
       },
       "block_order": [
+        "tile_Tihy9N",
         "tile_4bWb3a",
         "tile_tr3GdE",
         "tile_VCQ73p",
