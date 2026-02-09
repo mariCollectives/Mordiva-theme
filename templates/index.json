@@ -107,6 +107,7 @@
           "type": "tile",
           "settings": {
             "slot": "wide",
+            "image": "shopify://shop_images/14_categories_1_2.png",
             "collection": "physical-wellbeing-1",
             "title": "Physical Wellbeing"
           }
