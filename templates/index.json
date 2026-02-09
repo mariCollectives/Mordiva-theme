@@ -103,6 +103,15 @@
     "category_grid_custom_JNR9ia": {
       "type": "category-grid-custom",
       "blocks": {
+        "tile_tr3GdE": {
+          "type": "tile",
+          "settings": {
+            "slot": "hero",
+            "image": "shopify://shop_images/kitchen_e88af7a6-19ed-4c03-a63b-dff5cba3e86e.png",
+            "collection": "kitchen-resources-and-whitegoods-1",
+            "title": "Kitchen Resources <br> & Whitegoods"
+          }
+        },
         "tile_VCQ73p": {
           "type": "tile",
           "settings": {
@@ -150,6 +159,7 @@
         }
       },
       "block_order": [
+        "tile_tr3GdE",
         "tile_VCQ73p",
         "tile_p4E94J",
         "tile_ATmAUx",
