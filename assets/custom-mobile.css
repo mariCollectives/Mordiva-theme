@@ -214,7 +214,7 @@
       }
 
      .col-results{
-        margin-top: 27px;
+       margin-top: 78px;
      }
 
      .col-toolbar__mid{
@@ -275,11 +275,11 @@
 
      .custom-padding{
         display: block !important;
-        height: 100px;
+        height: 150px;
     }
 
     .col-toolbar{
-        margin-top: -20.5em !important;
+        margin-top: 5em !important;
     }
 
     .breadcrumbs{
@@ -374,12 +374,16 @@
     }
 
     .collection-hero__inner{
-        margin-top: -3em !important;
+        margin-top: -1em !important;
     }
 
     .custom-padding{
         display: block !important;
         height: 180px;
+    }
+
+    .col-toolbar{
+        margin-top: -18.5em !important;
     }
 
 }
