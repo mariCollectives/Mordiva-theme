@@ -917,3 +917,7 @@ body, button, input, select, textarea {
 .custom-padding{
    display: none !important;
 }
+
+.wn-card, .wn-media img{
+   overflow: hidden !important;
+}
