@@ -803,7 +803,7 @@
       "name": "Product Slider",
       "settings": {
         "heading": "What’s New.",
-        "collection": "outdoor-play",
+        "collection": "rugs",
         "limit": 12,
         "per_view": 4,
         "gap": 24,
