@@ -219,7 +219,7 @@
 
      .col-toolbar__mid{
         left: -1% !important;
-        top: -0.7em;
+        top: -0.7em !important;
      }
 
      .takABout-thrive .custom__block--image{
