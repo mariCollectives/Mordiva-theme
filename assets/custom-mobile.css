@@ -382,9 +382,12 @@
         height: 180px;
     }
 
+}
 
-     
-
+@media (max-width: 740px)  {
+    .col-toolbar__mid{
+        top: -5.7em !important;
+    }
 }
 
 
