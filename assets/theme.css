@@ -6504,6 +6504,7 @@ body:not(.header-pinned) .header-scrolled .header {
 @media (min-width: 768px) {
   .breadcrumbs {
     padding: 2.4rem 0;
+    font-size: 13px;
   }
 }
 .breadcrumbs a {
@@ -6513,7 +6514,7 @@ body:not(.header-pinned) .header-scrolled .header {
 .breadcrumbs--sep {
   display: flex;
   align-items: center;
-  margin: 0 1.2rem;
+  margin: 0 .4rem 0 .4rem;
 }
 .breadcrumbs--last {
   overflow: hidden;

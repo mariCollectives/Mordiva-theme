@@ -1,0 +1,170 @@
+{% comment %}
+  Section: About Story Mosaic (Text + 3 Images)
+  Layout:
+  - Left: Heading + text on top, large image below
+  - Right: Two stacked images
+{% endcomment %}
+
+<section id="about-mosaic-{{ section.id }}" class="about-mosaic">
+  <div class="page-width about-mosaic__wrap">
+    <div class="about-mosaic__grid">
+      <!-- LEFT -->
+      <div class="about-mosaic__left">
+        <div class="about-mosaic__text">
+          {% if section.settings.heading != blank %}
+            <h2 class="about-mosaic__heading">{{ section.settings.heading }}</h2>
+          {% endif %}
+
+          {% if section.settings.body != blank %}
+            <div class="about-mosaic__body rte">
+              {{ section.settings.body }}
+            </div>
+          {% endif %}
+        </div>
+
+        {% if section.settings.left_image != blank %}
+          <div class="about-mosaic__img about-mosaic__img--left">
+            {{
+              section.settings.left_image
+              | image_url: width: 1600
+              | image_tag:
+                loading: 'lazy',
+                alt: section.settings.left_image.alt | default: section.settings.heading,
+                class: 'about-mosaic__img-el'
+            }}
+          </div>
+        {% endif %}
+      </div>
+
+      <!-- RIGHT -->
+      <div class="about-mosaic__right">
+        {% if section.settings.right_top_image != blank %}
+          <div class="about-mosaic__img about-mosaic__img--rt">
+            {{
+              section.settings.right_top_image
+              | image_url: width: 1200
+              | image_tag:
+                loading: 'lazy',
+                alt: section.settings.right_top_image.alt | default: section.settings.heading,
+                class: 'about-mosaic__img-el'
+            }}
+          </div>
+        {% endif %}
+
+        {% if section.settings.right_bottom_image != blank %}
+          <div class="about-mosaic__img about-mosaic__img--rb">
+            {{
+              section.settings.right_bottom_image
+              | image_url: width: 1200
+              | image_tag:
+                loading: 'lazy',
+                alt: section.settings.right_bottom_image.alt | default: section.settings.heading,
+                class: 'about-mosaic__img-el'
+            }}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  #about-mosaic-{{ section.id }}{
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    background: {{ section.settings.bg }};
+  }
+
+  #about-mosaic-{{ section.id }} .about-mosaic__grid{
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: {{ section.settings.gap }}px;
+    align-items: start;
+  }
+
+  #about-mosaic-{{ section.id }} .about-mosaic__left{
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: {{ section.settings.gap }}px;
+  }
+
+  #about-mosaic-{{ section.id }} .about-mosaic__text{
+    max-width: 540px;
+  }
+
+  #about-mosaic-{{ section.id }} .about-mosaic__heading{
+    margin: 0 0 12px;
+    font-size: clamp(28px, 2.4vw, 44px);
+    line-height: 1.1;
+  }
+
+  #about-mosaic-{{ section.id }} .about-mosaic__body{
+    font-size: 16px;
+    line-height: 1.65;
+    opacity: 0.9;
+  }
+
+  #about-mosaic-{{ section.id }} .about-mosaic__right{
+    display: grid;
+    gap: {{ section.settings.gap }}px;
+  }
+
+  #about-mosaic-{{ section.id }} .about-mosaic__img{
+    border-radius: {{ section.settings.radius }}px;
+    overflow: hidden;
+    background: rgba(0,0,0,0.04);
+  }
+
+  #about-mosaic-{{ section.id }} .about-mosaic__img-el{
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+  }
+
+  /* Make the right images feel like the mockup proportions */
+  #about-mosaic-{{ section.id }} .about-mosaic__img--rt{
+    aspect-ratio: 4 / 3;
+  }
+  #about-mosaic-{{ section.id }} .about-mosaic__img--rb{
+    aspect-ratio: 4 / 3;
+  }
+
+  /* The left big image taller */
+  #about-mosaic-{{ section.id }} .about-mosaic__img--left{
+    aspect-ratio: 5 / 4;
+  }
+
+  @media (max-width: 990px){
+    #about-mosaic-{{ section.id }} .about-mosaic__grid{
+      grid-template-columns: 1fr;
+    }
+    #about-mosaic-{{ section.id }} .about-mosaic__text{
+      max-width: 100%;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "New About Us",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "It Started With One Child." },
+    { "type": "richtext", "id": "body", "label": "Text", "default": "<p>Write your story here. Keep it human, specific, and trust-building.</p>" },
+
+    { "type": "image_picker", "id": "left_image", "label": "Left big image" },
+    { "type": "image_picker", "id": "right_top_image", "label": "Right top image" },
+    { "type": "image_picker", "id": "right_bottom_image", "label": "Right bottom image" },
+
+    { "type": "color", "id": "bg", "label": "Background", "default": "#ffffff" },
+    { "type": "range", "id": "radius", "label": "Corner radius", "min": 0, "max": 40, "step": 2, "default": 18 },
+    { "type": "range", "id": "gap", "label": "Gap", "min": 8, "max": 60, "step": 2, "default": 22 },
+
+    { "type": "range", "id": "padding_top", "label": "Padding top", "min": 0, "max": 160, "step": 4, "default": 40 },
+    { "type": "range", "id": "padding_bottom", "label": "Padding bottom", "min": 0, "max": 160, "step": 4, "default": 40 }
+  ],
+  "presets": [
+    { "name": "New About Us" }
+  ]
+}
+{% endschema %}

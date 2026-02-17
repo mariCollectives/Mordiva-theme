@@ -1,5 +1,4 @@
 {{ 'collection.css' | asset_url | stylesheet_tag }}
-<script src="{{ 'facets.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'show-more.js' | asset_url }}" defer="defer"></script>
 {%- liquid
   assign current_filter_size = 0
@@ -46,90 +45,199 @@
 {%- endif -%}
 {%- endcapture -%}
 
-{% render 'divider',
-  show_divider: section.settings.show_section_divider,
-  divider_width: section.settings.divider_width
-%}
+
+  {%- paginate collection.products by section.settings.products_per_page -%}
+     <div class="sticky-element grid gap-5 z-10" style="--sticky-offset: 0px;">
+          {%- if enable_filtering or enable_sorting -%}
+                <div class="col-toolbar" data-col-toolbar>
+                  <div class="page-width">
+                  <form class="col-toolbar__form" method="get" action="{{ collection.url }}" id="CollectionFiltersForm">
+
+                   {%- assign total_results = collection.products_count -%}
+                    {%- assign total_all = collection.all_products_count -%}
+
+                    {%- assign start_index = paginate.current_offset | plus: 1 -%}
+                    {%- assign end_index = paginate.current_offset | plus: paginate.page_size -%}
+                    {%- if end_index > paginate.items -%}{%- assign end_index = paginate.items -%}{%- endif -%}
+
+                    <div class="col-results" aria-live="polite">
+                      {%- if paginate.items > 0 -%}
+                        Showing {{ start_index }}–{{ end_index }} of {{ paginate.items }}
+                        {%- if total_results != total_all -%}
+                          (filtered from {{ total_all }})
+                        {%- endif -%}
+                      {%- else -%}
+                        No results found.
+                      {%- endif -%}
+                    </div>
+
+
+                    <!-- preserve sort -->
+                    <div class="col-toolbar__left">
+                      <label class="col-toolbar__label" for="SortBy">Sort By:</label>
+                      <div class="col-select">
+                        <select id="SortBy" name="sort_by" class="col-select__field" aria-label="Sort by">
+                          {%- assign current_sort = collection.sort_by | default: collection.default_sort_by -%}
+                          {%- for option in collection.sort_options -%}
+                            <option value="{{ option.value }}" {% if option.value == current_sort %}selected{% endif %}>
+                              {{ option.name }}
+                            </option>
+                          {%- endfor -%}
+                        </select>
+                        <span class="col-select__chev" aria-hidden="true">▾</span>
+                      </div>
+                    </div>
+
+                    <!-- filter dropdowns -->
+                    {%- if enable_filtering and collection.all_products_count > 0 -%}
+                      <div class="col-toolbar__mid desktopview-filter">
+                        {%- for filter in collection.filters -%}
+                          {%- if filter.type == 'price_range' -%}{%- continue -%}{%- endif -%}
+
+                          <details class="col-dd" data-filter>
+                            <summary class="col-dd__summary">
+                              {{ filter.label }}
+                              <span class="col-dd__chev" aria-hidden="true">▾</span>
+                            </summary>
+
+                            <div class="col-dd__panel">
+                              {%- if filter.type == 'list' -%}
+                                <ul class="col-dd__list" role="list">
+                                  {%- for v in filter.values -%}
+                                    <li class="col-dd__item">
+                                      <label class="col-dd__opt {% if v.count == 0 and v.active == false %}is-disabled{% endif %}">
+                                        <input
+                                          type="checkbox"
+                                          name="{{ v.param_name }}"
+                                          value="{{ v.value }}"
+                                          {% if v.active %}checked{% endif %}
+                                          {% if v.count == 0 and v.active == false %}disabled{% endif %}
+                                        >
+                                        <span class="col-dd__text">{{ v.label }}</span>
+                                        <span class="col-dd__count">{{ v.count }}</span>
+                                      </label>
+                                    </li>
+                                  {%- endfor -%}
+                                </ul>
+                              {%- endif -%}
+                            </div>
+                          </details>
+                        {%- endfor -%}
+
+                        <a class="col-clear" href="{{ collection.url }}?sort_by={{ current_sort | url_encode }}">
+                          Clear Filter
+                        </a>
+                      </div>
+                    {%- endif -%}
+
+                    <!-- price slider -->
+                    {%- assign price_filter = collection.filters | where: 'type', 'price_range' | first -%}
+                    {%- if enable_filtering and price_filter != blank -%}
+                      {%- assign max_value = price_filter.range_max | default: 0 -%}
+                      {%- assign min_active = price_filter.min_value.value | default: 0 -%}
+                      {%- assign max_active = price_filter.max_value.value | default: max_value -%}
+
+                      <div class="col-toolbar__right" data-price-range
+                          data-max="{{ max_value }}"
+                          data-min-active="{{ min_active }}"
+                          data-max-active="{{ max_active }}">
+                        <div class="col-price">
+                          <span class="col-price__val" data-price-min>{{ min_active | money }}</span>
+
+                          <div class="col-price__track">
+                            <input class="col-price__range" type="range" min="0" max="{{ max_value }}" step="100"
+                                  value="{{ min_active }}" data-min-range aria-label="Minimum price">
+                            <input class="col-price__range" type="range" min="0" max="{{ max_value }}" step="100"
+                                  value="{{ max_active }}" data-max-range aria-label="Maximum price">
+                          </div>
+
+                          <span class="col-price__val" data-price-max>{{ max_active | money }}</span>
+
+                          <input type="hidden" name="{{ price_filter.min_value.param_name }}" value="{{ min_active }}" data-min-input>
+                          <input type="hidden" name="{{ price_filter.max_value.param_name }}" value="{{ max_active }}" data-max-input>
+                        </div>
+                      </div>
+                    {%- endif -%}
+
+
+
+
+                    <div class="filter-available">
+                          <!-- filter dropdowns -->
+                    {%- if enable_filtering and collection.all_products_count > 0 -%}
+                      <div class="col-toolbar__mid mobile-viewFilter">
+                        {%- for filter in collection.filters -%}
+                          {%- if filter.type == 'price_range' -%}{%- continue -%}{%- endif -%}
+
+                          <details class="col-dd" data-filter>
+                            <summary class="col-dd__summary">
+                              {{ filter.label }}
+                              <span class="col-dd__chev" aria-hidden="true">▾</span>
+                            </summary>
+
+                            <div class="col-dd__panel">
+                              {%- if filter.type == 'list' -%}
+                                <ul class="col-dd__list" role="list">
+                                  {%- for v in filter.values -%}
+                                    <li class="col-dd__item">
+                                      <label class="col-dd__opt {% if v.count == 0 and v.active == false %}is-disabled{% endif %}">
+                                        <input
+                                          type="checkbox"
+                                          name="{{ v.param_name }}"
+                                          value="{{ v.value }}"
+                                          {% if v.active %}checked{% endif %}
+                                          {% if v.count == 0 and v.active == false %}disabled{% endif %}
+                                        >
+                                        <span class="col-dd__text">{{ v.label }}</span>
+                                        <span class="col-dd__count">{{ v.count }}</span>
+                                      </label>
+                                    </li>
+                                  {%- endfor -%}
+                                </ul>
+                              {%- endif -%}
+                            </div>
+                          </details>
+                        {%- endfor -%}
+
+                        <a class="col-clear" href="{{ collection.url }}?sort_by={{ current_sort | url_encode }}">
+                          Clear Filter
+                        </a>
+                      </div>
+
+                       </div>
+                    {%- endif -%}
+                   
+
+
+                    <button class="col-toolbar__submit" type="submit">Apply</button>
+
+
+                   
+
+
+                  </form>
+
+
+
+
+                </div>
+              {%- endif -%}
+
+          </div>
+
+  </div>
+  
 
 <div
   class="section--padding color-{{ section.settings.color_scheme }}"
   style="--section-padding-top: {{ section.settings.padding_top }}px;--section-padding-bottom: {{ section.settings.padding_bottom }}px;"
 >
+
+
   <div class="collection page-width">
-    {%- paginate collection.products by section.settings.products_per_page -%}
       <div class="collection__content flex">
-        {%- if collection.all_products_count > 0 -%}
-          <div
-            class="hidden{% if enable_filtering and filter_type == 'vertical' %} xl:block{% endif %}"
-            id="FacetFiltersContainer"
-          >
-            <div class="sticky-element z-10">
-              {%- render 'facets', context: 'vertical', results: collection -%}
-            </div>
-          </div>
-        {%- endif -%}
         <div class="flex flex-col flex-grow{% if show_toolbar %} show-toolbar{% endif %}" id="ProductGridWrapper">
-          <div class="sticky-element grid gap-5 z-10" style="--sticky-offset: 0px;">
-            {%- if enable_filtering or enable_sorting -%}
-              <div class="collection__toolbar flex items-center justify-between">
-                {%- if filter_type == 'drawer' and collection.all_products_count > 0 and enable_filtering -%}
-                  {%- render 'facets-drawer', results: collection, enable_sorting: enable_sorting -%}
-                {%- endif -%}
-
-                {%- if filter_type == 'vertical' and collection.all_products_count > 0 and enable_filtering -%}
-                  <div class="flex xl:hidden">
-                    {%- render 'facets-drawer', results: collection, enable_sorting: enable_sorting -%}
-                  </div>
-                {%- endif -%}
-
-                <div class="gap-10 hidden md:flex items-center justify-between{% if filter_type == 'vertical' or enable_filtering == false %} xl:flex-grow{% endif %}">
-                  {%- if collection.all_products_count > 0 -%}
-                    <div data-facet-loading>
-                      {%- render 'loading-spinner' -%}
-                      <p id="ProductCount" class="m-0" role="status">
-                        {%- liquid
-                          if collection.results_count
-                            echo 'products.facets.filters_selected' | t: terms: collection.terms, count: collection.results_count
-                          elsif collection.products_count == collection.all_products_count
-                            echo 'products.facets.product_count_simple' | t: count: collection.products_count
-                          else
-                            echo 'products.facets.product_count' | t: product_count: collection.products_count, count: collection.all_products_count
-                          endif
-                        -%}
-                      </p>
-                    </div>
-                  {%- endif -%}
-                  {%- if enable_sorting and collection.all_products_count > 0 -%}
-                    <div class="flex items-center gap-3" id="SortByContainer">
-                      {%- render 'facet-short',
-                        results: collection,
-                        icon_size: 'extra-small',
-                        label_class: 'font-body-bolder'
-                      -%}
-                    </div>
-                  {%- endif -%}
-                </div>
-
-                <layout-switcher class="flex md:hidden gap-2" style="--buttons-width: 4rem;">
-                  {%- for per_row in (1..2) -%}
-                    {%- assign layout = 'f-grid-' | append: per_row | append: '-cols' -%}
-                    <button
-                      class="btn btn--icon{% if layout == default_grid_mobile %} btn--active{% endif %}"
-                      data-layout-mode="grid-{{ per_row }}"
-                      aria-label="{{ 'accessibility.layout_switcher' | t: col: per_row }}"
-                    >
-                      {%- render 'icon-grid-column', layout: per_row, classes: 'pointer-events-none' -%}
-                    </button>
-                  {%- endfor -%}
-                </layout-switcher>
-              </div>
-            {%- endif -%}
-          </div>
-          {%- liquid
-            if enable_filtering
-              render 'facets-active', results: collection
-            endif
-          -%}
+         
           <div id="ProductGridContainer">
             {%- if collection.products.size == 0 -%}
               <div class="empty-state flex flex-col items-center justify-center gap-6 text-center">
@@ -195,6 +303,91 @@
     {%- endpaginate -%}
   </div>
 </div>
+
+<script>
+(function(){
+  const root = document.querySelector('[data-col-toolbar]');
+  if(!root) return;
+
+  const form = root.querySelector('#CollectionFiltersForm');
+  if(!form) return;
+
+  // Close other dropdowns when one opens
+  const dds = Array.from(root.querySelectorAll('.col-dd'));
+  dds.forEach(dd => {
+    dd.addEventListener('toggle', () => {
+      if(dd.open) dds.forEach(o => { if(o !== dd) o.open = false; });
+    });
+  });
+  document.addEventListener('click', (e) => {
+    if(!root.contains(e.target)) dds.forEach(dd => dd.open = false);
+  });
+
+  const submitForm = () => {
+    if (form.requestSubmit) form.requestSubmit();
+    else form.submit();
+  };
+
+  // Auto-submit on sort change
+  const sort = root.querySelector('#SortBy');
+  if(sort) sort.addEventListener('change', submitForm);
+
+  // Auto-submit on filter change (checkboxes)
+  root.querySelectorAll('details.col-dd input[type="checkbox"]').forEach(inp => {
+    inp.addEventListener('change', submitForm);
+  });
+
+  // Price range handling
+  const priceWrap = root.querySelector('[data-price-range]');
+  if(priceWrap){
+    const max = Number(priceWrap.dataset.max || 0);
+    const minR = priceWrap.querySelector('[data-min-range]');
+    const maxR = priceWrap.querySelector('[data-max-range]');
+    const minI = priceWrap.querySelector('[data-min-input]');
+    const maxI = priceWrap.querySelector('[data-max-input]');
+    const minT = priceWrap.querySelector('[data-price-min]');
+    const maxT = priceWrap.querySelector('[data-price-max]');
+
+    const money = (cents) => {
+      const v = Math.max(0, Math.round(cents));
+      return (v/100).toLocaleString(undefined,{
+        style:'currency',
+        currency:(window.Shopify && Shopify.currency && Shopify.currency.active) || 'USD'
+      });
+    };
+
+    const clamp = () => {
+      let a = Number(minR.value);
+      let b = Number(maxR.value);
+      if(a > b){ const t=a; a=b; b=t; }
+      minR.value = a; maxR.value = b;
+      minI.value = a; maxI.value = b;
+      if(minT) minT.textContent = money(a);
+      if(maxT) maxT.textContent = money(b);
+    };
+
+    clamp();
+
+    let t;
+    const submitSoon = () => {
+      clearTimeout(t);
+      t = setTimeout(submitForm, 350);
+    };
+
+    minR.addEventListener('input', clamp);
+    maxR.addEventListener('input', clamp);
+    minR.addEventListener('change', () => { clamp(); submitSoon(); });
+    maxR.addEventListener('change', () => { clamp(); submitSoon(); });
+
+    if(max > 0){
+      minR.max = max; maxR.max = max;
+    }
+  }
+})();
+</script>
+
+
+
 
 {% schema %}
 {

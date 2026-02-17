@@ -1,24 +1,37 @@
-{% comment %}
-  Section: Category Grid (Blocks)
-  - Same CSS/layout as provided
-  - Each tile is a block (image + collection + title)
-  - Block has a "slot" dropdown to place it into the fixed layout positions
-{% endcomment %}
-
-<section id="cat-grid-{{ section.id }}">
+<section id="cat-grid-{{ section.id }}" class="grid-mosaic-full">
 
   <style>
-  #cat-grid-{{ section.id }} {
+  #cat-grid-{{ section.id }} {}
 
+  /* ✅ TOP WRAPPER (LEFT + RIGHT) — fixes width/layout */
+  #cat-grid-{{ section.id }} .cat-grid-top {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    align-items: start;
   }
 
+  /* ✅ STOP FLOAT DAMAGE */
+  #cat-grid-{{ section.id }} .width-50,
+  #cat-grid-{{ section.id }} .width-35,
+  #cat-grid-{{ section.id }} .width-65 {
+    width: auto;
+    float: none;
+    display: block;
+  }
+
+  #cat-grid-{{ section.id }} .margin-left-2 { margin-right: 0; }
+  #cat-grid-{{ section.id }} .clear { clear: both; }
+
+  /* YOUR GRIDS */
   #cat-grid-{{ section.id }} .category-grid-2-1 {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     grid-template-rows: 260px 220px auto;
     gap: 16px;
-    max-width: 1400px;
-    margin: 0 auto;
+    max-width: 100%;
   }
 
   #cat-grid-{{ section.id }} .category-grid-1-3 {
@@ -39,16 +52,18 @@
 
   #cat-grid-{{ section.id }} .grid-inner-70-30 {
     display: grid;
-    grid-template-columns: 1.45fr 1fr;
-    gap: 18px;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 0;
     align-items: end;
   }
 
+  /* TILES */
   #cat-grid-{{ section.id }} .tile {
     position: relative;
     border-radius: 18px;
     overflow: hidden;
     text-decoration: none;
+    display: block;
   }
 
   #cat-grid-{{ section.id }} .tile img {
@@ -56,6 +71,11 @@
     height: 248px;
     object-fit: cover;
     display: block;
+    transition: transform 260ms ease;
+  }
+
+  #cat-grid-{{ section.id }} .tile:hover img {
+    transform: scale(1.05);
   }
 
   #cat-grid-{{ section.id }} .tile span {
@@ -68,11 +88,8 @@
     z-index: 2;
   }
 
-  #cat-grid-{{ section.id }} .tile--science {
-    grid-row: 1 / span 2;
-    grid-column: 1 / 2;
-  }
-
+  /* POSITION CLASSES */
+  #cat-grid-{{ section.id }} .tile--science { grid-row: 1 / span 2; grid-column: 1 / 2; }
   #cat-grid-{{ section.id }} .tile--art { grid-column: 2 / 4; }
   #cat-grid-{{ section.id }} .tile--engineering { grid-column: 2 / 4; }
 
@@ -81,57 +98,20 @@
 
   #cat-grid-{{ section.id }} .padding-15 { padding-top: 15px; }
 
-  #cat-grid-{{ section.id }} .width-50{
-    width:48%;
-    display: inline-block;
-    float:left;
-  }
-
-  #cat-grid-{{ section.id }} .margin-left-2{ margin-right: 20px; }
-
   #cat-grid-{{ section.id }} .tile--hero { grid-column: 1 / -1; }
   #cat-grid-{{ section.id }} .tile--wide { grid-column: 1 / -1; }
 
-  #cat-grid-{{ section.id }} .tile--half-left {
-    grid-column: 1 / 7;
-    height: 240px;
-  }
-
-  #cat-grid-{{ section.id }} .tile--half-right {
-    grid-column: 7 / -1;
-    height: 200px;
-  }
+  #cat-grid-{{ section.id }} .tile--half-left { grid-column: 1 / 7; height: 240px; }
+  #cat-grid-{{ section.id }} .tile--half-right { grid-column: 7 / -1; height: 200px; }
 
   #cat-grid-{{ section.id }} .height-auto{ height: auto; }
   #cat-grid-{{ section.id }} .height-set{ height: 245px; }
-  #cat-grid-{{ section.id }} .float-left{ float: left; }
-  #cat-grid-{{ section.id }} .clear{ clear: both; }
-
-  #cat-grid-{{ section.id }} .width-35{
-    width:35%;
-    display: inline-block;
-    float:left;
-  }
-
-  #cat-grid-{{ section.id }} .width-65{
-    width: 65%;
-    display: inline-block;
-  }
-
-  #cat-grid-{{ section.id }} .tile:hover img {
-    transform: scale(1.05);
-    transition: transform 260ms ease;
-  }
-  #cat-grid-{{ section.id }} .tile img {
-    transition: transform 260ms ease;
-  }
 
   #cat-grid-{{ section.id }} .tile--tall {
     transform: translateY(-18px);
     position: relative;
     z-index: 1;
     overflow: hidden;
-    left: 73%;
     top: -9%;
     left: -1.6%;
     width: 90%;
@@ -143,339 +123,25 @@
   #cat-grid-{{ section.id }} .tile--science img{ height: 100%; }
   #cat-grid-{{ section.id }} .tile--hero img{ height: 265px; }
 
+  /* BOTTOM 3 COL */
   #cat-grid-{{ section.id }} .category-grid-3-col {
     display: grid;
     grid-template-columns: 25% 35% 40%;
     gap: 16px;
-    max-width: 95%;
-    margin-top: -2em;
-    margin-bottom: 30px;
+    max-width: 100%;
+    margin: -2em auto 3em auto;
+    width:95%;
+    padding-bottom:30px;
   }
 
   #cat-grid-{{ section.id }} .tile-image-height-fix img{ height: 280px; }
-  </style>
 
-  {% comment %}
-    Build slot map from blocks.
-    Each slot expects ONE block. If you add duplicates, the last one wins.
-  {% endcomment %}
-
-{% liquid
-  assign b_science = nil
-  assign b_art = nil
-  assign b_engineering = nil
-  assign b_culture = nil
-  assign b_infant = nil
-
-  assign b_hero = nil
-  assign b_wide = nil
-  assign b_half_left = nil
-  assign b_half_right = nil
-
-  assign b_lower_half_left = nil
-  assign b_lower_half_right = nil
-
-  assign b_music = nil
-  assign b_math = nil
-
-  assign b_bottom_1 = nil
-  assign b_bottom_2 = nil
-  assign b_bottom_3 = nil
-%}
-
-{% for block in section.blocks %}
-  {% if block.type == 'tile' %}
-    {% case block.settings.slot %}
-      {% when 'science' %}{% assign b_science = block %}
-      {% when 'art' %}{% assign b_art = block %}
-      {% when 'engineering' %}{% assign b_engineering = block %}
-      {% when 'culture' %}{% assign b_culture = block %}
-      {% when 'infant' %}{% assign b_infant = block %}
-
-      {% when 'hero' %}{% assign b_hero = block %}
-      {% when 'wide' %}{% assign b_wide = block %}
-      {% when 'half_left' %}{% assign b_half_left = block %}
-      {% when 'half_right' %}{% assign b_half_right = block %}
-
-      {% when 'lower_half_left' %}{% assign b_lower_half_left = block %}
-      {% when 'lower_half_right' %}{% assign b_lower_half_right = block %}
-
-      {% when 'music' %}{% assign b_music = block %}
-      {% when 'math' %}{% assign b_math = block %}
-
-      {% when 'bottom_1' %}{% assign b_bottom_1 = block %}
-      {% when 'bottom_2' %}{% assign b_bottom_2 = block %}
-      {% when 'bottom_3' %}{% assign b_bottom_3 = block %}
-    {% endcase %}
-  {% endif %}
-{% endfor %}
-
-
-  {% comment %}
-    Tile renderer snippet (inline): uses block image/collection/title (HTML allowed)
-  {% endcomment %}
-  {% capture placeholder_tile %}
-    <a class="tile" href="#">
-      {{ 'image' | placeholder_svg_tag }}
-      <span>Tile</span>
-    </a>
-  {% endcapture %}
-
-  {% comment %} LEFT HALF {% endcomment %}
-  <div class="width-50 margin-left-2">
-    <div class="category-grid-2">
-
-      {% if b_science %}
-        {% assign b = b_science %}
-        {% assign link = b.settings.collection.url | default: '#' %}
-        <a class="tile tile--science" href="{{ link }}" {{ b.shopify_attributes }}>
-          {% if b.settings.image != blank %}
-            {{ b.settings.image | image_url: width: 2000 | image_tag: alt: b.settings.title, loading: 'lazy' }}
-          {% else %}
-            {{ 'image' | placeholder_svg_tag }}
-          {% endif %}
-          <span>{{ b.settings.title }}</span>
-        </a>
-      {% endif %}
-
-      {% if b_art %}
-        {% assign b = b_art %}
-        {% assign link = b.settings.collection.url | default: '#' %}
-        <a class="tile tile--art" href="{{ link }}" {{ b.shopify_attributes }}>
-          {% if b.settings.image != blank %}
-            {{ b.settings.image | image_url: width: 2000 | image_tag: alt: b.settings.title, loading: 'lazy' }}
-          {% else %}
-            {{ 'image' | placeholder_svg_tag }}
-          {% endif %}
-          <span>{{ b.settings.title }}</span>
-        </a>
-      {% endif %}
-
-      {% if b_engineering %}
-        {% assign b = b_engineering %}
-        {% assign link = b.settings.collection.url | default: '#' %}
-        <a class="tile tile--engineering" href="{{ link }}" {{ b.shopify_attributes }}>
-          {% if b.settings.image != blank %}
-            {{ b.settings.image | image_url: width: 2000 | image_tag: alt: b.settings.title, loading: 'lazy' }}
-          {% else %}
-            {{ 'image' | placeholder_svg_tag }}
-          {% endif %}
-          <span>{{ b.settings.title }}</span>
-        </a>
-      {% endif %}
-
-    </div>
-
-    <div class="category-grid-1-3 padding-15">
-
-      {% if b_culture %}
-        {% assign b = b_culture %}
-        {% assign link = b.settings.collection.url | default: '#' %}
-        <a class="tile tile--culture" href="{{ link }}" {{ b.shopify_attributes }}>
-          {% if b.settings.image != blank %}
-            {{ b.settings.image | image_url: width: 2000 | image_tag: alt: b.settings.title, loading: 'lazy' }}
-          {% else %}
-            {{ 'image' | placeholder_svg_tag }}
-          {% endif %}
-          <span>{{ b.settings.title }}</span>
-        </a>
-      {% endif %}
-
-      {% if b_infant %}
-        {% assign b = b_infant %}
-        {% assign link = b.settings.collection.url | default: '#' %}
-        <a class="tile tile--infant" href="{{ link }}" {{ b.shopify_attributes }}>
-          {% if b.settings.image != blank %}
-            {{ b.settings.image | image_url: width: 2000 | image_tag: alt: b.settings.title, loading: 'lazy' }}
-          {% else %}
-            {{ 'image' | placeholder_svg_tag }}
-          {% endif %}
-          <span>{{ b.settings.title }}</span>
-        </a>
-      {% endif %}
-
-    </div>
-  </div>
-
-  {% comment %} RIGHT HALF {% endcomment %}
-  <div class="width-50">
-    <div class="category-grid-2-1">
-
-      {% if b_hero %}
-        {% assign b = b_hero %}
-        {% assign link = b.settings.collection.url | default: '#' %}
-        <a class="tile tile--hero" href="{{ link }}" {{ b.shopify_attributes }}>
-          {% if b.settings.image != blank %}
-            {{ b.settings.image | image_url: width: 2400 | image_tag: alt: b.settings.title, loading: 'lazy' }}
-          {% else %}
-            {{ 'image' | placeholder_svg_tag }}
-          {% endif %}
-          <span>{{ b.settings.title }}</span>
-        </a>
-      {% endif %}
-
-      {% if b_wide %}
-        {% assign b = b_wide %}
-        {% assign link = b.settings.collection.url | default: '#' %}
-        <a class="tile tile--wide" href="{{ link }}" {{ b.shopify_attributes }}>
-          {% if b.settings.image != blank %}
-            {{ b.settings.image | image_url: width: 2400 | image_tag: alt: b.settings.title, loading: 'lazy' }}
-          {% else %}
-            {{ 'image' | placeholder_svg_tag }}
-          {% endif %}
-          <span>{{ b.settings.title }}</span>
-        </a>
-      {% endif %}
-
-      {% if b_half_left %}
-        {% assign b = b_half_left %}
-        {% assign link = b.settings.collection.url | default: '#' %}
-        <a class="tile tile--half-left" href="{{ link }}" {{ b.shopify_attributes }}>
-          {% if b.settings.image != blank %}
-            {{ b.settings.image | image_url: width: 2400 | image_tag: alt: b.settings.title, loading: 'lazy' }}
-          {% else %}
-            {{ 'image' | placeholder_svg_tag }}
-          {% endif %}
-          <span>{{ b.settings.title }}</span>
-        </a>
-      {% endif %}
-
-      {% if b_half_right %}
-        {% assign b = b_half_right %}
-        {% assign link = b.settings.collection.url | default: '#' %}
-        <a class="tile tile--half-right" href="{{ link }}" {{ b.shopify_attributes }}>
-          {% if b.settings.image != blank %}
-            {{ b.settings.image | image_url: width: 2400 | image_tag: alt: b.settings.title, loading: 'lazy' }}
-          {% else %}
-            {{ 'image' | placeholder_svg_tag }}
-          {% endif %}
-          <span>{{ b.settings.title }}</span>
-        </a>
-      {% endif %}
-
-    </div>
-  </div>
-
-  <div class="clear"></div>
-
-  {% comment %} LOWER AREA {% endcomment %}
-  <div class="width-full">
-
-    <div class="width-35">
-      <div class="width-full margin-left-2">
-        <div class="category-grid-2-1 height-set">
-
-          {% if b_lower_half_left %}
-            {% assign b = b_lower_half_left %}
-            {% assign link = b.settings.collection.url | default: '#' %}
-            <a class="tile tile--half-left height-set" href="{{ link }}" {{ b.shopify_attributes }}>
-              {% if b.settings.image != blank %}
-                {{ b.settings.image | image_url: width: 2400 | image_tag: alt: b.settings.title, loading: 'lazy' }}
-              {% else %}
-                {{ 'image' | placeholder_svg_tag }}
-              {% endif %}
-              <span>{{ b.settings.title }}</span>
-            </a>
-          {% endif %}
-
-          {% if b_lower_half_right %}
-            {% assign b = b_lower_half_right %}
-            {% assign link = b.settings.collection.url | default: '#' %}
-            <a class="tile tile--half-right height-set" href="{{ link }}" {{ b.shopify_attributes }}>
-              {% if b.settings.image != blank %}
-                {{ b.settings.image | image_url: width: 2400 | image_tag: alt: b.settings.title, loading: 'lazy' }}
-              {% else %}
-                {{ 'image' | placeholder_svg_tag }}
-              {% endif %}
-              <span>{{ b.settings.title }}</span>
-            </a>
-          {% endif %}
-
-        </div>
-      </div>
-    </div>
-
-    <div class="width-65">
-      <div class="grid-inner-70-30">
-
-        {% if b_music %}
-          {% assign b = b_music %}
-          {% assign link = b.settings.collection.url | default: '#' %}
-          <a class="tile cat-tile--wide" href="{{ link }}" {{ b.shopify_attributes }}>
-            {% if b.settings.image != blank %}
-              {{ b.settings.image | image_url: width: 2400 | image_tag: alt: b.settings.title, loading: 'lazy' }}
-            {% else %}
-              {{ 'image' | placeholder_svg_tag }}
-            {% endif %}
-            <span>{{ b.settings.title }}</span>
-          </a>
-        {% endif %}
-
-        {% if b_math %}
-          {% assign b = b_math %}
-          {% assign link = b.settings.collection.url | default: '#' %}
-          <a class="tile tile--tall" href="{{ link }}" {{ b.shopify_attributes }}>
-            {% if b.settings.image != blank %}
-              {{ b.settings.image | image_url: width: 2400 | image_tag: alt: b.settings.title, loading: 'lazy' }}
-            {% else %}
-              {{ 'image' | placeholder_svg_tag }}
-            {% endif %}
-            <span>{{ b.settings.title }}</span>
-          </a>
-        {% endif %}
-
-      </div>
-    </div>
-
-  </div>
-
-  <div class="width-full">
-    <div class="category-grid-3-col">
-
-      {% if b_bottom_1 %}
-        {% assign b = b_bottom_1 %}
-        {% assign link = b.settings.collection.url | default: '#' %}
-        <a href="{{ link }}" class="tile tile-image-height-fix" {{ b.shopify_attributes }}>
-          {% if b.settings.image != blank %}
-            {{ b.settings.image | image_url: width: 2400 | image_tag: alt: b.settings.title, loading: 'lazy' }}
-          {% else %}
-            {{ 'image' | placeholder_svg_tag }}
-          {% endif %}
-          <span>{{ b.settings.title }}</span>
-        </a>
-      {% endif %}
-
-      {% if b_bottom_2 %}
-        {% assign b = b_bottom_2 %}
-        {% assign link = b.settings.collection.url | default: '#' %}
-        <a href="{{ link }}" class="tile tile-image-height-fix" {{ b.shopify_attributes }}>
-          {% if b.settings.image != blank %}
-            {{ b.settings.image | image_url: width: 2400 | image_tag: alt: b.settings.title, loading: 'lazy' }}
-          {% else %}
-            {{ 'image' | placeholder_svg_tag }}
-          {% endif %}
-          <span>{{ b.settings.title }}</span>
-        </a>
-      {% endif %}
-
-      {% if b_bottom_3 %}
-        {% assign b = b_bottom_3 %}
-        {% assign link = b.settings.collection.url | default: '#' %}
-        <a href="{{ link }}" class="tile tile-image-height-fix" {{ b.shopify_attributes }}>
-          {% if b.settings.image != blank %}
-            {{ b.settings.image | image_url: width: 2400 | image_tag: alt: b.settings.title, loading: 'lazy' }}
-          {% else %}
-            {{ 'image' | placeholder_svg_tag }}
-          {% endif %}
-          <span>{{ b.settings.title }}</span>
-        </a>
-      {% endif %}
-
-    </div>
-  </div>
-
-  <style>
+  /* MOBILE */
   @media (max-width: 780px) {
+
+    #cat-grid-{{ section.id }} .cat-grid-top {
+      grid-template-columns: 1fr;
+    }
 
     #cat-grid-{{ section.id }} .category-grid-2-1 {
       grid-template-columns: 1fr;
@@ -487,38 +153,258 @@
       gap: 14px;
     }
 
-    #cat-grid-{{ section.id }} .category-grid-1-3 {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      grid-template-rows: 240px 0;
-      gap: 16px;
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-
     #cat-grid-{{ section.id }} .category-grid-2 {
       grid-template-columns: 1fr;
       grid-template-rows: none;
-    }
-
-    #cat-grid-{{ section.id }} .category-grid-3-35-65 {
-      grid-template-columns: 1fr;
     }
 
     #cat-grid-{{ section.id }} .tile {
       height: 220px;
     }
 
-    #cat-grid-{{ section.id }} .tile--science,
-    #cat-grid-{{ section.id }} .tile--art,
-    #cat-grid-{{ section.id }} .tile--engineering,
-    #cat-grid-{{ section.id }} .tile--culture,
-    #cat-grid-{{ section.id }} .tile--infant {
-      grid-column: auto;
-      grid-row: auto;
+    #cat-grid-{{ section.id }} .category-grid-3-col {
+      grid-template-columns: 1fr;
+      max-width: 100%;
+      margin: 0 auto 30px;
+      padding: 0 12px;
     }
   }
   </style>
+
+  {% comment %}
+    Build slot map from blocks.
+    Each slot expects ONE block. If you add duplicates, the last one wins.
+  {% endcomment %}
+
+  {% liquid
+    assign b_science = nil
+    assign b_art = nil
+    assign b_engineering = nil
+    assign b_culture = nil
+    assign b_infant = nil
+
+    assign b_hero = nil
+    assign b_wide = nil
+    assign b_half_left = nil
+    assign b_half_right = nil
+
+    assign b_lower_half_left = nil
+    assign b_lower_half_right = nil
+
+    assign b_music = nil
+    assign b_math = nil
+
+    assign b_bottom_1 = nil
+    assign b_bottom_2 = nil
+    assign b_bottom_3 = nil
+  %}
+
+  {% for block in section.blocks %}
+    {% if block.type == 'tile' %}
+      {% case block.settings.slot %}
+        {% when 'science' %}{% assign b_science = block %}
+        {% when 'art' %}{% assign b_art = block %}
+        {% when 'engineering' %}{% assign b_engineering = block %}
+        {% when 'culture' %}{% assign b_culture = block %}
+        {% when 'infant' %}{% assign b_infant = block %}
+
+        {% when 'hero' %}{% assign b_hero = block %}
+        {% when 'wide' %}{% assign b_wide = block %}
+        {% when 'half_left' %}{% assign b_half_left = block %}
+        {% when 'half_right' %}{% assign b_half_right = block %}
+
+        {% when 'lower_half_left' %}{% assign b_lower_half_left = block %}
+        {% when 'lower_half_right' %}{% assign b_lower_half_right = block %}
+
+        {% when 'music' %}{% assign b_music = block %}
+        {% when 'math' %}{% assign b_math = block %}
+
+        {% when 'bottom_1' %}{% assign b_bottom_1 = block %}
+        {% when 'bottom_2' %}{% assign b_bottom_2 = block %}
+        {% when 'bottom_3' %}{% assign b_bottom_3 = block %}
+      {% endcase %}
+    {% endif %}
+  {% endfor %}
+
+  {% comment %} TOP: LEFT + RIGHT (fixed) {% endcomment %}
+  <div class="cat-grid-top middle-grid">
+
+    {% comment %} LEFT HALF {% endcomment %}
+    <div class="cat-grid-left">
+
+      <div class="category-grid-2">
+
+        {% if b_science %}
+          {% assign b = b_science %}
+          {%- liquid
+            assign link = ''
+            case b.settings.link_type
+              when 'collection'  if b.settings.collection != blank  assign link = b.settings.collection.url  endif
+              when 'product'     if b.settings.product != blank     assign link = b.settings.product.url     endif
+              when 'url'         if b.settings.link != blank        assign link = b.settings.link           endif
+            endcase
+          -%}
+          {% if link != blank %}<a class="tile tile--science" href="{{ link }}" {{ b.shopify_attributes }}>{% else %}<div class="tile tile--science" {{ b.shopify_attributes }}>{% endif %}
+            {% if b.settings.image != blank %}
+              {{ b.settings.image | image_url: width: 2000 | image_tag: alt: b.settings.title, loading: 'lazy' }}
+            {% else %}
+              {{ 'image' | placeholder_svg_tag }}
+            {% endif %}
+            <span>{{ b.settings.title }}</span>
+          {% if link != blank %}</a>{% else %}</div>{% endif %}
+        {% endif %}
+
+        {% if b_art %}
+          {% assign b = b_art %}
+          {%- liquid
+            assign link = ''
+            case b.settings.link_type
+              when 'collection'  if b.settings.collection != blank  assign link = b.settings.collection.url  endif
+              when 'product'     if b.settings.product != blank     assign link = b.settings.product.url     endif
+              when 'url'         if b.settings.link != blank        assign link = b.settings.link           endif
+            endcase
+          -%}
+          {% if link != blank %}<a class="tile tile--art" href="{{ link }}" {{ b.shopify_attributes }}>{% else %}<div class="tile tile--art" {{ b.shopify_attributes }}>{% endif %}
+            {% if b.settings.image != blank %}
+              {{ b.settings.image | image_url: width: 2000 | image_tag: alt: b.settings.title, loading: 'lazy' }}
+            {% else %}
+              {{ 'image' | placeholder_svg_tag }}
+            {% endif %}
+            <span>{{ b.settings.title }}</span>
+          {% if link != blank %}</a>{% else %}</div>{% endif %}
+        {% endif %}
+
+        {% if b_engineering %}
+          {% assign b = b_engineering %}
+          {%- liquid
+            assign link = ''
+            case b.settings.link_type
+              when 'collection'  if b.settings.collection != blank  assign link = b.settings.collection.url  endif
+              when 'product'     if b.settings.product != blank     assign link = b.settings.product.url     endif
+              when 'url'         if b.settings.link != blank        assign link = b.settings.link           endif
+            endcase
+          -%}
+          {% if link != blank %}<a class="tile tile--engineering" href="{{ link }}" {{ b.shopify_attributes }}>{% else %}<div class="tile tile--engineering" {{ b.shopify_attributes }}>{% endif %}
+            {% if b.settings.image != blank %}
+              {{ b.settings.image | image_url: width: 2000 | image_tag: alt: b.settings.title, loading: 'lazy' }}
+            {% else %}
+              {{ 'image' | placeholder_svg_tag }}
+            {% endif %}
+            <span>{{ b.settings.title }}</span>
+          {% if link != blank %}</a>{% else %}</div>{% endif %}
+        {% endif %}
+
+      </div>
+
+      <div class="category-grid-1-3 padding-15">
+
+        {% if b_culture %}
+          {% assign b = b_culture %}
+          {%- liquid
+            assign link = ''
+            case b.settings.link_type
+              when 'collection'  if b.settings.collection != blank  assign link = b.settings.collection.url  endif
+              when 'product'     if b.settings.product != blank     assign link = b.settings.product.url     endif
+              when 'url'         if b.settings.link != blank        assign link = b.settings.link           endif
+            endcase
+          -%}
+          {% if link != blank %}<a class="tile tile--culture" href="{{ link }}" {{ b.shopify_attributes }}>{% else %}<div class="tile tile--culture" {{ b.shopify_attributes }}>{% endif %}
+            {% if b.settings.image != blank %}
+              {{ b.settings.image | image_url: width: 2000 | image_tag: alt: b.settings.title, loading: 'lazy' }}
+            {% else %}
+              {{ 'image' | placeholder_svg_tag }}
+            {% endif %}
+            <span>{{ b.settings.title }}</span>
+          {% if link != blank %}</a>{% else %}</div>{% endif %}
+        {% endif %}
+
+        {% if b_infant %}
+          {% assign b = b_infant %}
+          {%- liquid
+            assign link = ''
+            case b.settings.link_type
+              when 'collection'  if b.settings.collection != blank  assign link = b.settings.collection.url  endif
+              when 'product'     if b.settings.product != blank     assign link = b.settings.product.url     endif
+              when 'url'         if b.settings.link != blank        assign link = b.settings.link           endif
+            endcase
+          -%}
+          {% if link != blank %}<a class="tile tile--infant" href="{{ link }}" {{ b.shopify_attributes }}>{% else %}<div class="tile tile--infant" {{ b.shopify_attributes }}>{% endif %}
+            {% if b.settings.image != blank %}
+              {{ b.settings.image | image_url: width: 2000 | image_tag: alt: b.settings.title, loading: 'lazy' }}
+            {% else %}
+              {{ 'image' | placeholder_svg_tag }}
+            {% endif %}
+            <span>{{ b.settings.title }}</span>
+          {% if link != blank %}</a>{% else %}</div>{% endif %}
+        {% endif %}
+
+      </div>
+
+    </div>
+
+    {% comment %} RIGHT HALF {% endcomment %}
+    <div class="cat-grid-right">
+      <div class="category-grid-2-1 hero-grid">
+        {% if b_hero %}{% render 'cat-grid-tile', b: b_hero, class: 'tile tile--hero', image_width: 2400 %}{% endif %}
+        {% if b_wide %}{% render 'cat-grid-tile', b: b_wide, class: 'tile tile--wide', image_width: 2400 %}{% endif %}
+        {% if b_half_left %}{% render 'cat-grid-tile', b: b_half_left, class: 'tile tile--half-left', image_width: 2400 %}{% endif %}
+        {% if b_half_right %}{% render 'cat-grid-tile', b: b_half_right, class: 'tile tile--half-right', image_width: 2400 %}{% endif %}
+      </div>
+    </div>
+
+  </div>
+
+  {% comment %} MIDDLE AREA (keep your original layout but without floats) {% endcomment %}
+  <div class="widthFullMiddle">
+    
+     <div class="width-full-wrapper">
+
+    <div class="grid-inner-70-30" style="grid-template-columns: 35% 65%; gap: 20px;">
+
+      {% comment %} LEFT (35%) two tiles {% endcomment %}
+      <div class="grid-left-middle">
+        <div class="category-grid-2-1 height-set" style="max-width:100%;">
+
+          {% if b_lower_half_left %}
+            {% render 'cat-grid-tile', b: b_lower_half_left, class: 'tile tile--half-left height-set grid-full-width', image_width: 2400 %}
+          {% endif %}
+
+          {% if b_lower_half_right %}
+            {% render 'cat-grid-tile', b: b_lower_half_right, class: 'tile tile--half-right height-set grid-full-width', image_width: 2400 %}
+          {% endif %}
+
+        </div>
+      </div>
+
+      {% comment %} RIGHT (65%) music + math {% endcomment %}
+      <div>
+        <div class="grid-inner-70-30 right-tile-bottom-area">
+
+          {% if b_music %}
+            {% render 'cat-grid-tile', b: b_music, class: 'tile cat-tile--wide', image_width: 2400 %}
+          {% endif %}
+
+          {% if b_math %}
+            {% render 'cat-grid-tile', b: b_math, class: 'tile tile--tall', image_width: 2400 %}
+          {% endif %}
+
+        </div>
+      </div>
+
+    </div>
+    </div>
+  </div>
+
+  {% comment %} BOTTOM 3 COL {% endcomment %}
+  <div class="width-full">
+    <div class="category-grid-3-col">
+
+      {% if b_bottom_1 %}{% render 'cat-grid-tile', b: b_bottom_1, class: 'tile tile-image-height-fix', image_width: 2400 %}{% endif %}
+      {% if b_bottom_2 %}{% render 'cat-grid-tile', b: b_bottom_2, class: 'tile tile-image-height-fix', image_width: 2400 %}{% endif %}
+      {% if b_bottom_3 %}{% render 'cat-grid-tile', b: b_bottom_3, class: 'tile tile-image-height-fix', image_width: 2400 %}{% endif %}
+
+    </div>
+  </div>
 
 </section>
 
@@ -559,8 +445,25 @@
           ],
           "default": "science"
         },
+
         { "type": "image_picker", "id": "image", "label": "Image" },
-        { "type": "collection", "id": "collection", "label": "Link (Collection)" },
+
+        {
+          "type": "select",
+          "id": "link_type",
+          "label": "Link type",
+          "options": [
+            { "value": "collection", "label": "Collection" },
+            { "value": "product", "label": "Product" },
+            { "value": "url", "label": "Custom URL" }
+          ],
+          "default": "collection"
+        },
+
+        { "type": "collection", "id": "collection", "label": "Collection (if Link type = Collection)" },
+        { "type": "product", "id": "product", "label": "Product (if Link type = Product)" },
+        { "type": "url", "id": "link", "label": "Custom URL (if Link type = Custom URL)" },
+
         {
           "type": "textarea",
           "id": "title",

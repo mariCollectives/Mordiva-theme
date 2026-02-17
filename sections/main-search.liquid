@@ -72,13 +72,7 @@
     </div>
     {% paginate search.results by section.settings.products_per_page %}
       <div class="collection__content flex">
-        {%- if enable_filtering and filter_type == 'vertical' and search.results_count > 0 -%}
-          <div class="hidden xl:block" id="FacetFiltersContainer">
-            <div class="sticky-element z-10">
-              {%- render 'facets', context: 'vertical', results: search -%}
-            </div>
-          </div>
-        {%- endif -%}
+       
         <div class="flex flex-col flex-grow{% if show_toolbar %} show-toolbar{% endif %}" id="ProductGridWrapper">
           {%- if search.results_count > 0 -%}
             <div class="sticky-element grid gap-5 z-10" style="--sticky-offset: 0px;">
@@ -175,7 +169,8 @@
                           class="product-card product-card-style-{{ settings.pcard_style }}{% if settings.pcard_style == 'card' %} color-{{ settings.pcard_color_scheme }}{% endif %}"
                         >
                           <div class="product-card__wrapper h-full">
-                            <a href="{{ item.url }}" class="full-width-link product-card__link">
+
+                          <a href="{{ item.url }}" class="full-width-link product-card__link">
                               <span class="visually-hidden">{{- item.title -}}</span>
                             </a>
                             <div class="product-card__info text-{{ settings.pcard_content_alignment }} h-full">

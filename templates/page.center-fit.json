@@ -1,0 +1,247 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "image_with_text_overlay_twJFy6": {
+      "type": "image-with-text-overlay",
+      "blocks": {
+        "heading_gXkVcV": {
+          "type": "heading",
+          "settings": {
+            "heading": "Centre Fit Outs",
+            "heading_size": "hd1",
+            "heading_highlight_style": "none"
+          }
+        }
+      },
+      "block_order": [
+        "heading_gXkVcV"
+      ],
+      "name": "t:sections.image-with-text-overlay.name",
+      "settings": {
+        "container": "full",
+        "image": "shopify://shop_images/adrian-sulyok-c_4eaGRDSVU-unsplash_1.png",
+        "desktop_height": "extra-large",
+        "overlay_opacity": 20,
+        "enable_parallax": false,
+        "parallax_direction": "vertical",
+        "color_scheme": "",
+        "content_position": "bottom-left",
+        "content_alignment": "left",
+        "mobile_height": "auto",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "custom_class": ""
+      }
+    },
+    "rich_text_qX8gUJ": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_VrmXAC": {
+          "type": "heading",
+          "settings": {
+            "heading": "Where Inspiring Learning Environments Begin",
+            "heading_size": "hd1",
+            "heading_highlight_style": "none"
+          }
+        },
+        "text_yHHVxW": {
+          "type": "text",
+          "settings": {
+            "text": "<p>You bring the idea — we help shape it. </p><p>Through close collaboration, we blend thoughtful design, durable materials and a strong understanding of early learning environments to creative spaces children love to be in.  </p><p>Every detail is considered, from how a room feels to how it functions, resulting in a tailored solution designed around your needs and budget.</p>",
+            "text_size": "text-base"
+          }
+        }
+      },
+      "block_order": [
+        "heading_VrmXAC",
+        "text_yHHVxW"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "color_scheme": "",
+        "content_alignment": "left",
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": ""
+      }
+    },
+    "image_width_text_columns_tgXFhP": {
+      "type": "image-width-text-columns",
+      "blocks": {
+        "column_MR6AdE": {
+          "type": "column",
+          "settings": {
+            "image_width": "full",
+            "title": "Discover Your Space",
+            "heading_size": "h3",
+            "text": "<p>We start by listening. We collaborate with you to gain a clear understanding of your vision, goals for the environment, preferred<br/>educational philosophies and budget parameters. This helps us recommend products that truly support how your centre operates.</p>",
+            "text_size": "text-base"
+          }
+        },
+        "column_Gb6Uie": {
+          "type": "column",
+          "settings": {
+            "image_width": "medium",
+            "title": "Design and Create",
+            "heading_size": "h3",
+            "text": "<p>Designing for children requires more than good looks. Our specialists create early learning environments that support development, movement and engagement. We establish your aesthetic through considered colour palettes and themes. Our experienced team defines the aesthetic direction of your space before refining layouts, furniture and finishes that balance learning outcomes with durability and everyday functionality.</p>",
+            "text_size": "text-base"
+          }
+        }
+      },
+      "block_order": [
+        "column_MR6AdE",
+        "column_Gb6Uie"
+      ],
+      "name": "t:sections.image-with-text-columns.presets.name",
+      "settings": {
+        "color_scheme": "",
+        "layout_gap": "extra-large",
+        "content_alignment": "center",
+        "image": "shopify://shop_images/1_116.png",
+        "image_position": "text_first",
+        "heading": "",
+        "heading_size": "h1",
+        "heading_highlight_style": "none",
+        "subheading": "Our Approach",
+        "description": "",
+        "text_size": "text-base",
+        "column_alignment": "left",
+        "columns_desktop": 1,
+        "column_gap": "large",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": ""
+      }
+    },
+    "layered_images_with_text_xPnT9d": {
+      "type": "layered-images-with-text",
+      "blocks": {
+        "image_NGNQrB": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/rosebox-BFdSCxmqvYc-unsplash.jpg",
+            "custom_classes": ""
+          }
+        },
+        "image_39eRbH": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/4_3.png",
+            "custom_classes": ""
+          }
+        },
+        "image_LERLjU": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/1_113.png",
+            "custom_classes": ""
+          }
+        },
+        "image_8J8rHk": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/1_112.png",
+            "custom_classes": ""
+          }
+        },
+        "image_RYAC8q": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/park-minjung-0BieaaXpQGo-unsplash.jpg",
+            "custom_classes": ""
+          }
+        }
+      },
+      "block_order": [
+        "image_NGNQrB",
+        "image_39eRbH",
+        "image_LERLjU",
+        "image_8J8rHk",
+        "image_RYAC8q"
+      ],
+      "name": "t:sections.layered-images-with-text.name",
+      "settings": {
+        "color_scheme": "",
+        "heading": "Quote or Checkout",
+        "heading_size": "h1",
+        "heading_highlight_style": "none",
+        "subheading": "",
+        "description": "<p>When your design is locked in, we take care of the details. You’ll receive a clear, itemised quote for approval, followed by a carefully prepared installation list to ensure your fit-out runs smoothly and on schedule.</p>",
+        "description_size": "text-base",
+        "button_label": "",
+        "button_link": "",
+        "button_style": "btn--primary",
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": ""
+      }
+    },
+    "rich_text_HAinLj": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_Wmc3xx": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>Deliver with Care</strong>",
+            "heading_size": "hd1",
+            "heading_highlight_style": "none"
+          }
+        },
+        "text_yC8QCn": {
+          "type": "text",
+          "settings": {
+            "text": "<p>You bring the idea — we help shape it. </p>",
+            "text_size": "text-base"
+          }
+        },
+        "button_3CJcjD": {
+          "type": "button",
+          "settings": {
+            "button_label": "Contact Us",
+            "button_link": "shopify://pages/contact",
+            "button_style": "btn--primary"
+          }
+        }
+      },
+      "block_order": [
+        "heading_Wmc3xx",
+        "text_yC8QCn",
+        "button_3CJcjD"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "color_scheme": "",
+        "content_alignment": "center",
+        "padding_top": 100,
+        "padding_bottom": 100,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": "deliverCare"
+      }
+    }
+  },
+  "order": [
+    "image_with_text_overlay_twJFy6",
+    "rich_text_qX8gUJ",
+    "image_width_text_columns_tgXFhP",
+    "layered_images_with_text_xPnT9d",
+    "rich_text_HAinLj"
+  ]
+}

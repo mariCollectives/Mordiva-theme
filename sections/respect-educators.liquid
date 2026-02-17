@@ -1,0 +1,233 @@
+{% comment %}
+  Section: Respect for Educators (Responsive)
+  - Desktop: Left = tall image, Right = copy + bottom image + button
+  - Mobile: Copy first, then tall image, then bottom image (+ button) like screenshot
+{% endcomment %}
+
+{%- liquid
+  assign s = section.settings
+-%}
+
+<section class="re-edu re-edu--{{ section.id }}">
+  <div class="re-edu__container">
+
+    <div class="re-edu__grid">
+      <!-- LEFT IMAGE (tall) -->
+      <div class="re-edu__left">
+        {% if s.left_image != blank %}
+          {{ s.left_image
+            | image_url: width: 1600
+            | image_tag:
+              loading: 'lazy',
+              class: 're-edu__img re-edu__img--left',
+              alt: s.left_image.alt | default: s.heading
+          }}
+        {% else %}
+          <div class="re-edu__placeholder re-edu__placeholder--left">
+            {{ 'image' | placeholder_svg_tag }}
+          </div>
+        {% endif %}
+      </div>
+
+      <!-- COPY -->
+      <div class="re-edu__copy">
+        {% if s.heading != blank %}
+          <h2 class="re-edu__heading">{{ s.heading }}</h2>
+        {% endif %}
+
+        {% if s.subheading != blank %}
+          <p class="re-edu__subheading">{{ s.subheading }}</p>
+        {% endif %}
+
+        {% if s.text != blank %}
+          <div class="re-edu__text rte">
+            {{ s.text }}
+          </div>
+        {% endif %}
+      </div>
+
+      <!-- RIGHT IMAGE (bottom wide) -->
+      <div class="re-edu__right-image">
+        {% if s.right_image != blank %}
+          {{ s.right_image
+            | image_url: width: 1600
+            | image_tag:
+              loading: 'lazy',
+              class: 're-edu__img re-edu__img--right',
+              alt: s.right_image.alt | default: s.heading
+          }}
+        {% else %}
+          <div class="re-edu__placeholder re-edu__placeholder--right">
+            {{ 'image' | placeholder_svg_tag }}
+          </div>
+        {% endif %}
+      </div>
+
+      <!-- CTA -->
+      {% if s.button_label != blank and s.button_link != blank %}
+        <div class="re-edu__cta">
+          <a class="re-edu__btn" href="{{ s.button_link }}">
+            {{ s.button_label }}
+          </a>
+        </div>
+      {% endif %}
+    </div>
+
+  </div>
+
+  <style>
+    .re-edu--{{ section.id }}{
+      padding-top: {{ s.padding_top }}px;
+      padding-bottom: {{ s.padding_bottom }}px;
+      background: {{ s.bg_color }};
+    }
+
+    .re-edu--{{ section.id }} .re-edu__container{
+      max-width: {{ s.max_width }}px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* ===== Desktop layout (2 columns) ===== */
+    .re-edu--{{ section.id }} .re-edu__grid{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: {{ s.gap }}px;
+      align-items: start;
+
+      grid-template-areas:
+        "left copy"
+        "left rightimg"
+        "left cta";
+    }
+
+    .re-edu--{{ section.id }} .re-edu__left{ grid-area: left; }
+    .re-edu--{{ section.id }} .re-edu__copy{ grid-area: copy; padding-top: 4px; }
+    .re-edu--{{ section.id }} .re-edu__right-image{ grid-area: rightimg; }
+    .re-edu--{{ section.id }} .re-edu__cta{ grid-area: cta; }
+
+    .re-edu--{{ section.id }} .re-edu__img{
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: {{ s.radius }}px;
+      object-fit: cover;
+    }
+
+    /* Image ratios */
+    .re-edu--{{ section.id }} .re-edu__img--left{
+      aspect-ratio: 3 / 4;
+    }
+    .re-edu--{{ section.id }} .re-edu__img--right{
+      aspect-ratio: 16 / 9;
+    }
+
+    /* Text styles */
+    .re-edu--{{ section.id }} .re-edu__heading{
+      margin: 0 0 10px;
+      font-size: {{ s.heading_size }}px;
+      line-height: 1.15;
+      font-weight: 700;
+      color: {{ s.heading_color }};
+    }
+
+    .re-edu--{{ section.id }} .re-edu__subheading{
+      margin: 0 0 12px;
+      font-size: {{ s.subheading_size }}px;
+      line-height: 1.35;
+      font-weight: 600;
+      color: {{ s.subheading_color }};
+    }
+
+    .re-edu--{{ section.id }} .re-edu__text{
+      color: {{ s.text_color }};
+      font-size: {{ s.text_size }}px;
+      line-height: 1.6;
+    }
+    .re-edu--{{ section.id }} .re-edu__text :where(p){
+      margin: 0 0 10px;
+    }
+    .re-edu--{{ section.id }} .re-edu__text :where(p:last-child){
+      margin-bottom: 0;
+    }
+
+    .re-edu--{{ section.id }} .re-edu__placeholder{
+      border-radius: {{ s.radius }}px;
+      overflow: hidden;
+      background: rgba(0,0,0,.03);
+    }
+
+    /* Button */
+    .re-edu--{{ section.id }} .re-edu__btn{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 18px;
+      border-radius: 999px;
+      text-decoration: none;
+      background: {{ s.button_bg }};
+      color: {{ s.button_text }};
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 1;
+    }
+    .re-edu--{{ section.id }} .re-edu__btn:hover{ opacity: .9; }
+
+    /* ===== Mobile layout (like screenshot): Copy -> tall image -> bottom image -> button ===== */
+    @media (max-width: 900px){
+      .re-edu--{{ section.id }} .re-edu__grid{
+        grid-template-columns: 1fr;
+        grid-template-areas:
+          "copy"
+          "left"
+          "rightimg"
+          "cta";
+        gap: 18px;
+      }
+
+      /* Optional: make the tall image a bit wider on mobile like your screenshot */
+      .re-edu--{{ section.id }} .re-edu__img--left{
+        aspect-ratio: 16 / 10;
+      }
+    }
+  </style>
+</section>
+
+{% schema %}
+{
+  "name": "Respect for Educators",
+  "settings": [
+    { "type": "image_picker", "id": "left_image", "label": "Left image (tall)" },
+    { "type": "image_picker", "id": "right_image", "label": "Right image (bottom)" },
+
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Our Respect for Educators." },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "Created With Educators, Not Just For Them" },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>We understand the vital role educators play in shaping children’s development, and we honour their work by creating tools and environments that support their professional practice.</p><p>Our products are designed with educators in mind—intuitive, flexible, and built to complement a wide range of pedagogical approaches.</p>" },
+
+    { "type": "text", "id": "button_label", "label": "Button label (optional)" },
+    { "type": "url", "id": "button_link", "label": "Button link (optional)" },
+
+    { "type": "range", "id": "max_width", "label": "Container width (px)", "min": 900, "max": 1600, "step": 20, "default": 1400 },
+    { "type": "range", "id": "gap", "label": "Column gap (px)", "min": 10, "max": 80, "step": 2, "default": 30 },
+    { "type": "range", "id": "radius", "label": "Image corner radius (px)", "min": 0, "max": 40, "step": 2, "default": 16 },
+
+    { "type": "range", "id": "heading_size", "label": "Heading size (px)", "min": 20, "max": 56, "step": 1, "default": 40 },
+    { "type": "range", "id": "subheading_size", "label": "Subheading size (px)", "min": 14, "max": 28, "step": 1, "default": 18 },
+    { "type": "range", "id": "text_size", "label": "Text size (px)", "min": 12, "max": 20, "step": 1, "default": 14 },
+
+    { "type": "color", "id": "bg_color", "label": "Background color", "default": "#ffffff" },
+    { "type": "color", "id": "heading_color", "label": "Heading color", "default": "#111111" },
+    { "type": "color", "id": "subheading_color", "label": "Subheading color", "default": "#111111" },
+    { "type": "color", "id": "text_color", "label": "Text color", "default": "#444444" },
+
+    { "type": "color", "id": "button_bg", "label": "Button background", "default": "#111111" },
+    { "type": "color", "id": "button_text", "label": "Button text", "default": "#ffffff" },
+
+    { "type": "range", "id": "padding_top", "label": "Padding top (px)", "min": 0, "max": 120, "step": 4, "default": 40 },
+    { "type": "range", "id": "padding_bottom", "label": "Padding bottom (px)", "min": 0, "max": 120, "step": 4, "default": 40 }
+  ],
+  "presets": [
+    { "name": "Respect for Educators" }
+  ]
+}
+{% endschema %}

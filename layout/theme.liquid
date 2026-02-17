@@ -92,7 +92,10 @@
 
   
    <script src="{{ 'print-save.js' | asset_url }}" defer="defer"></script>
-  <script src="{{ 'fromCart.js' | asset_url }}" defer="defer"></script>
+   <script src="{{ 'fromCart.js' | asset_url }}" defer="defer"></script>
+   <script src="{{ 'wishlist.js' | asset_url }}" defer></script>
+    <script src="{{ 'wishlist-ui.js' | asset_url }}" defer></script>
+
 
     {{ 'custom-mobile.css' | asset_url | stylesheet_tag }}
    
@@ -163,14 +166,10 @@
       document.addEventListener("input", onInput);
     })();
     </script>
-
-
-
- 
-
-    {% comment %} Custom metafield for head tag like GTag tracking {% endcomment %}
     {{ shop.metafields.foxtheme.code_head.value }}
-    {% comment %} End custom metafield for head tag like GTag tracking {% endcomment %}
+
+
+    
   </head>
 
   <body
@@ -194,7 +193,7 @@
     <div class="site-wrapper min-height-screen">
       {% sections 'header-group' %}
 
-      <main id="MainContent" class="main-content content-for-layout focus-none" role="main" tabindex="-1">
+      <main id="MainContent" class="main-content content-for-layout focus-none collection-page-new-list" role="main" tabindex="-1">
         {{ content_for_layout }}
       </main>
 

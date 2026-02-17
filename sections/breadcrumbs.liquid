@@ -8,11 +8,7 @@
     data-section-type="breadcrumb"
     data-section-id="{{ section.id }}"
   >
-    {% capture separator_icon %}
-    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" class="rtl-flip-x">
-      <path d="M4.5 2.25L8.25 6L4.5 9.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-    {% endcapture %}
+  
     <div class="page-width">
       <nav
         class="breadcrumbs justify-center md:justify-{{ justify }}"
@@ -21,14 +17,14 @@
       >
         <a href="{{ routes.root_url }}" title="Home">{{ 'general.breadcrumbs.home' | t }}</a>
         {% if template contains 'page' %}
-          <span aria-hidden="true" class="breadcrumbs--sep">{{ separator_icon }}</span>
+          <span aria-hidden="true" class="breadcrumbs--sep">/</span>
           <span>{{ page.title }}</span>
         {% elsif template contains 'product' %}
           {% liquid
             assign primary_collection = product.metafields.breadcrumb.primary_collection
           %}
           {% if collection.url != blank %}
-            <span aria-hidden="true" class="breadcrumbs--sep">{{ separator_icon }}</span>
+            <span aria-hidden="true" class="breadcrumbs--sep">/</span>
             {% if primary_collection != blank %}
               {{ primary_collection.value.title | link_to: primary_collection.value.url }}
             {% else %}
@@ -36,7 +32,7 @@
             {% endif %}
           {% else %}
             {% assign current_collection = product.collections | first %}
-            <span aria-hidden="true" class="breadcrumbs--sep">{{ separator_icon }}</span>
+            <span aria-hidden="true" class="breadcrumbs--sep">/</span>
             {% if primary_collection != blank %}
               <a href="{{ primary_collection.value.url }}">{{ primary_collection.value.title }}</a>
             {% elsif current_collection != blank %}
@@ -45,38 +41,38 @@
               <a href="{{ routes.all_products_collection_url }}">{{ 'general.breadcrumbs.collections' | t }}</a>
             {% endif %}
           {% endif %}
-          <span aria-hidden="true" class="breadcrumbs--sep breadcrumbs--sep-last">{{ separator_icon }}</span>
+          <span aria-hidden="true" class="breadcrumbs--sep breadcrumbs--sep-last">/</span>
           <span class="breadcrumbs--last">{{ product.title }}</span>
         {% elsif template contains 'collection' and collection.handle %}
           {% if collection.handle != 'all' %}
-            <span aria-hidden="true" class="breadcrumbs--sep">{{ separator_icon }}</span>
+            <span aria-hidden="true" class="breadcrumbs--sep">/</span>
             <a href="{{ routes.all_products_collection_url }}">{{ 'general.breadcrumbs.collections' | t }}</a>
           {% endif %}
-          <span aria-hidden="true" class="breadcrumbs--sep">{{ separator_icon }}</span>
+          <span aria-hidden="true" class="breadcrumbs--sep">/</span>
           {% if current_tags %}
             {% capture url %}{{ routes.collections_url }}/{{ collection.handle }}{% endcapture %}
             {{ collection.title | link_to: url }}
-            <span aria-hidden="true" class="breadcrumbs--sep">{{ separator_icon }}</span>
+            <span aria-hidden="true" class="breadcrumbs--sep">/</span>
             <span class="breadcrumbs--last">{{ current_tags | join: ' + ' }}</span>
           {% else %}
             <span class="breadcrumbs--last">{{ collection.title }}</span>
           {% endif %}
         {% elsif template == 'blog' %}
-          <span aria-hidden="true" class="breadcrumbs--sep">{{ separator_icon }}</span>
+          <span aria-hidden="true" class="breadcrumbs--sep">/</span>
           {% if current_tags %}
             {{ blog.title | link_to: blog.url }}
-            <span aria-hidden="true" class="breadcrumbs--sep">{{ separator_icon }}</span>
+            <span aria-hidden="true" class="breadcrumbs--sep">/</span>
             <span class="breadcrumbs--last">{{ current_tags | join: ' + ' }}</span>
           {% else %}
             <span>{{ blog.title }}</span>
           {% endif %}
         {% elsif template == 'article' %}
-          <span aria-hidden="true" class="breadcrumbs--sep">{{ separator_icon }}</span>
+          <span aria-hidden="true" class="breadcrumbs--sep">/</span>
           {{ blog.title | link_to: blog.url }}
-          <span aria-hidden="true" class="breadcrumbs--sep">{{ separator_icon }}</span>
+          <span aria-hidden="true" class="breadcrumbs--sep">/</span>
           <span class="breadcrumbs--last">{{ article.title }}</span>
         {% else %}
-          <span aria-hidden="true" class="breadcrumbs--sep">{{ separator_icon }}</span>
+          <span aria-hidden="true" class="breadcrumbs--sep">/</span>
           <span class="breadcrumbs--last">{{ page_title }}</span>
         {% endif %}
       </nav>

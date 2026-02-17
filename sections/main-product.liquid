@@ -19,6 +19,7 @@
       endif
   endcase
 -%}
+
 <product-info
   id="MainProduct-{{ section.id }}"
   data-section="{{ section.id }}"
@@ -33,6 +34,7 @@
   {% unless product.has_only_default_variant %}
     {{ 'component-product-variant-picker.css' | asset_url | stylesheet_tag }}
   {% endunless %}
+
   {%- assign has_models = product.media | where: 'media_type', 'model' | first -%}
   {%- if has_models -%}
     <link
@@ -50,15 +52,6 @@
       onload="this.media='all'"
     >
   {%- endif -%}
-  {%- if enable_image_zoom -%}
-    <link
-      id="Photoswipe"
-      rel="stylesheet"
-      href="{{ 'photoswipe-component.css' | asset_url }}"
-      media="print"
-      onload="this.media='all'"
-    >
-  {%- endif -%}
 
   {%- if product.quantity_price_breaks_configured? -%}
     {{ 'component-volume-pricing.css' | asset_url | stylesheet_tag }}
@@ -67,29 +60,174 @@
   {%- endif -%}
 
   <script src="{{ 'product-info.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'product-info-tab.js' | asset_url }}" defer="defer"></script>
 
-  {% assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' %}
+
+
+  <style>
+
+  #MainProduct-{{ section.id }} .pmg-stacked{
+  display:flex;
+  flex-direction:column;
+  gap:32px;
+}
+#MainProduct-{{ section.id }} .pmg-item{
+  width:100%;
+  display:flex;
+  justify-content:center;
+}
+
+/* Hover zoom wrapper (desktop) */
+#MainProduct-{{ section.id }} .pmg-zoom-wrap{
+  width:100%;
+  max-width:520px;
+  overflow:hidden;
+  cursor: zoom-in;
+}
+#MainProduct-{{ section.id }} .pmg-zoom-wrap img{
+  width:100%;
+  height:auto;
+  display:block;
+  object-fit:contain;
+  transition: transform 0.35s ease;
+  transform-origin:center center;
+}
+#MainProduct-{{ section.id }} .pmg-zoom-wrap:hover img{
+  transform: scale(1.2);
+}
+
+/* Dots */
+#MainProduct-{{ section.id }} .pmg-dots{
+  display:none;
+  justify-content:center;
+  gap:8px;
+  margin-top:-30px;
+}
+#MainProduct-{{ section.id }} .pmg-dot{
+  width:6px;
+  height:6px;
+  border-radius:999px;
+  border:0;
+  padding:0;
+  background: rgba(0,0,0,.25);
+  cursor:pointer;
+}
+#MainProduct-{{ section.id }} .pmg-dot.is-active{
+  background: rgba(0,0,0,.85);
+}
+
+@media (max-width: 768px){
+  /* Force the row slider no matter what theme styles exist */
+  #MainProduct-{{ section.id }} .pmg-stacked{
+    display:flex !important;
+    flex-direction:row !important;
+    flex-wrap:nowrap !important;
+    gap:0 !important;
+
+    overflow-x:auto !important;
+    overflow-y:hidden !important;
+
+    scroll-snap-type:x mandatory !important;
+    -webkit-overflow-scrolling:touch;
+    scroll-behavior:smooth;
+
+    touch-action: pan-x;
+    scrollbar-width:none;
+  }
+  #MainProduct-{{ section.id }} .pmg-stacked::-webkit-scrollbar{ display:none; }
+
+  #MainProduct-{{ section.id }} .pmg-item{
+    flex:0 0 100% !important;
+    width:100% !important;
+    scroll-snap-align:center !important;
+    justify-content:center;
+  }
+
+  #MainProduct-{{ section.id }} .pmg-zoom-wrap{
+    max-width:100% !important;
+    width:100% !important;
+    cursor: default;
+  }
+
+  #MainProduct-{{ section.id }} .pmg-zoom-wrap img{
+    width:100% !important;
+    height:auto !important;
+  }
+
+
+  #MainProduct-{{ section.id }} .pmg-zoom-wrap:hover img{ transform:none !important; }
+
+ 
+  #MainProduct-{{ section.id }} .pmg-dots{
+    display:flex !important;
+    justify-content:center;
+    gap:8px;
+   margin-top: -68px;
+  
+  }
+  #MainProduct-{{ section.id }} .product__media-wrapper{ overflow: visible !important; }
+}
+
+  </style>
+
+
+  <script>
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest('[data-wishlist-btn]');
+  if (!btn) return;
+
+  const isActive = btn.getAttribute('aria-pressed') === 'true';
+  btn.setAttribute('aria-pressed', String(!isActive));
+});
+</script>
+
+
   <div class="product flex flex-wrap {{ product_class }}">
+
     {%- if product.media.size > 0 -%}
       <motion-element data-motion="fade-up" data-motion-delay="50" class="product__media-wrapper w-full relative">
-        {% render 'product-media-gallery',
-          enable_sticky_info: enable_sticky_info,
-          media_layout: media_layout,
-          mobile_thumbnails: mobile_thumbnails,
-          variant_images: variant_images,
-          enable_image_zoom: enable_image_zoom
-        %}
+        <div class="pmg-stacked" id="pmg-stacked-{{ section.id }}">
+          {%- for media in product.media -%}
+            <div class="pmg-item" data-media-id="{{ media.id }}">
+
+
+              {%- case media.media_type -%}
+
+                {%- when 'image' -%}
+                  {%- assign img = media.preview_image -%}
+                  <div class="pmg-zoom-wrap">
+                    {{ img | image_url: width: 1200 | image_tag: loading: 'lazy', alt: media.alt }}
+                  </div>
+
+                {%- when 'video' -%}
+                  {{ media | media_tag: controls: true, preload: 'none' }}
+
+                {%- when 'external_video' -%}
+                  {{ media | media_tag: controls: true, preload: 'none' }}
+
+                {%- when 'model' -%}
+                  {{ media | media_tag }}
+
+              {%- endcase -%}
+            </div>
+          {%- endfor -%}
+        </div>
+
+        <div class="pmg-dots" id="pmg-dots-{{ section.id }}" aria-label="Gallery pagination"></div>
+
+
       </motion-element>
+
+
     {%- endif -%}
+
     <motion-element data-motion="fade-up" data-motion-delay="100" class="block product__info-wrapper w-full">
       {% render 'product-information-blocks', enable_sticky_info: enable_sticky_info, update_browser_history: true, context: 'main-product' %}
     </motion-element>
   </div>
-  <product-recently-viewed data-product-id="{{ product.id }}" class="hidden"></product-recently-viewed>
-  {%- if enable_image_zoom -%}
-    <script src="{{ 'photoswipe.js' | asset_url }}" defer="defer"></script>
-  {%- endif -%}
 
+  <product-recently-viewed data-product-id="{{ product.id }}" class="hidden"></product-recently-viewed>
+ 
   {%- if product.media.size > 0 -%}
     <script src="{{ 'media-gallery.js' | asset_url }}" defer="defer"></script>
   {%- endif -%}
@@ -104,7 +242,143 @@
   <script type="application/ld+json">
     {{ product | structured_data }}
   </script>
+
+
+  
 </product-info>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const wrap = document.querySelector('#pmg-stacked-{{ section.id }}');
+  const dotsWrap = document.querySelector('#pmg-dots-{{ section.id }}');
+  if (!wrap || !dotsWrap) return;
+
+  const mq = window.matchMedia('(max-width: 768px)');
+  let items = [];
+  let index = 0;
+  let timer = null;
+
+  function refreshItems(){
+    items = Array.from(wrap.querySelectorAll('.pmg-item'));
+  }
+
+  function slideWidth(){
+    const first = items[0];
+    return first ? first.getBoundingClientRect().width : wrap.getBoundingClientRect().width;
+  }
+
+  function setActiveDot(i){
+    const dots = dotsWrap.querySelectorAll('.pmg-dot');
+    dots.forEach((d, idx) => d.classList.toggle('is-active', idx === i));
+  }
+
+  function buildDots(){
+    dotsWrap.innerHTML = '';
+    if (items.length <= 1) return;
+
+    items.forEach((_, i) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'pmg-dot' + (i === index ? ' is-active' : '');
+      b.setAttribute('aria-label', `Go to image ${i + 1}`);
+      b.addEventListener('click', () => {
+        stopAutoplay();
+        goTo(i);
+        startAutoplay();
+      });
+      dotsWrap.appendChild(b);
+    });
+  }
+
+  function goTo(i, smooth = true){
+    if (!items.length) return;
+
+    index = Math.max(0, Math.min(items.length - 1, i));
+    const w = slideWidth() || 1;
+
+    // scrollTo can fail if element isn't scrollable; this is safer
+    const left = w * index;
+    if (smooth) wrap.scrollTo({ left, behavior: 'smooth' });
+    else wrap.scrollLeft = left;
+
+    setActiveDot(index);
+  }
+
+  let raf = null;
+  function onScroll(){
+    if (!mq.matches) return;
+    if (raf) return;
+
+    raf = requestAnimationFrame(() => {
+      raf = null;
+      const w = slideWidth() || 1;
+      const i = Math.round(wrap.scrollLeft / w);
+      index = Math.max(0, Math.min(items.length - 1, i));
+      setActiveDot(index);
+    });
+  }
+
+  function stopAutoplay(){
+    if (timer) clearInterval(timer);
+    timer = null;
+  }
+
+  function startAutoplay(){
+    stopAutoplay();
+    if (!mq.matches) return;
+    if (items.length <= 1) return;
+
+    const interval = 3000; // change autoplay speed here
+    timer = setInterval(() => {
+      const next = (index + 1) % items.length;
+      goTo(next);
+    }, interval);
+  }
+
+  function enableMobile(){
+    refreshItems();
+    index = 0;
+
+    buildDots();
+
+    wrap.addEventListener('scroll', onScroll, { passive: true });
+    wrap.addEventListener('touchstart', stopAutoplay, { passive: true });
+    wrap.addEventListener('touchend', startAutoplay, { passive: true });
+
+    // Wait one tick so layout widths are correct
+    requestAnimationFrame(() => {
+      goTo(0, false);
+      startAutoplay();
+    });
+  }
+
+  function disableMobile(){
+    stopAutoplay();
+    wrap.removeEventListener('scroll', onScroll);
+    dotsWrap.innerHTML = '';
+  }
+
+  function sync(){
+    refreshItems();
+    if (mq.matches) enableMobile();
+    else disableMobile();
+  }
+
+  sync();
+  mq.addEventListener?.('change', sync);
+
+  window.addEventListener('resize', () => {
+    if (mq.matches) goTo(index, false);
+  });
+});
+</script>
+
+
+
+
+
+
 
 {% schema %}
 {
@@ -145,6 +419,7 @@
         }
       ]
     },
+
     {
       "type": "title",
       "name": "t:sections.main-product.blocks.title.name",
@@ -414,16 +689,78 @@
         }
       ]
     },
-    {
-      "type": "pickup_availability",
-      "name": "t:sections.main-product.blocks.pickup_availability.name",
-      "limit": 1
-    },
+      {
+        "type": "pickup_availability",
+        "name": "t:sections.main-product.blocks.pickup_availability.name",
+        "limit": 1
+      },
+      {
+    "type": "wishlist",
+    "name": "Wishlist button",
+    "limit": 1,
+    "settings": [
+      {
+        "type": "text",
+        "id": "idle_text",
+        "label": "Default text",
+        "default": "Add to wishlist"
+      },
+      {
+        "type": "text",
+        "id": "active_text",
+        "label": "Active text",
+        "default": "Wishlisted"
+      }
+    ]
+  },
     {
       "type": "description",
       "name": "t:sections.main-product.blocks.description.name",
       "limit": 1
     },
+    {
+      "type": "tabs_accordion",
+      "name": "Tabs Description",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_collections",
+          "label": "Show collections",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_tags",
+          "label": "Show tags",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "tab_1_label",
+          "label": "Tab 1 label",
+          "default": "Description"
+        },
+        {
+          "type": "text",
+          "id": "tab_2_label",
+          "label": "Tab 2 label",
+          "default": "Specifications"
+        },
+        {
+          "type": "text",
+          "id": "tab_3_label",
+          "label": "Tab 3 label",
+          "default": "Learning Outcomes"
+        },
+        {
+          "type": "paragraph",
+          "content": "Tab 2 + 3 pull from metafields: custom.specifications and custom.learning_outcomes"
+        }
+      ]
+    },
+
+
     {
       "type": "custom_liquid",
       "name": "t:sections.custom-liquid.name",

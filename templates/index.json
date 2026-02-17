@@ -103,12 +103,111 @@
     "category_grid_custom_JNR9ia": {
       "type": "category-grid-custom",
       "blocks": {
+        "tile_rTr9gL": {
+          "type": "tile",
+          "settings": {
+            "slot": "math",
+            "image": "shopify://shop_images/matheMatics_d27e5b03-e5a0-4299-8e9f-0569b28edf3b.png",
+            "link_type": "collection",
+            "collection": "",
+            "product": "",
+            "link": "",
+            "title": "Title"
+          }
+        },
+        "tile_ARgHAW": {
+          "type": "tile",
+          "settings": {
+            "slot": "music",
+            "image": "shopify://shop_images/furniture.png",
+            "link_type": "collection",
+            "collection": "",
+            "product": "",
+            "link": "",
+            "title": "Title"
+          }
+        },
+        "tile_BCkF9a": {
+          "type": "tile",
+          "settings": {
+            "slot": "lower_half_left",
+            "image": "shopify://shop_images/dramaticPlay.png",
+            "link_type": "collection",
+            "collection": "",
+            "product": "",
+            "link": "",
+            "title": "Title"
+          }
+        },
+        "tile_kfNbgn": {
+          "type": "tile",
+          "settings": {
+            "slot": "lower_half_right",
+            "image": "shopify://shop_images/musicMovement.png",
+            "link_type": "collection",
+            "collection": "",
+            "product": "",
+            "link": "",
+            "title": "Title"
+          }
+        },
+        "tile_36ypGC": {
+          "type": "tile",
+          "settings": {
+            "slot": "bottom_1",
+            "image": "shopify://shop_images/furniture.png",
+            "link_type": "collection",
+            "collection": "furniture-1",
+            "product": "",
+            "link": "",
+            "title": "Furniture"
+          }
+        },
+        "tile_EH438W": {
+          "type": "tile",
+          "settings": {
+            "slot": "bottom_2",
+            "image": "shopify://shop_images/furniture.png",
+            "link_type": "collection",
+            "collection": "furniture-1",
+            "product": "",
+            "link": "",
+            "title": "Furniture"
+          }
+        },
+        "tile_zknb4f": {
+          "type": "tile",
+          "settings": {
+            "slot": "bottom_3",
+            "image": "shopify://shop_images/furniture.png",
+            "link_type": "collection",
+            "collection": "furniture-1",
+            "product": "",
+            "link": "",
+            "title": "Furniture"
+          }
+        },
+        "tile_eWzP6A": {
+          "type": "tile",
+          "settings": {
+            "slot": "half_right",
+            "image": "shopify://shop_images/gamesPuzzles.png",
+            "link_type": "collection",
+            "collection": "games-and-puzzles-1",
+            "product": "",
+            "link": "",
+            "title": "Games & Puzzles"
+          }
+        },
         "tile_Tihy9N": {
           "type": "tile",
           "settings": {
             "slot": "half_left",
             "image": "shopify://shop_images/14_categories_2_1.png",
+            "link_type": "collection",
             "collection": "english-language-and-literacy-1",
+            "product": "",
+            "link": "",
             "title": "English, Language<br>& Literacy"
           }
         },
@@ -117,7 +216,10 @@
           "settings": {
             "slot": "wide",
             "image": "shopify://shop_images/14_categories_1_2.png",
+            "link_type": "collection",
             "collection": "physical-wellbeing-1",
+            "product": "",
+            "link": "",
             "title": "Physical Wellbeing"
           }
         },
@@ -126,7 +228,10 @@
           "settings": {
             "slot": "hero",
             "image": "shopify://shop_images/kitchen_e88af7a6-19ed-4c03-a63b-dff5cba3e86e.png",
+            "link_type": "product",
             "collection": "kitchen-resources-and-whitegoods-1",
+            "product": "4-slice-fluted-toaster-black",
+            "link": "",
             "title": "Kitchen Resources <br> & Whitegoods"
           }
         },
@@ -135,7 +240,10 @@
           "settings": {
             "slot": "science",
             "image": "shopify://shop_images/Science.png",
+            "link_type": "product",
             "collection": "science-1",
+            "product": "all-weather-magnifying-glass-set-of-4",
+            "link": "",
             "title": "Science"
           }
         },
@@ -144,7 +252,10 @@
           "settings": {
             "slot": "art",
             "image": "shopify://shop_images/Art_craft.png",
+            "link_type": "collection",
             "collection": "art-and-craft",
+            "product": "",
+            "link": "",
             "title": "Art & Craft"
           }
         },
@@ -153,7 +264,10 @@
           "settings": {
             "slot": "engineering",
             "image": "shopify://shop_images/constructionsEngr.png",
-            "collection": "construction-and-engineering-1",
+            "link_type": "collection",
+            "collection": "",
+            "product": "1-10-number-bean-bags",
+            "link": "",
             "title": "Construction & Engineering"
           }
         },
@@ -162,7 +276,10 @@
           "settings": {
             "slot": "culture",
             "image": "shopify://shop_images/cultureComms.png",
+            "link_type": "collection",
             "collection": "culture-and-communities-1",
+            "product": "",
+            "link": "",
             "title": "Culture & Communities"
           }
         },
@@ -171,12 +288,23 @@
           "settings": {
             "slot": "infant",
             "image": "shopify://shop_images/Infant.png",
+            "link_type": "collection",
             "collection": "infant-and-toddler-1",
+            "product": "",
+            "link": "",
             "title": "Infant & Toddler"
           }
         }
       },
       "block_order": [
+        "tile_rTr9gL",
+        "tile_ARgHAW",
+        "tile_BCkF9a",
+        "tile_kfNbgn",
+        "tile_36ypGC",
+        "tile_EH438W",
+        "tile_zknb4f",
+        "tile_eWzP6A",
         "tile_Tihy9N",
         "tile_4bWb3a",
         "tile_tr3GdE",
@@ -299,6 +427,7 @@
       "block_order": [
         "heading_hKgAza"
       ],
+      "disabled": true,
       "name": "t:sections.rich-text.presets.name",
       "settings": {
         "color_scheme": "",
@@ -610,6 +739,7 @@
         "hotspot_PDpYnY",
         "slide_mkaRce"
       ],
+      "disabled": true,
       "name": "Hotspot slider",
       "settings": {
         "arrow_left": "shopify://shop_images/arrow_15031868_4.png",

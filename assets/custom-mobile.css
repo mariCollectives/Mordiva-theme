@@ -1,3 +1,17 @@
+@media (min-width: 1280px) {
+    .xl\:f-grid-3-cols{
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        --col-number: 4;
+    }
+}
+
+@media screen and (max-width: 1690px) {
+    .neadSpecialCss p:before{
+        left: 23%;
+    }
+}
+
+
 @media screen and (max-width: 1490px) {
     .hotspot-slider{
         max-width: 92% !important;
@@ -10,4 +24,471 @@
     .contact__wrapper{
         padding: 4.8rem 0;
     }
+
+    .col-toolbar__mid{
+        left: 18% !important;
+    }
+      .neadSpecialCss p:before{
+        left: 21%;
+    }
+
+
 }
+
+@media screen and (max-width: 1390px) {
+     .col-toolbar__mid{
+        left:0;
+    }
+     .col-toolbar__mid{
+        left: 12% !important;
+    }
+     .neadSpecialCss p:before{
+        left: 20%;
+    }
+
+    .col-toolbar__mid.mobile-viewFilter{
+         display: block !important;
+         width: 100%;
+    }
+        .desktopview-filter{
+         display: none !important;
+    }
+
+    .col-dd{
+        float: left !important;
+    }
+
+    .col-clear{
+        line-height: 38px !important;
+    }
+}
+
+
+@media screen and (max-width: 1290px) {
+    .col-toolbar__mid{
+        left: 0% !important;
+    }
+
+
+    .slideshow__text{
+         padding-bottom: 5rem !important;
+    }
+    .neadSpecialCss p:before{
+        left: 18%;
+    }
+}
+
+@media screen and (max-width: 1190px) {
+     .neadSpecialCss p:before{
+        left: 18%;
+    }
+
+    .neadSpecialCss p:before{
+        left: 15%;
+    }
+}
+
+@media screen and (max-width: 1090px) {
+    .mobile-viewFilter{
+        display: block !important;
+        }
+
+    .filter-available{
+        display: block !important;
+         width: 100%;
+    }
+    .about-mosaic__img--rb{
+            margin-top: 0 !important;
+        }
+    
+    .talkAboutBrand .custom-content-block--image{
+        left: -2%;
+    }
+
+    .neadSpecialCss p:before{
+        left: 10% !important;
+    }
+    
+
+ }
+
+
+
+@media screen and (max-width: 990px) {
+    .about-mosaic__img--rb{
+        margin-top: 0;
+    }
+
+    .takABout-thrive .custom-content-block--image{
+        left: 0;
+    }
+
+   .takABout-thrive  .custom__block--image{
+     width: 94%;
+   }
+
+   .re-edu__left{
+        margin-bottom: 20px !important;
+        }
+
+    .re-edu__heading{
+        padding-top: 0%;
+    }
+
+    .re-edu .re-edu__img{
+        height: 700px;
+    }
+
+    .neadSpecialCss p:before{
+        left: 7% !important;
+    }
+
+  
+
+
+}
+
+@media screen and (max-width: 890px) {
+      .neadSpecialCss p:before{
+        left: 3% !important;
+    }
+
+}
+
+
+@media screen and (max-width: 790px) {
+    .width50-flex-mobile{
+        width: 100% !important;
+        clear: both;
+    }
+
+    .grid-2-flex{
+        display: flex !important;
+    }
+
+    .width-50-full{
+        width: 100% !important;
+    }
+
+    .width-50-full .category-grid-2-1{
+        display: flex;
+        margin-bottom: 10px;
+    }
+
+    .category-grid-1-3{
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    .category-grid-2-1{
+        display: block !important;
+    }
+
+    .widthFullMiddle{
+        padding-top: 22px;
+    }
+
+    .p-tabs__tab{
+        font-size: 14px !important;
+    }
+
+    .product-template .section--breadcrumb{
+        top: 0em !important;
+    }
+
+     .product-template .breadcrumbs{
+        justify-content: start;
+     }
+
+     .product-template .product__info-container{
+        margin-top: 20px !important;
+     }
+
+      .product-template  .product__block--title{
+         margin-top: 55px !important;
+      }
+
+      .product-template .product__block--wishlist{
+            top: -44em;
+            left: 0;
+            position: absolute !important;
+      }
+
+     .col-results{
+        margin-top: 27px;
+     }
+
+     .col-toolbar__mid{
+        left: 36% !important;
+       top: -5.7em;
+     }
+
+     .takABout-thrive .custom__block--image{
+        width: 100% !important;
+        margin: 20px auto !important;
+     }
+
+     .talkAboutBrand .custom-content-block--image{
+        left: 0;
+     }
+
+     .tile--half-left, .tile--half-right{
+        width: 48%;
+        display: block;
+        float: left;
+        margin-right: 10px;
+     }
+
+     .tile--half-right{
+         margin-right: 0 !important;
+     }
+
+     .tile.tile--hero{
+        margin-bottom: 10px;
+     }
+
+     .tile--half-left{
+        height: 230px;
+     }
+
+     .tile.tile--wide{
+        margin-bottom: 10px; 
+    }
+
+    .category-grid-2{
+        grid-template-columns: 0 !important;
+    }
+
+
+    .slideshow__text{
+        padding-bottom: 0 !important;
+    }
+
+
+    .slideshow__buttons a:hover, .slideshow__buttons.rich-text__button a:hover{
+        color: #000 !important;
+    }
+
+
+     .neadSpecialCss p:before{
+         display: none !important;
+     }
+
+     .custom-padding{
+        display: block !important;
+        height: 100px;
+    }
+
+    .col-toolbar{
+        margin-top: -20.5em !important;
+    }
+
+    .breadcrumbs{
+        justify-content: left  !important;
+    }
+
+
+
+}
+
+
+@media (max-width: 767.98px) {
+    .swipe-mobile--2-cols {
+        --column-width-mobile: 100% !important;
+    }
+    .swipe-mobile__inner{
+        display: block !important;
+    }
+
+    .slideshow__buttons{
+        position: absolute !important;
+        left: 38% !important;
+        top: 76%;
+    }
+
+    .category-grid-2{
+        gap: 0 !important;
+    }
+
+    .category-grid-2 .tile{
+        margin-bottom: 10px !important;
+    }
+
+     .padding-15{
+        padding-top: 0 !important;
+     }
+
+    .category-grid-2-1{
+        margin-top: -2.5em !important;
+    }
+
+     .tile--half-right{
+        width: 50% !important;
+     }
+
+      .grid-inner-70-30{
+         align-items: start !important;
+      }
+
+    
+      .hero-grid{
+        margin-top: -2.8em !important;
+      }
+ 
+      .grid-inner-70-30{
+        gap: 0;
+        margin-right: 12px;
+      }
+
+      .cat-tile--wide{
+        margin-top: -.9em;
+      }
+    .grid-full-width{
+        margin-top: 2em !important;
+        width: 100% !important;
+        margin-bottom: -1em;
+      }
+
+     .right-tile-bottom-area .tile--tall{
+            left: 0.4% !important;
+            width: 100% !important;
+            margin-top: -1em;
+      }
+
+    .width-full{
+        margin-top: -1.5em;
+    }
+      
+
+     .category-grid-3-col{
+       padding: 0; 
+       max-width: 93%;
+        margin: 0 20px 0 20px;
+     }
+
+    .col-toolbar{
+        margin-top: -16.5em !important;
+    }
+
+    .section--breadcrumb{
+        top: -1em !important;
+    }
+
+    .collection-hero__inner{
+        margin-top: -3em !important;
+    }
+
+    .custom-padding{
+        display: block !important;
+        height: 180px;
+    }
+
+
+     
+
+}
+
+
+@media (max-width: 690px)  {
+        .product-template .product__block--wishlist{
+                display: none !important;
+        }
+
+      .col-toolbar__mid{
+            left: 39% !important;
+            top: -3.1em;
+      }
+
+      .collection{
+            position: relative;
+            margin-top: 16%;
+      }
+
+  
+}
+
+@media (max-width: 590px)  {
+    .tile--half-right{
+        width: 49% !important;
+    }
+
+    .grid-full-width{
+        width: 100% !important;
+    }
+
+    .category-grid-3-col{
+        width: 96% !important;
+        margin-right: 16% !important;
+    }
+
+    .slideshow__buttons{
+        left: 38% !important;
+    }
+
+    .tabs__nav-design-1 .tabs__tab{
+        font-size: 12px !important;
+    }
+}
+
+
+@media (max-width: 490px) {
+
+    .wn-track{
+        grid-auto-columns: calc((100% - 10px) / 1);
+        gap: 0 !important;
+    }
+
+    .wn-shell{
+         gap: 0 !important;
+    }
+
+    .wn-heading{
+        padding-bottom: 0 !important;
+    }
+
+   .pmg-zoom-wrap img{
+        padding-top: 30px !important;
+        padding-bottom: 30px !important;
+   }
+
+   .tabs__nav-design-1 .tabs__tab{
+        font-size: 10px !important;
+    }
+
+    .tabs__header{
+        margin-bottom: 10px !important;
+    }
+
+    .slideshow__buttons{
+        left: 33% !important;
+    }
+
+    .tabs__nav-design-1 .tabs__tab{
+        font-size: 7px !important;
+    }
+   
+}
+
+@media (max-width: 390px) {
+
+    .re-edu__heading{
+        font-size: 40px !important;
+    }
+
+    .re-edu{
+        padding-top: 0 !important;
+    }
+
+    .section__header--vertical, h2.section__heading{
+        text-align: left !important;
+    }
+     .tabs__nav-design-1 .tabs__tab{
+        font-size: 7px !important;
+    }
+
+    .slideshow__buttons{
+        left: 20% !important;
+    }
+
+}
+
+

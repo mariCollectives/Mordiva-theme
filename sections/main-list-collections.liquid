@@ -53,7 +53,13 @@
     {%- endif -%}
     {%- paginate collections by paginate_by -%}
       <grid-list class="collection-list__items f-grid f-grid-{{ columns_mobile_int }}-cols md:f-grid-{{ columns_tablet }}-cols lg:f-grid-{{ columns_desktop }}-cols f-grid--gap-{{ section.settings.column_gap }}">
-        {%- for collection in collections -%}
+       {%- for collection in collections -%}
+
+          {%- comment -%} Skip empty collections {%- endcomment -%}
+          {%- if collection.all_products_count == 0 -%}
+            {%- continue -%}
+          {%- endif -%}
+
           <div class="f-column">
             {% render 'card-collection',
               collection: collection,
@@ -62,7 +68,9 @@
               image_ratio: section.settings.card_image_ratio
             %}
           </div>
+
         {%- endfor -%}
+
       </grid-list>
       {% render 'pagination', paginate: paginate %}
     {%- endpaginate -%}
