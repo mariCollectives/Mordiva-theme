@@ -273,17 +273,29 @@
          display: none !important;
      }
 
-     .custom-padding{
-        display: block !important;
-        height: 150px;
+    .breadcrumbs{
+        justify-content: left  !important;
     }
 
     .col-toolbar{
-        margin-top: 5em !important;
+        margin-top: -16.5em !important;
     }
 
-    .breadcrumbs{
-        justify-content: left  !important;
+    .section--breadcrumb{
+        top: -1em !important;
+    }
+
+    .collection-hero__inner{
+        margin-top: -1em !important;
+    }
+
+    .custom-padding{
+        display: block !important;
+        height: 180px;
+    }
+
+    .col-toolbar{
+        margin-top: -18.5em !important;
     }
 
 
@@ -365,26 +377,7 @@
         margin: 0 20px 0 20px;
      }
 
-    .col-toolbar{
-        margin-top: -16.5em !important;
-    }
-
-    .section--breadcrumb{
-        top: -1em !important;
-    }
-
-    .collection-hero__inner{
-        margin-top: -1em !important;
-    }
-
-    .custom-padding{
-        display: block !important;
-        height: 180px;
-    }
-
-    .col-toolbar{
-        margin-top: -18.5em !important;
-    }
+    
 
 }
 
