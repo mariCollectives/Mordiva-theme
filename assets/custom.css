@@ -921,3 +921,7 @@ body, button, input, select, textarea {
 .wn-card, .wn-media img{
    overflow: hidden !important;
 }
+
+.product-card__quickview.btn{
+   margin-top: 20px !important;
+}
