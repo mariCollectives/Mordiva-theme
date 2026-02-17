@@ -49,7 +49,7 @@
   {%- paginate collection.products by section.settings.products_per_page -%}
      <div class="sticky-element grid gap-5 z-10" style="--sticky-offset: 0px;">
           {%- if enable_filtering or enable_sorting -%}
-                <div class="col-toolbar" data-col-toolbar>
+                <div class="col-toolbar form-table-col" data-col-toolbar>
                   <div class="page-width">
                   <form class="col-toolbar__form" method="get" action="{{ collection.url }}" id="CollectionFiltersForm">
 
